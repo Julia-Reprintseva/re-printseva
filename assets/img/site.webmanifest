@@ -1,0 +1,10 @@
+{
+  "name": "Юлия Репринцева",
+  "short_name": "re:printseva",
+  "icons": [
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#16233B",
+  "background_color": "#EDEFE9",
+  "display": "standalone"
+}
