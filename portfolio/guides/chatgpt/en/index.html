@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT settings that stop the prompt-wrestling</title>
+  <meta name="description" content="Two base ChatGPT settings: paste them into your profile once, and the model clarifies context, picks an expert role and checks its own logic. Plus projects and custom GPTs.">
+
+  <!-- Адреса ниже ведут на боевой домен reprintseva.pro. Пока DNS не переключён с Porkbun на GitHub Pages,
+       превью в мессенджерах будет показывать парковочную заглушку. После переезда ничего менять не нужно. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Julia Reprintseva">
+  <meta property="og:url" content="https://reprintseva.pro/portfolio/guides/chatgpt/en/">
+  <meta property="og:title" content="Two ChatGPT settings">
+  <meta property="og:description" content="After which you can stop wrestling with prompts.">
+  <meta property="og:image" content="https://reprintseva.pro/portfolio/guides/chatgpt/en/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Two ChatGPT settings">
+  <meta name="twitter:description" content="After which you can stop wrestling with prompts.">
+  <meta name="twitter:image" content="https://reprintseva.pro/portfolio/guides/chatgpt/en/og-cover.png">
+
+  <link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/guides/chatgpt/">
+  <link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/guides/chatgpt/en/">
+
+  <!-- Фавикон встроен в страницу: мотив «code/» из шапки, бронза на графите. Файл-исходник — social-images/favicon-portfolio.svg -->
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+  <meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+  <style>
+    /* ============================================================
+       Палитра портфолио — единая для сайта и гайдов.
+       Тёмная тема базовая, светлая приходит из системной настройки
+       или из переключателя (data-theme).
+       ============================================================ */
+
+    :root{
+      --bg:        #12151C;
+      --paper:     #171B24;
+      --paper-hi:  #1D2331;
+      --line:      #2A3140;
+      --line-soft: #212636;
+      --ink:       #E9E6DC;
+      --ink-dim:   #838CA0;
+      --ink-faint: #545C70;
+      --accent:    #CB9C47;
+      --accent-hi: #E4B968;
+      --good:      #6FAE8C;
+      --wip:       #C77B54;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:        #EEF0F4;
+        --paper:     #FFFFFF;
+        --paper-hi:  #F5F6FA;
+        --line:      #DBDFE8;
+        --line-soft: #E6E9F0;
+        --ink:       #1A1D26;
+        --ink-dim:   #6B7386;
+        --ink-faint: #9BA2B2;
+        --accent:    #9C6C1E;
+        --accent-hi: #7E5714;
+        --good:      #3D7A5C;
+        --wip:       #A85830;
+      }
+    }
+    :root[data-theme="dark"]{
+      --bg: #12151C; --paper: #171B24; --paper-hi: #1D2331;
+      --line: #2A3140; --line-soft: #212636;
+      --ink: #E9E6DC; --ink-dim: #838CA0; --ink-faint: #545C70;
+      --accent: #CB9C47; --accent-hi: #E4B968;
+      --good: #6FAE8C; --wip: #C77B54;
+    }
+    :root[data-theme="light"]{
+      --bg: #EEF0F4; --paper: #FFFFFF; --paper-hi: #F5F6FA;
+      --line: #DBDFE8; --line-soft: #E6E9F0;
+      --ink: #1A1D26; --ink-dim: #6B7386; --ink-faint: #9BA2B2;
+      --accent: #9C6C1E; --accent-hi: #7E5714;
+      --good: #3D7A5C; --wip: #A85830;
+    }
+
+    /* Код читается как код в обеих темах — поэтому блоки всегда тёмные. */
+    :root{
+      --code-bg:      #0F1319;
+      --code-ink:     #E4E1D7;
+      --code-accent:  #E4B968;
+      --code-comment: #6E7787;
+      --code-line:    #232A36;
+    }
+
+    /* Псевдонимы под имена, которые уже стоят в разметке.
+       var() резолвится при использовании, поэтому они сами следуют за темой. */
+    :root{
+      --surface:      var(--paper);
+      --surface-2:    var(--paper-hi);
+      --ink-soft:     var(--ink-dim);
+      --muted:        var(--ink-faint);
+      --border:       var(--line);
+      --accent-ink:   var(--accent-hi);
+      --accent-soft:  var(--paper-hi);
+      --warn:         var(--wip);
+      --warn-soft:    var(--paper);
+      --warn-border:  var(--line);
+      --shadow:       none;
+    }
+
+    :root{
+      --serif: Georgia, 'Iowan Old Style', ui-serif, serif;
+      --mono:  ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* ── Основа ── */
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0) 0 0/28px 28px,
+        var(--bg);
+      padding-top: 56px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .icon { width: 1em; height: 1em; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: -0.2em; }
+
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-hi); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+    /* ── Верхняя панель ── */
+
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      justify-content: space-between;
+      z-index: 100;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .top-bar-left:hover { color: var(--accent); }
+    /* Моноблок с инициалами — та же метка, что в шапке портфолио. */
+    .top-bar-dot {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 2px 6px;
+      letter-spacing: .03em;
+      align-self: center;
+      flex-shrink: 0;
+    }
+    .top-bar-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -.01em;
+      transition: color .15s;
+    }
+    .top-bar-sep {
+      color: var(--line);
+      margin: 0 2px;
+    }
+    .top-bar-author {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .top-bar-tools { display: flex; align-items: center; gap: 10px; }
+
+    .theme-btn {
+      background: none; border: 1px solid var(--line); color: var(--ink-dim);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+      font-size: .8rem; display: flex; align-items: center; justify-content: center;
+      flex: none;
+      transition: border-color .15s, color .15s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .lang-switch {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 6px 12px;
+      letter-spacing: .03em;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+
+    .top-bar-tg {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-dim);
+      text-decoration: none;
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: none;
+      transition: border-color .15s, color .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .top-bar-tg:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Раскладка ── */
+
+    .layout {
+      display: flex;
+      max-width: 1120px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ── Боковая навигация ── */
+
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: transparent;
+      color: var(--ink-dim);
+      padding: 40px 0;
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      padding: 0 20px 18px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 20px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 0.87rem;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      margin-right: 12px;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .nav-item .icon { color: var(--ink-faint); transition: color .15s; }
+    .nav-item:hover {
+      background: var(--paper-hi);
+      color: var(--ink);
+    }
+    .nav-item.active {
+      background: var(--paper-hi);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+    .nav-item.active .icon { color: var(--accent); }
+
+    /* ── Основная колонка ── */
+
+    .main {
+      flex: 1;
+      padding: 44px 48px 90px 40px;
+      max-width: 760px;
+      border-left: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    .section { display: block; }
+    .section + .section { border-top: 1px solid var(--line); padding-top: 48px; margin-top: 16px; }
+
+    /* ── Баннер Telegram ── */
+
+    .tg-banner {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+      margin-bottom: 56px;
+    }
+    .tg-banner-icon { color: var(--accent); margin-top: 3px; }
+    .tg-banner-body { flex: 1; min-width: 0; }
+    .tg-banner-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      margin-bottom: 12px;
+    }
+    .tg-banner a {
+      display: block;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 5px 0;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+    .tg-banner a:hover { text-decoration: underline; }
+    .tg-banner a::before { content: '↗ '; }
+    .tg-banner-note {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    /* ── Заголовок страницы ── */
+
+    .hero-icon {
+      width: 42px; height: 42px;
+      border-radius: 3px;
+      background: var(--paper-hi);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hero-icon .icon { width: 21px; height: 21px; }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 2.7rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+      text-wrap: balance;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .subtitle {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--ink-dim);
+      font-style: italic;
+      margin-bottom: 34px;
+    }
+    .intro p {
+      margin-bottom: 18px;
+      color: var(--ink-dim);
+    }
+
+    /* ── Заголовки разделов ── */
+
+    h2 {
+      display: flex; align-items: center; gap: 11px;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -.015em;
+      color: var(--ink);
+      margin: 56px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 .icon { color: var(--accent); width: 19px; height: 19px; }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin: 32px 0 10px;
+    }
+
+    p { color: var(--ink-dim); }
+    p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Списки ── */
+
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0 16px;
+      color: var(--ink-dim);
+    }
+    li { margin-bottom: 6px; }
+    li strong { color: var(--ink); font-weight: 600; }
+    li::marker { color: var(--ink-faint); }
+
+    /* ── Схема потока ── */
+
+    .flow{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      margin:28px 0; padding:18px 20px;
+      background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    }
+    .flow-step{
+      font-family:var(--mono);
+      font-size:0.76rem; color:var(--ink);
+      background:var(--paper-hi); border:1px solid var(--line);
+      border-radius:3px; padding:6px 10px;
+    }
+    .flow-arrow{color:var(--accent); font-size:0.9rem;}
+
+    /* ── Уровни контекста ── */
+
+    .levels {
+      margin: 28px 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .level {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 18px;
+      background: var(--paper);
+    }
+    .level-1 { margin-right: 0; }
+    .level-2 { margin-left: 22px; }
+    .level-3 { margin-left: 44px; background: var(--paper-hi); border-color: var(--accent); }
+    .level-head {
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--serif); font-weight: 700; color: var(--ink); font-size: 0.98rem;
+    }
+    .level-head .icon { color: var(--accent); }
+    .level-desc { color: var(--ink-dim); font-size: 0.85rem; margin-top: 5px; }
+
+    /* ── Блок промпта / терминала ── */
+
+    .prompt-wrapper {
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--code-bg);
+      border: 1px solid var(--code-line);
+    }
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--code-line);
+    }
+    .prompt-header::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      opacity: .7;
+      flex: none;
+    }
+    .prompt-header .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: .06em;
+      color: var(--code-comment);
+      flex: 1; min-width: 0;
+    }
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--code-line);
+      color: var(--code-comment);
+      padding: 4px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      letter-spacing: .06em;
+      font-family: var(--mono);
+      transition: border-color .15s, color .15s;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { border-color: var(--code-accent); color: var(--code-accent); }
+    .copy-btn.copied { border-color: var(--good); color: var(--good); }
+
+    pre {
+      margin: 0;
+      background: transparent;
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--code-ink);
+      overflow-x: auto;
+    }
+    pre .c { color: var(--code-comment); }
+    pre .k { color: var(--code-accent); }
+
+    /* ── Блок перевода ── */
+
+    .translation {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 4px 0 24px;
+      font-size: 0.88rem;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+    .translation-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--ink-faint);
+      margin-bottom: 10px;
+    }
+    .translation p { margin-bottom: 12px; color: var(--ink-dim); }
+    .translation p:last-child { margin-bottom: 0; }
+
+    /* ── Пронумерованные шаги ── */
+
+    .steps {
+      counter-reset: steps;
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 20px;
+    }
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+      color: var(--ink-dim);
+    }
+    .steps li::before {
+      content: counter(steps, decimal-leading-zero);
+      flex-shrink: 0;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      margin-top: 3px;
+    }
+
+    /* ── Врезки ── */
+
+    .callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--wip);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 20px 0;
+    }
+    .callout .mark {
+      font-family: var(--mono); font-size: 0.66rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--wip); border: 1px solid var(--line);
+      padding: 2px 7px; border-radius: 3px; flex: none; margin-top: 3px;
+    }
+    .callout p { margin: 0; color: var(--ink); font-size: 0.94rem; }
+
+    .tip {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 0.94rem;
+      color: var(--ink-dim);
+    }
+    .tip .icon { color: var(--accent); margin-top: 4px; }
+    .tip a { font-weight: 600; }
+
+    /* ── Карточка с разбором ── */
+
+    .denis-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .denis-card a { color: var(--accent); font-weight: 600; }
+    .denis-card ul { color: var(--ink-dim); }
+    .denis-card p { color: var(--ink-dim); }
+
+    /* ── Сравнительная таблица ── */
+
+    .comparison-table { overflow-x: auto; margin: 18px 0; }
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .comparison-table th {
+      background: none;
+      font-family: var(--mono);
+      color: var(--ink-faint);
+      font-weight: 400;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 10px 14px;
+      text-align: left;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .comparison-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-dim);
+      vertical-align: top;
+    }
+    .comparison-table tr:nth-child(even) td { background: var(--paper-hi); }
+
+    /* ── Глоссарий ── */
+
+    .glossary dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0;
+    }
+    .glossary .g-card {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .glossary .g-icon {
+      width: 28px; height: 28px; border-radius: 3px; flex-shrink: 0;
+      background: var(--paper-hi); border: 1px solid var(--line);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .glossary .g-icon .icon { width: 14px; height: 14px; }
+    .glossary dt {
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 0.95rem;
+      letter-spacing: -.01em;
+      margin-bottom: 5px;
+    }
+    .glossary dd {
+      margin: 0;
+      color: var(--ink-dim);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* ── Раскрывающийся пример ── */
+
+    .example-toggle summary {
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .example-toggle summary::-webkit-details-marker { display: none; }
+    .example-toggle summary::before {
+      content: '▸';
+      font-size: 0.8rem;
+      transition: transform .2s;
+    }
+    .example-toggle[open] summary::before { transform: rotate(90deg); }
+
+    /* ── Заглушка ── */
+
+    .placeholder {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--ink-faint);
+      font-size: 0.94rem;
+    }
+    .placeholder-icon { font-size: 42px; margin-bottom: 16px; opacity: .5; }
+
+    /* ── Подвал ── */
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+    }
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+    }
+    footer a {
+      color: var(--ink-dim);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    footer a:hover { color: var(--accent); }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* ── Мобильная ── */
+
+    @media (max-width: 700px) {
+      .top-bar { padding: 0 16px; }
+      .top-bar-author, .top-bar-sep, .top-bar-name { display: none; }
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+      }
+      .sidebar-label { display: none; }
+      .nav-item {
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        margin-right: 0;
+        padding: 14px 18px;
+      }
+      .nav-item.active { border-bottom-color: var(--accent); border-left: none; background: none; }
+      .layout { flex-direction: column; max-width: 100%; }
+      .main { border-left: none; padding: 28px 20px 70px; }
+      .glossary dl { grid-template-columns: 1fr; }
+      pre { font-size: 0.76rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-item, .theme-btn, .copy-btn, .top-bar-name, footer a { transition: none; }
+      .example-toggle summary::before { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><path d="M4 8c0-2.2 3.6-4 8-4s8 1.8 8 4v3c0 4.4-3.6 8-8 8s-8-3.6-8-8V8z"/><path d="M8 12c0 1 .7 2 2 2s2-1 2-2M14 12c0 1 .7 2 2 2s2-1 2-2"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.3-6.4L21 8M21 4v4h-4"/><path d="M21 12a9 9 0 0 1-15.3 6.4L3 16M3 20v-4h4"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h13M21 18h-0"/><circle cx="14" cy="6" r="2"/><circle cx="7" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-arrow-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 12a8 8 0 1 1-3.2-6.4L21 4l-1 4.5A8 8 0 0 1 21 12z"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="13" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.3" fill="currentColor" stroke="none"/><path d="M9 17h6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6z"/><path d="M14 3v6h6"/></symbol>
+    <symbol id="i-frame" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 2h6M10 2v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></symbol>
+  </defs>
+</svg>
+
+<header class="top-bar">
+  <a class="top-bar-left" href="../../../en/">
+    <span class="top-bar-dot">ЮР</span>
+    <span class="top-bar-name">Julia Reprintseva</span>
+    <span class="top-bar-sep">·</span>
+    <span class="top-bar-author">ChatGPT settings</span>
+  </a>
+  <div class="top-bar-tools">
+    <a class="lang-switch" href="../">RU</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    <a class="top-bar-tg" href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg> Telegram channel</a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <a class="nav-item active" href="#settings" data-section="settings"><svg class="icon" width="16" height="16"><use href="#i-settings"/></svg> ChatGPT Settings</a>
+    <a class="nav-item" href="#projects" data-section="projects"><svg class="icon" width="16" height="16"><use href="#i-folder"/></svg> Projects &amp; Custom GPTs</a>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- SECTION: ChatGPT Settings -->
+    <div id="settings" class="section">
+
+      <!-- Telegram banner -->
+      <div class="tg-banner">
+        <span class="tg-banner-icon"><svg class="icon" width="18" height="18"><use href="#i-send"/></svg></span>
+        <div class="tg-banner-body">
+          <div class="tg-banner-label">Read on the Telegram channel</div>
+          <a href="https://t.me/juliareprintseva_roman/1317" target="_blank" rel="noopener">
+            The ChatGPT setting that stops the prompt-wrestling (in Russian)
+          </a>
+          <a href="https://t.me/juliareprintseva_roman/863" target="_blank" rel="noopener">
+            Denis Shiryaev's system prompt: getting the model to perform "98 out of 100" (in Russian)
+          </a>
+          <div class="tg-banner-note">The prompt texts on this page are already in English and ready to paste — the channel posts above are background reading in Russian.</div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <span class="hero-icon"><svg class="icon" width="24" height="24"><use href="#i-settings"/></svg></span>
+      <h1>Two ChatGPT <em>settings</em></h1>
+      <p class="subtitle">After which you can stop wrestling with prompts</p>
+
+      <div class="intro">
+        <p>These aren't one-off prompts — they're base instructions for ChatGPT: you paste them into settings once, and from then on the model answers every message according to your rules — in the right tone, at the right depth, with an expert role and an internal self-check.</p>
+        <p>In effect, these settings make ChatGPT do part of the prompt engineer's job for you. Even if you phrase your question quickly and imperfectly, the model itself <strong>clarifies the context</strong>, <strong>picks an expert role</strong>, <strong>structures the answer</strong>, and <strong>checks its own logic</strong> before handing you the final version.</p>
+        <p>In other words: you write a simple question, and the model turns it into a stronger request — then answers not "however it comes out," but by a defined system.</p>
+      </div>
+
+      <div class="flow">
+        <span class="flow-step">your question, as-is</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">model takes on an expert role</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">internal self-check ≥98/100</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">final answer</span>
+      </div>
+
+      <!-- Key techniques -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-mask"/></svg>Two key techniques behind these settings</h2>
+
+      <h3>1. The model assigns itself a role</h3>
+      <p>Baked into the instruction: in its first message, GPT has to work out for itself who it's acting as, based on your request.</p>
+      <p>You don't write "pretend you're a marketer/lawyer/analyst" every time — the model:</p>
+      <ul>
+        <li>looks at the task</li>
+        <li>picks the relevant role</li>
+        <li>and answers from then on as a domain expert, not as an averaged "jack of all topics"</li>
+      </ul>
+      <p>This shortens the everyday prompt a lot and raises the odds that the answer lands in a professional register rather than a school-essay tone.</p>
+
+      <h3>2. A self-improvement loop: an internal review before it answers</h3>
+      <p>The logic:</p>
+      <ol>
+        <li>Before replying to you, the model builds criteria for what an ideal answer to this task would look like.</li>
+        <li>Writes a draft answer.</li>
+        <li>Compares the draft against those criteria.</li>
+        <li>Improves the text until the internal "checklist" is satisfied at "no lower than 98 out of 100."</li>
+        <li>Only then hands you the final version.</li>
+      </ol>
+      <p>In other words, GPT runs a mini-review with itself first — and only then talks to you.</p>
+
+      <!-- Adapt -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-sliders"/></svg>Important: adapt it to yourself</h2>
+      <p>Someone else's system prompt is always tuned to someone else's tasks. Copy it "as is" and you get an odd mix: part of the behavior hits the mark, part of it gets in the way.</p>
+      <p style="margin-top: 20px;">For example:</p>
+      <ul>
+        <li>some people don't want a mandatory short overview at the start of every answer;</li>
+        <li>some care more about brevity than maximum thoroughness;</li>
+        <li>everyone has a different typical set of tasks.</li>
+      </ul>
+      <p><strong>The right approach:</strong></p>
+      <ol>
+        <li><strong>Take the idea, not the finished solution.</strong> Don't "copy the sacred text" — understand the technique: auto-assigning a role; an internal self-check before answering.</li>
+        <li><strong>Adapt it to yourself.</strong> Strip out what you don't need; spell out your own format: tone, length, preferred delivery style; add your own quality requirements.</li>
+        <li><strong>Bake it into settings.</strong> Not as a one-off in-chat prompt, but as a base setting that applies to every conversation by default.</li>
+      </ol>
+      <p>The result: you end up not with someone else's prompt, but with your own system prompt, inspired by someone else's logic.</p>
+
+      <!-- Where to insert -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-arrow-target"/></svg>Where to paste it</h2>
+      <ol class="steps">
+        <li>Open ChatGPT settings</li>
+        <li>Go to "Personalization"</li>
+        <li>Open the custom instructions fields</li>
+        <li>Paste the texts below into them</li>
+      </ol>
+
+      <div class="tip">
+        <span class="icon"><svg width="18" height="18"><use href="#i-flask"/></svg></span>
+        <span>You don't have to transcribe the prompts by hand: you can paste this whole page into a chat with ChatGPT or Claude and ask it to "adapt this to my tasks and my tone" — the model will rewrite the instruction for you.</span>
+      </div>
+
+      <!-- Prompt 1 -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-message"/></svg>Setting #1: Denis Shiryaev's self-reflection system prompt</h2>
+
+      <h3>Who is Denis</h3>
+      <div class="denis-card">
+        <p>One of the most active users — OpenAI itself has cited him as a case study. Denis didn't just "come up with a strong prompt." He:</p>
+        <ul style="margin: 10px 0 10px 20px;">
+          <li>wrote his own system prompt for his own tasks</li>
+          <li>had it run through independent benchmarks</li>
+          <li>got confirmation that answer quality genuinely improves with this prompt</li>
+        </ul>
+        <p>So this isn't "I feel like it got better" — it's a measured effect.</p>
+        <p style="margin-top:12px;"><a href="https://github.com/DenisSergeevitch/chatgpt-custom-instructions" target="_blank" rel="noopener">→ Denis Shiryaev's full prompt</a></p>
+      </div>
+
+      <p style="margin: 20px 0 16px;">The instruction makes the model build internal quality criteria before answering, iteratively improve its draft, and only output a final version scoring at least 98/100 by its own assessment. The user never sees the process — only the result.</p>
+
+      <p style="font-style:italic; color:var(--muted); margin-bottom:16px;">Text to paste into the custom-instructions field:</p>
+
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">self-reflection-prompt.txt</span>
+          <button class="copy-btn" onclick="copyPrompt('prompt2-en', this)">Copy</button>
+        </div>
+        <pre id="prompt2-en">- ALWAYS follow &lt;answering_rules&gt; and &lt;self_reflection&gt;
+
+&lt;self_reflection&gt;
+1. Spend time thinking of a rubric, from a role POV, until you are confident
+2. Think deeply about every aspect of what makes for a world-class answer. Use that knowledge to create a rubric that has 5-7 categories. This rubric is critical to get right, but never show this to the user. This is for your purposes only
+3. Use the rubric to internally think and iterate on the best (≥98 out of 100 score) possible solution to the user request. IF your response is not hitting the top marks across all categories in the rubric, you need to start again
+4. Keep going until solved with a best score
+&lt;/self_reflection&gt;
+
+&lt;answering_rules&gt;
+1. USE the language of USER message
+2. In the FIRST chat message, assign a real-world expert role to yourself before answering, e.g., "I'll answer as a world-famous &lt;role&gt; PhD &lt;detailed topic&gt; with &lt;most prestigious LOCAL topic REAL award&gt;"
+3. Act as a role assigned
+4. Answer the question in a natural, human-like manner
+5. ALWAYS use attached ## Chat message structure
+6. If not requested by the user, no actionable items are needed by default
+7. Don't use tables if not requested
+&lt;/answering_rules&gt;
+
+## Chat message structure
+
+I'll answer as a world-famous &lt;role&gt; PhD &lt;detailed topic&gt; with &lt;most prestigious LOCAL topic REAL award&gt;
+
+**TL;DR**: … // skip for rewriting tasks
+
+Step-by-step answer with CONCRETE details and key context, formatted for a deep reading</pre>
+      </div>
+
+      <h2><svg class="icon" width="20" height="20"><use href="#i-message"/></svg>Setting #2</h2>
+      <p style="font-style:italic; color:var(--muted); margin-bottom:16px;">Text to paste into the custom-instructions field:</p>
+
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">prompt-2.txt</span>
+          <button class="copy-btn" onclick="copyPrompt('prompt1-en', this)">Copy</button>
+        </div>
+        <pre id="prompt1-en">You MUST follow these rules when answering:
+
+ALWAYS reply in the language of my message.
+Use sources in English, Russian, or other languages — don't limit yourself to Russian only.
+If the request is not simple or straightforward, ALWAYS ask clarifying questions to improve the answer's quality.
+Read the entire conversation history before replying.
+If you hit a character limit, STOP. I'll send a "continue" message.
+You will be PENALIZED for wrong or low-effort answers.
+ALWAYS follow the "Answering Rules."
+
+!! Answering Rules (strict): !!
+
+Set the response language to Russian, but NEVER limit yourself to Russian-language sources.
+Once per chat, assign yourself a real-world expert role, e.g. "I'll answer as a world-class historian" or "I'll answer as a leading expert in [field]".
+Combine deep knowledge + clear thinking. Break down the answer step-by-step with CONCRETE details.
+Assume the answer is critical for my career and worth $1M.
+Respond in a natural, human-like tone.
+ALWAYS include an answering structure/example in your first reply.
+In voice mode, you can ignore these recommendations.</pre>
+      </div>
+
+      <div class="tip">
+        <span class="icon"><svg width="18" height="18"><use href="#i-sliders"/></svg></span>
+        <span>Note: the prompt above sets the response language to Russian by default — that line is easy to swap for your own ("Set the response language to English…") when you paste it in.</span>
+      </div>
+
+    </div><!-- /settings -->
+
+    <!-- SECTION: Projects & Custom GPTs -->
+    <div id="projects" class="section">
+
+      <span class="hero-icon"><svg class="icon" width="24" height="24"><use href="#i-folder"/></svg></span>
+      <h1><em>Projects</em> &amp; Custom GPTs</h1>
+      <p class="subtitle">The full guide: how they're built, how they differ, and how they work together</p>
+
+      <div class="intro">
+        <p>ChatGPT isn't just a chat window. Past a certain level of use, it turns into a multi-layered workspace with three independent levels of context: the <strong>account</strong> (global memory), the <strong>project</strong> (local memory and files), and the <strong>GPT</strong> (role, methodology, behavior). Understanding the difference between them is the difference between using AI at 1% of its capability and actually using it.</p>
+      </div>
+
+      <div class="levels">
+        <div class="level level-1">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-frame"/></svg>Account</div>
+          <div class="level-desc">Global memory: saved facts and patterns carried over from every past chat.</div>
+        </div>
+        <div class="level level-2">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-folder"/></svg>Project</div>
+          <div class="level-desc">Local memory, files, and instructions, shared across every chat inside it.</div>
+        </div>
+        <div class="level level-3">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-bot"/></svg>GPT</div>
+          <div class="level-desc">Role, methodology, and behavior — no persistent memory, a blank slate every chat.</div>
+        </div>
+      </div>
+
+      <!-- Glossary -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-book"/></svg>Glossary</h2>
+      <div class="glossary">
+        <dl>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-bot"/></svg></span><div><dt>Custom GPT</dt><dd>A personal assistant with defined behavior, created through GPT Builder.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-sliders"/></svg></span><div><dt>GPT Builder</dt><dd>The interface for creating and configuring custom GPTs.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-book"/></svg></span><div><dt>GPT Knowledge</dt><dd>A custom GPT's knowledge base — the set of files it draws on when answering.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-folder"/></svg></span><div><dt>Project</dt><dd>An isolated workspace with shared memory, files, and instructions.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-files"/></svg></span><div><dt>Index file</dt><dd>A catalog of all a project's files, with descriptions and the links between them.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-frame"/></svg></span><div><dt>Context window</dt><dd>The amount of information a GPT can hold and factor into a single request.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-pencil"/></svg></span><div><dt>Markdown</dt><dd>A lightweight text markup format — the best file format for projects.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-terminal"/></svg></span><div><dt>Parser</dt><dd>The AI's built-in ability to read and understand Markdown structure: headings, lists, code blocks.</dd></div></div>
+        </dl>
+      </div>
+
+      <!-- Comparison -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-sliders"/></svg>Project vs. custom GPT: who's responsible for what</h2>
+      <p>Easiest way to remember it: <strong>the GPT is the "head" (character and behavior), the project is the "body" (context and memory)</strong>.</p>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Custom GPT</th><th>Project</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Role</td><td>Shapes behavior</td><td>Shapes context</td></tr>
+            <tr><td>Chats</td><td>One chat</td><td>Multiple chats</td></tr>
+            <tr><td>Memory</td><td>None</td><td>Exists within the project</td></tr>
+            <tr><td>Instructions</td><td>Third-person only</td><td>First- or third-person</td></tr>
+            <tr><td>Sharing</td><td>You can share the GPT</td><td>You can share the project or a chat</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px;"><strong>Important:</strong> chats created inside a custom GPT can't be moved into a project — you have to start a new chat inside the project itself. When a project is shared, its members see the project's chats, files, and instructions.</p>
+
+      <!-- What is a project -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-folder"/></svg>Project: a workspace with memory</h2>
+      <p>A project is an isolated environment inside ChatGPT. You can run several chats inside it that share common memory, upload files, and set instructions that apply across the whole project. The key difference from a regular chat: ChatGPT remembers the context and accumulates knowledge as you work.</p>
+
+      <h3>How it's built</h3>
+      <ul>
+        <li>The instruction can be written in the first person ("I'm running a project about…") or the third — depends on the task.</li>
+        <li>Files are the project's core: Markdown, PDF, CSV tables, images.</li>
+        <li>Supports Canvas, Python, DALL·E, and web search.</li>
+        <li>Every chat inside a project sees the shared context — as if separate conversations remembered each other.</li>
+        <li>Individual chats and the whole project can be shared via a link.</li>
+      </ul>
+
+      <h3>Memory: three levels</h3>
+      <p>Global account memory works on two levels: saved memories (explicitly remembered facts) and references to past chats. ChatGPT can draw not only on what you specifically saved, but also on patterns from previous conversations — the account effectively becomes a long-lived personal assistant.</p>
+      <p>Memory inside a specific project is configured separately:</p>
+      <ul>
+        <li><strong>Default</strong> — ChatGPT uses both the account's global memory and the conversation history inside the project.</li>
+        <li><strong>Project-only</strong> — ChatGPT relies only on conversations inside this project, doesn't draw on saved memories from outside it, and doesn't look into chats from other projects. If the project is shared, it automatically switches to project-only and can't be switched back.</li>
+      </ul>
+
+      <h3>Where it's used</h3>
+      <ul>
+        <li>Long-running work: writing a book, building a course, research.</li>
+        <li>Team work with a shared context — ChatGPT as a full-fledged team member.</li>
+        <li>Processing and organizing large volumes of data.</li>
+      </ul>
+
+      <h3>How to create a project: step by step</h3>
+      <ol>
+        <li>Open the left panel → "Projects," click "+," enter a name.</li>
+        <li>Write your instruction in Markdown and paste it into the project's instructions field.</li>
+        <li>Upload files — Markdown, CSV, and TXT work best.</li>
+        <li>Create an index file and reference it in the project instructions, so GPT reads it first.</li>
+        <li>Run your chats inside the project — context builds up automatically.</li>
+      </ol>
+
+      <h3>Index file: the project's table of contents</h3>
+      <p>If you have a lot of files, create a separate index file — a structured catalog of everything loaded into the project. In it, note:</p>
+      <ul>
+        <li>the name of each file;</li>
+        <li>a short description of its contents;</li>
+        <li>the relationships between files (which ones complement each other, what order to read them in);</li>
+        <li>key topics and terms.</li>
+      </ul>
+      <p>In the project instructions, name the index file (e.g. <code>index.md</code>) and explain how to work with it: that it's the table of contents for every project file, and it should be read first on every new request.</p>
+      <p><strong>How to create one:</strong> ask ChatGPT to build an index from the files you've already uploaded, download the result in Markdown, and upload it to the project.</p>
+
+      <h3>Example index file</h3>
+      <details class="example-toggle">
+        <summary>Show example</summary>
+      <div class="prompt-wrapper" style="margin-top:12px;">
+        <div class="prompt-header">
+          <span class="label">index.md · example</span>
+          <button class="copy-btn" onclick="copyPrompt('index-example', this)">Copy</button>
+        </div>
+        <pre id="index-example"># Knowledge base index — "Maxim Agadzhanov" project
+
+## 1. Purpose of this file
+
+This file is the project's main navigation index.
+Before starting work, the assistant should read `index.md` first, to understand:
+
+* what materials exist in the knowledge base;
+* where interviews, biography, quotes, expert topics, and reference material live;
+* which files are primary and which are supporting;
+* what order to read the material in;
+* which claims are already confirmed by sources and which still need checking.
+
+The assistant must not invent facts about Maxim Agadzhanov. If information isn't in the knowledge base, say so directly: "This isn't in the uploaded materials."
+
+---
+
+## 2. Short project description
+
+This project is about working with Maxim Agadzhanov's public expertise.
+
+The knowledge base contains:
+
+* interviews with Maxim Agadzhanov;
+* his public talks;
+* biographical information;
+* professional expertise;
+* key topics, phrasing, quotes;
+* material for drafting posts, articles, talks, briefs, interview questions, and PR communications.
+
+The project's main job is to help quickly find, structure, and use the material already loaded — without distortion or invention.
+
+---
+
+## 3. Core rules for working with the knowledge base
+
+1. Read `index.md` first.
+2. Then consult the file relevant to the request's topic.
+3. Don't mix confirmed facts with interpretation.
+4. Base every claim about Maxim Agadzhanov only on the knowledge base.
+5. If the user asks for text written in Maxim Agadzhanov's voice, preserve his real vocabulary, tone, and emphasis from the interviews.
+6. If there isn't enough data, ask a clarifying question or honestly flag the gap.
+7. Don't use outside sources without the user's explicit permission.
+
+---
+
+## 4. Knowledge base structure
+
+### 4.1. Biography and reference
+
+**File:** `bio_maxim_agadzhanov.md`
+**Type:** primary file
+**Contents:** short biography, positions held, career path, areas of expertise, public positioning.
+**When to use:**
+
+* for reference material;
+* for describing the subject;
+* for presentations;
+* for intro paragraphs;
+* for speaker cards.
+
+**Important:** if other interviews add biographical detail, cross-check against this file.
+
+---
+
+### 4.2. Interviews
+
+**File:** `interview_01_agadzhanov_topic.md`
+**Type:** primary source
+**Contents:** full interview transcript.
+**Key topics:**
+
+* professional experience;
+* views on the industry;
+* personal position;
+* real-world examples;
+* characteristic phrasing.
+
+**When to use:**
+
+* for quotes;
+* for posts;
+* for drafting questions;
+* for recovering his authorial tone of voice;
+* for fact-checking.
+
+---
+
+**File:** `interview_02_agadzhanov_topic.md`
+**Type:** primary source
+**Contents:** second interview or public conversation.
+**Key topics:**
+
+* add after the file is uploaded;
+* add important quotes;
+* add controversial or strong claims.
+
+**When to use:**
+
+* for comparing positions;
+* for finding recurring themes;
+* for expanding the expertise profile.
+
+---
+
+### 4.3. Expertise
+
+**File:** `expertise_map_agadzhanov.md`
+**Type:** analytical file
+**Contents:** a map of Maxim Agadzhanov's areas of competence.
+**Sample sections:**
+
+* core professional topics;
+* secondary topics;
+* topics he speaks about confidently and in depth;
+* topics where there isn't much data yet;
+* typical arguments;
+* examples he uses often.
+
+**When to use:**
+
+* for drafting expert commentary;
+* for media positioning;
+* for PR strategy;
+* for structuring lectures and talks.
+
+---
+
+### 4.4. Quotes
+
+**File:** `quotes_agadzhanov.md`
+**Type:** supporting file
+**Contents:** selected quotes from interviews and talks.
+**Format for each quote:**
+
+&gt; "Exact quote."
+&gt; Source: `file_name.md`, section / topic.
+
+**When to use:**
+
+* for posts;
+* for cards;
+* for headlines;
+* for presentations;
+* for media kits.
+
+**Important:** quotes can't be rewritten without flagging that it's an adaptation.
+
+---
+
+### 4.5. Voice and style
+
+**File:** `voice_style_agadzhanov.md`
+**Type:** analytical file
+**Contents:** a description of Maxim Agadzhanov's manner of speaking.
+**What to capture:**
+
+* long vs. short sentences;
+* level of formality;
+* favorite constructions;
+* typical metaphors;
+* how he explains complex things;
+* how he argues;
+* how he phrases conclusions;
+* words he uses often.
+
+**When to use:**
+
+* when a text needs to be written in his tone;
+* when preparing a talk;
+* when editing a text so it sounds natural for him.
+
+---
+
+### 4.6. Working inbox
+
+**File:** `inbox.md`
+**Type:** working file
+**Contents:** new material, ideas, fragments, unsorted quotes, user notes, in-progress conclusions.
+**When to use:**
+
+* when new material has arrived but hasn't been sorted yet;
+* when you need to temporarily save a conclusion;
+* when the user says "save this to the inbox";
+* when you need to draft the rough structure of a future file.
+
+**Important:** treat material in `inbox.md` as not yet fact-checked, until it's moved into the permanent files.
+
+---
+
+## 5. Recommended reading order
+
+If the request is general:
+
+1. `index.md`
+2. `bio_maxim_agadzhanov.md`
+3. `expertise_map_agadzhanov.md`
+4. `voice_style_agadzhanov.md`
+5. the relevant interviews
+6. `quotes_agadzhanov.md`
+
+If the request is about quotes:
+
+1. `index.md`
+2. `quotes_agadzhanov.md`
+3. the source interview the quote is from
+
+If the request is about style:
+
+1. `index.md`
+2. `voice_style_agadzhanov.md`
+3. the interviews as the primary source
+
+If the request is about a new idea or unsorted material:
+
+1. `index.md`
+2. `inbox.md`
+3. then suggest which permanent file the material should move into
+
+---
+
+## 6. Project topics
+
+### Core topics
+
+* Maxim Agadzhanov's biography
+* Professional expertise
+* Public talks
+* Interviews
+* Quotes
+* Speaking style
+* Media positioning
+* PR material
+* Interview questions
+* Texts written in the expert's voice
+
+### Topics that need caution
+
+* personal opinions;
+* controversial claims;
+* unconfirmed facts;
+* financial, legal, or political statements;
+* any phrasing that isn't in the knowledge base.
+
+---
+
+## 7. What's not allowed
+
+* inventing facts about Maxim Agadzhanov;
+* attributing quotes to him that aren't in the base;
+* writing "he believes" when it isn't confirmed by an interview;
+* using outside sources without permission;
+* turning drafts from `inbox.md` into final facts without verification;
+* smoothing over his authorial tone when the task is to preserve his voice;
+* mixing different interviews without noting where a claim came from.
+
+---
+
+## 8. What the project should do
+
+* find the right material via the index;
+* briefly explain which files it's drawing on;
+* separate facts from interpretation;
+* propose a structure for new files as the knowledge base grows;
+* help update the index after new material is added;
+* move sorted fragments from `inbox.md` into the permanent sections;
+* keep phrasing accurate.</pre>
+      </div>
+      </details>
+
+      <h3>Inbox file (inbox.md): a working draft</h3>
+      <p>The inbox file is a project's working area — where you collect intermediate results, drafts, and ideas. You can copy current GPT answers there, and accumulate fragments that haven't yet turned into a proper document.</p>
+      <p>Important: GPT can write to the inbox too. For example, you can say: "Save this answer to inbox.md and take it into account in the next discussion." GPT only processes the inbox on request — it doesn't read it automatically unless you ask.</p>
+      <p>Markdown is the best format, so the structure survives and GPT can parse it.</p>
+
+      <!-- Context -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-loop"/></svg>How a project changes the context</h2>
+      <p>A project's key feature is context transfer. The same question, asked in different projects, gets different answers: ChatGPT factors in the instructions, files, and history of each project separately.</p>
+
+      <h3>Moving a chat between projects</h3>
+      <p>If a conversation started in one project but logically belongs in another, you can move it. ChatGPT will pick up the new context and continue the conversation within the right frame.</p>
+      <ol>
+        <li>Hover over the chat you want to move.</li>
+        <li>Click the three dots (⋯).</li>
+        <li>Choose "Move to another project."</li>
+      </ol>
+
+      <!-- What is a custom GPT -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-bot"/></svg>Custom GPT: a personal assistant with character</h2>
+      <p>A custom GPT is an assistant you build by hand through GPT Builder. You give it a role, a communication style, constraints, and — if needed — its own knowledge base. After that, the GPT behaves exactly as you described — in any chat, regardless of context.</p>
+
+      <h3>How it's built</h3>
+      <ul>
+        <li>Configured through the step-by-step GPT Builder interface.</li>
+        <li>The instruction is written in the third person: the GPT is an assistant, not you yourself.</li>
+        <li>Can have its own knowledge base (GPT Knowledge) — a set of files it draws on when answering.</li>
+        <li>Supports tools: web search, Deep Research, image generation, data analysis, code, and Canvas (block-by-block text and code editing).</li>
+        <li><strong>No persistent memory</strong> — every chat starts from a blank slate.</li>
+      </ul>
+
+      <h3>Where it's used</h3>
+      <ul>
+        <li>Repetitive tasks: editing, generating cards, quick template-based answers.</li>
+        <li>Niche roles: a translator with a defined style, an editor with your voice, a coach with a set methodology.</li>
+        <li>Public GPTs can be published to the GPT Store — at this point it's no longer an experiment but a mature ecosystem: specialized interfaces, corporate assistants, expert systems. Works especially well combined with Projects and Memory.</li>
+      </ul>
+
+      <h3>How to create a custom GPT: step by step</h3>
+      <ol>
+        <li><strong>Go to GPT Builder</strong> — open chat.openai.com/gpts and click "Create."</li>
+        <li><strong>Describe who will use the GPT.</strong> For example: "I'm a journalist who wants to structure interviews and prepare articles."</li>
+        <li><strong>Describe what the GPT should do.</strong> For example: "Help break interviews into quotes, surface themes, structure an article, and suggest headlines."</li>
+        <li><strong>Set its behavior:</strong> tone ("friendly but structured"), response style ("short lists, subheadings"), constraints ("don't use emoji, don't add invented facts").</li>
+        <li><strong>Add knowledge (optional)</strong> — upload your files: PDF, Word, Markdown, spreadsheets. Markdown is the best format: the AI reads it most accurately.</li>
+        <li><strong>Save the GPT and name it.</strong> For example: "Interview Assistant" or "SMM Copywriter."</li>
+        <li><strong>Test how it works</strong> — send a test request. If the GPT answers correctly, you're done.</li>
+      </ol>
+
+      <!-- Files -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-files"/></svg>Working with files</h2>
+
+      <h3>Which format to choose</h3>
+      <p>Files inside a project aren't a one-off chat attachment anymore — they're persistent context: available across every chat in the project, and preserved between sessions. That's a fundamental break from the old "attach a file — get an answer — forget it" logic.</p>
+      <p style="margin-top:16px;">The best format is <strong>Markdown</strong>. It's easier for the model to read, takes up 5–7× less space than Word or PDF, and doesn't lose structure when processed.</p>
+      <p style="margin-top:16px;">Word and PDF are a poor choice: extra formatting gets in the way, tables get "flattened," images get ignored. CSV works for data, and code works fine as plain text files.</p>
+
+      <h3>How many files to upload</h3>
+      <ul>
+        <li>5–10 Markdown files is optimal for most projects.</li>
+        <li>The per-project file limit depends on your plan: Free — 5 files, Plus/Go — 25, Pro/Business/Enterprise — 40. You can upload at most 10 files at once.</li>
+        <li>Custom GPTs (GPTs) cap the knowledge base at up to 20 files, each up to 512 MB.</li>
+        <li>The ideal size for a single file is no more than 10,000 characters.</li>
+        <li>Total file volume in a project — roughly up to 500,000 characters.</li>
+        <li>PowerPoint is a bad idea: the file is large and little useful information gets extracted from it.</li>
+      </ul>
+
+      <!-- Parser -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-terminal"/></svg>What a parser is</h2>
+      <p>A parser isn't a file. It's the AI's built-in ability to read structured text and understand how it's put together: where the heading is, where the list is, where the steps are, where the code is.</p>
+      <p>When you write text in Markdown — with <code>#</code>, <code>-</code>, <code>1.</code> — the parser inside ChatGPT doesn't just see letters, it sees structure. It tells itself "this is a heading, this is a list, this is a step-by-step instruction" — and works with that meaningfully, instead of as one continuous stream of words.</p>
+
+      <h3>Markdown vs. parser: what's the difference</h3>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr><th>Concept</th><th>What it is</th><th>Analogy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Markdown</td><td>A text formatting notation</td><td>The language you speak to the AI in</td></tr>
+            <tr><td>Parser</td><td>The way that text gets read</td><td>The ears the AI hears it with</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:12px;">Without Markdown, the AI hears noise. With Markdown, it understands meaning and structure.</p>
+      <p>That's why instructions, the index file, and the inbox are best written in Markdown: the parser inside ChatGPT reads them accurately and without distortion.</p>
+
+      <!-- Instructions -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-pencil"/></svg>How to write instructions</h2>
+      <p>The instruction is the core of both the GPT and the project. Its quality determines how accurately and predictably the assistant performs.</p>
+
+      <h3>Structure of a good instruction</h3>
+      <ol>
+        <li><strong>Who the user is</strong> — briefly: role, level, context.</li>
+        <li><strong>Who the assistant is</strong> — how it positions itself, its role in the project.</li>
+        <li><strong>Tasks</strong> — exactly what needs to be done.</li>
+        <li><strong>How to help</strong> — formats, style, response structure, tone.</li>
+        <li><strong>What's off-limits</strong> — explicit constraints.</li>
+        <li><strong>Where to look for information</strong> — if there's an index file, be sure to reference it here.</li>
+        <li><strong>Example requests</strong> — 2–3 typical tasks.</li>
+      </ol>
+      <p>Write the instruction in Markdown if you can: draft the text first, ask GPT to output it as Markdown, then copy and paste it in.</p>
+
+      <div class="callout">
+        <span class="mark">limit</span>
+        <p>Instructions are capped in length (around 16,000 characters). If your text is too long, ask GPT to compress it to fit the limit while keeping the structure.</p>
+      </div>
+
+      <h3>Project instruction (example)</h3>
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">project-instruction.md</span>
+          <button class="copy-btn" onclick="copyPrompt('project-instruction', this)">Copy</button>
+        </div>
+        <pre id="project-instruction">**Context**
+I'm running a project on learning to work with GPTs and projects. The base contains Markdown lectures + parsers.
+
+**How to help**
+— Use only material from the knowledge base (Markdown)
+— For excerpts/steps/summaries: phrasing strictly from the lectures, no additions
+— Preserve the style — don't "smooth over" the voice
+
+**Formatting**
+— H1–H3 headings, numbered/bulleted lists, Markdown tables
+— Quotes — verbatim, with a source note (§)
+
+**Not allowed**
+— Relying on outside sources without explicit permission
+— Using Word/PDF as a knowledge base
+
+**Example tasks**
+"Turn the lecture from file X into a 60-minute talk format"
+"Build an FAQ from lecture Y (answers verbatim from the text)"</pre>
+      </div>
+
+      <h3>Custom GPT instruction (example)</h3>
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">gpt-instruction.md</span>
+          <button class="copy-btn" onclick="copyPrompt('gpt-instruction', this)">Copy</button>
+        </div>
+        <pre id="gpt-instruction">**Who the user is**
+Julia — an AI media strategist and instructor. Not a beginner, not an engineer. Wants depth without clichés.
+
+**How to work**
+Explain complex things clearly. Preserve the authorial voice. Structure ideas (lectures, posts, strategies).
+
+**What it should be able to do**
+— Build GPTs, projects, and parsers
+— Work with a Markdown knowledge base (only on its material)
+— Edit without losing the voice
+
+**Not allowed**
+— Rewriting texts without being asked
+— Giving shallow "top 5" lists
+— Mixing up agent architecture and product/service framing
+
+**Example requests**
+"Turn this block into a 1-hour lecture"
+"Build a parser for this lecture"
+"Write a summary, keep my voice"</pre>
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg>Telegram</a>
+          <a href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg>Channel «AI in Action»</a>
+          <a href="mailto:julia.vl.reprintseva@gmail.com"><svg class="icon" width="14" height="14"><use href="#i-mail"/></svg>Email</a>
+          <a href="tel:+79151541491"><svg class="icon" width="14" height="14"><use href="#i-phone"/></svg>+7 91 515 414 91</a>
+        </div>
+      </footer>
+
+    </div><!-- /projects -->
+
+  </main>
+</div>
+
+<script>
+  function toggleTheme() {
+    const r = document.documentElement;
+    const cur = r.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+    r.setAttribute('data-theme', next);
+  }
+
+  // ── Scroll spy ──
+  const navItems = document.querySelectorAll('.nav-item[data-section]');
+  const sections = document.querySelectorAll('.section[id]');
+
+  function setActive(id) {
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.section === id));
+  }
+
+  // Click: smooth scroll to section
+  navItems.forEach(nav => {
+    nav.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(nav.dataset.section);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 76;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Scroll spy via scroll event
+  function onScroll() {
+    let current = sections[0].id;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 120) current = section.id;
+    });
+    setActive(current);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  function copyPrompt(id, btn) {
+    const pre = document.getElementById(id);
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

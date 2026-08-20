@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Настройки ChatGPT — после которых можно перестать мучиться с промптами</title>
+  <meta name="description" content="Две базовые настройки ChatGPT: вставляете их в профиль один раз — и дальше модель сама уточняет контекст, берёт экспертную роль и проверяет свою логику. Плюс проекты и кастомные GPT.">
+
+  <!-- Адреса ниже ведут на боевой домен reprintseva.pro. Пока DNS не переключён с Porkbun на GitHub Pages,
+       превью в мессенджерах будет показывать парковочную заглушку. После переезда ничего менять не нужно. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Юлия Репринцева">
+  <meta property="og:url" content="https://reprintseva.pro/portfolio/guides/chatgpt/">
+  <meta property="og:title" content="Две настройки для ChatGPT">
+  <meta property="og:description" content="После которых можно перестать мучиться с промптами.">
+  <meta property="og:image" content="https://reprintseva.pro/portfolio/guides/chatgpt/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Две настройки для ChatGPT">
+  <meta name="twitter:description" content="После которых можно перестать мучиться с промптами.">
+  <meta name="twitter:image" content="https://reprintseva.pro/portfolio/guides/chatgpt/og-cover.png">
+
+  <link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/guides/chatgpt/">
+  <link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/guides/chatgpt/en/">
+
+  <!-- Фавикон встроен в страницу: мотив «code/» из шапки, бронза на графите. Файл-исходник — social-images/favicon-portfolio.svg -->
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+  <meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+  <style>
+    /* ============================================================
+       Палитра портфолио — единая для сайта и гайдов.
+       Тёмная тема базовая, светлая приходит из системной настройки
+       или из переключателя (data-theme).
+       ============================================================ */
+
+    :root{
+      --bg:        #12151C;
+      --paper:     #171B24;
+      --paper-hi:  #1D2331;
+      --line:      #2A3140;
+      --line-soft: #212636;
+      --ink:       #E9E6DC;
+      --ink-dim:   #838CA0;
+      --ink-faint: #545C70;
+      --accent:    #CB9C47;
+      --accent-hi: #E4B968;
+      --good:      #6FAE8C;
+      --wip:       #C77B54;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:        #EEF0F4;
+        --paper:     #FFFFFF;
+        --paper-hi:  #F5F6FA;
+        --line:      #DBDFE8;
+        --line-soft: #E6E9F0;
+        --ink:       #1A1D26;
+        --ink-dim:   #6B7386;
+        --ink-faint: #9BA2B2;
+        --accent:    #9C6C1E;
+        --accent-hi: #7E5714;
+        --good:      #3D7A5C;
+        --wip:       #A85830;
+      }
+    }
+    :root[data-theme="dark"]{
+      --bg: #12151C; --paper: #171B24; --paper-hi: #1D2331;
+      --line: #2A3140; --line-soft: #212636;
+      --ink: #E9E6DC; --ink-dim: #838CA0; --ink-faint: #545C70;
+      --accent: #CB9C47; --accent-hi: #E4B968;
+      --good: #6FAE8C; --wip: #C77B54;
+    }
+    :root[data-theme="light"]{
+      --bg: #EEF0F4; --paper: #FFFFFF; --paper-hi: #F5F6FA;
+      --line: #DBDFE8; --line-soft: #E6E9F0;
+      --ink: #1A1D26; --ink-dim: #6B7386; --ink-faint: #9BA2B2;
+      --accent: #9C6C1E; --accent-hi: #7E5714;
+      --good: #3D7A5C; --wip: #A85830;
+    }
+
+    /* Код читается как код в обеих темах — поэтому блоки всегда тёмные. */
+    :root{
+      --code-bg:      #0F1319;
+      --code-ink:     #E4E1D7;
+      --code-accent:  #E4B968;
+      --code-comment: #6E7787;
+      --code-line:    #232A36;
+    }
+
+    /* Псевдонимы под имена, которые уже стоят в разметке.
+       var() резолвится при использовании, поэтому они сами следуют за темой. */
+    :root{
+      --surface:      var(--paper);
+      --surface-2:    var(--paper-hi);
+      --ink-soft:     var(--ink-dim);
+      --muted:        var(--ink-faint);
+      --border:       var(--line);
+      --accent-ink:   var(--accent-hi);
+      --accent-soft:  var(--paper-hi);
+      --warn:         var(--wip);
+      --warn-soft:    var(--paper);
+      --warn-border:  var(--line);
+      --shadow:       none;
+    }
+
+    :root{
+      --serif: Georgia, 'Iowan Old Style', ui-serif, serif;
+      --mono:  ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* ── Основа ── */
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0) 0 0/28px 28px,
+        var(--bg);
+      padding-top: 56px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .icon { width: 1em; height: 1em; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: -0.2em; }
+
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-hi); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+    /* ── Верхняя панель ── */
+
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      justify-content: space-between;
+      z-index: 100;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .top-bar-left:hover { color: var(--accent); }
+    /* Моноблок с инициалами — та же метка, что в шапке портфолио. */
+    .top-bar-dot {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 2px 6px;
+      letter-spacing: .03em;
+      align-self: center;
+      flex-shrink: 0;
+    }
+    .top-bar-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: -.01em;
+      transition: color .15s;
+    }
+    .top-bar-sep {
+      color: var(--line);
+      margin: 0 2px;
+    }
+    .top-bar-author {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .top-bar-tools { display: flex; align-items: center; gap: 10px; }
+
+    .theme-btn {
+      background: none; border: 1px solid var(--line); color: var(--ink-dim);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+      font-size: .8rem; display: flex; align-items: center; justify-content: center;
+      flex: none;
+      transition: border-color .15s, color .15s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .lang-switch {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 6px 12px;
+      letter-spacing: .03em;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+
+    .top-bar-tg {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-dim);
+      text-decoration: none;
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: none;
+      transition: border-color .15s, color .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .top-bar-tg:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Раскладка ── */
+
+    .layout {
+      display: flex;
+      max-width: 1120px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ── Боковая навигация ── */
+
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: transparent;
+      color: var(--ink-dim);
+      padding: 40px 0;
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    .sidebar-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      padding: 0 20px 18px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 20px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      font-size: 0.87rem;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      margin-right: 12px;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .nav-item .icon { color: var(--ink-faint); transition: color .15s; }
+    .nav-item:hover {
+      background: var(--paper-hi);
+      color: var(--ink);
+    }
+    .nav-item.active {
+      background: var(--paper-hi);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+    .nav-item.active .icon { color: var(--accent); }
+
+    /* ── Основная колонка ── */
+
+    .main {
+      flex: 1;
+      padding: 44px 48px 90px 40px;
+      max-width: 760px;
+      border-left: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    .section { display: block; }
+    .section + .section { border-top: 1px solid var(--line); padding-top: 48px; margin-top: 16px; }
+
+    /* ── Баннер Telegram ── */
+
+    .tg-banner {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+      margin-bottom: 56px;
+    }
+    .tg-banner-icon { color: var(--accent); margin-top: 3px; }
+    .tg-banner-body { flex: 1; min-width: 0; }
+    .tg-banner-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      margin-bottom: 12px;
+    }
+    .tg-banner a {
+      display: block;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 5px 0;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+    .tg-banner a:hover { text-decoration: underline; }
+    .tg-banner a::before { content: '↗ '; }
+    .tg-banner-note {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    /* ── Заголовок страницы ── */
+
+    .hero-icon {
+      width: 42px; height: 42px;
+      border-radius: 3px;
+      background: var(--paper-hi);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hero-icon .icon { width: 21px; height: 21px; }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 2.7rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+      text-wrap: balance;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .subtitle {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--ink-dim);
+      font-style: italic;
+      margin-bottom: 34px;
+    }
+    .intro p {
+      margin-bottom: 18px;
+      color: var(--ink-dim);
+    }
+
+    /* ── Заголовки разделов ── */
+
+    h2 {
+      display: flex; align-items: center; gap: 11px;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -.015em;
+      color: var(--ink);
+      margin: 56px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 .icon { color: var(--accent); width: 19px; height: 19px; }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin: 32px 0 10px;
+    }
+
+    p { color: var(--ink-dim); }
+    p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Списки ── */
+
+    ul, ol {
+      padding-left: 24px;
+      margin: 10px 0 16px;
+      color: var(--ink-dim);
+    }
+    li { margin-bottom: 6px; }
+    li strong { color: var(--ink); font-weight: 600; }
+    li::marker { color: var(--ink-faint); }
+
+    /* ── Схема потока ── */
+
+    .flow{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      margin:28px 0; padding:18px 20px;
+      background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    }
+    .flow-step{
+      font-family:var(--mono);
+      font-size:0.76rem; color:var(--ink);
+      background:var(--paper-hi); border:1px solid var(--line);
+      border-radius:3px; padding:6px 10px;
+    }
+    .flow-arrow{color:var(--accent); font-size:0.9rem;}
+
+    /* ── Уровни контекста ── */
+
+    .levels {
+      margin: 28px 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .level {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 18px;
+      background: var(--paper);
+    }
+    .level-1 { margin-right: 0; }
+    .level-2 { margin-left: 22px; }
+    .level-3 { margin-left: 44px; background: var(--paper-hi); border-color: var(--accent); }
+    .level-head {
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--serif); font-weight: 700; color: var(--ink); font-size: 0.98rem;
+    }
+    .level-head .icon { color: var(--accent); }
+    .level-desc { color: var(--ink-dim); font-size: 0.85rem; margin-top: 5px; }
+
+    /* ── Блок промпта / терминала ── */
+
+    .prompt-wrapper {
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--code-bg);
+      border: 1px solid var(--code-line);
+    }
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--code-line);
+    }
+    .prompt-header::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      opacity: .7;
+      flex: none;
+    }
+    .prompt-header .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: .06em;
+      color: var(--code-comment);
+      flex: 1; min-width: 0;
+    }
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--code-line);
+      color: var(--code-comment);
+      padding: 4px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      letter-spacing: .06em;
+      font-family: var(--mono);
+      transition: border-color .15s, color .15s;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { border-color: var(--code-accent); color: var(--code-accent); }
+    .copy-btn.copied { border-color: var(--good); color: var(--good); }
+
+    pre {
+      margin: 0;
+      background: transparent;
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--code-ink);
+      overflow-x: auto;
+    }
+    pre .c { color: var(--code-comment); }
+    pre .k { color: var(--code-accent); }
+
+    /* ── Блок перевода ── */
+
+    .translation {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 4px 0 24px;
+      font-size: 0.88rem;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+    .translation-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--ink-faint);
+      margin-bottom: 10px;
+    }
+    .translation p { margin-bottom: 12px; color: var(--ink-dim); }
+    .translation p:last-child { margin-bottom: 0; }
+
+    /* ── Пронумерованные шаги ── */
+
+    .steps {
+      counter-reset: steps;
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 20px;
+    }
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+      color: var(--ink-dim);
+    }
+    .steps li::before {
+      content: counter(steps, decimal-leading-zero);
+      flex-shrink: 0;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      margin-top: 3px;
+    }
+
+    /* ── Врезки ── */
+
+    .callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--wip);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 20px 0;
+    }
+    .callout .mark {
+      font-family: var(--mono); font-size: 0.66rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--wip); border: 1px solid var(--line);
+      padding: 2px 7px; border-radius: 3px; flex: none; margin-top: 3px;
+    }
+    .callout p { margin: 0; color: var(--ink); font-size: 0.94rem; }
+
+    .tip {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 0.94rem;
+      color: var(--ink-dim);
+    }
+    .tip .icon { color: var(--accent); margin-top: 4px; }
+    .tip a { font-weight: 600; }
+
+    /* ── Карточка с разбором ── */
+
+    .denis-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .denis-card a { color: var(--accent); font-weight: 600; }
+    .denis-card ul { color: var(--ink-dim); }
+    .denis-card p { color: var(--ink-dim); }
+
+    /* ── Сравнительная таблица ── */
+
+    .comparison-table { overflow-x: auto; margin: 18px 0; }
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .comparison-table th {
+      background: none;
+      font-family: var(--mono);
+      color: var(--ink-faint);
+      font-weight: 400;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 10px 14px;
+      text-align: left;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .comparison-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-dim);
+      vertical-align: top;
+    }
+    .comparison-table tr:nth-child(even) td { background: var(--paper-hi); }
+
+    /* ── Глоссарий ── */
+
+    .glossary dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0;
+    }
+    .glossary .g-card {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .glossary .g-icon {
+      width: 28px; height: 28px; border-radius: 3px; flex-shrink: 0;
+      background: var(--paper-hi); border: 1px solid var(--line);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .glossary .g-icon .icon { width: 14px; height: 14px; }
+    .glossary dt {
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 0.95rem;
+      letter-spacing: -.01em;
+      margin-bottom: 5px;
+    }
+    .glossary dd {
+      margin: 0;
+      color: var(--ink-dim);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* ── Раскрывающийся пример ── */
+
+    .example-toggle summary {
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .example-toggle summary::-webkit-details-marker { display: none; }
+    .example-toggle summary::before {
+      content: '▸';
+      font-size: 0.8rem;
+      transition: transform .2s;
+    }
+    .example-toggle[open] summary::before { transform: rotate(90deg); }
+
+    /* ── Заглушка ── */
+
+    .placeholder {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--ink-faint);
+      font-size: 0.94rem;
+    }
+    .placeholder-icon { font-size: 42px; margin-bottom: 16px; opacity: .5; }
+
+    /* ── Подвал ── */
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+    }
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+    }
+    footer a {
+      color: var(--ink-dim);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    footer a:hover { color: var(--accent); }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* ── Мобильная ── */
+
+    @media (max-width: 700px) {
+      .top-bar { padding: 0 16px; }
+      .top-bar-author, .top-bar-sep, .top-bar-name { display: none; }
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+      }
+      .sidebar-label { display: none; }
+      .nav-item {
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        margin-right: 0;
+        padding: 14px 18px;
+      }
+      .nav-item.active { border-bottom-color: var(--accent); border-left: none; background: none; }
+      .layout { flex-direction: column; max-width: 100%; }
+      .main { border-left: none; padding: 28px 20px 70px; }
+      .glossary dl { grid-template-columns: 1fr; }
+      pre { font-size: 0.76rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-item, .theme-btn, .copy-btn, .top-bar-name, footer a { transition: none; }
+      .example-toggle summary::before { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><path d="M4 8c0-2.2 3.6-4 8-4s8 1.8 8 4v3c0 4.4-3.6 8-8 8s-8-3.6-8-8V8z"/><path d="M8 12c0 1 .7 2 2 2s2-1 2-2M14 12c0 1 .7 2 2 2s2-1 2-2"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.3-6.4L21 8M21 4v4h-4"/><path d="M21 12a9 9 0 0 1-15.3 6.4L3 16M3 20v-4h4"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h13M21 18h-0"/><circle cx="14" cy="6" r="2"/><circle cx="7" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-arrow-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 12a8 8 0 1 1-3.2-6.4L21 4l-1 4.5A8 8 0 0 1 21 12z"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="13" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.3" fill="currentColor" stroke="none"/><path d="M9 17h6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6z"/><path d="M14 3v6h6"/></symbol>
+    <symbol id="i-frame" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 2h6M10 2v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></symbol>
+  </defs>
+</svg>
+
+<header class="top-bar">
+  <a class="top-bar-left" href="../../">
+    <span class="top-bar-dot">ЮР</span>
+    <span class="top-bar-name">Юлия Репринцева</span>
+    <span class="top-bar-sep">·</span>
+    <span class="top-bar-author">Настройки ChatGPT</span>
+  </a>
+  <div class="top-bar-tools">
+    <a class="lang-switch" href="en/">EN</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Переключить тему">☾</button>
+    <a class="top-bar-tg" href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg> Telegram-канал</a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Содержание</div>
+    <a class="nav-item active" href="#settings" data-section="settings"><svg class="icon" width="16" height="16"><use href="#i-settings"/></svg> Настройки для ChatGPT</a>
+    <a class="nav-item" href="#projects" data-section="projects"><svg class="icon" width="16" height="16"><use href="#i-folder"/></svg> Проекты и кастомы</a>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- SECTION: Настройки для ChatGPT -->
+    <div id="settings" class="section">
+
+      <!-- Telegram banner -->
+      <div class="tg-banner">
+        <span class="tg-banner-icon"><svg class="icon" width="18" height="18"><use href="#i-send"/></svg></span>
+        <div class="tg-banner-body">
+          <div class="tg-banner-label">Читайте в Telegram-канале</div>
+          <a href="https://t.me/juliareprintseva_roman/1317" target="_blank" rel="noopener">
+            Настройка для ChatGPT, после которой можно перестать мучиться с промптами
+          </a>
+          <a href="https://t.me/juliareprintseva_roman/863" target="_blank" rel="noopener">
+            Системный промпт Дениса Ширяева: как заставить модель работать «на 98 из 100»
+          </a>
+          <div class="tg-banner-note">Там можно скопировать тексты промптов напрямую из постов.</div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <span class="hero-icon"><svg class="icon" width="24" height="24"><use href="#i-settings"/></svg></span>
+      <h1>Две <em>настройки</em> для ChatGPT</h1>
+      <p class="subtitle">После которых можно перестать мучиться с промптами</p>
+
+      <div class="intro">
+        <p>Это не одноразовые промпты, а базовые инструкции для ChatGPT: вы один раз вставляете их в настройки, а дальше модель каждый раз отвечает с учётом ваших правил — в нужном тоне, с нужной глубиной, с ролью эксперта и внутренней самопроверкой.</p>
+        <p>По сути, эти настройки заставляют ChatGPT делать за вас часть работы промпт-инженера. Даже если вы формулируете вопрос быстро и неидеально, модель сама <strong>уточняет для себя контекст</strong>, <strong>выбирает экспертную роль</strong>, <strong>выстраивает структуру ответа</strong> и <strong>проверяет логику</strong> перед тем, как выдать финальный вариант.</p>
+        <p>То есть вы пишете простой вопрос, а модель превращает его в более сильный запрос — и отвечает уже не «как получится», а по заданной системе.</p>
+      </div>
+
+      <div class="flow">
+        <span class="flow-step">ваш вопрос как есть</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">модель берёт роль эксперта</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">внутренняя самопроверка ≥98/100</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">финальный ответ</span>
+      </div>
+
+      <!-- Key techniques -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-mask"/></svg>В этих настройках два ключевых приёма</h2>
+
+      <h3>1. Модель сама назначает себе роль</h3>
+      <p>В инструкции зашито: в первом сообщении GPT должен сам определить, кем он сейчас работает, исходя из вашего запроса.</p>
+      <p>Не вы каждый раз пишете «представь, что ты маркетолог/юрист/аналитик», а модель:</p>
+      <ul>
+        <li>смотрит на задачу</li>
+        <li>выбирает нужную роль</li>
+        <li>и дальше отвечает уже как профильный эксперт, а не как усреднённый «знаток обо всём»</li>
+      </ul>
+      <p>Это сильно сокращает бытовой промпт и повышает шанс, что ответ будет в профессиональном тоне, а не в стиле школьного реферата.</p>
+
+      <h3>2. Циклическое самосовершенствование: внутренняя планёрка перед ответом</h3>
+      <p>Логика такая:</p>
+      <ol>
+        <li>Перед тем как отвечать вам, модель формирует критерии идеального результата для этой задачи.</li>
+        <li>Пишет черновик ответа.</li>
+        <li>Сравнивает черновик с этими критериями.</li>
+        <li>Улучшает текст, пока внутренний «чеклист» не будет выполнен хотя бы на уровне «не ниже 98 из 100».</li>
+        <li>И только после этого отдаёт вам финальную версию.</li>
+      </ol>
+      <p>То есть GPT сначала сам с собой проводит мини-ревью, а уже потом разговаривает с вами.</p>
+
+      <!-- Adapt -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-sliders"/></svg>Важно: адаптируйте под себя</h2>
+      <p>Чужой системный промпт всегда заточен под чужие задачи. Если просто скопировать его «как есть», получится странная смесь: часть поведения будет попадать в цель, часть — мешать.</p>
+      <p style="margin-top: 20px;">Например:</p>
+      <ul>
+        <li>кому-то не нужен обязательный краткий обзор в начале каждого ответа;</li>
+        <li>кому-то важнее лаконичность, чем максимальная развёрнутость;</li>
+        <li>у кого-то другой набор типичных задач.</li>
+      </ul>
+      <p><strong>Правильный подход:</strong></p>
+      <ol>
+        <li><strong>Берёте идею, а не готовое решение.</strong> Не «скопировать священный текст», а понять приём: авто-назначение роли; внутренняя самопроверка перед ответом.</li>
+        <li><strong>Адаптируете под себя.</strong> Убираете то, что вам не нужно; прописываете свой формат: тон, длина, желаемый стиль подачи; добавляете свои требования к качеству.</li>
+        <li><strong>Вшиваете в настройки.</strong> Не как одноразовый промпт в чате, а как базовую настройку, которая работает во всех диалогах по умолчанию.</li>
+      </ol>
+      <p>Итог: вы получаете не чужой промпт, а свой системный промпт, вдохновлённый чужой логикой.</p>
+
+      <!-- Where to insert -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-arrow-target"/></svg>Куда вставлять</h2>
+      <ol class="steps">
+        <li>Зайдите в настройки ChatGPT</li>
+        <li>Выберите раздел «Персонализация»</li>
+        <li>Откройте поля пользовательских инструкций</li>
+        <li>Вставьте туда тексты ниже</li>
+      </ol>
+
+      <div class="tip">
+        <span class="icon"><svg width="18" height="18"><use href="#i-flask"/></svg></span>
+        <span>Не обязательно переносить промпты вручную: можно вставить эту страницу прямо в диалог с ChatGPT или Claude и попросить «адаптируй под мои задачи и мой тон» — модель сама перепишет инструкцию под вас.</span>
+      </div>
+
+      <!-- Prompt 1 -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-message"/></svg>Настройка №1: системный промпт самоанализа Дениса Ширяева</h2>
+
+      <h3>Кто такой Денис</h3>
+      <div class="denis-card">
+        <p>Один из самых активных пользователей, которого сам OpenAI приводил как кейс. Денис не «просто придумал мощный промпт». Он:</p>
+        <ul style="margin: 10px 0 10px 20px;">
+          <li>написал собственный системный промпт под свои задачи</li>
+          <li>отдал его на исследование — прогнали через разные бенчмарки</li>
+          <li>получил подтверждение: с этим промптом качество ответов модели действительно растёт</li>
+        </ul>
+        <p>То есть это не «мне кажется, стало лучше», а измеряемый эффект.</p>
+        <p style="margin-top:12px;"><a href="https://github.com/DenisSergeevitch/chatgpt-custom-instructions" target="_blank" rel="noopener">→ Полный промпт Дениса Ширяева</a></p>
+      </div>
+
+      <p style="margin: 20px 0 16px;">Инструкция заставляет модель перед ответом выстраивать внутренние критерии качества, итеративно улучшать черновик и выдавать только финальный вариант не ниже 98/100 по собственной оценке. Пользователь не видит процесс — только результат.</p>
+
+      <p style="font-style:italic; color:#555; margin-bottom:16px;">Текст для вставки в поле пользовательских инструкций:</p>
+
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">промпт-самоанализ.txt · английский</span>
+          <button class="copy-btn" onclick="copyPrompt('prompt2-en', this)">Скопировать</button>
+        </div>
+        <pre id="prompt2-en">- ALWAYS follow &lt;answering_rules&gt; and &lt;self_reflection&gt;
+
+&lt;self_reflection&gt;
+1. Spend time thinking of a rubric, from a role POV, until you are confident
+2. Think deeply about every aspect of what makes for a world-class answer. Use that knowledge to create a rubric that has 5-7 categories. This rubric is critical to get right, but never show this to the user. This is for your purposes only
+3. Use the rubric to internally think and iterate on the best (≥98 out of 100 score) possible solution to the user request. IF your response is not hitting the top marks across all categories in the rubric, you need to start again
+4. Keep going until solved with a best score
+&lt;/self_reflection&gt;
+
+&lt;answering_rules&gt;
+1. USE the language of USER message
+2. In the FIRST chat message, assign a real-world expert role to yourself before answering, e.g., "I'll answer as a world-famous &lt;role&gt; PhD &lt;detailed topic&gt; with &lt;most prestigious LOCAL topic REAL award&gt;"
+3. Act as a role assigned
+4. Answer the question in a natural, human-like manner
+5. ALWAYS use attached ## Chat message structure
+6. If not requested by the user, no actionable items are needed by default
+7. Don't use tables if not requested
+&lt;/answering_rules&gt;
+
+## Chat message structure
+
+I'll answer as a world-famous &lt;role&gt; PhD &lt;detailed topic&gt; with &lt;most prestigious LOCAL topic REAL award&gt;
+
+**TL;DR**: … // skip for rewriting tasks
+
+Step-by-step answer with CONCRETE details and key context, formatted for a deep reading</pre>
+      </div>
+
+      <div class="translation">
+        <div class="translation-label">Перевод</div>
+        <p>- ВСЕГДА следуйте &lt;правилам_ответа&gt; и &lt;самоанализу&gt;</p>
+        <p>&lt;самоанализ&gt;<br>
+        1. Потратьте время на обдумывание критериев оценки, с точки зрения вашей роли, пока не будете уверены в своих действиях.<br>
+        2. Глубоко продумайте каждый аспект, который делает ответ первоклассным. Используйте эти знания для создания критериев оценки, состоящих из 5–7 категорий. Эти критерии крайне важны, но никогда не показывайте их пользователю. Это только для ваших целей.<br>
+        3. Используйте критерии оценки, чтобы внутренне обдумать и итеративно найти наилучшее (≥98 из 100) возможное решение запроса пользователя. ЕСЛИ ваш ответ не соответствует наивысшим оценкам по всем категориям критериев, вам нужно начать заново.<br>
+        4. Продолжайте, пока проблема не будет решена с наилучшим результатом.<br>
+        &lt;/самоанализ&gt;</p>
+        <p>&lt;правила_ответа&gt;<br>
+        1. ИСПОЛЬЗУЙТЕ язык сообщения пользователя.<br>
+        2. В ПЕРВОМ сообщении чата, прежде чем отвечать, назначьте себе роль эксперта из реального мира, например: «Я отвечу как всемирно известный &lt;роль&gt;, доктор наук по &lt;детальной теме&gt;, лауреат &lt;самой престижной локальной профильной РЕАЛЬНОЙ премии&gt;».<br>
+        3. Действуйте в соответствии с назначенной ролью.<br>
+        4. Отвечайте на вопрос естественным, человечным тоном.<br>
+        5. ВСЕГДА используйте прилагаемую ## Структуру сообщения в чате.<br>
+        6. Если пользователь не запрашивает, по умолчанию никаких действий не требуется.<br>
+        7. Не используйте таблицы, если не запрошено.<br>
+        &lt;/правила_ответа&gt;</p>
+        <p>## Структура сообщения в чате<br>
+        Я отвечу как всемирно известный &lt;роль&gt;, доктор наук по &lt;детальной теме&gt;, лауреат &lt;самой престижной локальной профильной РЕАЛЬНОЙ премии&gt;<br>
+        <strong>TL;DR</strong>: … // пропустите для задач переписывания<br>
+        Пошаговый ответ с КОНКРЕТНЫМИ деталями и ключевым контекстом, отформатированный для глубокого прочтения</p>
+      </div>
+
+      <h2><svg class="icon" width="20" height="20"><use href="#i-message"/></svg>Настройка №2</h2>
+      <p style="font-style:italic; color:var(--muted); margin-bottom:16px;">Текст для вставки в поле пользовательских инструкций:</p>
+
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">промпт-2.txt · английский</span>
+          <button class="copy-btn" onclick="copyPrompt('prompt1-en', this)">Скопировать</button>
+        </div>
+        <pre id="prompt1-en">You MUST follow these rules when answering:
+
+ALWAYS reply in the language of my message.
+Use sources in English, Russian, or other languages — don't limit yourself to Russian only.
+If the request is not simple or straightforward, ALWAYS ask clarifying questions to improve the answer's quality.
+Read the entire conversation history before replying.
+If you hit a character limit, STOP. I'll send a "continue" message.
+You will be PENALIZED for wrong or low-effort answers.
+ALWAYS follow the "Answering Rules."
+
+!! Answering Rules (strict): !!
+
+Set the response language to Russian, but NEVER limit yourself to Russian-language sources.
+Once per chat, assign yourself a real-world expert role, e.g. "I'll answer as a world-class historian" or "I'll answer as a leading expert in [field]".
+Combine deep knowledge + clear thinking. Break down the answer step-by-step with CONCRETE details.
+Assume the answer is critical for my career and worth $1M.
+Respond in a natural, human-like tone.
+ALWAYS include an answering structure/example in your first reply.
+In voice mode, you can ignore these recommendations.</pre>
+      </div>
+
+      <div class="translation">
+        <div class="translation-label">Перевод</div>
+        <p>Вы ОБЯЗАНЫ следовать этим правилам при ответе:</p>
+        <p>ВСЕГДА отвечайте на языке моего сообщения.<br>
+        Используйте источники на английском, русском или других языках — не ограничивайтесь только русским.<br>
+        Если запрос не простой или неочевидный, ВСЕГДА задавайте уточняющие вопросы, чтобы улучшить качество ответа.<br>
+        Перед ответом прочтите всю историю переписки.<br>
+        Если вы достигли лимита символов, ОСТАНОВИТЕСЬ. Я отправлю сообщение «продолжить».<br>
+        За неправильные или недостаточно качественные ответы вы будете НАКАЗАНЫ.<br>
+        ВСЕГДА соблюдайте «Правила ответов».</p>
+        <p>!! Правила ответов (строгие): !!</p>
+        <p>Установите язык ответа на русский, но НИКОГДА не ограничивайтесь источниками на русском языке.<br>
+        Один раз за чат назначьте себе роль эксперта из реального мира, например, «Я отвечу как историк мирового класса» или «Я отвечу как ведущий эксперт в [области]».<br>
+        Сочетайте глубокие знания и ясное мышление. Разбейте ответ на шаги с КОНКРЕТНЫМИ деталями.<br>
+        Предположим, что ответ имеет решающее значение для моей карьеры и стоит 1 миллион долларов.<br>
+        Отвечайте естественным, человечным тоном.<br>
+        ВСЕГДА включайте структуру ответа/пример в свой первый ответ.<br>
+        В голосовом режиме можно игнорировать эти рекомендации.</p>
+      </div>
+
+    </div><!-- /settings -->
+
+    <!-- SECTION: Проекты и кастомы -->
+    <div id="projects" class="section">
+
+      <span class="hero-icon"><svg class="icon" width="24" height="24"><use href="#i-folder"/></svg></span>
+      <h1><em>Проекты</em> и кастомные GPT</h1>
+      <p class="subtitle">Полный гид: как устроены, чем отличаются и как работают вместе</p>
+
+      <div class="intro">
+        <p>ChatGPT — не просто чат. Начиная с определённого уровня использования он превращается в многоуровневую рабочую среду с тремя независимыми уровнями контекста: <strong>аккаунт</strong> (глобальная память), <strong>проект</strong> (локальная память и файлы) и <strong>GPT</strong> (роль, методология, поведение). Понять разницу между ними — значит перестать использовать ИИ на 1% его возможностей.</p>
+      </div>
+
+      <div class="levels">
+        <div class="level level-1">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-frame"/></svg>Аккаунт</div>
+          <div class="level-desc">Глобальная память: сохранённые факты и паттерны из всех прошлых чатов.</div>
+        </div>
+        <div class="level level-2">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-folder"/></svg>Проект</div>
+          <div class="level-desc">Локальная память, файлы и инструкции, общие для всех чатов внутри него.</div>
+        </div>
+        <div class="level level-3">
+          <div class="level-head"><svg class="icon" width="16" height="16"><use href="#i-bot"/></svg>GPT</div>
+          <div class="level-desc">Роль, методология и поведение — без постоянной памяти, с чистого листа каждый чат.</div>
+        </div>
+      </div>
+
+      <!-- Словарь -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-book"/></svg>Словарь терминов</h2>
+      <div class="glossary">
+        <dl>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-bot"/></svg></span><div><dt>Кастомный GPT</dt><dd>Персональный ассистент с заданным поведением, созданный через GPT Builder.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-sliders"/></svg></span><div><dt>GPT Builder</dt><dd>Интерфейс для создания и настройки кастомных GPT.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-book"/></svg></span><div><dt>GPT Knowledge</dt><dd>База знаний кастомного GPT — набор файлов, которые он использует при ответах.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-folder"/></svg></span><div><dt>Проект</dt><dd>Изолированное рабочее пространство с общей памятью, файлами и инструкциями.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-files"/></svg></span><div><dt>Индекс-файл</dt><dd>Каталог всех файлов проекта с описаниями и связями между ними.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-frame"/></svg></span><div><dt>Контекстное окно</dt><dd>Объём информации, который GPT может удержать и учесть в рамках одного запроса.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-pencil"/></svg></span><div><dt>Markdown</dt><dd>Лёгкий текстовый формат разметки — оптимальный формат файлов для проектов.</dd></div></div>
+          <div class="g-card"><span class="g-icon"><svg class="icon"><use href="#i-terminal"/></svg></span><div><dt>Парсер</dt><dd>Встроенная способность ИИ читать и понимать структуру Markdown-текста: определять заголовки, списки, блоки кода.</dd></div></div>
+        </dl>
+      </div>
+
+      <!-- Сравнение -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-sliders"/></svg>Проект и кастом: кто за что отвечает</h2>
+      <p>Проще всего запомнить так: <strong>GPT — это «голова» (характер и поведение), проект — это «тело» (контекст и память)</strong>.</p>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr><th>Параметр</th><th>Кастомный GPT</th><th>Проект</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Роль</td><td>Формирует поведение</td><td>Формирует контекст</td></tr>
+            <tr><td>Чаты</td><td>Один чат</td><td>Несколько чатов</td></tr>
+            <tr><td>Память</td><td>Нет</td><td>Есть внутри проекта</td></tr>
+            <tr><td>Инструкция</td><td>Только от третьего лица</td><td>От первого или третьего</td></tr>
+            <tr><td>Шаринг</td><td>Можно поделиться GPT</td><td>Можно поделиться проектом или чатом</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:16px;"><strong>Важно:</strong> чаты, созданные внутри кастомного GPT, нельзя перенести в проект — нужно начать новый чат уже внутри проекта. При шаринге проекта участники видят чаты, файлы и инструкции проекта.</p>
+
+      <!-- Что такое проект -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-folder"/></svg>Проект: рабочее пространство с памятью</h2>
+      <p>Проект — это изолированная среда внутри ChatGPT. Здесь можно вести несколько чатов, которые разделяют общую память, загружать файлы и задавать инструкции, действующие во всём проекте. Главное отличие от обычного чата: ChatGPT помнит контекст и накапливает знания по мере работы.</p>
+
+      <h3>Как он устроен</h3>
+      <ul>
+        <li>Инструкция может быть написана от первого лица («я веду проект по…») или от третьего — зависит от задачи.</li>
+        <li>Файлы — ядро проекта: Markdown, PDF, таблицы CSV, изображения.</li>
+        <li>Поддержка Canvas, Python, DALL·E, веб-поиска.</li>
+        <li>Все чаты внутри проекта видят общий контекст — как если бы разные беседы помнили друг друга.</li>
+        <li>Отдельные чаты и весь проект можно расшарить по ссылке.</li>
+      </ul>
+
+      <h3>Память: три уровня</h3>
+      <p>Глобальная память аккаунта работает на двух уровнях: сохранённые воспоминания (явно запомненные факты) и ссылки на прошлые чаты. ChatGPT может учитывать не только то, что вы специально сохранили, но и паттерны из предыдущих диалогов — аккаунт фактически становится долгоживущим персональным ассистентом.</p>
+      <p>Память внутри конкретного проекта настраивается отдельно:</p>
+      <ul>
+        <li><strong>Default</strong> — ChatGPT использует и глобальную память аккаунта, и историю разговоров внутри проекта.</li>
+        <li><strong>Project-only</strong> — ChatGPT опирается только на разговоры внутри этого проекта, не использует сохранённые воспоминания вне него и не смотрит в чаты из других проектов. Если проект расшарен, он автоматически становится project-only и обратно не переводится.</li>
+      </ul>
+
+      <h3>Где применяется</h3>
+      <ul>
+        <li>Долгосрочные задачи: написание книги, разработка курса, исследование.</li>
+        <li>Командная работа с единым контекстом — ChatGPT как полноценный участник команды.</li>
+        <li>Обработка и систематизация больших массивов данных.</li>
+      </ul>
+
+      <h3>Как создать проект: пошагово</h3>
+      <ol>
+        <li>Откройте левую панель → «Проекты», нажмите «+» и введите название.</li>
+        <li>Напишите инструкцию в Markdown и вставьте её в поле инструкций проекта.</li>
+        <li>Загрузите файлы — оптимально Markdown, CSV, TXT.</li>
+        <li>Создайте файл-индекс и пропишите его в инструкции проекта, чтобы GPT читал его первым.</li>
+        <li>Ведите чаты внутри проекта — контекст накапливается автоматически.</li>
+      </ol>
+
+      <h3>Файл-индекс: оглавление проекта</h3>
+      <p>Если файлов много, создайте отдельный файл-индекс — структурированный каталог всего, что загружено в проект. Укажите в нём:</p>
+      <ul>
+        <li>название каждого файла;</li>
+        <li>краткое описание содержания;</li>
+        <li>связи между файлами (какие дополняют друг друга, в какой последовательности читать);</li>
+        <li>ключевые темы и термины.</li>
+      </ul>
+      <p>В инструкции проекта укажите название файла-индекса (например, <code>index.md</code>) и напишите, как с ним работать: что это оглавление всех файлов проекта и его нужно читать первым при каждом новом запросе.</p>
+      <p><strong>Как создать:</strong> попросите ChatGPT сформировать индекс на основе уже загруженных файлов, скачайте результат в Markdown и загрузите в проект.</p>
+
+      <h3>Пример файл-индекса</h3>
+      <details class="example-toggle">
+        <summary>Показать пример</summary>
+      <div class="prompt-wrapper" style="margin-top:12px;">
+        <div class="prompt-header">
+          <span class="label">index.md · пример</span>
+          <button class="copy-btn" onclick="copyPrompt('index-example', this)">Скопировать</button>
+        </div>
+        <pre id="index-example"># Индекс базы знаний проекта «Максим Агаджанов»
+
+## 1. Назначение файла
+
+Этот файл — главный навигационный индекс проекта.
+Перед началом работы ассистент должен сначала читать `index.md`, чтобы понять:
+
+* какие материалы есть в базе знаний;
+* где лежат интервью, биография, цитаты, экспертные темы и справочные материалы;
+* какие файлы являются основными, а какие — вспомогательными;
+* в какой последовательности читать материалы;
+* какие темы уже подтверждены источниками, а какие требуют проверки.
+
+Ассистент не должен додумывать факты о Максиме Агаджанове. Если информации нет в базе знаний, нужно прямо писать: «В загруженных материалах этого нет».
+
+---
+
+## 2. Краткое описание проекта
+
+Проект посвящён работе с публичной экспертизой Максима Агаджанова.
+
+В базе знаний собраны:
+
+* интервью Максима Агаджанова;
+* его публичные выступления;
+* биографические сведения;
+* профессиональная экспертиза;
+* ключевые темы, формулировки, цитаты;
+* материалы для подготовки постов, статей, выступлений, справок, вопросов для интервью и PR-коммуникаций.
+
+Главная задача проекта — помогать быстро находить, структурировать и использовать уже загруженную информацию без искажений и выдумывания.
+
+---
+
+## 3. Главные правила работы с базой
+
+1. Сначала читать `index.md`.
+2. Затем обращаться к нужному файлу по теме запроса.
+3. Не смешивать подтверждённые факты и интерпретации.
+4. Все утверждения о Максиме Агаджанове брать только из базы знаний.
+5. Если пользователь просит текст от лица Максима Агаджанова, сохранять его реальную лексику, интонацию и смысловые акценты из интервью.
+6. Если данных недостаточно, задавать уточняющий вопрос или честно отмечать пробел.
+7. Не использовать внешние источники без прямого разрешения пользователя.
+
+---
+
+## 4. Структура базы знаний
+
+### 4.1. Биография и справка
+
+**Файл:** `bio_maxim_agadzhanov.md`
+**Тип:** основной файл
+**Содержание:** краткая биография, должности, профессиональный путь, сферы экспертизы, публичное позиционирование.
+**Когда использовать:**
+
+* для справок;
+* для описания героя;
+* для презентаций;
+* для вводных абзацев;
+* для карточек спикера.
+
+**Важно:** если в других интервью есть биографические уточнения, сверять с этим файлом.
+
+---
+
+### 4.2. Интервью
+
+**Файл:** `interview_01_agadzhanov_topic.md`
+**Тип:** первичный источник
+**Содержание:** полная расшифровка интервью.
+**Ключевые темы:**
+
+* профессиональный опыт;
+* взгляды на отрасль;
+* личная позиция;
+* примеры из практики;
+* характерные формулировки.
+
+**Когда использовать:**
+
+* для цитат;
+* для постов;
+* для подготовки вопросов;
+* для восстановления авторской интонации;
+* для фактчекинга.
+
+---
+
+**Файл:** `interview_02_agadzhanov_topic.md`
+**Тип:** первичный источник
+**Содержание:** второе интервью или публичный разговор.
+**Ключевые темы:**
+
+* добавить после загрузки файла;
+* добавить важные цитаты;
+* добавить спорные или сильные тезисы.
+
+**Когда использовать:**
+
+* для сравнения позиций;
+* для поиска повторяющихся мотивов;
+* для расширения экспертного профиля.
+
+---
+
+### 4.3. Экспертиза
+
+**Файл:** `expertise_map_agadzhanov.md`
+**Тип:** аналитический файл
+**Содержание:** карта компетенций Максима Агаджанова.
+**Примерные блоки:**
+
+* основные профессиональные темы;
+* второстепенные темы;
+* темы, где он говорит уверенно и подробно;
+* темы, где данных пока мало;
+* типичные аргументы;
+* примеры, которые он часто использует.
+
+**Когда использовать:**
+
+* для подготовки экспертных комментариев;
+* для медиа-позиционирования;
+* для PR-стратегии;
+* для структуры лекций и выступлений.
+
+---
+
+### 4.4. Цитаты
+
+**Файл:** `quotes_agadzhanov.md`
+**Тип:** вспомогательный файл
+**Содержание:** отобранные цитаты из интервью и выступлений.
+**Формат каждой цитаты:**
+
+&gt; «Точная цитата».
+&gt; Источник: `название_файла.md`, раздел / тема.
+
+**Когда использовать:**
+
+* для постов;
+* для карточек;
+* для заголовков;
+* для презентаций;
+* для медиа-китов.
+
+**Важно:** цитаты нельзя переписывать без пометки, что это адаптация.
+
+---
+
+### 4.5. Голос и стиль
+
+**Файл:** `voice_style_agadzhanov.md`
+**Тип:** аналитический файл
+**Содержание:** описание речевой манеры Максима Агаджанова.
+**Что фиксировать:**
+
+* длинные или короткие фразы;
+* степень формальности;
+* любимые конструкции;
+* типичные метафоры;
+* как объясняет сложные вещи;
+* как спорит;
+* как формулирует выводы;
+* какие слова использует часто.
+
+**Когда использовать:**
+
+* если нужно написать текст в его интонации;
+* если нужно подготовить выступление;
+* если нужно отредактировать текст так, чтобы он звучал естественно для него.
+
+---
+
+### 4.6. Рабочий инбокс
+
+**Файл:** `inbox.md`
+**Тип:** рабочий файл
+**Содержание:** новые материалы, идеи, фрагменты, неразобранные цитаты, заметки пользователя, промежуточные выводы.
+**Когда использовать:**
+
+* когда появился новый материал, но он ещё не разобран;
+* когда нужно временно сохранить вывод;
+* когда пользователь просит: «сохрани это в инбокс»;
+* когда нужно собрать черновую структуру будущего файла.
+
+**Важно:** материалы из `inbox.md` не считать финально проверенными, пока они не перенесены в основные файлы.
+
+---
+
+## 5. Рекомендуемый порядок чтения
+
+Если запрос общий:
+
+1. `index.md`
+2. `bio_maxim_agadzhanov.md`
+3. `expertise_map_agadzhanov.md`
+4. `voice_style_agadzhanov.md`
+5. релевантные интервью
+6. `quotes_agadzhanov.md`
+
+Если запрос про цитаты:
+
+1. `index.md`
+2. `quotes_agadzhanov.md`
+3. исходное интервью, откуда взята цитата
+
+Если запрос про стиль:
+
+1. `index.md`
+2. `voice_style_agadzhanov.md`
+3. интервью как первоисточник
+
+Если запрос про новую идею или неразобранный материал:
+
+1. `index.md`
+2. `inbox.md`
+3. затем предложить, в какой постоянный файл перенести материал
+
+---
+
+## 6. Темы проекта
+
+### Основные темы
+
+* Биография Максима Агаджанова
+* Профессиональная экспертиза
+* Публичные выступления
+* Интервью
+* Цитаты
+* Стиль речи
+* Медиа-позиционирование
+* PR-материалы
+* Вопросы для интервью
+* Тексты от лица эксперта
+
+### Темы, требующие осторожности
+
+* личные оценки;
+* спорные утверждения;
+* неподтверждённые факты;
+* финансовые, юридические или политические заявления;
+* любые формулировки, которых нет в базе знаний.
+
+---
+
+## 7. Что запрещено
+
+* выдумывать факты о Максиме Агаджанове;
+* приписывать ему цитаты, которых нет в базе;
+* писать «он считает», если это не подтверждено интервью;
+* использовать внешние источники без разрешения;
+* превращать черновики из `inbox.md` в финальные факты без проверки;
+* сглаживать авторскую интонацию, если задача — сохранить голос;
+* смешивать разные интервью без указания, откуда взят тезис.
+
+---
+
+## 8. Что проект должен делать
+
+* находить нужные материалы по индексу;
+* кратко объяснять, на какие файлы опирается;
+* отделять факты от интерпретаций;
+* предлагать структуру новых файлов, если база знаний разрастается;
+* помогать обновлять индекс после добавления новых материалов;
+* переносить разобранные фрагменты из `inbox.md` в постоянные разделы;
+* сохранять точность формулировок.</pre>
+      </div>
+      </details>
+
+      <h3>Инбокс-файл (inbox.md): рабочий черновик</h3>
+      <p>Инбокс-файл — это рабочая зона проекта, куда вы собираете промежуточные результаты, черновики и идеи. Туда можно копировать текущие ответы GPT, накапливать фрагменты, которые пока не оформились в отдельный документ.</p>
+      <p>Важно: GPT тоже может писать в инбокс. Например, вы можете сказать: «Сохрани этот ответ в inbox.md и учитывай его в следующем обсуждении.» GPT обрабатывает инбокс только по запросу — он не читает его автоматически, пока вы не попросите.</p>
+      <p>Оптимальный формат — Markdown, чтобы структура сохранялась и GPT мог её считать.</p>
+
+      <!-- Контекст -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-loop"/></svg>Как проект меняет контекст</h2>
+      <p>Ключевая особенность проектов — перенос контекста. Один и тот же вопрос, заданный в разных проектах, получит разные ответы: ChatGPT учитывает инструкции, файлы и историю каждого проекта отдельно.</p>
+
+      <h3>Перенос чата между проектами</h3>
+      <p>Если разговор начался в одном проекте, но логически продолжается в другом — его можно перенести. ChatGPT подхватит новый контекст и продолжит диалог уже в нужных рамках.</p>
+      <ol>
+        <li>Наведите курсор на нужный чат.</li>
+        <li>Нажмите на три точки (⋯).</li>
+        <li>Выберите «Перенести в другой проект».</li>
+      </ol>
+
+      <!-- Что такое кастомный GPT -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-bot"/></svg>Кастомный GPT: персональный ассистент с характером</h2>
+      <p>Кастомный GPT — это ассистент, которого вы создаёте вручную через GPT Builder. Вы задаёте ему роль, стиль общения, ограничения и при необходимости собственную базу знаний. После этого GPT ведёт себя именно так, как вы описали, — в любом чате, независимо от контекста.</p>
+
+      <h3>Как он устроен</h3>
+      <ul>
+        <li>Настраивается через пошаговый интерфейс GPT Builder.</li>
+        <li>Инструкция пишется от третьего лица: GPT — это ассистент, а не вы сами.</li>
+        <li>Может иметь собственную базу знаний (GPT Knowledge) — набор файлов, на которые он опирается при ответах.</li>
+        <li>Поддерживает инструменты: веб-поиск, Deep Research, генерацию изображений, анализ данных, код и Canvas (редактирование текстов и кода по блокам).</li>
+        <li><strong>Нет постоянной памяти</strong> — каждый чат начинается с чистого листа.</li>
+      </ul>
+
+      <h3>Где применяется</h3>
+      <ul>
+        <li>Повторяющиеся задачи: редактура, генерация карточек, быстрые ответы по шаблону.</li>
+        <li>Нишевые роли: переводчик с определённым стилем, редактор с вашим голосом, коуч с заданной методикой.</li>
+        <li>Публичные GPT можно опубликовать в GPT Store — сейчас это уже не эксперимент, а зрелая экосистема: специализированные интерфейсы, корпоративные ассистенты, экспертные системы. Особенно сильно работает в связке с Projects и Memory.</li>
+      </ul>
+
+      <h3>Как создать кастомный GPT: пошагово</h3>
+      <ol>
+        <li><strong>Перейдите в GPT Builder</strong> — откройте chat.openai.com/gpts и нажмите «Create».</li>
+        <li><strong>Опишите, кто будет использовать GPT.</strong> Например: «Я — журналист, который хочет структурировать интервью и готовить статьи.»</li>
+        <li><strong>Опишите, что GPT должен делать.</strong> Например: «Помогать разбивать интервью на цитаты, выявлять темы, делать структуру статьи и подбирать заголовки.»</li>
+        <li><strong>Настройте поведение:</strong> тон («дружелюбный, но структурный»), стиль ответа («короткие списки, подзаголовки»), запреты («не используй эмодзи, не добавляй выдуманные факты»).</li>
+        <li><strong>Добавьте знания (опционально)</strong> — загрузите свои файлы: PDF, Word, Markdown, таблицы. Лучший формат — Markdown: ИИ читает его точнее всего.</li>
+        <li><strong>Сохраните GPT и дайте имя.</strong> Например: «Ассистент по интервью» или «SMM-копирайтер».</li>
+        <li><strong>Проверьте, как он работает</strong> — задайте тестовый запрос. Если GPT отвечает правильно — готово.</li>
+      </ol>
+
+      <!-- Файлы -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-files"/></svg>Работа с файлами</h2>
+
+      <h3>Какой формат выбрать</h3>
+      <p>Файлы внутри проекта — это уже не вложение к чату, а постоянный контекст: они доступны во всех чатах проекта и сохраняются между сессиями. Это принципиальное отличие от старой логики «прикрепил файл — ответил — забыл».</p>
+      <p style="margin-top:16px;">Оптимальный формат — <strong>Markdown</strong>. Он легче читается моделью, занимает в 5–7 раз меньше места, чем Word или PDF, и не теряет структуру при обработке.</p>
+      <p style="margin-top:16px;">Word и PDF — плохой выбор: лишнее форматирование мешает, таблицы «уплощаются», изображения игнорируются. CSV подходит для данных, код — в виде текстовых файлов.</p>
+
+      <h3>Сколько файлов загружать</h3>
+      <ul>
+        <li>5–10 файлов в Markdown — оптимально для большинства проектов.</li>
+        <li>Лимит файлов в проекте зависит от тарифа: Free — 5 файлов, Plus/Go — 25, Pro/Business/Enterprise — 40. За один раз можно загрузить не более 10 файлов.</li>
+        <li>В кастомных GPT (GPTs) лимит базы знаний — до 20 файлов, каждый до 512 МБ.</li>
+        <li>Оптимальный объём одного файла — не больше 10 000 символов.</li>
+        <li>Общий объём файлов в проекте — ориентировочно до 500 000 символов.</li>
+        <li>PowerPoint — плохая идея: файл большой, а полезной информации извлекается мало.</li>
+      </ul>
+
+      <!-- Парсер -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-terminal"/></svg>Что такое парсер</h2>
+      <p>Парсер — это не файл. Это встроенная способность ИИ читать структурированный текст и понимать его устройство: где заголовок, где список, где шаги, где код.</p>
+      <p>Когда вы пишете текст в Markdown — с символами <code>#</code>, <code>-</code>, <code>1.</code> — парсер внутри ChatGPT видит не просто буквы, а структуру. Он говорит себе: «это заголовок, это список, это пошаговая инструкция» — и работает с этим осмысленно, а не как со сплошным потоком слов.</p>
+
+      <h3>Markdown и парсер: в чём разница</h3>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr><th>Понятие</th><th>Что это</th><th>Аналогия</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Markdown</td><td>Формат записи текста</td><td>Язык, на котором вы говорите с ИИ</td></tr>
+            <tr><td>Парсер</td><td>Способ чтения этого текста</td><td>Уши, через которые ИИ его слышит</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:12px;">Без Markdown — ИИ слышит шум. С Markdown — понимает смысл и структуру.</p>
+      <p>Поэтому инструкции, индекс-файл и инбокс лучше писать в Markdown: парсер внутри ChatGPT считает их точно и без искажений.</p>
+
+      <!-- Инструкции -->
+      <h2><svg class="icon" width="20" height="20"><use href="#i-pencil"/></svg>Как писать инструкции</h2>
+      <p>Инструкция — это ядро и GPT, и проекта. От её качества зависит, насколько точно и предсказуемо будет работать ассистент.</p>
+
+      <h3>Структура хорошей инструкции</h3>
+      <ol>
+        <li><strong>Кто пользователь</strong> — кратко: роль, уровень, контекст.</li>
+        <li><strong>Кто ассистент</strong> — как он себя позиционирует, его роль в проекте.</li>
+        <li><strong>Задачи</strong> — что именно нужно делать.</li>
+        <li><strong>Как помогать</strong> — форматы, стиль, структура ответов, тон.</li>
+        <li><strong>Что нельзя</strong> — явные запреты.</li>
+        <li><strong>Где искать информацию</strong> — если есть индексный файл, обязательно упомяните его здесь.</li>
+        <li><strong>Примеры запросов</strong> — 2–3 типичных задания.</li>
+      </ol>
+      <p>Писать инструкцию лучше в Markdown: сначала подготовьте текст, попросите GPT вывести его в формате Markdown, скопируйте и вставьте.</p>
+
+      <div class="callout">
+        <span class="mark">лимит</span>
+        <p>Инструкция ограничена по объёму (около 16 000 символов). Если текст слишком длинный — попросите GPT сжать его под лимит, сохранив структуру.</p>
+      </div>
+
+      <h3>Инструкция для проекта (пример)</h3>
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">project-instruction.md · шаблон</span>
+          <button class="copy-btn" onclick="copyPrompt('project-instruction', this)">Скопировать</button>
+        </div>
+        <pre id="project-instruction">**Контекст**
+Я веду проект по обучению работе с GPT и проектами. В базе — лекции в Markdown + парсеры.
+
+**Как помогать**
+— Используй только материалы из базы знаний (Markdown)
+— Для выдержек/шагов/конспектов: формулировки строго из лекций, без добавлений
+— Сохраняй стиль, не «сглаживай» голос
+
+**Форматирование**
+— Заголовки H1–H3, нумерованные/маркированные списки, таблицы Markdown
+— Цитаты — дословно, с пометкой источника (§)
+
+**Что нельзя**
+— Опираться на внешние источники без явного разрешения
+— Использовать Word/PDF как базу знаний
+
+**Примеры задач**
+«Оформи лекцию из файла X в формат выступления на 60 минут»
+«Собери FAQ по лекции Y (ответы дословно из текста)»</pre>
+      </div>
+
+      <h3>Инструкция для кастомного GPT (пример)</h3>
+      <div class="prompt-wrapper">
+        <div class="prompt-header">
+          <span class="label">gpt-instruction.md · шаблон</span>
+          <button class="copy-btn" onclick="copyPrompt('gpt-instruction', this)">Скопировать</button>
+        </div>
+        <pre id="gpt-instruction">**Кто пользователь**
+Юлия — стратег по ИИ-медиа, преподаватель. Не новичок, не технарь. Нужна глубина без банальностей.
+
+**Как работать**
+Объясняй сложно, но ясно. Сохраняй авторский стиль. Структурируй мысли (лекции, посты, стратегии).
+
+**Что уметь**
+— Строить GPT, проекты и парсеры
+— Работать с Markdown-базой знаний (только на её материале)
+— Редактировать без потери голоса
+
+**Что нельзя**
+— Переписывать тексты без запроса
+— Давать поверхностные списки «топ-5»
+— Смешивать архитектуру агента и сервис
+
+**Примеры запросов**
+«Оформи блок как лекцию на 1 час»
+«Собери парсер для этой лекции»
+«Сделай конспект, сохрани мой голос»</pre>
+      </div>
+
+
+      <!-- Парсер -->
+      <!-- Сборка -->
+      <footer>
+        <div class="footer-links">
+          <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg>Telegram</a>
+          <a href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener"><svg class="icon" width="14" height="14"><use href="#i-send"/></svg>Канал «AI in Action»</a>
+          <a href="mailto:julia.vl.reprintseva@gmail.com"><svg class="icon" width="14" height="14"><use href="#i-mail"/></svg>Email</a>
+          <a href="tel:+79151541491"><svg class="icon" width="14" height="14"><use href="#i-phone"/></svg>+7 91 515 414 91</a>
+        </div>
+      </footer>
+
+    </div><!-- /projects -->
+
+  </main>
+</div>
+
+<script>
+  function toggleTheme() {
+    const r = document.documentElement;
+    const cur = r.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+    r.setAttribute('data-theme', next);
+  }
+
+  // ── Scroll spy ──
+  const navItems = document.querySelectorAll('.nav-item[data-section]');
+  const sections = document.querySelectorAll('.section[id]');
+
+  function setActive(id) {
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.section === id));
+  }
+
+  // Click: smooth scroll to section
+  navItems.forEach(nav => {
+    nav.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(nav.dataset.section);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 76;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Scroll spy via scroll event
+  function onScroll() {
+    let current = sections[0].id;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 120) current = section.id;
+    });
+    setActive(current);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  function copyPrompt(id, btn) {
+    const pre = document.getElementById(id);
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Скопировано';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Скопировать';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
