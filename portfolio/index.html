@@ -224,6 +224,14 @@
   /* ---------- sections ---------- */
 
   .section { padding-top: 46px; }
+  /* Вводный абзац раздела — объясняет, что это за материалы. */
+  .section-intro {
+    color: var(--ink-dim);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 14px 0 26px;
+  }
   .section-head {
     display: flex;
     align-items: baseline;
@@ -483,8 +491,10 @@
     <div class="section-head">
       <span class="section-letter">G</span>
       <span class="section-title">Гайды и статьи</span>
-      <span class="section-count">02</span>
+      <span class="section-count">03</span>
     </div>
+
+    <p class="section-intro">Не пересказ чужих курсов, а то, чем я пользуюсь в работе: настройки, которые ставлю себе, инструменты, собранные под свои задачи, и промпты, доведённые до рабочего состояния. Всё бесплатно и открыто — берите и применяйте.</p>
 
     <div class="ledger">
 
@@ -510,6 +520,19 @@
         </span>
         <span class="row-meta">
           <span class="row-date">28.07.2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+
+      <a class="row" href="guides/prompts/">
+        <span class="row-index">G.03</span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Промпты</span>
+          <span class="row-title">Промпты для дизайн-аудита</span>
+          <span class="row-desc">Четыре готовых текста для ИИ: полный аудит сайта, мобильная версия, анонс, архивная страница.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">20.08.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
