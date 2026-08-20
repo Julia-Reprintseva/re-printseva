@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A daily digest of job posts from Telegram — a how-to</title>
+<meta name="description" content="How to set up Claude Code so that once a day it checks your Telegram channels by itself, picks the job posts that fit and sends them to you with a draft reply — with no terminal open.">
+
+<!-- Live domain: reprintseva.pro -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Julia Reprintseva">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/guides/vacancy-digest-guide/en/">
+<meta property="og:title" content="A job digest every day, on its own">
+<meta property="og:description" content="Claude Code checks your Telegram channels, picks what fits and drafts your reply.">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/guides/vacancy-digest-guide/en/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+<link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/guides/vacancy-digest-guide/">
+<link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/guides/vacancy-digest-guide/en/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A job digest every day, on its own">
+<meta name="twitter:description" content="Claude Code checks your Telegram channels, picks what fits and drafts your reply.">
+<meta name="twitter:image" content="https://reprintseva.pro/portfolio/guides/vacancy-digest-guide/en/og-cover.png">
+
+<!-- Favicon is inlined: the "code/" mark from the header, bronze on graphite. Source file: materials/social-images/favicon-portfolio.svg -->
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+<style>
+  /* ============================================================
+     Палитра портфолио — единая для сайта и гайдов.
+     Тёмная тема базовая, светлая приходит из системной настройки
+     или из переключателя (data-theme).
+     ============================================================ */
+
+  :root{
+    --bg:        #12151C;
+    --paper:     #171B24;
+    --paper-hi:  #1D2331;
+    --line:      #2A3140;
+    --line-soft: #212636;
+    --ink:       #E9E6DC;
+    --ink-dim:   #838CA0;
+    --ink-faint: #545C70;
+    --accent:    #CB9C47;
+    --accent-hi: #E4B968;
+    --good:      #6FAE8C;
+    --wip:       #C77B54;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:        #EEF0F4;
+      --paper:     #FFFFFF;
+      --paper-hi:  #F5F6FA;
+      --line:      #DBDFE8;
+      --line-soft: #E6E9F0;
+      --ink:       #1A1D26;
+      --ink-dim:   #6B7386;
+      --ink-faint: #9BA2B2;
+      --accent:    #9C6C1E;
+      --accent-hi: #7E5714;
+      --good:      #3D7A5C;
+      --wip:       #A85830;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #12151C; --paper: #171B24; --paper-hi: #1D2331;
+    --line: #2A3140; --line-soft: #212636;
+    --ink: #E9E6DC; --ink-dim: #838CA0; --ink-faint: #545C70;
+    --accent: #CB9C47; --accent-hi: #E4B968;
+    --good: #6FAE8C; --wip: #C77B54;
+  }
+  :root[data-theme="light"]{
+    --bg: #EEF0F4; --paper: #FFFFFF; --paper-hi: #F5F6FA;
+    --line: #DBDFE8; --line-soft: #E6E9F0;
+    --ink: #1A1D26; --ink-dim: #6B7386; --ink-faint: #9BA2B2;
+    --accent: #9C6C1E; --accent-hi: #7E5714;
+    --good: #3D7A5C; --wip: #A85830;
+  }
+
+  /* Код читается как код в обеих темах — поэтому блоки всегда тёмные. */
+  :root{
+    --code-bg:      #0F1319;
+    --code-ink:     #E4E1D7;
+    --code-accent:  #E4B968;
+    --code-comment: #6E7787;
+    --code-line:    #232A36;
+  }
+
+  /* Псевдонимы под имена, которые уже стоят в разметке.
+     var() резолвится при использовании, поэтому они сами следуют за темой. */
+  :root{
+    --surface:   var(--paper);
+    --surface-2: var(--paper-hi);
+    --ink-soft:  var(--ink-dim);
+    --muted:     var(--ink-faint);
+    --border:    var(--line);
+  }
+
+  :root{
+    --serif: Georgia, 'Iowan Old Style', ui-serif, serif;
+    --mono:  ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  /* ---------- основа ---------- */
+
+  *, *::before, *::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; font-size:16px;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0) 0 0/28px 28px,
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:1.0625rem;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:var(--mono);}
+
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{color:var(--accent-hi); text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 90px;}
+
+  /* ---------- шапка ---------- */
+
+  header.top{
+    border-bottom:1px solid var(--line);
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    position:sticky; top:0; z-index:10;
+    backdrop-filter:saturate(140%) blur(8px);
+  }
+  .top-inner{
+    max-width:760px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .mark{
+    display:flex; align-items:baseline; gap:9px;
+    text-decoration:none; color:var(--ink);
+  }
+  .mark:hover{text-decoration:none;}
+  .mark:hover .mark-name{color:var(--accent);}
+  .mark-glyph{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--accent);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:2px 6px;
+    letter-spacing:.03em;
+  }
+  .mark-name{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.02rem;
+    letter-spacing:-.01em;
+    transition:color .15s;
+  }
+
+  .header-tools{display:flex; align-items:center; gap:14px;}
+
+  nav.jump{display:flex; gap:16px; flex-wrap:wrap;}
+  nav.jump a{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  nav.jump a:hover{color:var(--accent); text-decoration:none;}
+
+  .theme-btn{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    width:30px; height:30px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:.8rem;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+    transition:border-color .15s, color .15s;
+  }
+  .theme-btn:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- герой ---------- */
+
+  .hero{
+    padding:64px 0 8px;
+    position:relative;
+  }
+  .hero::before, .hero::after{
+    content:"";
+    position:absolute;
+    width:13px; height:13px;
+    border:1px solid var(--accent);
+    opacity:.55;
+  }
+  .hero::before{top:22px; left:-1px; border-width:1px 0 0 1px;}
+  .hero::after {top:22px; right:-1px; border-width:1px 1px 0 0;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 22px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 2.7rem);
+    line-height:1.1;
+    letter-spacing:-.02em;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+  h1 em{font-style:italic; color:var(--accent);}
+  .lede{
+    color:var(--ink-dim);
+    font-size:1.0625rem;
+    line-height:1.65;
+    max-width:58ch;
+    margin:0 0 8px;
+  }
+
+  /* ---------- полоска потока ---------- */
+
+  .flow{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    margin:36px 0 8px; padding:18px 20px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+  }
+  .flow-step{
+    font-family:var(--mono);
+    font-size:0.76rem;
+    color:var(--ink);
+    background:var(--paper-hi);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:6px 10px;
+    white-space:nowrap;
+  }
+  .flow-arrow{color:var(--accent); font-size:0.9rem;}
+
+  /* ---------- секции ---------- */
+
+  section{
+    margin-top:56px;
+    padding-top:38px;
+    border-top:1px solid var(--line);
+  }
+  h2{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.5rem;
+    letter-spacing:-.015em;
+    margin:0 0 6px;
+    scroll-margin-top:76px;
+  }
+  h3{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:1.12rem;
+    letter-spacing:-.01em;
+    margin:32px 0 8px;
+  }
+  .step-no{
+    font-family:var(--mono);
+    font-weight:400;
+    color:var(--accent);
+    font-size:0.78rem;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:1px 6px;
+    margin-right:10px;
+    vertical-align:2px;
+  }
+
+  p{margin:12px 0; color:var(--ink-dim);}
+  p strong, li strong{color:var(--ink); font-weight:600;}
+  ul, ol{color:var(--ink-dim); padding-left:22px;}
+  li{margin:6px 0;}
+  li::marker{color:var(--ink-faint);}
+  em{color:inherit;}
+
+  code:not(pre code){
+    font-family:var(--mono);
+    background:var(--paper-hi);
+    border:1px solid var(--line);
+    padding:.12em .4em;
+    border-radius:3px;
+    font-size:.88em;
+    color:var(--ink);
+    /* Длинные пути вроде ~/Library/LaunchAgents/... не имеют мест для переноса
+       и на узких экранах распирали страницу вбок. */
+    overflow-wrap:anywhere;
+  }
+
+  /* ---------- терминал ---------- */
+
+  .term{
+    margin:18px 0;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--code-bg);
+    border:1px solid var(--code-line);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:9px;
+    padding:9px 14px;
+    border-bottom:1px solid var(--code-line);
+  }
+  .term-bar::before{
+    content:"";
+    width:6px; height:6px; border-radius:50%;
+    background:var(--accent);
+    opacity:.7;
+    flex:none;
+  }
+  .term-label{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:.06em;
+    color:var(--code-comment);
+  }
+  pre{
+    margin:0;
+    padding:16px 18px;
+    overflow-x:auto;
+    font-family:var(--mono);
+    font-size:0.82rem;
+    line-height:1.65;
+    color:var(--code-ink);
+  }
+  pre .c{color:var(--code-comment);}
+  pre .k{color:var(--code-accent);}
+
+  /* ---------- врезки ---------- */
+
+  .callout{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:2px solid var(--wip);
+    border-radius:0 8px 8px 0;
+    padding:16px 18px;
+    margin:20px 0;
+  }
+  .callout .mark{
+    display:block;
+    font-family:var(--mono);
+    font-size:0.66rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--wip);
+    border:1px solid var(--line);
+    padding:2px 7px;
+    border-radius:3px;
+    flex:none;
+    margin-top:3px;
+  }
+  .callout p{margin:0; color:var(--ink); font-size:0.94rem;}
+
+  .tip{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:2px solid var(--accent);
+    border-radius:0 8px 8px 0;
+    padding:16px 18px;
+    margin:20px 0;
+    font-size:0.94rem;
+    color:var(--ink-dim);
+  }
+  .tip a{font-weight:600;}
+
+  /* ---------- таблицы ---------- */
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0;
+    font-size:0.92rem;
+  }
+  th, td{
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+    color:var(--ink-dim);
+  }
+  thead th, tr:first-child th{border-top:1px solid var(--line);}
+  th{
+    font-family:var(--mono);
+    color:var(--ink-faint);
+    font-weight:400;
+    font-size:0.66rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+  }
+  td code{white-space:nowrap;}
+  /* На совсем узких экранах (320px) неразрывные команды в таблице
+     не помещаются и распирают страницу — там разрешаем перенос. */
+  @media (max-width: 360px){
+    td code{white-space:normal; overflow-wrap:anywhere;}
+    /* Ширина колонок таблицы всё равно упирается в min-content содержимого,
+       поэтому на самых узких экранах таблица прокручивается сама в себе,
+       а не распирает страницу. */
+    table{display:block; overflow-x:auto;}
+  }
+  td.mono{font-family:var(--mono); font-size:0.84rem; color:var(--ink);}
+
+  /* ---------- чек-лист ---------- */
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-dim); text-decoration:none;
+    padding:5px 10px 5px 8px; border:1px solid var(--line); border-radius:999px;
+    white-space:nowrap; margin-right:14px; transition:color .15s,border-color .15s;
+  }
+  .back-link:hover{color:var(--accent); border-color:var(--accent);}
+  .checklist{list-style:none; padding-left:0;}
+  /* Пункт — блок с маркером в абсолюте, а не flex: у флекс-элемента ширина
+     не опускается ниже min-content, и длинные команды в <code> распирали
+     страницу вбок на узких экранах. */
+  .checklist li{
+    position:relative;
+    padding:8px 0 8px 24px;
+  }
+  .checklist li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    top:9px;
+    color:var(--accent);
+    font-family:var(--mono);
+  }
+
+  hr.div{border:none; border-top:1px solid var(--line); margin:64px 0 0;}
+
+  /* ---------- подвал ---------- */
+
+  footer{
+    margin-top:0;
+    padding-top:22px;
+    color:var(--ink-faint);
+    font-size:0.82rem;
+  }
+  .footer-links{display:flex; flex-wrap:wrap; gap:18px; margin-bottom:14px;}
+  .footer-links a{
+    color:var(--ink-dim);
+    text-decoration:none;
+    font-size:0.82rem;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:color .15s;
+  }
+  .footer-links a:hover{color:var(--accent); text-decoration:none;}
+  .footer-links .icon{
+    width:14px; height:14px;
+    stroke:currentColor; fill:none;
+    stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
+    flex-shrink:0;
+  }
+
+  ::selection{background:var(--accent); color:var(--bg);}
+
+  @media (max-width:640px){
+    .wrap{padding:0 20px 70px;}
+    .top-inner{padding:12px 20px;}
+    nav.jump{display:none;}
+    .hero{padding-top:44px;}
+    .mark-name{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .theme-btn, .mark-name, .footer-links a{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="back-link" href="../../../en/">← Portfolio</a>
+    <a class="mark" href="../../../en/">
+      <span class="mark-glyph">JR</span>
+      <span class="mark-name">Julia Reprintseva</span>
+    </a>
+    <span class="header-tools">
+      <nav class="jump">
+        <a href="#idea">Idea</a>
+        <a href="#prereq">What you need</a>
+        <a href="#steps">Steps</a>
+        <a href="#safety">Safety</a>
+      </nav>
+      <a class="lang-switch" href="../">RU</a>
+        <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <p class="eyebrow mono">CLAUDE CODE · TELEGRAM · LAUNCHD</p>
+    <h1>Let Claude Code send you <em>job posts</em> every day — with a draft reply</h1>
+    <p class="lede">Once a day, with no terminal open: it checks your Telegram channels, picks what matches your keywords, drafts a cover letter and sends it to your own Saved Messages. Nothing reaches an employer without you looking at it first.</p>
+  </div>
+
+  <div class="flow">
+    <span class="flow-step">Telegram folder of channels</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step">filter by keywords + format</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step">Claude Code drafts a reply</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-step">Saved Messages, once a day</span>
+  </div>
+
+  <section id="idea">
+    <h2>What it does</h2>
+    <p>A script runs on a schedule (on macOS via <code>launchd</code>) and opens a headless Claude Code session with a precisely defined task: look into a chosen Telegram folder, take the last day of messages from the channels in it, keep only the ones that match what you are looking for, and send the result to your own Saved Messages.</p>
+    <p>One message per matching job post: role and company, work format and salary (if stated), a link to the original post, the contacts to apply to, and a draft cover letter written from your own profile. The letter is marked as a draft — you send it yourself, if you decide to apply.</p>
+  </section>
+
+  <section id="prereq">
+    <h2>What you need first</h2>
+    <ul class="checklist">
+      <li>A Mac with <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code</a> installed and signed in.</li>
+      <li>A Telegram MCP server connected — your own personal account, not a bot. Check it with <code>claude mcp list</code>: the list should contain a line like <code>telegram: ... — ✔ Connected</code>. If it is not there, ask Claude Code to help you find and set one up — that is a separate step before everything described below.</li>
+      <li>A Telegram folder that already collects the channels with job posts.</li>
+    </ul>
+    <div class="tip">
+      The easiest way is not to retype these steps by hand but to open this page in a conversation with your own Claude Code and ask: “set up the same thing for me, but for my folder and my keywords.” It will repeat all of this itself, ask for the missing details and adapt it to your machine.
+    </div>
+  </section>
+
+  <section id="steps">
+    <h2>Steps</h2>
+
+    <h3><span class="step-no">01</span>Find your folder ID</h3>
+    <p>Ask Claude Code in a normal chat: “show me my Telegram folders” — it will call <code>list_folders</code> and return a list with ids. Note the id of the folder you need (in the examples below it is <code>169</code>).</p>
+
+    <h3><span class="step-no">02</span>Decide on your filter</h3>
+    <p>Two independent conditions: keywords for the role, and the work format. For example:</p>
+    <table>
+      <tr><th>Parameter</th><th>Example value</th></tr>
+      <tr><td>Keywords</td><td class="mono">editor, smm, writer, producer, journalist, copywriter</td></tr>
+      <tr><td>Work format</td><td class="mono">remote, work from home, hybrid, distributed</td></tr>
+    </table>
+    <p>A job post passes the filter only if at least one word from <em>each</em> group appears in it.</p>
+
+    <h3><span class="step-no">03</span>Write a short profile for the letters (optional)</h3>
+    <p>If you want not just a digest but ready drafts of replies, give Claude Code 3–5 sentences about yourself: your role, key experience, achievements, contacts. It will use only these facts and will not invent anything.</p>
+
+    <h3><span class="step-no">04</span>Create the script</h3>
+    <p>A file, for example <code>~/.claude/scripts/vacancy-digest.sh</code> — the places to replace are marked <code>“# ← replace”</code>:</p>
+    <div class="term">
+      <div class="term-bar"><span class="term-label">vacancy-digest.sh</span></div>
+      <pre><span class="c">#!/bin/bash</span>
+<span class="c"># A daily digest of Telegram job posts + draft replies.</span>
+<span class="c"># Everything goes to Saved Messages only — nothing is sent to employers.</span>
+
+<span class="k">export</span> PATH="$HOME/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+FOLDER_ID=169                        <span class="c"># ← replace with your id from step 01</span>
+SINCE_DATE=$(date -v-1d +%Y-%m-%d)   <span class="c"># on Linux: date -d yesterday +%Y-%m-%d</span>
+
+KEYWORDS="editor, smm, writer, producer, journalist, copywriter"  <span class="c"># ← replace</span>
+FORMAT="remote, work from home, wfh, hybrid, distributed"       <span class="c"># ← replace</span>
+
+PROFILE="First Last — role/specialisation. 3-5 facts from your experience. Contacts: email, telegram, phone."  <span class="c"># ← replace</span>
+
+PROMPT="Check the Telegram folder (folder_id=$FOLDER_ID via mcp__telegram__get_folder) and find new job posts from the last day.
+
+1. From the folder take only chats with type == \"Channel\".
+2. For each channel call mcp__telegram__list_messages with from_date=\"$SINCE_DATE\", limit around 30.
+3. Select messages containing at least one word from this list: $KEYWORDS — and mentioning the format: $FORMAT.
+4. If nothing was found, send nothing and stop.
+5. For each job post get a link to it via mcp__telegram__get_message_link.
+6. Get your own chat_id via mcp__telegram__get_me (chat_id \"me\" = Saved Messages).
+7. Write a short (4-6 sentences) cover letter in the first person based on the profile — real facts only. The letter must begin with “I am applying for [this role](link to the post) JOB TITLE” (the words “this role” being a markdown link to the post link from step 5), and near the end contain the phrase “my CV is attached”:
+$PROFILE
+8. Via mcp__telegram__send_message (with parse_mode=\"md\", so that the link on “this role” renders as clickable) send ONE message per job post to the \"me\" chat: role/company, format/salary, link to the post, contacts, and the draft letter marked “not sent — check before sending”.
+
+Never write or send anything to employers directly — only to your own Saved Messages."
+
+claude -p "$PROMPT" \
+  --allowedTools "mcp__telegram__get_folder,mcp__telegram__list_messages,mcp__telegram__get_me,mcp__telegram__send_message,mcp__telegram__get_message_link" \
+  --model claude-sonnet-5</pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span class="term-label">terminal</span></div>
+      <pre>chmod +x ~/.claude/scripts/vacancy-digest.sh</pre>
+    </div>
+
+    <h3><span class="step-no">05</span>Describe the schedule for launchd</h3>
+    <p>The file <code>~/Library/LaunchAgents/com.NAME.vacancy-digest.plist</code> (replace <code>NAME</code> and the path to the script):</p>
+    <div class="term">
+      <div class="term-bar"><span class="term-label">com.NAME.vacancy-digest.plist</span></div>
+      <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.NAME.vacancy-digest&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/bin/bash&lt;/string&gt;
+        &lt;string&gt;/Users/NAME/.claude/scripts/vacancy-digest.sh&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;StartCalendarInterval&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;&lt;integer&gt;11&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;&lt;integer&gt;0&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+    &lt;string&gt;/Users/NAME/.claude/logs/vacancy-digest.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/Users/NAME/.claude/logs/vacancy-digest.err.log&lt;/string&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;&lt;false/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</pre>
+    </div>
+    <p><code>Hour</code>/<code>Minute</code> is the run time in your local time zone. The computer has to be on at that moment (off overnight and on in the morning is fine — just set the time with some margin).</p>
+
+    <h3><span class="step-no">06</span>Register it and check</h3>
+    <div class="term">
+      <div class="term-bar"><span class="term-label">terminal</span></div>
+      <pre>launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.NAME.vacancy-digest.plist
+launchctl enable gui/$(id -u)/com.NAME.vacancy-digest
+
+<span class="c"># a test run right now, without waiting for the schedule:</span>
+launchctl kickstart -p gui/$(id -u)/com.NAME.vacancy-digest</pre>
+    </div>
+    <p>If everything is set up correctly, within 1–2 minutes (checking several channels takes a while) job cards will appear in your Saved Messages — or nothing, if nothing matching came up in the last day.</p>
+
+    <h3>Change the time or turn it off</h3>
+    <table>
+      <tr><th>Action</th><th>Command</th></tr>
+      <tr><td>Change the time</td><td>edit <code>Hour</code>/<code>Minute</code> in the plist, then <code>bootout</code> + <code>bootstrap</code> + <code>enable</code> again</td></tr>
+      <tr><td>Stop it completely</td><td class="mono">launchctl bootout gui/$(id -u)/com.NAME.vacancy-digest</td></tr>
+      <tr><td>See the logs</td><td class="mono">cat ~/.claude/logs/vacancy-digest.log</td></tr>
+    </table>
+  </section>
+
+  <section id="safety">
+    <h2>About safety</h2>
+    <div class="callout">
+      <span class="mark">important</span>
+      <p>The script is allowed exactly five Telegram tools (<code>--allowedTools</code>) — reading folders and messages, getting a link to a post, and sending a message to yourself. It has no access to any chats other than your own Saved Messages, and no way to write to anyone else.</p>
+    </div>
+    <p>Draft letters are drafts: Claude Code writes them only from the facts you gave in your profile, and marks every message clearly as unsent. Whether to apply, whether to edit the letter — that is always your call.</p>
+  </section>
+
+  <hr class="div">
+  <footer>
+    Set up through a conversation with Claude Code — tried out for real before being written up.
+    <div class="footer-links" style="margin-top:14px; margin-bottom:0;">
+      <a href="../../../en/">← Portfolio</a>
+      <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>Telegram</a>
+      <a href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>“AI in Action” channel</a>
+      <a href="mailto:julia.vl.reprintseva@gmail.com"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+      <a href="tel:+79151541491"><svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></svg>+7 91 515 414 91</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+  r.setAttribute('data-theme', next);
+}
+</script>
+</body>
+</html>
