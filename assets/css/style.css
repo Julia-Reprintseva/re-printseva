@@ -277,8 +277,12 @@ footer.site a:hover{color:#fff;}
   .step:nth-child(2n){border-right:none;}
   .timeline-row{grid-template-columns:1fr;gap:6px;}
   .nav-links{
-    position:fixed;top:70px;left:0;right:0;bottom:0;background:var(--paper);
-    flex-direction:column;padding:32px;gap:22px;font-size:1rem;
+    /* Высота задана явно, а не через bottom:0: у header.site есть backdrop-filter,
+       из-за него шапка становится точкой отсчёта для position:fixed внутри неё,
+       и меню растягивалось не на экран, а на высоту шапки. */
+    position:fixed;top:70px;left:0;right:0;background:var(--paper);
+    height:calc(100vh - 70px);height:calc(100dvh - 70px);
+    flex-direction:column;padding:32px;gap:22px;font-size:1rem;overflow-y:auto;
     transform:translateY(-110%);opacity:0;transition:.2s ease;pointer-events:none;z-index:40;
   }
   .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
@@ -288,8 +292,12 @@ footer.site a:hover{color:#fff;}
 /* 9 nav items don't fit in one row up to ~1180px — extend the burger-menu range */
 @media (min-width:901px) and (max-width:1180px){
   .nav-links{
-    position:fixed;top:70px;left:0;right:0;bottom:0;background:var(--paper);
-    flex-direction:column;padding:32px;gap:22px;font-size:1rem;
+    /* Высота задана явно, а не через bottom:0: у header.site есть backdrop-filter,
+       из-за него шапка становится точкой отсчёта для position:fixed внутри неё,
+       и меню растягивалось не на экран, а на высоту шапки. */
+    position:fixed;top:70px;left:0;right:0;background:var(--paper);
+    height:calc(100vh - 70px);height:calc(100dvh - 70px);
+    flex-direction:column;padding:32px;gap:22px;font-size:1rem;overflow-y:auto;
     transform:translateY(-110%);opacity:0;transition:.2s ease;pointer-events:none;z-index:40;
   }
   .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
