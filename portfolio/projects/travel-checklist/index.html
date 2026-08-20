@@ -492,6 +492,13 @@
       margin-bottom: 0.35rem;
       white-space: nowrap;
     }
+
+    /* На узких экранах строка «вайбкодер-путешественница Юлия Re:Принцева»
+       не помещается, а nowrap не даёт ей перенестись — страница уезжала
+       вбок на 56px. На широких экранах запрет переноса оставляем. */
+    @media (max-width: 420px) {
+      .site-footer .footer-name { white-space: normal; }
+    }
     .site-footer .footer-row {
       display: flex;
       flex-wrap: wrap;
