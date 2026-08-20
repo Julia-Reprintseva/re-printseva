@@ -22,7 +22,7 @@ section[id]{scroll-margin-top:95px;}
 /* Блок «Примеры уже готовы» — цель пункта меню «Портфолио». Отступ больше,
    чем у секций: иначе он встаёт вплотную под шапку и кажется, что страница
    провалилась вниз. Так сверху остаётся край предыдущего блока. */
-#portfolio{scroll-margin-top:190px;}
+#portfolio{scroll-margin-top:270px;}
 body{
   margin:0;font-family:var(--display);background:var(--paper);color:var(--ink);
   line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
