@@ -105,6 +105,19 @@
     justify-content: space-between;
     padding: 40px 0 0;
   }
+
+  /* Кнопка возврата на уровень выше — есть на каждой вложенной странице. */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-dim); text-decoration: none;
+    padding: 5px 10px 5px 8px; border: 1px solid var(--line);
+    border-radius: 999px; white-space: nowrap; transition: color .15s, border-color .15s;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+  header .header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  @media (max-width: 560px) { .mark-name { display: none; } }
   .mark {
     display: flex;
     align-items: baseline;
@@ -390,10 +403,10 @@
 <div class="sheet">
 
   <header>
-    <a class="mark" href="#">
+    <span class="header-left"><a class="back-link" href="../">← На главную</a><a class="mark" href="../">
       <span class="mark-glyph">ЮР</span>
       <span class="mark-name">Юлия Репринцева</span>
-    </a>
+    </a></span>
     <span class="header-tools">
       <a class="lang-switch" href="en/">EN</a>
       <button class="theme-btn" onclick="toggleTheme()" aria-label="Переключить тему">☾</button>

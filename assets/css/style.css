@@ -17,6 +17,8 @@
 
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
+/* Липкая шапка высотой ~83px перекрывала бы цель якоря — отступаем. */
+section[id],[id].cta-band{scroll-margin-top:95px;}
 body{
   margin:0;font-family:var(--display);background:var(--paper);color:var(--ink);
   line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
