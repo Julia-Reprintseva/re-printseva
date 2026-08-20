@@ -224,6 +224,14 @@
   /* ---------- sections ---------- */
 
   .section { padding-top: 46px; }
+  /* Вводный абзац раздела — объясняет, что это за материалы. */
+  .section-intro {
+    color: var(--ink-dim);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 14px 0 26px;
+  }
   .section-head {
     display: flex;
     align-items: baseline;
@@ -483,8 +491,10 @@
     <div class="section-head">
       <span class="section-letter">G</span>
       <span class="section-title">Guides & Articles</span>
-      <span class="section-count">02</span>
+      <span class="section-count">03</span>
     </div>
+
+    <p class="section-intro">Not a retelling of someone else's course — this is what I actually use: settings I put in my own chats, tools I built for my own tasks, and prompts I have worked into shape. All free and open — take them and use them.</p>
 
     <div class="ledger">
 
@@ -510,6 +520,19 @@
         </span>
         <span class="row-meta">
           <span class="row-date">28 Jul 2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+
+      <a class="row" href="../guides/prompts/en/">
+        <span class="row-index">G.03</span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Prompts</span>
+          <span class="row-title">Design audit prompts</span>
+          <span class="row-desc">Four ready-made texts for an AI: full site audit, mobile version, announcement, archive page.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">20 Aug 2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
