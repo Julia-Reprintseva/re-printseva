@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design audit prompts — the ones I use on my own sites</title>
+  <meta name="description" content="Four prompts I use to review the pages I build myself: full site audit, mobile version, event announcement and archive page. Ready to copy.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Julia Reprintseva">
+  <meta property="og:url" content="https://reprintseva.pro/portfolio/guides/prompts/en/">
+  <meta property="og:title" content="Design audit prompts">
+  <meta property="og:description" content="Four working prompts: full audit, mobile version, announcement, archive page.">
+  <meta property="og:image" content="https://reprintseva.pro/portfolio/guides/prompts/en/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Design audit prompts">
+  <meta name="twitter:description" content="Four working prompts: full audit, mobile version, announcement, archive page.">
+  <meta name="twitter:image" content="https://reprintseva.pro/portfolio/guides/prompts/en/og-cover.png">
+
+  <link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/guides/prompts/">
+  <link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/guides/prompts/en/">
+
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+  <meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+  <style>
+    :root{
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968;
+      --mono: ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+      --serif: Georgia,'Iowan Old Style',ui-serif,serif;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+        --line:#DBDFE8; --line-soft:#E6E9F0;
+        --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+        --accent:#9C6C1E; --accent-hi:#7E5714;
+      }
+    }
+    :root[data-theme="dark"]{
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968;
+    }
+    :root[data-theme="light"]{
+      --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+      --line:#DBDFE8; --line-soft:#E6E9F0;
+      --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+      --accent:#9C6C1E; --accent-hi:#7E5714;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:radial-gradient(circle at 1px 1px,var(--line-soft) 1px,transparent 0) 0 0/28px 28px,var(--bg);
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.6;
+    }
+
+    /* ---------- шапка ---------- */
+    .top-bar{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+      padding:14px 32px;
+      background:color-mix(in srgb,var(--bg) 92%,transparent);
+      border-bottom:1px solid var(--line);
+    }
+    @supports not (background:color-mix(in srgb,red 50%,transparent)){
+      .top-bar{background:var(--bg);}
+    }
+    .back-link{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--ink-dim);text-decoration:none;
+      padding:5px 10px 5px 8px;border:1px solid var(--line);border-radius:999px;
+      white-space:nowrap;transition:color .15s,border-color .15s;
+    }
+    .back-link:hover{color:var(--accent);border-color:var(--accent);}
+    .mark{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);}
+    .mark-glyph{
+      font-family:var(--mono);font-size:.72rem;color:var(--accent);
+      border:1px solid var(--line);border-radius:3px;padding:2px 6px;letter-spacing:.03em;
+    }
+    .mark-name{font-family:var(--serif);font-weight:700;font-size:1rem;letter-spacing:-.01em;}
+    .top-tools{margin-left:auto;display:flex;align-items:center;gap:10px;}
+    .lang-switch,.theme-btn{
+      font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;
+      color:var(--ink-dim);text-decoration:none;background:none;
+      border:1px solid var(--line);border-radius:999px;
+      padding:5px 11px;cursor:pointer;transition:color .15s,border-color .15s;
+    }
+    .lang-switch:hover,.theme-btn:hover{color:var(--accent);border-color:var(--accent);}
+    @media (max-width:560px){ .mark-name{display:none;} .top-bar{padding:12px 18px;} }
+
+    /* ---------- полотно ---------- */
+    .sheet{max-width:760px;margin:0 auto;padding:0 32px 90px;}
+    @media (max-width:560px){ .sheet{padding:0 18px 64px;} }
+
+    .hero{padding:56px 0 40px;}
+    .eyebrow{
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ink-faint);margin-bottom:22px;
+    }
+    h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(2.1rem,6vw,3rem);letter-spacing:-.02em;line-height:1.08;
+      margin-bottom:20px;
+    }
+    h1 em{font-style:italic;color:var(--accent);}
+    .subtitle{font-size:1.06rem;color:var(--ink-dim);max-width:52ch;}
+
+    .intro{margin-top:34px;display:grid;gap:16px;max-width:62ch;}
+    .intro p{color:var(--ink-dim);}
+    .intro strong{color:var(--ink);font-weight:600;}
+
+    /* ---------- как пользоваться ---------- */
+    .howto{
+      margin:44px 0 0;padding:26px 28px;
+      background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    }
+    .howto h2{
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--ink-faint);font-weight:400;margin-bottom:16px;
+    }
+    .howto ol{margin:0;padding-left:20px;display:grid;gap:9px;}
+    .howto li{color:var(--ink-dim);}
+    .howto li strong{color:var(--ink);font-weight:600;}
+
+    /* ---------- список промптов ---------- */
+    .section-head{
+      display:flex;align-items:baseline;gap:12px;
+      margin:64px 0 8px;padding-bottom:14px;border-bottom:1px solid var(--line);
+    }
+    .section-letter{
+      font-family:var(--mono);font-size:.7rem;color:var(--accent);
+      border:1px solid var(--line);border-radius:3px;padding:2px 6px;
+    }
+    .section-title{font-family:var(--serif);font-weight:700;font-size:1.3rem;}
+    .section-count{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+
+    .prompt{border-bottom:1px solid var(--line-soft);padding:28px 0;}
+    .prompt-index{
+      font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);
+      letter-spacing:.06em;display:block;margin-bottom:8px;
+    }
+    .prompt h3{font-family:var(--serif);font-weight:700;font-size:1.22rem;margin-bottom:6px;}
+    .prompt-when{font-family:var(--mono);font-size:.74rem;color:var(--accent);margin-bottom:12px;}
+    .prompt-note{color:var(--ink-dim);max-width:60ch;}
+
+    details{margin-top:18px;}
+    summary{
+      display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;
+      padding:6px 14px;list-style:none;transition:color .15s,border-color .15s;
+    }
+    summary::-webkit-details-marker{display:none;}
+    summary:hover{color:var(--accent);border-color:var(--accent);}
+    summary::after{content:"↓";font-size:.8rem;}
+    details[open] summary::after{content:"↑";}
+
+    .prompt-body{
+      margin-top:16px;border:1px solid var(--line);border-radius:12px;
+      background:var(--paper);overflow:hidden;
+    }
+    .prompt-bar{
+      display:flex;align-items:center;gap:12px;
+      padding:10px 14px;border-bottom:1px solid var(--line);
+      background:var(--paper-hi);
+    }
+    .prompt-bar span{
+      font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--ink-faint);
+    }
+    .copy-btn{
+      margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--ink-dim);background:none;
+      border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;
+      transition:color .15s,border-color .15s;
+    }
+    .copy-btn:hover{color:var(--accent);border-color:var(--accent);}
+    .copy-btn.done{color:var(--accent);border-color:var(--accent);}
+    /* Промпт показывается как читаемый markdown-текст; исходник со всеми ##
+       и ** лежит рядом в скрытом <pre> — его и копирует кнопка. */
+    .prompt-md{
+      padding:22px 24px;max-height:460px;overflow:auto;
+      font-size:.92rem;line-height:1.62;color:var(--ink);
+    }
+    .prompt-md > *:first-child{margin-top:0;}
+    .prompt-md p{margin:0 0 12px;}
+    .prompt-md h3{
+      font-family:var(--serif);font-weight:700;font-size:1.04rem;
+      margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);
+    }
+    .prompt-md h4{
+      font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--accent);margin:20px 0 8px;font-weight:400;
+    }
+    .prompt-md ul,.prompt-md ol{margin:0 0 12px;padding-left:22px;}
+    .prompt-md li{margin:5px 0;}
+    .prompt-md li::marker{color:var(--ink-faint);}
+    .prompt-md strong{color:var(--ink);font-weight:650;}
+    .prompt-md code{
+      font-family:var(--mono);font-size:.86em;
+      background:var(--paper-hi);border:1px solid var(--line);
+      border-radius:3px;padding:.08em .35em;
+    }
+    .lbl-hide{display:none;}
+    details[open] .lbl-show{display:none;}
+    details[open] .lbl-hide{display:inline;}
+
+    /* ---------- подвал ---------- */
+    footer{
+      margin-top:64px;padding-top:22px;border-top:1px solid var(--line);
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+      font-size:.78rem;color:var(--ink-faint);
+    }
+    footer .links{display:flex;flex-wrap:wrap;gap:10px 18px;}
+    footer a{color:var(--ink-dim);text-decoration:none;}
+    footer a:hover{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a class="back-link" href="../../../en/">← Portfolio</a>
+  <a class="mark" href="../../../en/">
+    <span class="mark-glyph">JR</span>
+    <span class="mark-name">Julia Reprintseva</span>
+  </a>
+  <span class="top-tools">
+    <a class="lang-switch" href="../">RU</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+  </span>
+</header>
+
+<div class="sheet">
+
+  <div class="hero">
+    <div class="eyebrow">Prompts · design audit</div>
+    <h1>Prompts I use to <em>review</em> my own sites</h1>
+    <p class="subtitle">Four ready-made texts for an AI: copy one, attach the page — and get a review shaped as “problem → why it hurts → how to fix it”.</p>
+
+    <div class="intro">
+        <p>This is not a retelling of someone else's course — it is what I actually use. When I build a site myself, my eye stops seeing it: I look at the page from the inside, not the way someone landing on it for the first time will. A prompt gives the outside view back.</p>
+        <p>Each one is written so the model cannot get away with compliments. They explicitly forbid “looks good overall” without an explanation, require separating real problems from personal taste, and forbid inventing flaws where a solution already works.</p>
+        <p>The prompts work with any strong model — ChatGPT, Claude or another. What it reviews is whatever you attach: the page's HTML file, screenshots or a link.</p>
+    </div>
+  </div>
+
+  <section class="howto">
+    <h2>How to use them</h2>
+    <ol>
+          <li><strong>Attach the page</strong> — its HTML file, screenshots or a link. If you built it yourself, handing over the HTML is easiest: it is already there, and no screenshots are needed.</li>
+          <li><strong>Both is better.</strong> The code shows structure and styles, the screenshots show what the page actually looks like. For the mobile prompt, phone screenshots are required.</li>
+          <li><strong>Paste the prompt</strong> into the same chat.</li>
+          <li><strong>Work by priority.</strong> Each prompt ends by naming the three changes with the biggest effect — start there.</li>
+    </ol>
+  </section>
+
+  <div class="section-head">
+    <span class="section-letter">P</span>
+    <span class="section-title">Prompts</span>
+    <span class="section-count">04</span>
+  </div>
+
+      <article class="prompt">
+        <span class="prompt-index">P.01</span>
+        <h3>Full design audit of a site</h3>
+        <p class="prompt-when">When you need a review of a whole page or site</p>
+        <p class="prompt-note">The most detailed of the four: twelve sections, from first impression and visual hierarchy to accessibility and how current the design looks. It asks the model to separate real problems from personal taste and ends with scores on seven scales.</p>
+        <details>
+          <summary><span class="lbl-show">Show the prompt</span><span class="lbl-hide">Hide the prompt</span></summary>
+          <div class="prompt-body">
+            <div class="prompt-bar">
+              <span>Full prompt · copies as Markdown</span>
+              <button class="copy-btn" data-done="Copied">Copy</button>
+            </div>
+            <div class="prompt-md">
+            <p>You are a strong senior web designer and art director with experience building modern commercial sites, landing pages, media and educational projects.</p>
+            <p>Your task is to run a professional design audit of a site or a specific page that I will show you as a link, screenshots or an HTML file. The code gives you the structure, the markup and the styles; the screenshots give you the final picture. If both are attached, use both, and point it out if they disagree.</p>
+            <p>Look at the site not as an ordinary user but as a specialist in web design, UI/UX, visual communication and conversion.</p>
+            <h3>What to evaluate</h3>
+            <h4>1. First impression</h4>
+            <p>Look at the page for a few seconds and answer:</p>
+            <ul><li>what do I notice first;</li><li>is it immediately clear what this site is, whose it is and what is offered here;</li><li>does the site look professional, modern and convincing;</li><li>what impression does it create: expensive / cheap, expert / amateur, modern / dated, alive / templated;</li><li>does it make me want to keep exploring the page.</li></ul>
+            <p>Do not fill in the blanks for the site owner. If the meaning has to be decoded, that is a flaw in the design or the structure.</p>
+            <h4>2. Visual hierarchy</h4>
+            <p>Evaluate:</p>
+            <ul><li>is it clear where to look first and where to look next;</li><li>are the meaningful accents placed correctly;</li><li>do headings, images, buttons and decorative elements compete with each other;</li><li>are different blocks of meaning visually separated enough;</li><li>are there elements that draw too much attention or, on the contrary, get lost.</li></ul>
+            <p>Point out separately if the visual hierarchy breaks down.</p>
+            <h4>3. Composition and grid</h4>
+            <p>Check:</p>
+            <ul><li>the width of the content area;</li><li>alignment;</li><li>margins and padding;</li><li>distances between blocks;</li><li>the rhythm of the page;</li><li>the balance of text and free space;</li><li>the placement of images, cards, buttons and other elements;</li><li>whether there is a feeling of crowding, emptiness, chaos or randomly assembled elements.</li></ul>
+            <p>If you see a problem, explain not only &quot;this is ugly&quot; but why it does not work compositionally.</p>
+            <h4>4. Typography</h4>
+            <p>Evaluate:</p>
+            <ul><li>the choice of typefaces;</li><li>the sizes of headings and body text;</li><li>line height;</li><li>line length;</li><li>weights and styles;</li><li>contrast between heading levels;</li><li>readability;</li><li>how many different typographic styles are in play.</li></ul>
+            <p>Check separately whether the text reads as a solid wall and whether the page is easy to scan.</p>
+            <h4>5. Colour and visual style</h4>
+            <p>Evaluate:</p>
+            <ul><li>the colour palette;</li><li>contrast;</li><li>colour combinations;</li><li>the use of brand colours;</li><li>the background;</li><li>buttons;</li><li>illustrations and photographs;</li><li>icons;</li><li>corner radii, shadows, borders and other UI devices.</li></ul>
+            <p>Determine whether everything looks like part of one design system or whether the elements are assembled from different styles.</p>
+            <p>Do not suggest changing colours simply because you personally prefer others. Criticise only where there is a functional or visual problem.</p>
+            <h4>6. UX and usability</h4>
+            <p>Check:</p>
+            <ul><li>is it clear what can be clicked;</li><li>are the main buttons noticeable;</li><li>is the navigation placed logically;</li><li>is important information easy to find;</li><li>is it clear what the user should do next;</li><li>are there unnecessary steps;</li><li>does the order of blocks match the user&#x27;s logic.</li></ul>
+            <p>For every serious UX flaw, explain the scenario: &quot;The user wants X → sees Y → because of that they may not understand / not notice / leave.&quot;</p>
+            <h4>7. The first screen</h4>
+            <p>Take it apart in particular detail.</p>
+            <p>Answer:</p>
+            <ul><li>is the offer clear without scrolling;</li><li>is the main heading strong enough;</li><li>does the subheading help;</li><li>is there an obvious next step;</li><li>is the screen overloaded;</li><li>does the image work for the meaning or is it decoration;</li><li>what is missing here;</li><li>what could be removed.</li></ul>
+            <h4>8. Content through a designer&#x27;s eyes</h4>
+            <p>Do not edit the whole text as a copywriter, but evaluate:</p>
+            <ul><li>is there too much text;</li><li>are the paragraphs short enough;</li><li>can the page be scanned quickly;</li><li>are the key ideas pulled out;</li><li>are there empty or repetitive blocks;</li><li>does the amount of text match the importance of the information.</li></ul>
+            <p>If the text gets in the way of the design, show exactly where and why.</p>
+            <h4>9. Trust</h4>
+            <p>Evaluate how well the design helps a visitor believe the person, the company or the project.</p>
+            <p>Check for the presence and the presentation of:</p>
+            <ul><li>the author&#x27;s name and personality;</li><li>experience;</li><li>case studies;</li><li>clients;</li><li>testimonials;</li><li>partners;</li><li>numbers;</li><li>photographs;</li><li>contacts;</li><li>social proof.</li></ul>
+            <p>Important: evaluate not only whether these elements exist but how convincingly they are presented.</p>
+            <h4>10. How current it looks</h4>
+            <p>Determine whether the site looks up to date today.</p>
+            <p>If something looks dated, name the specific device:</p>
+            <ul><li>the composition;</li><li>the typography;</li><li>the cards;</li><li>the buttons;</li><li>the gradients;</li><li>the images;</li><li>the grid;</li><li>the effects;</li><li>interface density, and so on.</li></ul>
+            <p>Do not write a vague &quot;looks outdated&quot;.</p>
+            <h4>11. Mobile version</h4>
+            <p>If it is shown, evaluate separately:</p>
+            <ul><li>text sizes;</li><li>margins;</li><li>the order of blocks;</li><li>line breaks;</li><li>buttons;</li><li>the menu;</li><li>images;</li><li>reading comfort;</li><li>elements that look fine on desktop but break on mobile.</li></ul>
+            <h4>12. Accessibility</h4>
+            <p>Check the obvious problems:</p>
+            <ul><li>insufficient contrast;</li><li>text that is too small;</li><li>clickable elements that are too small;</li><li>meaning conveyed by colour alone;</li><li>poor legibility of text over an image.</li></ul>
+            <p>Do not go into a formal WCAG audit if there is not enough data for one.</p>
+            <h3>How to give feedback</h3>
+            <p>I need professional criticism, not compliments.</p>
+            <p>Do not write: &quot;overall it&#x27;s fine&quot;, &quot;looks stylish&quot;, &quot;could be improved a little&quot;, unless you explain specifically why.</p>
+            <p>Separate:</p>
+            <ol><li>objective problems;</li><li>debatable design decisions;</li><li>matters of taste.</li></ol>
+            <p>Do not pass off a matter of taste as a professional rule.</p>
+            <p>Phrase every note in this shape:</p>
+            <p><strong>Problem → why it is a problem → how to fix it.</strong></p>
+            <p>For example:</p>
+            <p>&quot;The main heading is visually almost equal to the subheading → the first screen has no obvious entry point → increase the difference in size and/or weight and tone down the subheading.&quot;</p>
+            <h3>Priorities</h3>
+            <p>Do not compile an endless list of trivia.</p>
+            <p>First find the 5–7 changes that would improve the page the most.</p>
+            <p>Split the notes into:</p>
+            <p><strong>Critical</strong> — gets in the way of understanding the offer, using the site, or makes it feel like an unprofessional product.</p>
+            <p><strong>Important</strong> — noticeably degrades the design or the impression, but the site still does its job.</p>
+            <p><strong>Cosmetic</strong> — polish worth doing after the main problems are solved.</p>
+            <h3>Summary</h3>
+            <p>At the end, give:</p>
+            <p><strong>Overall design score: X/10.</strong></p>
+            <p>Then, separately on a 10-point scale:</p>
+            <ul><li>visual quality;</li><li>composition;</li><li>typography;</li><li>UX;</li><li>visual hierarchy;</li><li>trust;</li><li>how current it looks.</li></ul>
+            <p>After that, state:</p>
+            <p><strong>The three main problems of the page</strong></p>
+            <p>and</p>
+            <p><strong>The three changes that will give the biggest effect for the smallest amount of rework.</strong></p>
+            <p>If the site already looks professional, do not invent flaws for the sake of criticism. If it looks amateur, say so directly and explain which specific decisions create that impression.</p>
+            <p>If I send several pages of one site, first evaluate each page, then separately evaluate the coherence of the site as a system: consistency of grid, typography, buttons, colours, cards, navigation and the overall visual language.</p>
+            </div>
+            <pre class="prompt-raw" hidden>You are a strong senior web designer and art director with experience building modern commercial sites, landing pages, media and educational projects.
+
+Your task is to run a professional design audit of a site or a specific page that I will show you as a link, screenshots or an HTML file. The code gives you the structure, the markup and the styles; the screenshots give you the final picture. If both are attached, use both, and point it out if they disagree.
+
+Look at the site not as an ordinary user but as a specialist in web design, UI/UX, visual communication and conversion.
+
+## What to evaluate
+
+### 1. First impression
+Look at the page for a few seconds and answer:
+- what do I notice first;
+- is it immediately clear what this site is, whose it is and what is offered here;
+- does the site look professional, modern and convincing;
+- what impression does it create: expensive / cheap, expert / amateur, modern / dated, alive / templated;
+- does it make me want to keep exploring the page.
+
+Do not fill in the blanks for the site owner. If the meaning has to be decoded, that is a flaw in the design or the structure.
+
+### 2. Visual hierarchy
+Evaluate:
+- is it clear where to look first and where to look next;
+- are the meaningful accents placed correctly;
+- do headings, images, buttons and decorative elements compete with each other;
+- are different blocks of meaning visually separated enough;
+- are there elements that draw too much attention or, on the contrary, get lost.
+
+Point out separately if the visual hierarchy breaks down.
+
+### 3. Composition and grid
+Check:
+- the width of the content area;
+- alignment;
+- margins and padding;
+- distances between blocks;
+- the rhythm of the page;
+- the balance of text and free space;
+- the placement of images, cards, buttons and other elements;
+- whether there is a feeling of crowding, emptiness, chaos or randomly assembled elements.
+
+If you see a problem, explain not only &quot;this is ugly&quot; but why it does not work compositionally.
+
+### 4. Typography
+Evaluate:
+- the choice of typefaces;
+- the sizes of headings and body text;
+- line height;
+- line length;
+- weights and styles;
+- contrast between heading levels;
+- readability;
+- how many different typographic styles are in play.
+
+Check separately whether the text reads as a solid wall and whether the page is easy to scan.
+
+### 5. Colour and visual style
+Evaluate:
+- the colour palette;
+- contrast;
+- colour combinations;
+- the use of brand colours;
+- the background;
+- buttons;
+- illustrations and photographs;
+- icons;
+- corner radii, shadows, borders and other UI devices.
+
+Determine whether everything looks like part of one design system or whether the elements are assembled from different styles.
+
+Do not suggest changing colours simply because you personally prefer others. Criticise only where there is a functional or visual problem.
+
+### 6. UX and usability
+Check:
+- is it clear what can be clicked;
+- are the main buttons noticeable;
+- is the navigation placed logically;
+- is important information easy to find;
+- is it clear what the user should do next;
+- are there unnecessary steps;
+- does the order of blocks match the user&#x27;s logic.
+
+For every serious UX flaw, explain the scenario:
+&quot;The user wants X → sees Y → because of that they may not understand / not notice / leave.&quot;
+
+### 7. The first screen
+Take it apart in particular detail.
+
+Answer:
+- is the offer clear without scrolling;
+- is the main heading strong enough;
+- does the subheading help;
+- is there an obvious next step;
+- is the screen overloaded;
+- does the image work for the meaning or is it decoration;
+- what is missing here;
+- what could be removed.
+
+### 8. Content through a designer&#x27;s eyes
+Do not edit the whole text as a copywriter, but evaluate:
+- is there too much text;
+- are the paragraphs short enough;
+- can the page be scanned quickly;
+- are the key ideas pulled out;
+- are there empty or repetitive blocks;
+- does the amount of text match the importance of the information.
+
+If the text gets in the way of the design, show exactly where and why.
+
+### 9. Trust
+Evaluate how well the design helps a visitor believe the person, the company or the project.
+
+Check for the presence and the presentation of:
+- the author&#x27;s name and personality;
+- experience;
+- case studies;
+- clients;
+- testimonials;
+- partners;
+- numbers;
+- photographs;
+- contacts;
+- social proof.
+
+Important: evaluate not only whether these elements exist but how convincingly they are presented.
+
+### 10. How current it looks
+Determine whether the site looks up to date today.
+
+If something looks dated, name the specific device:
+- the composition;
+- the typography;
+- the cards;
+- the buttons;
+- the gradients;
+- the images;
+- the grid;
+- the effects;
+- interface density, and so on.
+
+Do not write a vague &quot;looks outdated&quot;.
+
+### 11. Mobile version
+If it is shown, evaluate separately:
+- text sizes;
+- margins;
+- the order of blocks;
+- line breaks;
+- buttons;
+- the menu;
+- images;
+- reading comfort;
+- elements that look fine on desktop but break on mobile.
+
+### 12. Accessibility
+Check the obvious problems:
+- insufficient contrast;
+- text that is too small;
+- clickable elements that are too small;
+- meaning conveyed by colour alone;
+- poor legibility of text over an image.
+
+Do not go into a formal WCAG audit if there is not enough data for one.
+
+## How to give feedback
+
+I need professional criticism, not compliments.
+
+Do not write:
+&quot;overall it&#x27;s fine&quot;,
+&quot;looks stylish&quot;,
+&quot;could be improved a little&quot;,
+unless you explain specifically why.
+
+Separate:
+1. objective problems;
+2. debatable design decisions;
+3. matters of taste.
+
+Do not pass off a matter of taste as a professional rule.
+
+Phrase every note in this shape:
+
+**Problem → why it is a problem → how to fix it.**
+
+For example:
+
+&quot;The main heading is visually almost equal to the subheading → the first screen has no obvious entry point → increase the difference in size and/or weight and tone down the subheading.&quot;
+
+## Priorities
+
+Do not compile an endless list of trivia.
+
+First find the 5–7 changes that would improve the page the most.
+
+Split the notes into:
+
+**Critical** — gets in the way of understanding the offer, using the site, or makes it feel like an unprofessional product.
+
+**Important** — noticeably degrades the design or the impression, but the site still does its job.
+
+**Cosmetic** — polish worth doing after the main problems are solved.
+
+## Summary
+
+At the end, give:
+
+**Overall design score: X/10.**
+
+Then, separately on a 10-point scale:
+- visual quality;
+- composition;
+- typography;
+- UX;
+- visual hierarchy;
+- trust;
+- how current it looks.
+
+After that, state:
+
+**The three main problems of the page**
+
+and
+
+**The three changes that will give the biggest effect for the smallest amount of rework.**
+
+If the site already looks professional, do not invent flaws for the sake of criticism. If it looks amateur, say so directly and explain which specific decisions create that impression.
+
+If I send several pages of one site, first evaluate each page, then separately evaluate the coherence of the site as a system: consistency of grid, typography, buttons, colours, cards, navigation and the overall visual language.</pre>
+          </div>
+        </details>
+      </article>
+      <article class="prompt">
+        <span class="prompt-index">P.02</span>
+        <h3>Mobile version of a landing page</h3>
+        <p class="prompt-when">When desktop is fine but the phone view is not</p>
+        <p class="prompt-note">Checks the whole top-to-bottom journey, not separate screens. It also asks for systemic problems: if the same mistake repeats in ten places, that is one design-system problem, not ten separate notes.</p>
+        <details>
+          <summary><span class="lbl-show">Show the prompt</span><span class="lbl-hide">Hide the prompt</span></summary>
+          <div class="prompt-body">
+            <div class="prompt-bar">
+              <span>Full prompt · copies as Markdown</span>
+              <button class="copy-btn" data-done="Copied">Copy</button>
+            </div>
+            <div class="prompt-md">
+            <p>You are a senior web designer and UX/UI designer. Run a professional audit of <strong>the entire mobile version of a landing page</strong> from whatever I attach: screenshots taken on a phone, the page&#x27;s HTML file or a link. Screenshots show the real picture, the code shows the responsive rules and the breakpoints; if you have both, use both.</p>
+            <p>Your task is to check not individual screens but how well the whole site is adapted to a smartphone and how comfortable it is to move through it from top to bottom.</p>
+            <p>Evaluate:</p>
+            <ul><li><strong>the first screen</strong> — is it immediately clear what this project is, what matters here and where to tap;</li><li><strong>visual hierarchy</strong> — are the priorities of headings, text, images and CTAs preserved;</li><li><strong>typography</strong> — font sizes, line length, hyphenation, line spacing, readability;</li><li><strong>spacing and rhythm</strong> — is there crowding, excessive emptiness or random distances between blocks;</li><li><strong>grid and responsiveness</strong> — do columns, cards, photographs, lists and other elements rebuild correctly;</li><li><strong>images</strong> — are important parts cropped out, are the proportions and sizes right;</li><li><strong>buttons and links</strong> — are they big enough to tap with a finger, are they clearly visible, are there clickable elements placed too close together;</li><li><strong>navigation and menu</strong> — is it clear how to use them on a phone;</li><li><strong>long text blocks</strong> — are they comfortable to read and scan, does the page turn into an endless wall of text;</li><li><strong>cards, forms, modals and pop-ups</strong> — do they fit on the screen correctly and are they comfortable to use;</li><li><strong>CTAs across the whole page</strong> — do they appear at logical moments and do they get lost during a long scroll;</li><li><strong>horizontal scrolling, cropped content, overlaps and technical responsive bugs</strong>;</li><li><strong>the order of blocks</strong> — is the landing page&#x27;s logic preserved after moving from a desktop composition to a single column;</li><li><strong>overall coherence</strong> — does the mobile version look deliberately designed or simply like a shrunken desktop page.</li></ul>
+            <p>Separately, find <strong>systemic problems</strong>: if the same bad spacing, text size or card repeats in many places, do not list it ten times — name it as one design-system problem and point out where it shows up.</p>
+            <p>For every substantial note, write:</p>
+            <p><strong>Problem → why it hurts the user → how to fix it.</strong></p>
+            <p>Split the notes into:</p>
+            <ul><li><strong>critical</strong> — breaks the use or the perception of the site;</li><li><strong>important</strong> — noticeably degrades UX and design;</li><li><strong>cosmetic</strong> — polish after the main fixes.</li></ul>
+            <p>Do not suggest changes purely as a matter of taste.</p>
+            <p>At the end, give:</p>
+            <ol><li><strong>An overall score for the mobile version from 1 to 10.</strong></li><li><strong>The 5 main problems of the whole landing page.</strong></li><li><strong>The 3 changes that will give the biggest effect.</strong></li><li>Answer separately: <strong>does the mobile version look like a full, standalone design or like an automatic adaptation of the desktop.</strong></li><li>If you see repeating mistakes, list <strong>which rules of the mobile design system should be changed globally</strong>, so that each screen does not have to be fixed by hand.</li></ol>
+            </div>
+            <pre class="prompt-raw" hidden>You are a senior web designer and UX/UI designer. Run a professional audit of **the entire mobile version of a landing page** from whatever I attach: screenshots taken on a phone, the page&#x27;s HTML file or a link. Screenshots show the real picture, the code shows the responsive rules and the breakpoints; if you have both, use both.
+
+Your task is to check not individual screens but how well the whole site is adapted to a smartphone and how comfortable it is to move through it from top to bottom.
+
+Evaluate:
+
+- **the first screen** — is it immediately clear what this project is, what matters here and where to tap;
+- **visual hierarchy** — are the priorities of headings, text, images and CTAs preserved;
+- **typography** — font sizes, line length, hyphenation, line spacing, readability;
+- **spacing and rhythm** — is there crowding, excessive emptiness or random distances between blocks;
+- **grid and responsiveness** — do columns, cards, photographs, lists and other elements rebuild correctly;
+- **images** — are important parts cropped out, are the proportions and sizes right;
+- **buttons and links** — are they big enough to tap with a finger, are they clearly visible, are there clickable elements placed too close together;
+- **navigation and menu** — is it clear how to use them on a phone;
+- **long text blocks** — are they comfortable to read and scan, does the page turn into an endless wall of text;
+- **cards, forms, modals and pop-ups** — do they fit on the screen correctly and are they comfortable to use;
+- **CTAs across the whole page** — do they appear at logical moments and do they get lost during a long scroll;
+- **horizontal scrolling, cropped content, overlaps and technical responsive bugs**;
+- **the order of blocks** — is the landing page&#x27;s logic preserved after moving from a desktop composition to a single column;
+- **overall coherence** — does the mobile version look deliberately designed or simply like a shrunken desktop page.
+
+Separately, find **systemic problems**: if the same bad spacing, text size or card repeats in many places, do not list it ten times — name it as one design-system problem and point out where it shows up.
+
+For every substantial note, write:
+
+**Problem → why it hurts the user → how to fix it.**
+
+Split the notes into:
+- **critical** — breaks the use or the perception of the site;
+- **important** — noticeably degrades UX and design;
+- **cosmetic** — polish after the main fixes.
+
+Do not suggest changes purely as a matter of taste.
+
+At the end, give:
+
+1. **An overall score for the mobile version from 1 to 10.**
+2. **The 5 main problems of the whole landing page.**
+3. **The 3 changes that will give the biggest effect.**
+4. Answer separately: **does the mobile version look like a full, standalone design or like an automatic adaptation of the desktop.**
+5. If you see repeating mistakes, list **which rules of the mobile design system should be changed globally**, so that each screen does not have to be fixed by hand.</pre>
+          </div>
+        </details>
+      </article>
+      <article class="prompt">
+        <span class="prompt-index">P.03</span>
+        <h3>Event announcement page</h3>
+        <p class="prompt-when">A page whose job is to bring people to registration</p>
+        <p class="prompt-note">Short and targeted. It looks at how visible the speaker, date, venue and registration button are, and answers separately whether the page can be published as is.</p>
+        <details>
+          <summary><span class="lbl-show">Show the prompt</span><span class="lbl-hide">Hide the prompt</span></summary>
+          <div class="prompt-body">
+            <div class="prompt-bar">
+              <span>Full prompt · copies as Markdown</span>
+              <button class="copy-btn" data-done="Copied">Copy</button>
+            </div>
+            <div class="prompt-md">
+            <p>You are a senior web designer and art director. Run a professional design audit of an event announcement page from whatever I attach: screenshots, the page&#x27;s HTML file or a link. If both screenshots and code are attached, rely on both: the code shows structure and styles, the screenshots show what it actually looks like.</p>
+            <p>Evaluate this page specifically as an announcement whose job is to interest a person quickly and lead them to registration.</p>
+            <p>Look at:</p>
+            <ul><li>visual hierarchy: is it clear where to look first and what matters most here;</li><li>composition, grid, spacing and the balance of text and photography;</li><li>typography: sizes, line length, line spacing, reading comfort;</li><li>the amount and presentation of text: does the announcement turn into a wall of text, is it easy to scan;</li><li>how noticeable the speaker, the date, the venue and the registration button are;</li><li>the photograph: size, cropping, placement and how it works for the composition;</li><li>the CTA: is the button noticeable enough and does it appear at the right moment;</li><li>the overall impression: does the page look professional, modern and expensive;</li><li>what works particularly well or badly in different parts of the page as you scroll.</li></ul>
+            <p>Do not evaluate the content of the text as an editor — only how it works within the design.</p>
+            <p>Do not suggest changes as a matter of taste. For every substantial note write: <strong>problem → why it hurts → how to fix it</strong>.</p>
+            <p>At the end, give:</p>
+            <ol><li>an overall design score from 1 to 10;</li><li><strong>the 5 main problems</strong>, if there are any;</li><li><strong>the 3 changes with the biggest effect</strong> that are worth doing first;</li><li>answer separately: <strong>can the page be left as it is or does it need work before publication</strong>.</li></ol>
+            </div>
+            <pre class="prompt-raw" hidden>You are a senior web designer and art director. Run a professional design audit of an event announcement page from whatever I attach: screenshots, the page&#x27;s HTML file or a link. If both screenshots and code are attached, rely on both: the code shows structure and styles, the screenshots show what it actually looks like.
+
+Evaluate this page specifically as an announcement whose job is to interest a person quickly and lead them to registration.
+
+Look at:
+
+- visual hierarchy: is it clear where to look first and what matters most here;
+- composition, grid, spacing and the balance of text and photography;
+- typography: sizes, line length, line spacing, reading comfort;
+- the amount and presentation of text: does the announcement turn into a wall of text, is it easy to scan;
+- how noticeable the speaker, the date, the venue and the registration button are;
+- the photograph: size, cropping, placement and how it works for the composition;
+- the CTA: is the button noticeable enough and does it appear at the right moment;
+- the overall impression: does the page look professional, modern and expensive;
+- what works particularly well or badly in different parts of the page as you scroll.
+
+Do not evaluate the content of the text as an editor — only how it works within the design.
+
+Do not suggest changes as a matter of taste. For every substantial note write: **problem → why it hurts → how to fix it**.
+
+At the end, give:
+1. an overall design score from 1 to 10;
+2. **the 5 main problems**, if there are any;
+3. **the 3 changes with the biggest effect** that are worth doing first;
+4. answer separately: **can the page be left as it is or does it need work before publication**.</pre>
+          </div>
+        </details>
+      </article>
+      <article class="prompt">
+        <span class="prompt-index">P.04</span>
+        <h3>Past event page</h3>
+        <p class="prompt-when">An archive page: recording, notes, materials</p>
+        <p class="prompt-note">A different job here — not to sell but to preserve. The prompt asks separately whether the event itself comes through on the page, and whether the template will hold up across dozens of future archive pages.</p>
+        <details>
+          <summary><span class="lbl-show">Show the prompt</span><span class="lbl-hide">Hide the prompt</span></summary>
+          <div class="prompt-body">
+            <div class="prompt-bar">
+              <span>Full prompt · copies as Markdown</span>
+              <button class="copy-btn" data-done="Copied">Copy</button>
+            </div>
+            <div class="prompt-md">
+            <p>You are a senior web designer and art director. Run a professional design audit of a past-event page of the Intellectual AI Lectorium from whatever I attach: screenshots, the page&#x27;s HTML file or a link. If there are both code and screenshots, rely on both.</p>
+            <p>This is not a sales announcement but <strong>an editorial archive page</strong> that a person comes to after the event: to find out what happened at the meeting, who spoke, to get the materials, watch the recording, read the notes or the instructions. At the same time such pages shape the image and the value of the whole lectorium.</p>
+            <p>Evaluate:</p>
+            <ul><li><strong>the first screen and the visual hierarchy</strong> — is it immediately clear that this is a past event, what the topic was, who the speaker was, when and where it took place;</li><li><strong>composition, grid, margins and spacing</strong> — does the page look assembled and professional;</li><li><strong>typography</strong> — headings, subheadings, body text, line length, line spacing, contrast between levels;</li><li><strong>readability of a long piece</strong> — is the page comfortable to read and to scan, are there enough visual entry points;</li><li><strong>content structure</strong> — are the description of the meeting, the speaker, the recording, the notes, the instructions, the photographs, the links and the extra materials well separated;</li><li><strong>cards, lists and other elements inside the article</strong> — do they help orientation or create visual noise;</li><li><strong>navigation</strong> — is it clear how to get back to the archive and move to other past meetings;</li><li><strong>coherence of the design system</strong> — does this page feel like part of the same site and the same lectorium;</li><li><strong>the overall impression</strong> — does this look like a quality editorial page of an intellectual project at the level of good media or an educational platform, or more like a long text on a website.</li></ul>
+            <p>Evaluate separately one important question: <strong>is the page too much like an ordinary article, and can the event itself be felt strongly enough</strong> — a living lectorium, a specific speaker and a meeting that actually happened.</p>
+            <p>Do not evaluate the quality of the text as an editor unless it directly affects the design and the perception of the page.</p>
+            <p>For every substantial note, use this shape:</p>
+            <p><strong>Problem → why it hurts → how to fix it.</strong></p>
+            <p>Do not suggest changes as a matter of taste and do not invent flaws if a solution already works.</p>
+            <p>At the end, give:</p>
+            <ol><li><strong>an overall design score from 1 to 10</strong>;</li><li><strong>the 5 main problems of the page</strong>;</li><li><strong>the 3 changes with the biggest effect</strong>;</li><li>answer separately: <strong>how well this template will work for dozens of future archive pages and what should be standardised in it before scaling</strong>.</li></ol>
+            </div>
+            <pre class="prompt-raw" hidden>You are a senior web designer and art director. Run a professional design audit of a past-event page of the Intellectual AI Lectorium from whatever I attach: screenshots, the page&#x27;s HTML file or a link. If there are both code and screenshots, rely on both.
+
+This is not a sales announcement but **an editorial archive page** that a person comes to after the event: to find out what happened at the meeting, who spoke, to get the materials, watch the recording, read the notes or the instructions. At the same time such pages shape the image and the value of the whole lectorium.
+
+Evaluate:
+
+- **the first screen and the visual hierarchy** — is it immediately clear that this is a past event, what the topic was, who the speaker was, when and where it took place;
+- **composition, grid, margins and spacing** — does the page look assembled and professional;
+- **typography** — headings, subheadings, body text, line length, line spacing, contrast between levels;
+- **readability of a long piece** — is the page comfortable to read and to scan, are there enough visual entry points;
+- **content structure** — are the description of the meeting, the speaker, the recording, the notes, the instructions, the photographs, the links and the extra materials well separated;
+- **cards, lists and other elements inside the article** — do they help orientation or create visual noise;
+- **navigation** — is it clear how to get back to the archive and move to other past meetings;
+- **coherence of the design system** — does this page feel like part of the same site and the same lectorium;
+- **the overall impression** — does this look like a quality editorial page of an intellectual project at the level of good media or an educational platform, or more like a long text on a website.
+
+Evaluate separately one important question: **is the page too much like an ordinary article, and can the event itself be felt strongly enough** — a living lectorium, a specific speaker and a meeting that actually happened.
+
+Do not evaluate the quality of the text as an editor unless it directly affects the design and the perception of the page.
+
+For every substantial note, use this shape:
+
+**Problem → why it hurts → how to fix it.**
+
+Do not suggest changes as a matter of taste and do not invent flaws if a solution already works.
+
+At the end, give:
+
+1. **an overall design score from 1 to 10**;
+2. **the 5 main problems of the page**;
+3. **the 3 changes with the biggest effect**;
+4. answer separately: **how well this template will work for dozens of future archive pages and what should be standardised in it before scaling**.</pre>
+          </div>
+        </details>
+      </article>
+
+  <p class="prompt-note" style="margin-top:28px;">This list keeps growing: I add prompts here once I have worked them into shape myself.</p>
+
+  <footer>
+    <span>Julia Reprintseva · code/</span>
+    <span class="links">
+      <a href="../../../en/">← Portfolio</a>
+      <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Telegram</a>
+      <a href="mailto:julia.vl.reprintseva@gmail.com">Email</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme(){
+  var r=document.documentElement, cur=r.getAttribute('data-theme');
+  r.setAttribute('data-theme', cur==='dark' ? 'light' : (cur==='light' ? 'dark'
+    : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark')));
+}
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.closest('.prompt-body').querySelector('.prompt-raw').textContent;
+    navigator.clipboard.writeText(text).then(function(){
+      var old = btn.textContent;
+      btn.textContent = btn.dataset.done;
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1800);
+    });
+  });
+});
+</script>
+</body>
+</html>
