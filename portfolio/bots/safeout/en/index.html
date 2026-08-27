@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeOut — a safety bot for dates with strangers</title>
+  <meta name="description" content="A Telegram bot that raises the alarm on its own if you don't check in after a date with someone you met online. How to use it.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Julia Reprintseva">
+  <meta property="og:url" content="https://reprintseva.pro/portfolio/bots/safeout/en/">
+  <meta property="og:title" content="SafeOut — a safety bot for dates">
+  <meta property="og:description" content="A Telegram bot that raises the alarm on its own if you don't check in on time.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/bots/safeout/en/">
+  <link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/bots/safeout/">
+
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+  <meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+
+  <style>
+    :root {
+      --bg:        #12151C;
+      --paper:     #171B24;
+      --paper-hi:  #1D2331;
+      --line:      #2A3140;
+      --line-soft: #212636;
+      --ink:       #E9E6DC;
+      --ink-dim:   #838CA0;
+      --ink-faint: #545C70;
+      --accent:    #CB9C47;
+      --accent-hi: #E4B968;
+      --good:      #6FAE8C;
+      --warn:      #C77B54;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:        #EEF0F4;
+        --paper:     #FFFFFF;
+        --paper-hi:  #F5F6FA;
+        --line:      #DBDFE8;
+        --line-soft: #E6E9F0;
+        --ink:       #1A1D26;
+        --ink-dim:   #6B7386;
+        --ink-faint: #9BA2B2;
+        --accent:    #9C6C1E;
+        --accent-hi: #7E5714;
+        --good:      #3D7A5C;
+        --warn:      #A85830;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #12151C; --paper: #171B24; --paper-hi: #1D2331;
+      --line: #2A3140; --line-soft: #212636;
+      --ink: #E9E6DC; --ink-dim: #838CA0; --ink-faint: #545C70;
+      --accent: #CB9C47; --accent-hi: #E4B968;
+      --good: #6FAE8C; --warn: #C77B54;
+    }
+    :root[data-theme="light"] {
+      --bg: #EEF0F4; --paper: #FFFFFF; --paper-hi: #F5F6FA;
+      --line: #DBDFE8; --line-soft: #E6E9F0;
+      --ink: #1A1D26; --ink-dim: #6B7386; --ink-faint: #9BA2B2;
+      --accent: #9C6C1E; --accent-hi: #7E5714;
+      --good: #3D7A5C; --warn: #A85830;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background:
+        radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0) 0 0/28px 28px,
+        var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sheet { max-width: 760px; margin: 0 auto; padding: 0 32px 90px; }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between; padding: 40px 0 0;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-dim); text-decoration: none;
+      padding: 5px 10px 5px 8px; border: 1px solid var(--line);
+      border-radius: 999px; white-space: nowrap; transition: color .15s, border-color .15s;
+    }
+    .back-link:hover { color: var(--accent); border-color: var(--accent); }
+    .header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    @media (max-width: 560px) { .mark-name { display: none; } }
+    .mark { display: flex; align-items: baseline; gap: 9px; text-decoration: none; color: var(--ink); }
+    .mark-glyph {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--accent);
+      border: 1px solid var(--line); border-radius: 3px; padding: 2px 6px;
+    }
+    .mark-name {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.02rem;
+    }
+    .header-tools { display: flex; align-items: center; gap: 10px; }
+    .lang-switch {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--ink-faint); text-decoration: none;
+      border: 1px solid var(--line); border-radius: 20px; padding: 6px 12px;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-btn {
+      background: none; border: 1px solid var(--line); color: var(--ink-dim);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: .8rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, color .15s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero { padding: 64px 0 52px; border-bottom: 1px solid var(--line); position: relative; }
+    .hero::before, .hero::after {
+      content: ""; position: absolute;
+      width: 13px; height: 13px; border: 1px solid var(--accent); opacity: .55;
+    }
+    .hero::before { top: 4px; left: -1px; border-width: 1px 0 0 1px; }
+    .hero::after  { top: 4px; right: -1px; border-width: 1px 1px 0 0; }
+    .eyebrow {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: clamp(2.1rem, 6vw, 3rem);
+      letter-spacing: -.02em; line-height: 1.08; text-wrap: balance; margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1rem; line-height: 1.65; color: var(--ink-dim); max-width: 480px; }
+    .hero-meta {
+      margin-top: 28px; display: flex; gap: 24px; flex-wrap: wrap;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.76rem; color: var(--ink-faint);
+    }
+    .hero-meta b { color: var(--ink); font-weight: 600; }
+    .hero-cta {
+      margin-top: 32px; display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #12151C;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: .04em;
+      text-decoration: none; padding: 12px 22px; border-radius: 8px; transition: background .15s;
+    }
+    .hero-cta:hover { background: var(--accent-hi); }
+
+    .content { padding-top: 48px; }
+    .step-block { margin-bottom: 48px; }
+    .step-num {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .step-block h2 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.3rem; letter-spacing: -.01em; margin-bottom: 14px;
+      border-bottom: 1px solid var(--line); padding-bottom: 12px;
+    }
+    .step-block p { font-size: 0.94rem; line-height: 1.7; color: var(--ink-dim); margin-bottom: 14px; }
+    .step-block p:last-child { margin-bottom: 0; }
+    .step-block a { color: var(--accent); text-decoration: none; }
+    .step-block a:hover { text-decoration: underline; }
+    ol, ul { padding-left: 1.4em; }
+    li { font-size: 0.94rem; line-height: 1.7; color: var(--ink-dim); margin-bottom: 6px; }
+    li strong { color: var(--ink); font-weight: 600; }
+    li a { color: var(--accent); text-decoration: none; }
+    li a:hover { text-decoration: underline; }
+    .callout {
+      margin: 18px 0; padding: 14px 18px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      font-size: 0.88rem; line-height: 1.6; color: var(--ink-dim);
+    }
+    .callout.warn { border-left-color: var(--warn); }
+    .callout strong { color: var(--ink); }
+    .cmd-table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 0.88rem; }
+    .cmd-table th {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint); text-align: left; padding: 8px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .cmd-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--line-soft);
+      color: var(--ink-dim); vertical-align: top;
+    }
+    .cmd-table td:first-child {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem; color: var(--accent); white-space: nowrap;
+    }
+    .cmd-table tr:hover td { background: var(--paper); }
+    .contact-block {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+      padding: 32px; margin-top: 48px;
+    }
+    .contact-block h2 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.1rem; margin-bottom: 16px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.9rem; color: var(--ink-dim); text-decoration: none; transition: color .15s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .cl-label {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--ink-faint); min-width: 60px;
+    }
+    footer {
+      margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer .stamp {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.7rem; color: var(--ink-faint);
+    }
+    footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
+    footer a { font-size: 0.82rem; color: var(--ink-dim); text-decoration: none; transition: color .15s; }
+    footer a:hover { color: var(--accent); }
+    @media (max-width: 640px) {
+      .sheet { padding: 0 20px 70px; }
+      header { padding-top: 28px; }
+      .hero { padding: 44px 0 36px; }
+      .contact-block { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header>
+    <span class="header-left">
+      <a class="back-link" href="../../../en/">← Portfolio</a>
+      <a class="mark" href="../../../../en/">
+        <span class="mark-glyph">JR</span>
+        <span class="mark-name">Julia Reprintseva</span>
+      </a>
+    </span>
+    <span class="header-tools">
+      <a class="lang-switch" href="../">RU</a>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </span>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Bots · code/ · B.01</div>
+    <h1>SafeOut —<br>the bot that <em>won't forget</em></h1>
+    <p>A Telegram safety bot for dates with people you only know online. It stores all the meeting details and alerts your trusted contacts on its own if you go quiet.</p>
+    <div class="hero-meta">
+      <span><b>RU · EN · TR</b> languages</span>
+      <span><b>Free</b> · non-commercial</span>
+      <span><b>August</b> 2026</span>
+    </div>
+    <a class="hero-cta" href="https://t.me/safeout_dates_bot" target="_blank" rel="noopener">
+      ↗ Open the bot in Telegram
+    </a>
+  </div>
+
+  <div class="content">
+
+    <div class="step-block">
+      <div class="step-num">Why this exists</div>
+      <h2>When a message to a friend is not enough</h2>
+      <p>You can send a friend the guy's details and ask them to call if you haven't texted by midnight. But your friend might get distracted, fall asleep, or simply miss it. And you have to remember to text "all good" yourself.</p>
+      <p>SafeOut doesn't forget. You tap "Start date" — 30 minutes later the bot asks "how are you?". You don't reply — 15 minutes after that it texts your friend itself, without any action from you. You physically can't respond — the bot fires anyway.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Step 01</div>
+      <h2>Quick start</h2>
+      <ol>
+        <li>Open <a href="https://t.me/safeout_dates_bot" target="_blank" rel="noopener">@safeout_dates_bot</a> and press <strong>Start</strong>.</li>
+        <li>Choose your language (RU / EN / TR).</li>
+        <li>Add at least one trusted contact — <strong>/contacts</strong> → <strong>Add contact</strong>.</li>
+      </ol>
+      <div class="callout">
+        <strong>Important about contacts.</strong> Telegram doesn't allow a bot to message people who have never launched it. After you add a contact, the bot sends you an invite link — forward it to your friend. They follow the link and press Start. Until they do, their name shows "⏳ waiting to connect" and the bot can't reach them in an emergency.
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Step 02</div>
+      <h2>Before the date — /newdate</h2>
+      <p>The bot will ask one by one:</p>
+      <ul>
+        <li>the person's name and their handle on the dating app;</li>
+        <li>a link to their profile (Tinder, Instagram…);</li>
+        <li>where you're meeting and where you might go next;</li>
+        <li>car plate and description;</li>
+        <li>any other important info;</li>
+        <li>the time you plan to be home.</li>
+      </ul>
+      <p>Everything optional can be skipped with <strong>/skip</strong>. Then attach photos, chat screenshots, document photos, voice messages. When done — <strong>✅ Done with files</strong>.</p>
+      <div class="callout warn">
+        <strong>Where do the files go.</strong> Nowhere — when you send a file it stays on Telegram's servers, like any message to a bot. SafeOut only saves the reference, not the bytes. The file becomes accessible only when an alert fires — and only for someone who has the alert page link. That link has no password, so don't share it with strangers.
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Step 03</div>
+      <h2>Safety checklist</h2>
+      <p>The bot shows a 19-item checklist — it auto-checks some items from your answers, the rest you confirm manually. Items marked <strong>(!)</strong> are mandatory safety basics (first meeting in a public place, etc.) and block the start until checked. When ready — <strong>▶️ All set — start the date</strong>.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Step 04</div>
+      <h2>During the date</h2>
+      <p>Right after starting, share your live location (paperclip → Location → Share Live Location) — this way contacts will see where you are on the alert page.</p>
+      <p>Every 15 minutes the bot sends three quick questions with buttons:</p>
+      <ul>
+        <li><strong>All good</strong> — next check in 15 minutes;</li>
+        <li><strong>Something's off</strong> — the bot offers a full checklist, calling a contact, or noting it and continuing;</li>
+        <li><strong>SOS</strong> — immediate alert.</li>
+      </ul>
+      <p>If you don't respond — 15 minutes later the bot automatically messages connected contacts with all saved details and a link to the alert page.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Step 05</div>
+      <h2>SOS and getting home</h2>
+      <p>The <strong>SOS</strong> button is in every bot message during the date — contacts get alerted immediately, no 15-minute wait.</p>
+      <p>When you're home: tap <strong>I'm home, all good</strong> — the bot closes the date and messages contacts that everything is fine.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">For trusted contacts</div>
+      <h2>If someone sent you an invite link</h2>
+      <p>Follow the link and press <strong>Start</strong>. From that moment the bot can message you if your person has a problem on a date. The alert message contains a link to a page with all the details: who, where, the car, photos, last known location.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-num">Reference</div>
+      <h2>Bot commands</h2>
+      <table class="cmd-table">
+        <thead>
+          <tr><th>Command</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>/start</td><td>Start / restart the bot</td></tr>
+          <tr><td>/newdate</td><td>Create a new date session</td></tr>
+          <tr><td>/contacts</td><td>Manage trusted contacts</td></tr>
+          <tr><td>/checklist</td><td>Safety checklist</td></tr>
+          <tr><td>/status</td><td>Status check during a date</td></tr>
+          <tr><td>/language</td><td>Switch language (RU / EN / TR)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="contact-block">
+      <h2>Get in touch</h2>
+      <p style="font-size:0.9rem;color:var(--ink-dim);margin-bottom:16px;">Questions about the bot or want to suggest something — feel free to write.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">
+          <span class="cl-label">Telegram</span>
+          @juliareprintseva
+        </a>
+        <a class="contact-link" href="mailto:julia.vl.reprintseva@gmail.com">
+          <span class="cl-label">Email</span>
+          julia.vl.reprintseva@gmail.com
+        </a>
+        <a class="contact-link" href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener">
+          <span class="cl-label">Channel</span>
+          @juliareprintseva_roman — AI in Action
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="stamp">Julia Reprintseva · code/</span>
+    <span class="links">
+      <a href="../../../en/">← Portfolio</a>
+      <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://t.me/juliareprintseva_roman" target="_blank" rel="noopener">Channel</a>
+      <a href="mailto:julia.vl.reprintseva@gmail.com">Email</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+  r.setAttribute('data-theme', next);
+}
+</script>
+</body>
+</html>
