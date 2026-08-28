@@ -4,152 +4,427 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — SafeOut</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <meta name="description" content="How SafeOut handles personal data: what is collected, why, where it is stored and how to delete it.">
+  <meta name="robots" content="index, follow">
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'>
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
   <style>
     :root {
-      --bg: #ffffff;
-      --surface: #f8f8f8;
-      --border: #e8e8e8;
-      --text: #1a1a1a;
-      --muted: #666666;
-      --accent: #c0392b;
+      --bg:        #12151C;
+      --paper:     #171B24;
+      --paper-hi:  #1D2331;
+      --line:      #2A3140;
+      --line-soft: #212636;
+      --ink:       #E9E6DC;
+      --ink-dim:   #838CA0;
+      --ink-faint: #545C70;
+      --accent:    #CB9C47;
+      --accent-hi: #E4B968;
+      --good:      #6FAE8C;
+      --warn:      #C77B54;
+      --danger:    #C75454;
     }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #141414;
-        --surface: #1f1f1f;
-        --border: #2e2e2e;
-        --text: #f0f0f0;
-        --muted: #999999;
-        --accent: #e05a4e;
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:        #EEF0F4;
+        --paper:     #FFFFFF;
+        --paper-hi:  #F5F6FA;
+        --line:      #DBDFE8;
+        --line-soft: #E6E9F0;
+        --ink:       #1A1D26;
+        --ink-dim:   #6B7386;
+        --ink-faint: #9BA2B2;
+        --accent:    #9C6C1E;
+        --accent-hi: #7E5714;
+        --good:      #3D7A5C;
+        --warn:      #A85830;
+        --danger:    #A83030;
       }
     }
     :root[data-theme="dark"] {
-      --bg: #141414;
-      --surface: #1f1f1f;
-      --border: #2e2e2e;
-      --text: #f0f0f0;
-      --muted: #999999;
-      --accent: #e05a4e;
+      --bg: #12151C; --paper: #171B24; --paper-hi: #1D2331;
+      --line: #2A3140; --line-soft: #212636;
+      --ink: #E9E6DC; --ink-dim: #838CA0; --ink-faint: #545C70;
+      --accent: #CB9C47; --accent-hi: #E4B968;
+      --good: #6FAE8C; --warn: #C77B54; --danger: #C75454;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root[data-theme="light"] {
+      --bg: #EEF0F4; --paper: #FFFFFF; --paper-hi: #F5F6FA;
+      --line: #DBDFE8; --line-soft: #E6E9F0;
+      --ink: #1A1D26; --ink-dim: #6B7386; --ink-faint: #9BA2B2;
+      --accent: #9C6C1E; --accent-hi: #7E5714;
+      --good: #3D7A5C; --warn: #A85830; --danger: #A83030;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
-      padding: 0 16px;
+      background:
+        radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 0) 0 0/28px 28px,
+        var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 0 80px; }
-    .lang-switch {
-      text-align: right;
-      margin-bottom: 32px;
+
+    .sheet {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 32px 90px;
     }
-    .lang-switch a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1px;
-    }
-    .lang-switch a:hover { color: var(--text); }
-    .back {
-      display: inline-flex;
+
+    /* ── header ── */
+    header {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      margin-bottom: 40px;
+      justify-content: space-between;
+      padding: 40px 0 0;
     }
-    .back:hover { color: var(--text); }
-    h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
-    .meta { color: var(--muted); font-size: 14px; margin-bottom: 40px; }
-    h2 { font-size: 18px; font-weight: 600; margin: 36px 0 12px; }
-    p { margin-bottom: 14px; color: var(--text); }
-    ul { padding-left: 20px; margin-bottom: 14px; }
-    li { margin-bottom: 6px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 32px 0;
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-dim); text-decoration: none;
+      padding: 5px 10px 5px 8px; border: 1px solid var(--line);
+      border-radius: 999px; white-space: nowrap; transition: color .15s, border-color .15s;
     }
-    .box p { margin: 0; font-size: 15px; color: var(--muted); }
+    .back-link:hover { color: var(--accent); border-color: var(--accent); }
+    .header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    @media (max-width: 560px) { .mark-name { display: none; } }
+    .mark {
+      display: flex; align-items: baseline; gap: 9px;
+      text-decoration: none; color: var(--ink);
+    }
+    .mark-glyph {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--accent);
+      border: 1px solid var(--line); border-radius: 3px; padding: 2px 6px;
+    }
+    .mark-name {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.02rem;
+    }
+    .header-tools { display: flex; align-items: center; gap: 10px; }
+    .lang-switch {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--ink-faint);
+      text-decoration: none; border: 1px solid var(--line);
+      border-radius: 20px; padding: 6px 12px; transition: border-color .15s, color .15s;
+    }
+    .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-btn {
+      background: none; border: 1px solid var(--line); color: var(--ink-dim);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: .8rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, color .15s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── hero ── */
+    .hero {
+      padding: 64px 0 52px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute;
+      width: 13px; height: 13px; border: 1px solid var(--accent); opacity: .55;
+    }
+    .hero::before { top: 4px; left: -1px; border-width: 1px 0 0 1px; }
+    .hero::after  { top: 4px; right: -1px; border-width: 1px 1px 0 0; }
+    .eyebrow {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: clamp(2.1rem, 6vw, 3rem);
+      letter-spacing: -.02em; line-height: 1.08; text-wrap: balance; margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p {
+      font-size: 1rem; line-height: 1.65; color: var(--ink-dim); max-width: 480px;
+    }
+    .hero-meta {
+      margin-top: 28px;
+      display: flex; gap: 24px; flex-wrap: wrap;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.76rem; color: var(--ink-faint);
+    }
+    .hero-meta b { color: var(--ink); font-weight: 600; }
+    .hero-cta {
+      margin-top: 32px;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #12151C;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: .04em;
+      text-decoration: none; padding: 12px 22px; border-radius: 8px;
+      transition: background .15s;
+    }
+    .hero-cta:hover { background: var(--accent-hi); }
+    .hero-cta-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem; letter-spacing: .04em;
+      color: var(--ink-dim); text-decoration: none;
+      padding: 11px 22px; border-radius: 8px;
+      border: 1px solid var(--line); transition: border-color .15s, color .15s;
+    }
+    .hero-cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── content ── */
+    .content { padding-top: 48px; }
+
+    .step-block { margin-bottom: 48px; }
+    .step-num {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .step-block h2 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.3rem; letter-spacing: -.01em; margin-bottom: 14px;
+      border-bottom: 1px solid var(--line); padding-bottom: 12px;
+    }
+    .step-block p {
+      font-size: 0.94rem; line-height: 1.7; color: var(--ink-dim); margin-bottom: 14px;
+    }
+    .step-block p:last-child { margin-bottom: 0; }
+    .step-block a { color: var(--accent); text-decoration: none; }
+    .step-block a:hover { text-decoration: underline; }
+
+    ol, ul { padding-left: 1.4em; }
+    li {
+      font-size: 0.94rem; line-height: 1.7; color: var(--ink-dim); margin-bottom: 6px;
+    }
+    li strong { color: var(--ink); font-weight: 600; }
+    li a { color: var(--accent); text-decoration: none; }
+    li a:hover { text-decoration: underline; }
+
+    .callout {
+      margin: 18px 0; padding: 14px 18px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      font-size: 0.88rem; line-height: 1.6; color: var(--ink-dim);
+    }
+    .callout.warn { border-left-color: var(--warn); }
+    .callout strong { color: var(--ink); }
+
+    .cmd-table {
+      width: 100%; border-collapse: collapse; margin-top: 18px;
+      font-size: 0.88rem;
+    }
+    .cmd-table th {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-faint); text-align: left; padding: 8px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .cmd-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--line-soft);
+      color: var(--ink-dim); vertical-align: top;
+    }
+    .cmd-table td:first-child {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem; color: var(--accent); white-space: nowrap;
+    }
+    .cmd-table tr:hover td { background: var(--paper); }
+
+    .contact-block {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+      padding: 32px; margin-top: 48px;
+    }
+    .contact-block h2 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.1rem; margin-bottom: 16px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.9rem; color: var(--ink-dim); text-decoration: none;
+      transition: color .15s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .cl-label {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.72rem; color: var(--ink-faint); min-width: 60px;
+    }
+
+    /* ── footer ── */
     footer {
-      margin-top: 60px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--muted);
+      margin-top: 64px; padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer .stamp {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.7rem; color: var(--ink-faint);
+    }
+    footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
+    footer a {
+      font-size: 0.82rem; color: var(--ink-dim); text-decoration: none; transition: color .15s;
+    }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .sheet { padding: 0 20px 70px; }
+      header { padding-top: 28px; }
+      .hero { padding: 44px 0 36px; }
+      .contact-block { padding: 22px; }
     }
   </style>
+
+  <style>
+    .doc-hero { padding: 56px 0 34px; border-bottom: 1px solid var(--line); position: relative; }
+    .doc-hero::before, .doc-hero::after {
+      content: ""; position: absolute; width: 13px; height: 13px;
+      border: 1px solid var(--accent); opacity: .55;
+    }
+    .doc-hero::before { top: 4px; left: -1px; border-width: 1px 0 0 1px; }
+    .doc-hero::after  { top: 4px; right: -1px; border-width: 1px 1px 0 0; }
+    .doc-hero h1 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: clamp(1.8rem, 5vw, 2.5rem);
+      letter-spacing: -.02em; line-height: 1.1; margin-bottom: 18px;
+    }
+    .doc-body { padding-top: 44px; }
+    .doc-body section { margin-bottom: 42px; }
+    .doc-body h2 {
+      font-family: Georgia, 'Iowan Old Style', ui-serif, serif;
+      font-weight: 700; font-size: 1.24rem; letter-spacing: -.01em;
+      margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+    }
+    .doc-body p { font-size: 0.94rem; line-height: 1.7; color: var(--ink-dim); margin-bottom: 14px; }
+    .doc-body p:last-child { margin-bottom: 0; }
+    .doc-body strong { color: var(--ink); font-weight: 600; }
+    .doc-body a { color: var(--accent); text-decoration: none; }
+    .doc-body a:hover { text-decoration: underline; }
+    .doc-body ul { margin: 0 0 14px; }
+    @media (max-width: 640px) { .doc-hero { padding: 38px 0 26px; } }
+  </style>
+
 </head>
 <body>
-<div class="wrap">
-  <div class="lang-switch"><a href="../">Русский</a></div>
 
-  <a class="back" href="../../en/">← SafeOut</a>
+<div class="sheet">
 
-  <h1>Privacy Policy</h1>
-  <p class="meta">SafeOut · Last updated: August 2025</p>
+  <header>
+    <span class="header-left">
+      <a class="back-link" href="../../en/">← SafeOut</a>
+      <a class="mark" href="../../../../../en/">
+        <span class="mark-glyph">JR</span>
+        <span class="mark-name">Julia Reprintseva</span>
+      </a>
+    </span>
+    <span class="header-tools">
+      <a class="lang-switch" href="../">RU</a>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </span>
+  </header>
 
-  <div class="box">
-    <p>SafeOut is a personal project. Data controller: Julia Reprintseva, julia.vl.reprintseva@gmail.com.</p>
+  <div class="doc-hero">
+    <div class="eyebrow">SafeOut · Document</div>
+    <h1>Privacy Policy</h1>
+    <div class="hero-meta">
+      <span>Last updated · <b>August 2025</b></span>
+      <span>Data controller · <b>Julia Reprintseva</b></span>
+    </div>
   </div>
 
-  <h2>What data we collect</h2>
-  <p>When you use the SafeOut bot, the following is stored:</p>
-  <ul>
-    <li>Your Telegram ID, name, and language</li>
-    <li>Date details: partner's name or username, profile link, meeting place address, route, car plate, additional notes</li>
-    <li>Your planned return time</li>
-    <li>Names, phone numbers, and Telegram IDs of trusted contacts</li>
-    <li>Files (photos, screenshots, voice messages) — stored on Telegram's servers; we only store the reference (file_id)</li>
-  </ul>
+  <div class="doc-body">
 
-  <h2>Purpose and legal basis</h2>
-  <p>Data is used exclusively to keep you safer during a date:</p>
-  <ul>
-    <li>Sending emergency alerts to trusted contacts if you miss a check-in</li>
-    <li>Building an alert page with a summary of your information</li>
-    <li>Remembering your language preference</li>
-  </ul>
-  <p>Legal basis: your voluntary consent given when you start the bot.</p>
+    <div class="callout">
+      SafeOut is a personal project. Data controller: Julia Reprintseva,
+      <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a>.
+    </div>
 
-  <h2>Storage and security</h2>
-  <p>Data is stored in a database on Railway servers (USA). Transfers are encrypted. Only the operator has access to the data.</p>
-  <p>Session data (date details and files) becomes irrelevant after the session ends. We do not delete it automatically but do not use it after completion.</p>
+    <section>
+      <h2>What data we collect</h2>
+      <p>When you use the SafeOut bot, the following is stored:</p>
+      <ul>
+        <li>Your Telegram ID, name, and language</li>
+        <li>Date details: partner's name or username, profile link, meeting place address, route, car plate, additional notes</li>
+        <li>Your planned return time</li>
+        <li>Names, phone numbers, and Telegram IDs of trusted contacts</li>
+        <li>Files (photos, screenshots, voice messages) — stored on Telegram's servers; we only store the reference (<strong>file_id</strong>)</li>
+      </ul>
+    </section>
 
-  <h2>Sharing with third parties</h2>
-  <p>Data is <strong>never shared</strong> with third parties for commercial purposes. Trusted contacts receive a link to the alert page only when an alert fires — this is the core feature of the service, which you are informed about upfront.</p>
+    <section>
+      <h2>Purpose and legal basis</h2>
+      <p>Data is used exclusively to keep you safer during a date:</p>
+      <ul>
+        <li>Sending emergency alerts to trusted contacts if you miss a check-in</li>
+        <li>Building an alert page with a summary of your information</li>
+        <li>Remembering your language preference</li>
+      </ul>
+      <p>Legal basis: your voluntary consent given when you start the bot.</p>
+    </section>
 
-  <h2>Your rights</h2>
-  <p>You may:</p>
-  <ul>
-    <li>Request deletion of all your data — email <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></li>
-    <li>Withdraw consent — after which the bot will no longer be usable</li>
-    <li>Request a copy of your data</li>
-  </ul>
-  <p>Requests are handled within 30 days.</p>
+    <section>
+      <h2>Storage and security</h2>
+      <p>Data is stored in a database on Railway servers (USA). Transfers are encrypted. Only the operator has access to the data.</p>
+      <p>Session data (date details and files) becomes irrelevant after the session ends. We do not delete it automatically but do not use it after completion.</p>
+    </section>
 
-  <h2>Age</h2>
-  <p>This service is intended for users aged 18 and over. We do not knowingly collect data from minors.</p>
+    <section>
+      <h2>Sharing with third parties</h2>
+      <p>Data is <strong>never shared</strong> with third parties for commercial purposes. Trusted contacts receive a link to the alert page only when an alert fires — this is the core feature of the service, which you are informed about upfront.</p>
+    </section>
 
-  <h2>Policy changes</h2>
-  <p>Material changes will be communicated through the bot. The date of the latest update is shown at the top of this page.</p>
+    <section>
+      <h2>Your rights</h2>
+      <p>You may:</p>
+      <ul>
+        <li>Request deletion of all your data — email <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></li>
+        <li>Withdraw consent — after which the bot will no longer be usable</li>
+        <li>Request a copy of your data</li>
+      </ul>
+      <p>Requests are handled within 30 days.</p>
+    </section>
 
-  <h2>Contact</h2>
-  <p>For data-related questions: <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></p>
+    <section>
+      <h2>Age</h2>
+      <p>This service is intended for users aged 18 and over. We do not knowingly collect data from minors.</p>
+    </section>
+
+    <section>
+      <h2>Policy changes</h2>
+      <p>Material changes will be communicated through the bot. The date of the latest update is shown at the top of this page.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>For data-related questions: <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></p>
+    </section>
+
+  </div>
 
   <footer>
-    © 2025 SafeOut · <a href="../../en/">About</a> · <a href="../../guide/en/">Guide</a>
+    <span class="stamp">Julia Reprintseva · code/</span>
+    <span class="links">
+      <a href="../../en/">← About the bot</a>
+      <a href="../../guide/en/">Guide</a>
+      <a href="../../../../en/">Portfolio</a>
+      <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Telegram</a>
+      <a href="mailto:julia.vl.reprintseva@gmail.com">Email</a>
+    </span>
   </footer>
+
 </div>
+
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : (cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+  r.setAttribute('data-theme', next);
+}
+</script>
 </body>
 </html>
