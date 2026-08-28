@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политика конфиденциальности — SafeOut</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f8f8;
+      --border: #e8e8e8;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --accent: #c0392b;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141414;
+        --surface: #1f1f1f;
+        --border: #2e2e2e;
+        --text: #f0f0f0;
+        --muted: #999999;
+        --accent: #e05a4e;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141414;
+      --surface: #1f1f1f;
+      --border: #2e2e2e;
+      --text: #f0f0f0;
+      --muted: #999999;
+      --accent: #e05a4e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 0 16px;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 0 80px; }
+    .lang-switch {
+      text-align: right;
+      margin-bottom: 32px;
+    }
+    .lang-switch a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+    }
+    .lang-switch a:hover { color: var(--text); }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .back:hover { color: var(--text); }
+    h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 40px; }
+    h2 { font-size: 18px; font-weight: 600; margin: 36px 0 12px; }
+    p { margin-bottom: 14px; color: var(--text); }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    .box p { margin: 0; font-size: 15px; color: var(--muted); }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lang-switch"><a href="en/">English</a></div>
+
+  <a class="back" href="../">← SafeOut</a>
+
+  <h1>Политика конфиденциальности</h1>
+  <p class="meta">SafeOut · Последнее обновление: август 2025</p>
+
+  <div class="box">
+    <p>SafeOut — персональный проект. Оператор персональных данных: Юлия Репринцева, julia.vl.reprintseva@gmail.com.</p>
+  </div>
+
+  <h2>Какие данные мы собираем</h2>
+  <p>При использовании бота SafeOut сохраняются:</p>
+  <ul>
+    <li>Telegram ID, имя и язык пользователя</li>
+    <li>Данные о свидании: имя или ник партнёра, ссылка на профиль, адрес первой встречи, маршрут, номер машины, дополнительная информация</li>
+    <li>Планируемое время возвращения</li>
+    <li>Имена, телефоны и Telegram ID доверенных контактов</li>
+    <li>Файлы (фото, скриншоты, голосовые) — хранятся на серверах Telegram, мы храним только ссылку (file_id)</li>
+  </ul>
+
+  <h2>Цель и основание обработки</h2>
+  <p>Данные используются исключительно для обеспечения безопасности пользователя во время свидания:</p>
+  <ul>
+    <li>Отправка тревожных оповещений доверенным контактам при пропуске проверки</li>
+    <li>Формирование страницы тревоги со сводкой информации</li>
+    <li>Выбор языка интерфейса</li>
+  </ul>
+  <p>Правовое основание: добровольное согласие пользователя (ст. 9 Федерального закона № 152-ФЗ «О персональных данных»).</p>
+
+  <h2>Хранение и защита</h2>
+  <p>Данные хранятся в базе данных на серверах Railway (США). Передача защищена шифрованием. Доступ к данным имеет только оператор.</p>
+  <p>Данные сессии (информация о свидании, файлы) автоматически теряют актуальность после завершения сессии. Мы не удаляем их автоматически, но не используем после завершения.</p>
+
+  <h2>Передача третьим лицам</h2>
+  <p>Данные <strong>не передаются</strong> третьим лицам в коммерческих целях. Доверенные контакты получают ссылку на страницу тревоги только при срабатывании сигнала — это основная функция сервиса, о которой пользователь уведомлён заранее.</p>
+
+  <h2>Права пользователя</h2>
+  <p>Вы вправе:</p>
+  <ul>
+    <li>Запросить удаление всех своих данных — напишите на <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></li>
+    <li>Отозвать согласие — после этого использование бота будет невозможно</li>
+    <li>Получить копию своих данных по запросу</li>
+  </ul>
+  <p>Запросы обрабатываются в течение 30 дней.</p>
+
+  <h2>Возраст</h2>
+  <p>Сервис предназначен для лиц старше 18 лет. Мы не собираем данные несовершеннолетних намеренно.</p>
+
+  <h2>Изменения политики</h2>
+  <p>О существенных изменениях сообщаем через бота. Дата последнего обновления указана вверху страницы.</p>
+
+  <h2>Контакт</h2>
+  <p>По вопросам обработки данных: <a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></p>
+
+  <footer>
+    © 2025 SafeOut · <a href="../">О боте</a> · <a href="../guide/">Инструкция</a>
+  </footer>
+</div>
+</body>
+</html>
