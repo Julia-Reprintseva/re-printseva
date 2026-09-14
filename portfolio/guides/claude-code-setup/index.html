@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Code: установка перед воркшопом — инструкция</title>
+  <meta name="description" content="Пошаговая инструкция для участников воркшопа: подписка, VPN, проверка страны, установка Claude Desktop, плагин feature-dev и чек-лист готовности. 15–25 минут.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Юлия Репринцева">
+  <meta property="og:url" content="https://reprintseva.pro/portfolio/guides/claude-code-setup/">
+  <meta property="og:title" content="Claude Code: установка перед воркшопом">
+  <meta property="og:description" content="Подписка, VPN, проверка страны, Claude Desktop, плагин feature-dev, чек-лист готовности.">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code: установка перед воркшопом">
+  <meta name="twitter:description" content="Подписка, VPN, проверка страны, Claude Desktop, плагин feature-dev, чек-лист готовности.">
+
+  <link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/guides/claude-code-setup/">
+  <link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/guides/claude-code-setup/en/">
+
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><path%20d='M196%20392%20316%20120'%20stroke='%23CB9C47'%20stroke-width='88'%20stroke-linecap='round'/></svg>">
+  <meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+  <style>
+    :root{
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968;
+      --mono: ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+      --serif: Georgia,'Iowan Old Style',ui-serif,serif;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+        --line:#DBDFE8; --line-soft:#E6E9F0;
+        --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+        --accent:#9C6C1E; --accent-hi:#7E5714;
+      }
+    }
+    :root[data-theme="dark"]{
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968;
+    }
+    :root[data-theme="light"]{
+      --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+      --line:#DBDFE8; --line-soft:#E6E9F0;
+      --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+      --accent:#9C6C1E; --accent-hi:#7E5714;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:radial-gradient(circle at 1px 1px,var(--line-soft) 1px,transparent 0) 0 0/28px 28px,var(--bg);
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.6;
+    }
+
+    /* ---------- шапка ---------- */
+    .top-bar{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+      padding:14px 32px;
+      background:color-mix(in srgb,var(--bg) 92%,transparent);
+      border-bottom:1px solid var(--line);
+    }
+    @supports not (background:color-mix(in srgb,red 50%,transparent)){
+      .top-bar{background:var(--bg);}
+    }
+    .back-link{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--ink-dim);text-decoration:none;
+      padding:5px 10px 5px 8px;border:1px solid var(--line);border-radius:999px;
+      white-space:nowrap;transition:color .15s,border-color .15s;
+    }
+    .back-link:hover{color:var(--accent);border-color:var(--accent);}
+    .mark{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);}
+    .mark-glyph{
+      font-family:var(--mono);font-size:.72rem;color:var(--accent);
+      border:1px solid var(--line);border-radius:3px;padding:2px 6px;letter-spacing:.03em;
+    }
+    .mark-name{font-family:var(--serif);font-weight:700;font-size:1rem;letter-spacing:-.01em;}
+    .top-tools{margin-left:auto;display:flex;align-items:center;gap:10px;}
+    .lang-switch,.theme-btn{
+      font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;
+      color:var(--ink-dim);text-decoration:none;background:none;
+      border:1px solid var(--line);border-radius:999px;
+      padding:5px 11px;cursor:pointer;transition:color .15s,border-color .15s;
+    }
+    .lang-switch:hover,.theme-btn:hover{color:var(--accent);border-color:var(--accent);}
+    @media (max-width:560px){ .mark-name{display:none;} .top-bar{padding:12px 18px;} }
+
+    /* ---------- полотно ---------- */
+    .sheet{max-width:760px;margin:0 auto;padding:0 32px 90px;}
+    @media (max-width:560px){ .sheet{padding:0 18px 64px;} }
+
+    .hero{padding:56px 0 40px;}
+    .eyebrow{
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ink-faint);margin-bottom:22px;
+    }
+    h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(2.1rem,6vw,3rem);letter-spacing:-.02em;line-height:1.08;
+      margin-bottom:20px;
+    }
+    h1 em{font-style:italic;color:var(--accent);}
+    .subtitle{font-size:1.06rem;color:var(--ink-dim);max-width:52ch;}
+
+    .intro{margin-top:34px;display:grid;gap:16px;max-width:62ch;}
+    .intro p{color:var(--ink-dim);}
+    .intro strong{color:var(--ink);font-weight:600;}
+    .intro a,.prose a,.callout a,table a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line);}
+    .intro a:hover,.prose a:hover,.callout a:hover,table a:hover{color:var(--accent-hi);border-color:var(--accent);}
+
+    /* ---------- врезка «как пользоваться» ---------- */
+    .howto{
+      margin:44px 0 0;padding:26px 28px;
+      background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    }
+    .howto h2{
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--ink-faint);font-weight:400;margin-bottom:16px;
+    }
+    .howto ol{margin:0;padding-left:20px;display:grid;gap:9px;}
+    .howto li{color:var(--ink-dim);}
+    .howto li strong{color:var(--ink);font-weight:600;}
+
+    /* ---------- разделы ---------- */
+    .section-head{
+      display:flex;align-items:baseline;gap:12px;
+      margin:64px 0 8px;padding-bottom:14px;border-bottom:1px solid var(--line);
+    }
+    .section-letter{
+      font-family:var(--mono);font-size:.7rem;color:var(--accent);
+      border:1px solid var(--line);border-radius:3px;padding:2px 6px;
+    }
+    .section-title{font-family:var(--serif);font-weight:700;font-size:1.3rem;}
+    .section-count{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+
+    .block{border-bottom:1px solid var(--line-soft);padding:28px 0;}
+    .block:last-child{border-bottom:none;}
+    .block-index{
+      font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);
+      letter-spacing:.06em;display:block;margin-bottom:8px;
+    }
+    .block h3{font-family:var(--serif);font-weight:700;font-size:1.22rem;margin-bottom:6px;}
+    .block-when{font-family:var(--mono);font-size:.74rem;color:var(--accent);margin-bottom:12px;}
+
+    .prose{max-width:62ch;}
+    .prose p{color:var(--ink-dim);margin:0 0 12px;}
+    .prose p:last-child{margin-bottom:0;}
+    .prose strong{color:var(--ink);font-weight:600;}
+    .prose ul,.prose ol{margin:0 0 14px;padding-left:22px;color:var(--ink-dim);}
+    .prose li{margin:5px 0;}
+    .prose li::marker{color:var(--ink-faint);}
+    .prose h4{
+      font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--accent);margin:22px 0 10px;font-weight:400;
+    }
+    code{
+      font-family:var(--mono);font-size:.86em;
+      background:var(--paper-hi);border:1px solid var(--line);
+      border-radius:3px;padding:.08em .35em;color:var(--ink);
+    }
+
+    /* ---------- карточки инструментов ---------- */
+    .tools{margin:18px 0 0;display:grid;gap:14px;}
+    .tool{
+      padding:18px 20px;background:var(--paper);
+      border:1px solid var(--line);border-radius:10px;
+    }
+    .tool-name{font-family:var(--serif);font-weight:700;font-size:1.06rem;display:block;}
+    .tool-name a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+    .tool-name a:hover{color:var(--accent);border-color:var(--accent);}
+    .tool-meta{
+      display:block;margin-top:5px;
+      font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--accent);
+    }
+    .tool-price{margin:12px 0 0;font-size:.92rem;color:var(--ink);}
+    .tool-desc{margin:8px 0 0;font-size:.92rem;color:var(--ink-dim);}
+
+    /* ---------- врезки ---------- */
+    .callout{
+      margin:18px 0;padding:16px 18px;
+      background:var(--paper);border:1px solid var(--line);
+      border-left:2px solid var(--accent);border-radius:8px;
+      color:var(--ink-dim);font-size:.94rem;
+    }
+    .callout p{margin:0 0 8px;}
+    .callout p:last-child{margin-bottom:0;}
+    .callout strong{color:var(--ink);font-weight:600;}
+    .callout-label{
+      display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+    }
+
+    /* ---------- шаги ---------- */
+    .steps{margin:20px 0 0;display:grid;gap:0;counter-reset:step;list-style:none;padding:0;}
+    .steps > li{
+      counter-increment:step;position:relative;
+      padding:20px 0 20px 46px;border-top:1px solid var(--line-soft);
+    }
+    .steps > li::before{
+      content:counter(step,decimal-leading-zero);
+      position:absolute;left:0;top:20px;
+      font-family:var(--mono);font-size:.7rem;color:var(--accent);
+      border:1px solid var(--line);border-radius:3px;padding:2px 6px;
+    }
+    .steps h4{
+      font-family:var(--serif);font-weight:700;font-size:1.02rem;
+      color:var(--ink);text-transform:none;letter-spacing:0;margin:0 0 8px;
+    }
+    @media (max-width:560px){ .steps > li{padding-left:40px;} }
+
+    /* ---------- вкладки ОС ---------- */
+    .tabs{display:flex;gap:8px;margin:22px 0 0;}
+    .tab-btn{
+      font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--ink-dim);background:none;border:1px solid var(--line);border-radius:999px;
+      padding:6px 14px;cursor:pointer;transition:color .15s,border-color .15s;
+    }
+    .tab-btn:hover{color:var(--accent);border-color:var(--accent);}
+    .tab-btn[aria-selected="true"]{color:var(--accent);border-color:var(--accent);background:var(--paper);}
+    .tab-panel[hidden]{display:none;}
+
+    /* ---------- код ---------- */
+    .code{
+      margin:14px 0;border:1px solid var(--line);border-radius:10px;
+      background:var(--paper);overflow:hidden;
+    }
+    .code-bar{
+      display:flex;align-items:center;gap:12px;
+      padding:9px 14px;border-bottom:1px solid var(--line);background:var(--paper-hi);
+    }
+    .code-bar span{
+      font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--ink-faint);
+    }
+    .copy-btn{
+      margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--ink-dim);background:none;
+      border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;
+      transition:color .15s,border-color .15s;
+    }
+    .copy-btn:hover{color:var(--accent);border-color:var(--accent);}
+    .copy-btn.done{color:var(--accent);border-color:var(--accent);}
+    .code pre{
+      margin:0;padding:14px 16px;overflow-x:auto;
+      font-family:var(--mono);font-size:.86rem;color:var(--ink);
+    }
+
+    /* ---------- таблицы ---------- */
+    .table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:10px;background:var(--paper);}
+    table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:440px;}
+    th,td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-dim);}
+    th{
+      font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--ink-faint);font-weight:400;background:var(--paper-hi);border-bottom:1px solid var(--line);
+    }
+    tbody tr:last-child td{border-bottom:none;}
+    td strong{color:var(--ink);font-weight:600;}
+    td.nw,th.nw{white-space:nowrap;}
+
+    /* ---------- чек-лист ---------- */
+    .check{
+      margin:20px 0 0;padding:24px 26px;
+      background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    }
+    .check ul{list-style:none;padding:0;margin:0;display:grid;gap:2px;}
+    .check li{border-bottom:1px solid var(--line-soft);}
+    .check li:last-child{border-bottom:none;}
+    .check label{
+      display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+      padding:11px 2px;color:var(--ink-dim);
+    }
+    .check input{
+      appearance:none;-webkit-appearance:none;flex:none;
+      width:17px;height:17px;margin-top:3px;
+      border:1px solid var(--line);border-radius:4px;background:var(--paper-hi);
+      cursor:pointer;position:relative;transition:border-color .15s;
+    }
+    .check input:hover{border-color:var(--accent);}
+    .check input:checked{border-color:var(--accent);}
+    .check input:checked::after{
+      content:"✓";position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.72rem;color:var(--accent);
+    }
+    .check input:checked + span{color:var(--ink-faint);text-decoration:line-through;}
+    .check label strong{color:var(--ink);font-weight:600;}
+    .check input:checked + span strong{color:var(--ink-faint);}
+    .check-note{margin-top:16px;font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;color:var(--ink-faint);}
+
+
+    /* ---------- левое меню по разделам ---------- */
+    .toc{display:none;}
+    @media (min-width:1180px){
+      .toc{
+        display:block;position:fixed;top:104px;left:28px;width:190px;z-index:40;
+        max-height:calc(100vh - 150px);overflow-y:auto;
+      }
+      .toc-label{
+        display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px;padding-left:11px;
+      }
+      .toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line);}
+      .toc li{margin:0;}
+      .toc a{
+        display:block;padding:6px 0 6px 11px;margin-left:-1px;
+        border-left:1px solid transparent;
+        font-size:.8rem;line-height:1.35;color:var(--ink-faint);text-decoration:none;
+        transition:color .15s,border-color .15s;
+      }
+      .toc a:hover{color:var(--ink-dim);}
+      .toc a.active{color:var(--accent);border-left-color:var(--accent);}
+    }
+    @media (min-width:1500px){ .toc{left:calc(50% - 380px - 32px - 210px);} }
+
+    .section-head{scroll-margin-top:88px;}
+
+    /* ---------- подвал ---------- */
+    footer{
+      margin-top:64px;padding-top:22px;border-top:1px solid var(--line);
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+      font-size:.78rem;color:var(--ink-faint);
+    }
+    footer .links{display:flex;flex-wrap:wrap;gap:10px 18px;}
+    footer a{color:var(--ink-dim);text-decoration:none;}
+    footer a:hover{color:var(--accent);}
+  </style>
+</head>
+<body>
+
+<header class="top-bar">
+  <a class="back-link" href="../../">← Портфолио</a>
+  <a class="mark" href="../../">
+    <span class="mark-glyph">ЮР</span>
+    <span class="mark-name">Юлия Репринцева</span>
+  </a>
+  <span class="top-tools">
+    <a class="lang-switch" href="en/">EN</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Переключить тему">☾</button>
+  </span>
+</header>
+
+<nav class="toc" aria-label="Разделы">
+  <span class="toc-label">Разделы</span>
+  <ol>
+    <li><a href="#about">Что это</a></li>
+    <li><a href="#before">Что нужно</a></li>
+    <li><a href="#country">Проверка страны</a></li>
+    <li><a href="#install">Установка</a></li>
+    <li><a href="#plugin">Плагин feature-dev</a></li>
+    <li><a href="#commands">Команды</a></li>
+    <li><a href="#trouble">Если что-то не так</a></li>
+    <li><a href="#checklist">Чек-лист</a></li>
+  </ol>
+</nav>
+
+<div class="sheet">
+
+  <div class="hero">
+    <div class="eyebrow">Инструкция · перед воркшопом</div>
+    <h1>Claude Code: <em>ставим</em> до начала воркшопа</h1>
+    <p class="subtitle">Пошаговое руководство для участников. Установка занимает 15–25 минут. Если хотите просто смотреть демонстрацию — ставить ничего не нужно.</p>
+
+    <div class="intro">
+      <p><strong>Если вы из России — нужен VPN.</strong> Anthropic (компания, которая делает Claude) не обслуживает пользователей из России. Подключите надёжный VPN к Европе, США или Азии (кроме Китая) <em>до</em> регистрации и проверьте, что страна сменилась, — ниже показываю как.</p>
+    </div>
+  </div>
+
+  <section class="howto">
+    <h2>Порядок действий</h2>
+    <ol>
+      <li><strong>Оформите подписку</strong> Claude Pro или Max — без неё Claude Code не запустится.</li>
+      <li><strong>Включите VPN и проверьте страну</strong> — двумя способами, браузером и через терминал. Это важнее, чем кажется.</li>
+      <li><strong>Установите Claude Desktop</strong> — приложение, внутри которого есть вкладка Code.</li>
+      <li><strong>Поставьте плагин feature-dev</strong> — без него не получится повторить то, что я буду показывать.</li>
+      <li><strong>Пройдите чек-лист</strong> в конце страницы — отметки сохранятся в браузере.</li>
+    </ol>
+  </section>
+
+  <!-- ===================== ЧТО ЭТО ===================== -->
+  <div class="section-head" id="about">
+    <span class="section-letter">0</span>
+    <span class="section-title">Что такое Claude Code</span>
+  </div>
+
+  <article class="block">
+    <div class="prose">
+      <p>Это инструмент от Anthropic, который позволяет общаться с ИИ-ассистентом так, чтобы он видел ваши файлы на компьютере, создавал новые и запускал команды. В отличие от чата на сайте, он работает прямо в вашей рабочей среде.</p>
+      <p>На воркшопе мы будем работать через <strong>приложение Claude Desktop</strong> — это самый простой вариант: скачали приложение, открыли вкладку Code и работаете. Без терминала, Node.js и расширений.</p>
+    </div>
+  </article>
+
+  <!-- ===================== ЧТО НУЖНО ===================== -->
+  <div class="section-head" id="before">
+    <span class="section-letter">A</span>
+    <span class="section-title">Что нужно перед началом</span>
+    <span class="section-count">03</span>
+  </div>
+
+  <article class="block">
+    <span class="block-index">A.01</span>
+    <h3>Подписка Claude</h3>
+    <p class="block-when">Обязательно · оформляется за пять минут</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="nw">План</th><th class="nw">Цена</th><th>Что входит</th></tr></thead>
+        <tbody>
+          <tr><td class="nw"><strong>Pro</strong></td><td class="nw">$20 / мес</td><td>Достаточно для воркшопа. Примерно 225 сообщений Sonnet за 5 часов</td></tr>
+          <tr><td class="nw"><strong>Max 5×</strong></td><td class="nw">$100 / мес</td><td>В 5 раз больше лимитов</td></tr>
+          <tr><td class="nw"><strong>Max 20×</strong></td><td class="nw">$200 / мес</td><td>В 20 раз больше лимитов</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p>Купить: <a href="https://claude.ai/upgrade" target="_blank" rel="noopener">claude.ai/upgrade</a>. Подписка работает и в чате на сайте, и в Claude Code — платить дважды не нужно.</p>
+    </div>
+  </article>
+
+  <article class="block">
+    <span class="block-index">A.02</span>
+    <h3>VPN — если вы из России</h3>
+    <p class="block-when">Обязательно · и до установки, и на самом воркшопе</p>
+    <div class="prose">
+      <p>Подойдёт любой надёжный VPN с подключением к Европе, США или Азии (кроме Китая). После подключения обязательно проверьте страну — как именно, в следующем разделе.</p>
+    </div>
+  </article>
+
+  <article class="block">
+    <span class="block-index">A.03</span>
+    <h3>Голосовой ввод</h3>
+    <p class="block-when">Необязательно · но заметно ускоряет работу</p>
+    <div class="prose">
+      <p>На воркшопе я буду пользоваться голосом — это сильно ускоряет общение с Claude, когда задачу нужно описать подробно. Все эти программы делают одно и то же — превращают речь в текст, — но по-разному, и путать их не стоит.</p>
+      <h4>Диктовка: текст появляется там, где курсор</h4>
+      <p>Это то, что пригодится на воркшопе. Нажимаете горячую клавишу, говорите — расшифровка вставляется прямо в поле ввода Claude, в письмо, в документ, куда угодно.</p>
+    </div>
+
+    <div class="tools">
+      <div class="tool">
+        <span class="tool-name"><a href="https://wisprflow.ai/" target="_blank" rel="noopener">Wispr Flow</a></span>
+        <span class="tool-meta">Mac · Windows · iPhone · Android</span>
+        <p class="tool-price">Бесплатный тариф с лимитом: 2000 слов в неделю на компьютере, 1000 на iPhone, без лимита на Android. Pro — $15 в месяц, $12 при оплате за год.</p>
+        <p class="tool-desc">Самый простой старт: ставится и работает во всех программах сразу. Подстраивается под манеру речи, сам убирает «эээ» и слова-паразиты.</p>
+      </div>
+
+      <div class="tool">
+        <span class="tool-name"><a href="https://spokenly.app/" target="_blank" rel="noopener">Spokenly</a></span>
+        <span class="tool-meta">Mac · Windows · Linux · iPhone</span>
+        <p class="tool-price">Бесплатно на локальных моделях — без аккаунта, без лимитов, работает офлайн. Pro — $99,99 в год (~$8,33 в месяц) за облачные модели, синхронизацию и подчистку текста.</p>
+        <p class="tool-desc">Вариант для тех, кому важно, чтобы голос не уходил в чужое облако: модель работает прямо на вашем компьютере. Можно подключить и свои ключи OpenAI или Deepgram — тогда подписка не нужна.</p>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top:26px;">
+      <h4>Расшифровка и диктофон: это уже не про воркшоп</h4>
+      <p>Эти две программы я держу для другого — на воркшопе они не понадобятся, но про них часто спрашивают, поэтому объясню разницу.</p>
+    </div>
+
+    <div class="tools">
+      <div class="tool">
+        <span class="tool-name"><a href="https://www.macwhisper.com/" target="_blank" rel="noopener">MacWhisper</a></span>
+        <span class="tool-meta">Только Mac</span>
+        <p class="tool-price">Бесплатная версия есть всегда. Pro — €64 один раз и навсегда, без подписки.</p>
+        <p class="tool-desc">Расшифровывает готовые аудио- и видеофайлы: интервью, записи созвонов, лекции. Файл перетаскиваете в окно — получаете текст с разбивкой по говорящим. Для Windows не существует.</p>
+      </div>
+
+      <div class="tool">
+        <span class="tool-name"><a href="https://whispermemos.com/" target="_blank" rel="noopener">Whisper Memos</a></span>
+        <span class="tool-meta">iPhone · Apple Watch</span>
+        <p class="tool-price">$69,99 в год, бесплатного тарифа нет.</p>
+        <p class="tool-desc">Диктофон для того, что происходит не за столом: наговорили на ходу или прямо с часов — расшифровка вместе с кратким пересказом приходит на почту. К компьютеру отношения не имеет.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-label">Коротко</span>
+      <p>Если нужен один инструмент и без раздумий — берите <strong>Wispr Flow</strong>: он есть на всех устройствах и его бесплатного тарифа хватит, чтобы попробовать. Если принципиально, чтобы запись никуда не отправлялась, — <strong>Spokenly</strong> на локальной модели, бесплатно.</p>
+      <p>Цены проверены в сентябре 2026 года — они меняются, так что перед покупкой посмотрите на сайте.</p>
+    </div>
+  </article>
+
+  <!-- ===================== ПРОВЕРКА СТРАНЫ ===================== -->
+  <div class="section-head" id="country">
+    <span class="section-letter">B</span>
+    <span class="section-title">Проверка страны</span>
+    <span class="section-count">02</span>
+  </div>
+
+  <article class="block">
+    <div class="prose">
+      <p>Сделайте это <strong>до установки</strong> и <strong>перед каждым запуском Claude Code</strong>. Если VPN отключится или переключится в неподдерживаемую страну, Claude просто перестанет отвечать.</p>
+      <div class="callout">
+        <span class="callout-label">Почему двумя способами</span>
+        <p>Браузер может ходить в интернет через прокси и показать «правильную» страну, тогда как сами приложения — Claude Desktop, Claude Code — идут напрямую и видят вашу <strong>настоящую</strong> страну. Проверка через терминал показывает то, что увидит Claude.</p>
+        <p>Это единственное место в инструкции, где понадобится терминал, — и только если вы из страны, где Claude не работает.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="block">
+    <span class="block-index">B.01</span>
+    <h3>В браузере</h3>
+    <div class="prose">
+      <p>Откройте <a href="https://whoer.net" target="_blank" rel="noopener">whoer.net</a> и найдите строку «Страна». Если там <strong>Россия</strong> — включите VPN и обновите страницу. Должно отображаться, например, Нидерланды, Германия, США.</p>
+    </div>
+  </article>
+
+  <article class="block">
+    <span class="block-index">B.02</span>
+    <h3>В терминале</h3>
+    <p class="block-when">Обязательно, даже если браузер показал правильную страну</p>
+
+    <div class="tabs" role="tablist" data-tabs="os-check">
+      <button class="tab-btn" role="tab" aria-selected="true" data-panel="check-mac">macOS</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-panel="check-win">Windows</button>
+    </div>
+
+    <div class="tab-panel" id="check-mac">
+      <div class="prose">
+        <ol>
+          <li>Откройте Terminal: нажмите <code>⌘ + Пробел</code>, наберите <strong>Terminal</strong> и нажмите Enter.</li>
+          <li>Скопируйте команду ниже, вставьте в Terminal (<code>⌘ + V</code>) и нажмите Enter.</li>
+        </ol>
+      </div>
+      <div class="code">
+        <div class="code-bar"><span>Terminal · macOS</span><button class="copy-btn" data-done="Скопировано">Скопировать</button></div>
+        <pre>curl ipinfo.io/country</pre>
+      </div>
+      <div class="prose">
+        <p>В ответ должна прийти двухбуквенная страна: <code>NL</code> (Нидерланды), <code>DE</code> (Германия), <code>US</code> (США), <code>FR</code> (Франция) и т. п.</p>
+        <p>Если пришло <code>RU</code> — VPN не работает на уровне системы. Включите его, выберите режим, при котором весь трафик идёт через VPN (обычно называется «System-wide» или «Tunnel all traffic»), и повторите проверку.</p>
+        <p>Если страна на whoer.net и страна из <code>curl</code> <strong>не совпадают</strong> — ориентируйтесь на <code>curl</code>: именно её увидит Claude.</p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="check-win" hidden>
+      <div class="prose">
+        <ol>
+          <li>Откройте PowerShell: нажмите <code>Win + X</code>, выберите <strong>Terminal</strong> (Windows 11) или <strong>Windows PowerShell</strong> (Windows 10).</li>
+          <li>Скопируйте команду ниже, вставьте правым кликом в окно терминала и нажмите Enter.</li>
+        </ol>
+      </div>
+      <div class="code">
+        <div class="code-bar"><span>PowerShell · Windows</span><button class="copy-btn" data-done="Скопировано">Скопировать</button></div>
+        <pre>curl.exe ipinfo.io/country</pre>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Почему curl.exe, а не curl</span>
+        <p>В PowerShell слово <code>curl</code> — сокращение для другой команды (Invoke-WebRequest), которая ведёт себя иначе. Настоящий curl называется <code>curl.exe</code> и встроен в Windows 10 и 11.</p>
+      </div>
+      <div class="prose">
+        <p>В ответ должна прийти двухбуквенная страна: <code>NL</code>, <code>DE</code>, <code>US</code>, <code>FR</code> и т. п.</p>
+        <p>Если пришло <code>RU</code> — VPN не работает на уровне системы. Включите режим, при котором весь трафик идёт через VPN («System-wide», «Tunnel all traffic»), и повторите проверку.</p>
+        <p>Если страна на whoer.net и страна из <code>curl.exe</code> <strong>не совпадают</strong> — ориентируйтесь на <code>curl.exe</code>.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== УСТАНОВКА ===================== -->
+  <div class="section-head" id="install">
+    <span class="section-letter">C</span>
+    <span class="section-title">Установка Claude Desktop</span>
+  </div>
+
+  <article class="block">
+    <div class="prose">
+      <p>Самый простой путь. <strong>Не требует Node.js, npm, командной строки и расширений</strong> — никаких технических зависимостей, кроме одной программы Git for Windows, и то только у пользователей Windows.</p>
+    </div>
+
+    <div class="tabs" role="tablist" data-tabs="os-install">
+      <button class="tab-btn" role="tab" aria-selected="true" data-panel="inst-mac">macOS</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-panel="inst-win">Windows</button>
+    </div>
+
+    <div class="tab-panel" id="inst-mac">
+      <ol class="steps">
+        <li>
+          <h4>Скачать</h4>
+          <div class="prose"><p>Откройте <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a> и скачайте версию для <strong>macOS</strong>. Это файл <code>.dmg</code>.</p></div>
+        </li>
+        <li>
+          <h4>Установить</h4>
+          <div class="prose">
+            <ul>
+              <li>Откройте скачанный <code>.dmg</code>.</li>
+              <li>Перетащите иконку Claude в папку <strong>Программы</strong>.</li>
+              <li>Запустите Claude из Launchpad.</li>
+              <li>Если macOS предупредит, что приложение скачано из интернета, — нажмите <strong>Открыть</strong>.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <h4>Войти в аккаунт</h4>
+          <div class="prose"><p>В окне приложения войдите в свой аккаунт Claude — тот, на котором оформлена подписка Pro или Max.</p></div>
+        </li>
+        <li>
+          <h4>Открыть вкладку Code</h4>
+          <div class="prose">
+            <p>В верхней части окна слева три вкладки: <strong>Chat</strong>, <strong>Cowork</strong>, <strong>Code</strong>. Нажмите <strong>Code</strong>, затем <strong>New session</strong> в боковой панели.</p>
+            <p>Готово — это и есть Claude Code в графическом виде.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="tab-panel" id="inst-win" hidden>
+      <ol class="steps">
+        <li>
+          <h4>Скачать Claude Desktop</h4>
+          <div class="prose">
+            <p>Откройте <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a> и скачайте версию для <strong>Windows</strong>. Это файл <code>.exe</code>.</p>
+            <p>Если у вас Windows на ARM-процессоре (например, ноутбуки на Snapdragon) — выберите на странице скачивания версию <strong>ARM64</strong>.</p>
+          </div>
+        </li>
+        <li>
+          <h4>Установить Claude Desktop</h4>
+          <div class="prose">
+            <ul>
+              <li>Запустите скачанный <code>.exe</code>.</li>
+              <li>Пройдите установщик с настройками по умолчанию.</li>
+              <li>Запустите Claude через меню «Пуск».</li>
+              <li>Если Windows Defender SmartScreen предупредит — нажмите <strong>Подробнее → Выполнить в любом случае</strong>.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <h4>Установить Git for Windows</h4>
+          <div class="prose">
+            <p>При первом открытии вкладки Code Claude может запросить <strong>Git for Windows</strong> — это отдельная программа для отслеживания версий файлов, Claude Code использует её внутри.</p>
+            <ul>
+              <li>Откройте <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com/downloads/win</a>.</li>
+              <li>Скачайте <code>.exe</code> (Standalone Installer 64-bit).</li>
+              <li>Запустите и жмите <strong>Next</strong> на каждом шаге — настройки по умолчанию подходят.</li>
+              <li>Перезапустите Claude Desktop.</li>
+            </ul>
+            <p>Это <strong>не Node.js</strong>: Git — совсем другая программа. Ставится один раз и забывается.</p>
+          </div>
+        </li>
+        <li>
+          <h4>Войти в аккаунт</h4>
+          <div class="prose"><p>В окне приложения войдите в свой аккаунт Claude — тот, на котором оформлена подписка Pro или Max.</p></div>
+        </li>
+        <li>
+          <h4>Открыть вкладку Code</h4>
+          <div class="prose">
+            <p>В верхней части окна слева три вкладки: <strong>Chat</strong>, <strong>Cowork</strong>, <strong>Code</strong>. Нажмите <strong>Code</strong>, затем <strong>New session</strong> в боковой панели.</p>
+            <p>Готово — это и есть Claude Code в графическом виде.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- ===================== ПЛАГИН ===================== -->
+  <div class="section-head" id="plugin">
+    <span class="section-letter">D</span>
+    <span class="section-title">Плагин feature-dev</span>
+    <span class="section-count">04</span>
+  </div>
+
+  <article class="block">
+    <div class="prose">
+      <p>На воркшопе мы используем официальный плагин <strong>Feature Dev</strong> от Anthropic. Это упакованный регламент, который ведёт Claude по семи фазам: уточняющие вопросы, архитектура, реализация, само-проверка кода, итог. <strong>Без него повторить демонстрацию не получится.</strong></p>
+      <p>В приложении Claude Desktop плагины ставятся через визуальный каталог, а не командой <code>/plugin</code>.</p>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <h4>Откройте меню плагинов</h4>
+        <div class="prose">
+          <p>В окне сессии Code слева от поля ввода, в левом нижнем углу, есть кнопка <strong>+</strong>. Нажмите её — появится меню: <strong>Slash commands</strong>, <strong>Connectors</strong>, <strong>Plugins</strong>.</p>
+          <p>Наведите курсор на <strong>Plugins</strong> — откроется подменю с двумя пунктами: <strong>Manage plugins</strong> и <strong>+ Add plugin</strong>. Выберите <strong>+ Add plugin</strong>.</p>
+        </div>
+      </li>
+      <li>
+        <h4>Найдите Feature dev в каталоге</h4>
+        <div class="prose">
+          <p>Откроется окно <strong>Directory</strong> со списком плагинов.</p>
+          <ul>
+            <li>В левой колонке выберите раздел <strong>Plugins</strong> — по умолчанию открыт раздел Skills.</li>
+            <li>В строке поиска вверху введите <strong>Feature dev</strong>.</li>
+            <li>В фильтре под строкой поиска выберите вкладку <strong>Anthropic &amp; Partners</strong> (рядом с «Code»).</li>
+            <li>В появившихся подкаталогах выберите <strong>Anthropic</strong>.</li>
+            <li>В списке появится карточка <strong>Feature dev</strong> от автора <strong>Anthropic</strong> с описанием «Comprehensive feature development workflow…».</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <h4>Установите плагин</h4>
+        <div class="prose"><p>В карточке плагина справа есть кнопка <strong>+</strong>. Нажмите её — плагин установится. Если спросят про область действия, подойдёт <strong>User scope</strong>: плагин будет работать во всех проектах.</p></div>
+      </li>
+      <li>
+        <h4>Проверьте, что плагин появился</h4>
+        <div class="prose"><p>Снова нажмите <strong>+</strong> слева от поля ввода → <strong>Plugins</strong> → <strong>Manage plugins</strong>: в списке установленных должен быть <strong>feature-dev</strong>. Ещё можно набрать в поле ввода <code>/feature-dev</code> — должна появиться подсказка с командой.</p></div>
+      </li>
+    </ol>
+
+    <div class="prose" style="margin-top:26px;">
+      <h4>Что делает плагин</h4>
+      <p>Запускается командой <code>/feature-dev</code> (или <code>/feature-dev:feature-dev</code>, если найдётся несколько одноимённых). После запуска Claude переходит в режим ведения задачи:</p>
+      <ul>
+        <li>сам задаёт уточняющие вопросы по вашей идее;</li>
+        <li>предлагает архитектуру до того, как начать писать код;</li>
+        <li>делает само-проверку готового кода через специализированных под-агентов;</li>
+        <li>подводит итог сделанного.</li>
+      </ul>
+      <p>На воркшопе вы увидите всё это в действии.</p>
+    </div>
+  </article>
+
+  <!-- ===================== КОМАНДЫ ===================== -->
+  <div class="section-head" id="commands">
+    <span class="section-letter">E</span>
+    <span class="section-title">Команды, которые пригодятся</span>
+    <span class="section-count">06</span>
+  </div>
+
+  <article class="block">
+    <div class="prose">
+      <p>Основной способ работы — обычный текст: пишете задачу и жмёте Enter. Или нажимаете горячую клавишу Wispr Flow либо Spokenly и диктуете. Всё остальное — слэш-команды.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+        <tbody>
+          <tr><td><code>/help</code></td><td>Полный список команд</td></tr>
+          <tr><td><code>/clear</code></td><td>Очистить разговор, начать новый</td></tr>
+          <tr><td><code>/permissions</code></td><td>Настроить, что можно делать без вопроса</td></tr>
+          <tr><td><code>/memory</code></td><td>Долгосрочная память «как со мной работать»</td></tr>
+          <tr><td><code>/init</code></td><td>Создать <code>CLAUDE.md</code> — памятку для проекта</td></tr>
+          <tr><td><code>/skills</code></td><td>Список доступных скиллов</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="callout-label">Что важно знать на старте</span>
+      <p>Claude часто спрашивает разрешение перед действиями с файлами — это нормально, жмите <strong>Yes</strong>. Когда устанете подтверждать, настройте <code>/permissions</code>.</p>
+      <p>Чем подробнее задача, тем лучше результат: что хотите, зачем, какие ограничения.</p>
+    </div>
+  </article>
+
+  <!-- ===================== ЕСЛИ ЧТО-ТО НЕ ТАК ===================== -->
+  <div class="section-head" id="trouble">
+    <span class="section-letter">F</span>
+    <span class="section-title">Если что-то пошло не так</span>
+  </div>
+
+  <article class="block">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Проблема</th><th>Решение</th></tr></thead>
+        <tbody>
+          <tr><td>Claude молчит или ошибка сети</td><td>Проверьте VPN: на <a href="https://whoer.net" target="_blank" rel="noopener">whoer.net</a> страна не должна быть Россия</td></tr>
+          <tr><td>Приложение не запускается</td><td>Системные настройки → Конфиденциальность → разрешить запуск</td></tr>
+          <tr><td>Windows Defender блокирует Claude Desktop</td><td>Подробнее → Выполнить в любом случае</td></tr>
+          <tr><td>Code не открывается или просит Git</td><td>Установите Git for Windows — шаг 3 установки</td></tr>
+          <tr><td>Браузер не открылся на авторизации</td><td>Скопируйте ссылку из приложения вручную</td></tr>
+          <tr><td>«Лимит исчерпан»</td><td>Подождите час или обновите подписку</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <!-- ===================== ЧЕК-ЛИСТ ===================== -->
+  <div class="section-head" id="checklist">
+    <span class="section-letter">✓</span>
+    <span class="section-title">Чек-лист готовности</span>
+    <span class="section-count">07</span>
+  </div>
+
+  <section class="check">
+    <ul>
+      <li><label><input type="checkbox" data-key="vpn"><span>VPN включён, страна <strong>не Россия</strong> — проверено обоими способами</span></label></li>
+      <li><label><input type="checkbox" data-key="sub"><span>Подписка Claude <strong>Pro</strong> или <strong>Max</strong> активна</span></label></li>
+      <li><label><input type="checkbox" data-key="app"><span>Установлено приложение <strong>Claude Desktop</strong></span></label></li>
+      <li><label><input type="checkbox" data-key="git"><span>Установлен <strong>Git for Windows</strong> — только для Windows</span></label></li>
+      <li><label><input type="checkbox" data-key="code"><span>Хотя бы раз вошли в Claude и открыли вкладку <strong>Code</strong></span></label></li>
+      <li><label><input type="checkbox" data-key="plugin"><span>Плагин <strong>feature-dev</strong> установлен и виден в списке Manage plugins</span></label></li>
+      <li><label><input type="checkbox" data-key="voice"><span>Опционально: установлен Wispr Flow или Spokenly для голосового ввода</span></label></li>
+    </ul>
+    <p class="check-note">Прогресс сохраняется в вашем браузере — отметки останутся при следующем визите.</p>
+  </section>
+
+  <div class="prose" style="margin-top:28px;">
+    <p>Если застряли на любом шаге — напишите мне в <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Telegram</a>.</p>
+  </div>
+
+  <footer>
+    <span>Юлия Репринцева · code/</span>
+    <span class="links">
+      <a href="../../">← Портфолио</a>
+      <a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Telegram</a>
+      <a href="mailto:julia.vl.reprintseva@gmail.com">Email</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme(){
+  var r=document.documentElement, cur=r.getAttribute('data-theme');
+  r.setAttribute('data-theme', cur==='dark' ? 'light' : (cur==='light' ? 'dark'
+    : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark')));
+}
+
+/* подсветка активного раздела в левом меню */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!links.length) return;
+  var heads = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function sync(){
+    var y = window.scrollY + 120, current = 0;
+    heads.forEach(function(h,i){ if (h && h.offsetTop <= y) current = i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i === current); });
+  }
+  window.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  sync();
+})();
+
+/* вкладки macOS / Windows */
+document.querySelectorAll('.tabs').forEach(function(group){
+  var btns = group.querySelectorAll('.tab-btn');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        var panel = document.getElementById(b.dataset.panel);
+        if (panel) panel.hidden = (b !== btn);
+      });
+      try { localStorage.setItem('cc-os', btn.textContent.trim()); } catch(e){}
+    });
+  });
+});
+try {
+  var savedOS = localStorage.getItem('cc-os');
+  if (savedOS) {
+    document.querySelectorAll('.tab-btn').forEach(function(b){
+      if (b.textContent.trim() === savedOS) b.click();
+    });
+  }
+} catch(e){}
+
+/* копирование команд */
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.closest('.code').querySelector('pre').textContent.trim();
+    navigator.clipboard.writeText(text).then(function(){
+      var old = btn.textContent;
+      btn.textContent = btn.dataset.done;
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1800);
+    });
+  });
+});
+
+/* чек-лист */
+document.querySelectorAll('.check input[type=checkbox]').forEach(function(box){
+  var key = 'cc-check-' + box.dataset.key;
+  try { if (localStorage.getItem(key) === '1') box.checked = true; } catch(e){}
+  box.addEventListener('change', function(){
+    try { localStorage.setItem(key, box.checked ? '1' : '0'); } catch(e){}
+  });
+});
+</script>
+</body>
+</html>
