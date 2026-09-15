@@ -1073,6 +1073,12 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
       <p>Nothing else needs adding. The skill should work out what's wanted on its own and open its own reference files. If you had to prompt it — that's the first finding: the skill's <code>Description</code> is drawn too narrowly.</p>
       <p>Then judge the output point by point, not by whether you like it.</p>
     </div>
+    <div class="callout">
+      <span class="callout-label">How to be sure the skill fired at all</span>
+      <p>Not an idle question: an answer arrives either way, and it looks respectable. Claude will reply without the skill too — in its own way rather than by your rules. From the outside the two are hard to tell apart.</p>
+      <p>The test is simple: <strong>find something in the reply that exists only in the skill.</strong> Not a general trait like "it's well structured", but a specific rule you wrote in yourself. If your stop-list says "remove the key word from the subject — if nothing is left, discard it", and the reply shows that test being applied, the skill was read. If the answer is good but assembled from general logic, with none of your rules in it, it didn't fire.</p>
+      <p>And if it didn't, the thing to fix is the skill's <strong><code>Description</code></strong>, not your habit of mentioning the skill in every request. A skill you have to summon by hand will be forgotten within a month — and in a scheduled task there is nobody to summon it: no human is there to remember.</p>
+    </div>
     <ol class="steps">
       <li>
         <h4>Format</h4>
