@@ -1208,7 +1208,7 @@ Publish the result as an artifact and send me the link.</pre>
 
   <article class="block">
     <div class="prose">
-      <p>Assembling a skill is half the job. The difference between a working one and a mediocre one lies not in length but in six things. This section is reference material: useful when you edit your skill for the second time.</p>
+      <p>Assembling a skill is half the job. The difference between a working one and a mediocre one lies not in length but in seven things. This section is reference material: useful when you edit your skill for the second time.</p>
 
       <h4>1. Keep the main file light, put the weight in references</h4>
       <p><code>SKILL.md</code> loads <strong>in full on every trigger</strong>. Files in the <code>references/</code> folder load only when the skill decides to open them. So the main file holds the procedure: what to do, in what order, what to discard. Everything bulky — the profile of a person, examples, reference lists — moves into references.</p>
@@ -1232,6 +1232,17 @@ Publish the result as an artifact and send me the link.</pre>
       <h4>6. A README — for humans, not for the model</h4>
       <p>A separate <code>README.md</code> beside <code>SKILL.md</code>: what the skill does, what it's made of, how it's installed, which requests trigger it, what you can safely change.</p>
       <p>The model never reads it — it isn't wired into the procedure and costs you nothing. People read it: you, six months from now, opening the folder and not remembering what this was; and whoever you hand the skill to.</p>
+
+      <h4>7. Not every rejection is final</h4>
+      <p>If your skill has a filter — a stop-list, selection criteria, anything that discards — it has to tell <strong>a final rejection from a provisional one</strong>. Otherwise the filter quietly cuts into good material and you never see it happen.</p>
+      <p>Final is when the material itself doesn't fit: the stop-list is triggered, the fact won't verify, the conclusion is obvious. Nothing to salvage there.</p>
+      <p>Provisional is when it was <strong>the first angle found</strong> that didn't fit. The subject is already covered, the conclusion repeats earlier material, the turn is banal. That's a complaint about the framing, not the material — and a second angle is nearly always right there, it just didn't come first.</p>
+      <p>The rule to put in the skill: on a provisional rejection, one attempt at a different angle is mandatory, and only then the rejection — naming both angles it tried. One line in the procedure, and it saves the most valuable thing there is: strong material that would otherwise be lost for an accidental reason.</p>
+    </div>
+    <div class="callout">
+      <span class="callout-label">Where you can see this</span>
+      <p>Only in the rejected block — if you asked the skill to show one. Output looks equally good whether the filter is tuned right or throwing away things it shouldn't: the whole difference is in what isn't there.</p>
+      <p>So <strong>ask the skill to show what it rejected and why</strong>. It's the one place the filter's setting is visible, and the first place to look after a run.</p>
     </div>
     <div class="callout">
       <span class="callout-label">If the skill is written for a specific person</span>
