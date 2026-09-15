@@ -1,0 +1,71 @@
+# reprintseva.pro — сайт и портфолио
+
+Статический сайт, GitHub Pages, ветка `main`. Пуш в `main` = публикация через 1–2 минуты.
+Владелица — не программист: не объяснять ей, какую строку копировать, а делать самому.
+
+## Что делать, когда появился новый материал
+
+Триггеры: в `portfolio/guides/`, `portfolio/projects/` или `portfolio/bots/` есть новая папка
+(`git status` покажет `??`), или Юлия говорит «добавь гайд / проект / бота в портфолио»,
+«отправь на гитхаб», «обнови сайт».
+
+1. Прочитать `index.html` нового материала: `<title>`, `<h1>`, `meta description`, `.eyebrow`.
+   Проверить, есть ли `en/index.html` — если есть, английская версия портфолио тоже обновляется.
+2. Добавить строку в **оба** индекса: `portfolio/index.html` (RU) и `portfolio/en/index.html` (EN).
+   Строка ставится **в конец** своего раздела (Проекты / Гайды и статьи / Боты).
+3. Обновить счётчики: `section-count` раздела («04» → «05») и `.tally` в шапке
+   («5 гайдов» — со склонением; в EN «5 guides»).
+4. Проверить локально (см. ниже), закоммитить папку материала + оба индекса, запушить.
+
+Ничего не удалять и не переименовывать без явной просьбы.
+
+## Анатомия строки портфолио
+
+```html
+<a class="row with-thumb" href="guides/<slug>/">          <!-- EN: ../guides/<slug>/en/ -->
+  <span class="row-index">G.05</span>                     <!-- P = проект, G = гайд, B = бот; номер = следующий по порядку -->
+  <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
+    <svg viewBox="0 0 24 24">…контуры иконки…</svg>
+  </span>
+  <span class="row-body">
+    <span class="row-kicker"><span class="dot"></span>Инструкция</span>   <!-- Статья / Инструкция / Промпты; у ботов и проектов dot good + «· работает» / «· готово» -->
+    <span class="row-title">Заголовок как в h1, без курсива</span>
+    <span class="row-desc">Одна-две фразы, до ~110 знаков.</span>
+  </span>
+  <span class="row-meta">
+    <span class="row-date">15.09.2026</span>               <!-- EN: 15 Sep 2026 -->
+    <span class="row-arrow">↗</span>
+  </span>
+</a>
+```
+
+### Миниатюра
+
+- **Проекты** — фото/скрин: `<span class="row-thumb"><img src="projects/<slug>/preview.jpg" alt="…" loading="lazy"></span>`.
+  Картинка кладётся в папку проекта, пропорция 4:3, ширина ≥ 400 px.
+- **Гайды и боты** — плитка-иконка `row-thumb icon` (без файлов картинок).
+  Иконка — контурная, stroke-width 1.5, viewBox 0 0 24 24, без fill; стиль Lucide/Feather.
+  Подбирать по смыслу материала: настройки → ползунки, рассылка → лоток, промпты → `>_`,
+  установка → терминал, безопасность → щит, ассистент → робот. Закрашенные «кнопки» на иконке
+  помечать `class="knob"` — они красятся в фон плитки.
+  Не использовать эмодзи (с сайта их специально убрали).
+
+## Даты
+
+RU: `дд.мм.гггг`. EN: `d Mon yyyy`. Дата — день публикации материала (обычно сегодня).
+
+## Локальная проверка
+
+Сервер: `.claude/launch.json` в `~/Desktop/Code` (конфигурация `site-static`, порт 8765, папка
+`reprintseva-pro`). Открыть `http://localhost:8765/portfolio/`, проверить обе темы и узкую ширину.
+
+## Публикация
+
+```bash
+git add <папка материала> portfolio/index.html portfolio/en/index.html
+git -c user.name="Julia Reprintseva" -c user.email="julia.vl.reprintseva@gmail.com" commit -m "…"
+git push origin main
+```
+
+Скрипт `~/Desktop/Code/обновить-сайт.sh` делает `git add -A` — им пользуется Юлия вручную;
+из сессии коммитить точечно, только нужные файлы.
