@@ -372,7 +372,7 @@
   <div class="hero">
     <div class="eyebrow">Guide · installation</div>
     <h1>Claude Code: <em>installation</em> guide</h1>
-    <p class="subtitle">A step-by-step guide for participants. Set-up takes 15–25 minutes. If you only want to watch the demo, you don't need to install anything.</p>
+    <p class="subtitle">A step-by-step guide. Set-up takes 15–25 minutes — from subscription to your first working request.</p>
 
     <div class="intro">
       <p><strong>If you are in Russia, you need a VPN.</strong> Anthropic, the company behind Claude, does not serve users from Russia. Connect a reliable VPN to Europe, the US or Asia (except China) <em>before</em> you sign up, and check that the country has actually changed — I'll show you how below.</p>
@@ -385,7 +385,7 @@
       <li><strong>Get a subscription</strong> — Claude Pro or Max. Claude Code won't start without one.</li>
       <li><strong>Turn on the VPN and check your country</strong> — both ways, in the browser and in the terminal. This matters more than it sounds.</li>
       <li><strong>Install Claude Desktop</strong> — the app with the Code tab inside it.</li>
-      <li><strong>Add the feature-dev plugin</strong> — without it you won't be able to follow the demo.</li>
+      <li><strong>Add the feature-dev plugin</strong> — with it Claude follows a process instead of guessing.</li>
       <li><strong>Go through the checklist</strong> at the end of the page. Your ticks are saved in the browser.</li>
     </ol>
   </section>
@@ -399,7 +399,7 @@
   <article class="block">
     <div class="prose">
       <p>It's a tool by Anthropic that lets you talk to an AI assistant while it can see the files on your computer, create new ones and run commands. Unlike the chat on the website, it works right inside your own working environment.</p>
-      <p>At the workshop we'll be using the <strong>Claude Desktop app</strong> — the simplest option: download the app, open the Code tab, start working. No terminal, no Node.js, no extensions.</p>
+      <p>We'll install Claude Code through the <strong>Claude Desktop app</strong> — the simplest option: download the app, open the Code tab, start working. No terminal, no Node.js, no extensions.</p>
     </div>
   </article>
 
@@ -418,7 +418,7 @@
       <table>
         <thead><tr><th class="nw">Plan</th><th class="nw">Price</th><th>What you get</th></tr></thead>
         <tbody>
-          <tr><td class="nw"><strong>Pro</strong></td><td class="nw">$20 / mo</td><td>Enough for the workshop. Roughly 225 Sonnet messages over 5 hours</td></tr>
+          <tr><td class="nw"><strong>Pro</strong></td><td class="nw">$20 / mo</td><td>Enough to get started. Roughly 225 Sonnet messages over 5 hours</td></tr>
           <tr><td class="nw"><strong>Max 5×</strong></td><td class="nw">$100 / mo</td><td>5× higher limits</td></tr>
           <tr><td class="nw"><strong>Max 20×</strong></td><td class="nw">$200 / mo</td><td>20× higher limits</td></tr>
         </tbody>
@@ -432,7 +432,7 @@
   <article class="block">
     <span class="block-index">A.02</span>
     <h3>A VPN, if you are in Russia</h3>
-    <p class="block-when">Required · before installing and during the workshop itself</p>
+    <p class="block-when">Required · while installing and in every working session</p>
     <div class="prose">
       <p>Any reliable VPN with a connection to Europe, the US or Asia (except China) will do. Once connected, check your country — the next section explains how.</p>
     </div>
@@ -443,9 +443,9 @@
     <h3>Voice input</h3>
     <p class="block-when">Optional · but noticeably faster</p>
     <div class="prose">
-      <p>I'll be using my voice at the workshop — it speeds things up a lot when a task needs a detailed description. All of these apps do the same thing, turn speech into text, but they do it differently, and it's worth knowing which is which.</p>
+      <p>I use my voice — it speeds things up a lot when a task needs a detailed description. All of these apps do the same thing, turn speech into text, but they do it differently, and it's worth knowing which is which.</p>
       <h4>Dictation: text appears wherever your cursor is</h4>
-      <p>This is the kind you'll want at the workshop. Press a hotkey, speak, and the transcript lands straight in Claude's input field, in an email, in a document — anywhere.</p>
+      <p>This is the kind you'll want for working with Claude. Press a hotkey, speak, and the transcript lands straight in Claude's input field, in an email, in a document — anywhere.</p>
     </div>
 
     <div class="tools">
@@ -465,8 +465,8 @@
     </div>
 
     <div class="prose" style="margin-top:26px;">
-      <h4>Transcription and voice recorders: not for this workshop</h4>
-      <p>I keep these two for other things. You won't need them at the workshop, but people ask about them often enough that the difference is worth spelling out.</p>
+      <h4>Transcription and voice recorders: a different thing</h4>
+      <p>I keep these two for other things. You won't need them for Claude, but people ask about them often enough that the difference is worth spelling out.</p>
     </div>
 
     <div class="tools">
@@ -673,7 +673,7 @@
 
   <article class="block">
     <div class="prose">
-      <p>At the workshop we use <strong>Feature Dev</strong>, an official plugin by Anthropic. It's a packaged workflow that walks Claude through seven phases: clarifying questions, architecture, implementation, self-review of the code, summary. <strong>Without it you won't be able to reproduce the demo.</strong></p>
+      <p>I work through <strong>Feature Dev</strong>, an official plugin by Anthropic. It's a packaged workflow that walks Claude through seven phases: clarifying questions, architecture, implementation, self-review of the code, summary. <strong>Without it Claude starts writing code right away, without asking questions.</strong></p>
       <p>In the Claude Desktop app, plugins are installed through a visual directory rather than the <code>/plugin</code> command.</p>
     </div>
 
@@ -717,7 +717,7 @@
         <li>reviews the finished code through specialised sub-agents;</li>
         <li>sums up what it did.</li>
       </ul>
-      <p>You'll see all of it in action at the workshop.</p>
+      <p>From here, just try it: describe an idea and watch it ask questions.</p>
     </div>
   </article>
 
