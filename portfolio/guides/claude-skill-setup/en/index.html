@@ -755,6 +755,7 @@
     <div class="callout">
       <span class="callout-label">Worth understanding straight away</span>
       <p>This is <strong>not a file upload</strong>. No archive is needed. On the left is the list of files inside the skill, on the right the editor for the selected file, and every piece of content is pasted in by hand.</p>
+      <p>That is how <strong>creation</strong> works, and only creation. Updating a finished skill goes the other way round — a file from your disk, with no editor at all. Details in 5.03; for now it's enough to know these are two different mechanisms.</p>
     </div>
   </article>
 
@@ -791,6 +792,7 @@
       <li>
         <h4>SKILL.md — the instructions themselves</h4>
         <p>Click <code>SKILL.md</code> on the left — an empty editor opens on the right. Open the file of the same name on your computer and copy <strong>everything below the second line of three dashes</strong>. The first four lines are metadata: name and description already live in the fields above.</p>
+        <p><strong>Do not delete those lines from the file on your computer, though.</strong> They are redundant here, and the first time you update the skill they will be the only place the description can be changed at all. Why, in 5.03.</p>
       </li>
       <li>
         <h4>references/profile.md — who the assistant works for</h4>
@@ -918,7 +920,14 @@
     <span class="block-index">5.03</span>
     <h3>How to edit</h3>
     <div class="prose">
-      <p><code>Settings</code> → <code>Skills</code> → open the skill → <code>Edit</code> → edit the text. It's ordinary prose, no coding.</p>
+      <p><strong>You edit on your computer, not in Claude.</strong> A finished skill's card has no edit button: under the <code>⋮</code> at the top right sit <code>Try in chat</code>, <code>Replace</code>, <code>Download</code> and <code>Remove</code>. The editor you pasted into opens at creation only.</p>
+      <p>So the sequence is: edit the files in your own folder in your usual editor → zip the skill folder → <code>⋮</code> → <code>Replace</code> → drop the archive in → <code>Save</code>. A security scan runs on save. The whole contents are replaced at once, so the archive must hold every file, not just the changed ones.</p>
+      <p>It's ordinary prose, no coding. Editing is expected — you just edit your own source and send Claude the result.</p>
+
+      <h4>Building the archive</h4>
+      <p>The <code>Replace</code> dialog takes three things: a <code>.zip</code>, a <code>.skill</code> file, or a single <code>.md</code>. A single <code>.md</code> works only for a skill with no <code>references/</code> folder: one file is the whole skill.</p>
+      <p>With more than one file you need an archive of the whole skill folder, <code>references/</code> included. On a Mac: right-click the folder → <code>Compress</code>. On Windows: right-click → <code>Send to</code> → <code>Compressed (zipped) folder</code>. You get <code>personal-brand-insight.zip</code>, and that's what you drop in.</p>
+      <p>Check two things before sending: the archive contains a <code>SKILL.md</code> (the dialog requires it), and that file has its metadata header with name and description. Folders and nesting Claude works out by itself.</p>
 
       <h4>Why edits are nearly always local</h4>
       <p>Each section of the skill is responsible for something specific, and the symptom tells you where to go.</p>
@@ -938,6 +947,24 @@
     </div>
     <div class="prose">
       <p>What you change is not "the text of the skill" but the section responsible for the symptom. <strong>If you can't tell which one, that is itself the diagnosis:</strong> the sections inside the skill are poorly separated, and the first job is to separate them rather than rewrite phrasing.</p>
+    </div>
+    <div class="callout">
+      <span class="callout-label">The trap: the description changes only via the file header</span>
+      <p>Name and description behave asymmetrically, and it catches you at exactly the moment you first want to change them.</p>
+      <p><strong>At creation</strong> you paste the text by hand and strip the file's metadata header — the four lines between dashes — because name and description are separate form fields there.</p>
+      <p><strong>On update</strong> it is the other way round. There are no fields, only a file upload, and the <code>Replace</code> dialog says so outright: ".md file must contain skill name and description formatted in YAML", and for an archive, that it must include a <code>SKILL.md</code>. So name and description come <strong>from the header</strong>.</p>
+      <p>Hence the rule: <strong>keep the header in your own file and edit it along with the text.</strong> If you deleted it once and now need to change the description, put it back:</p>
+    </div>
+    <div class="code">
+      <div class="code-bar"><span>The header at the top of SKILL.md</span>
+        <button class="copy-btn" data-done="Copied">Copy</button></div>
+      <pre>---
+name: personal-brand-insight
+description: Finds and filters non-obvious insights…
+---</pre>
+    </div>
+    <div class="prose">
+      <p>To confirm the description arrived, look at the <code>Overview</code> tab, where it's shown in full. If the text is unchanged after a replace, the file had no header.</p>
     </div>
     <div class="callout">
       <span class="callout-label">One change at a time</span>
