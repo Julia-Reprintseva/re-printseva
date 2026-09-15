@@ -306,6 +306,35 @@
   }
   .row:hover .row-thumb img { filter: none; }
 
+  /* Плитка-иконка — для гайдов и ботов, у которых нет фото.
+     Иконка — inline-SVG, красится акцентом и работает в обеих темах. */
+  .row-thumb.icon {
+    display: grid;
+    place-items: center;
+    position: relative;
+    background:
+      radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/10px 10px,
+      var(--paper-hi);
+  }
+  .row-thumb.icon svg {
+    width: 36px; height: 36px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .2s, stroke .15s;
+  }
+  .row-thumb.icon svg .knob { fill: var(--paper-hi); }
+  .row-thumb.icon .thumb-index {
+    position: absolute; left: 9px; top: 7px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.58rem;
+    letter-spacing: .1em;
+    color: var(--ink-faint);
+  }
+  .row:hover .row-thumb.icon svg { transform: translateY(-2px); stroke: var(--accent-hi); }
+
   .row-body { min-width: 0; display: flex; flex-direction: column; }
   .row-kicker {
     font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
@@ -398,11 +427,13 @@
     .row.with-thumb { grid-template-columns: 84px 1fr; }
     .row.with-thumb .row-index { display: none; }
     .row-thumb { width: 84px; }
+    .row-thumb.icon svg { width: 24px; height: 24px; }
+    .row-thumb.icon .thumb-index { display: none; }
     .row-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; margin-top: 8px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .row, .row-title, .row-arrow, .theme-btn { transition: none; }
+    .row, .row-title, .row-arrow, .theme-btn, .row-thumb.icon svg { transition: none; }
   }
 </style>
 </head>
@@ -499,8 +530,11 @@
 
     <div class="ledger">
 
-      <a class="row" href="../guides/chatgpt/en/">
+      <a class="row with-thumb" href="../guides/chatgpt/en/">
         <span class="row-index">G.01</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.01</span>
+          <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg>
+        </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Article</span>
           <span class="row-title">ChatGPT Settings Guide</span>
@@ -512,8 +546,11 @@
         </span>
       </a>
 
-      <a class="row" href="../guides/vacancy-digest-guide/en/">
+      <a class="row with-thumb" href="../guides/vacancy-digest-guide/en/">
         <span class="row-index">G.02</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.02</span>
+          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
+        </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
           <span class="row-title">Vacancy Digest</span>
@@ -525,8 +562,11 @@
         </span>
       </a>
 
-      <a class="row" href="../guides/prompts/en/">
+      <a class="row with-thumb" href="../guides/prompts/en/">
         <span class="row-index">G.03</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.03</span>
+          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
+        </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Prompts</span>
           <span class="row-title">Design audit prompts</span>
@@ -538,8 +578,11 @@
         </span>
       </a>
 
-      <a class="row" href="../guides/claude-code-setup/en/">
+      <a class="row with-thumb" href="../guides/claude-code-setup/en/">
         <span class="row-index">G.04</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg>
+        </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
           <span class="row-title">Claude Code: set-up before the workshop</span>
@@ -566,8 +609,11 @@
 
     <div class="ledger">
 
-      <a class="row" href="../bots/safeout/en/">
+      <a class="row with-thumb" href="../bots/safeout/en/">
         <span class="row-index">B.01</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">B.01</span>
+          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Telegram bot · live</span>
           <span class="row-title">SafeOut</span>
