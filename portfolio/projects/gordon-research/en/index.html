@@ -236,7 +236,7 @@
   .roles-key{margin-top:14px;display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);}
   .roles-key i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line);vertical-align:-1px;margin-right:6px;}
   .roles-key i.y{background:var(--accent);border-color:var(--accent);} .roles-key i.p{border-color:var(--accent);} .roles-key i.n{border-style:dashed;}
-  .roles-sum{margin-top:40px;display:grid;grid-template-columns:240px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .roles-sum{margin-top:0;display:grid;grid-template-columns:240px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
   .roles-sum .photo{padding:0;position:relative;min-height:300px;}
   .roles-sum .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;}
   .roles-sum .photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,rgba(0,0,0,.5));}
@@ -540,6 +540,10 @@
       <div class="r"><div class="st"><b>Telling the process in public</b><span>Posts, reports, interviews</span></div><div class="c y" data-who="author">Writes about the project in his channels</div><div class="c y" data-who="me">Write in my channel, interview the author</div><div class="c n" data-who="AI">—</div></div>
     </div>
     <div class="roles-key"><span><i class="y"></i>leads the stage</span><span><i class="p"></i>takes part</span><span><i class="n"></i>not involved</span></div>
+    <div class="sec-head" style="margin-top:72px;margin-bottom:28px">
+      <p class="kicker">About me</p>
+      <h2>Who does this work</h2>
+    </div>
     <div class="roles-sum">
       <div class="photo"><img src="../img/julia.jpg" alt="Julia Reprintseva"><span>Julia Reprintseva</span></div>
       <div><p class="kicker">My role</p><div class="role">AI research architect</div><p>Not a co-author: the text is the author’s. Not a “prompt operator”: AI here is a tool. In between is the person who turns a topic into a brief, a brief into a process, and the output of that process into verified material you can build on.</p><p class="his">Yuri Gordon put it shorter: “neuro-captain”, “head of the neuro-assistants”.</p></div>

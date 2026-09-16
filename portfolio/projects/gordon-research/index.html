@@ -236,7 +236,7 @@
   .roles-key{margin-top:14px;display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);}
   .roles-key i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line);vertical-align:-1px;margin-right:6px;}
   .roles-key i.y{background:var(--accent);border-color:var(--accent);} .roles-key i.p{border-color:var(--accent);} .roles-key i.n{border-style:dashed;}
-  .roles-sum{margin-top:40px;display:grid;grid-template-columns:240px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .roles-sum{margin-top:0;display:grid;grid-template-columns:240px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
   .roles-sum .photo{padding:0;position:relative;min-height:300px;}
   .roles-sum .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;}
   .roles-sum .photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,rgba(0,0,0,.5));}
@@ -557,6 +557,10 @@
       <div class="r"><div class="st"><b>Публичный рассказ о процессе</b><span>Посты, отчёты, интервью</span></div><div class="c y" data-who="автор">Пишет о проекте в своих каналах</div><div class="c y" data-who="я">Пишу в своём канале, беру у автора интервью</div><div class="c n" data-who="ИИ">—</div></div>
     </div>
     <div class="roles-key"><span><i class="y"></i>ведёт этап</span><span><i class="p"></i>участвует</span><span><i class="n"></i>не участвует</span></div>
+    <div class="sec-head" style="margin-top:72px;margin-bottom:28px">
+      <p class="kicker">Обо мне</p>
+      <h2>Кто делает эту работу</h2>
+    </div>
     <div class="roles-sum">
       <div class="photo"><img src="img/julia.jpg" alt="Юлия Репринцева"><span>Юлия Репринцева</span></div>
       <div><p class="kicker">Моя роль</p><div class="role">Архитектор ИИ-исследования</div><p>Не соавтор: текст — авторский. Не оператор нейросети: ИИ здесь инструмент. Между ними — тот, кто превращает тему в задание, задание в процесс, а результат процесса — в проверенный материал, на который можно опереться.</p><p class="his">Юрий Гордон называл это короче: «нейрокапитан», «руководитель нейропомощников».</p></div>
