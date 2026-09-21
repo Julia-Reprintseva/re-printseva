@@ -94,11 +94,16 @@
   .shot figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);padding:12px 16px;border-top:1px solid var(--line-soft);}
   .gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   .pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .video{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000;}
   .note{border:1px solid var(--line);background:var(--paper);padding:22px 26px;font-size:.95rem;color:var(--ink-dim);margin-top:28px;}
   .note b{color:var(--ink);}
-  footer{border-top:1px solid var(--line-soft);padding:28px 0 44px;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;}
+  footer{border-top:1px solid var(--line-soft);padding:56px 0 48px;}
+  .foot-name{font-family:var(--display);font-size:2rem;line-height:1;margin-bottom:16px;}
+  .foot-offer{color:var(--ink-dim);font-size:.98rem;max-width:64ch;}
+  .foot-contacts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 12px;font-family:var(--mono);font-size:.82rem;}
+  .foot-contacts span{color:var(--line);}
+  .foot-contacts a{color:var(--accent);text-decoration:none;}
+  .foot-contacts a:hover{text-decoration:underline;}
+  .foot-meta{margin-top:28px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
   footer a{color:var(--ink-dim);text-decoration:none;}
   @media (max-width:860px){.nums{grid-template-columns:1fr 1fr;}.cards,.gallery{grid-template-columns:1fr;}.pairs{grid-template-columns:1fr;}.authors li{grid-template-columns:1fr;gap:4px;}}
   @media (max-width:360px){.nums{grid-template-columns:1fr;}}
@@ -119,7 +124,6 @@
   <p class="lede">A font folder that had sat untouched for eight years became, in one day, a catalogue with a specimen of every font, notes on the authors, a fitting room for your own text — and an AI skill that typesets with font pairings.</p>
   <div class="cta">
     <a class="btn primary" href="../catalog/">Open the catalogue ↗</a>
-    <a class="btn" href="#video">Watch the tour (1.5 min)</a>
   </div>
   <div class="nums">
     <div class="num"><b>2288</b><span>fonts, each with a specimen</span></div>
@@ -128,15 +132,17 @@
     <div class="num"><b>15 min</b><span>to render every specimen</span></div>
   </div>
 </div></section>
-
 <section><div class="wrap">
-  <div class="sec-head"><p class="kicker">Story</p><h2>I meant to delete it — it turned out to be an archive of an era</h2></div>
-  <div class="story">
-    <p>Sorting through an old drive, I found a folder called “Fonts”: 2,636 files, untouched since 2017. Back then I worked as a designer and typesetter at a print shop, and fonts were tools of the trade. My first thought was to delete the folder. Then I decided to look inside first. Opening them one by one — no thanks. I handed the folder to Claude Code, and it read the copyright notices of all 2,288 fonts.</p>
-    <p>Here is what came out. Nothing exclusive: these are the typical “Cyrillic fonts” bundles from CDs and torrents that thousands of designers have. But together they are a snapshot of the Russian type scene of the 1990s–2000s — the very letters used on cassette covers, newspapers and the first websites. The AI produced previews, a rough classification and attribution — and part of the attribution had to be restored: 138 ParaType fonts carried an Adobe copyright in their files, a trace of a pirate converter.</p>
-    <p class="side">1,572 unique families; 1,858 with Cyrillic — 62 of which were pretending to be Latin: their Cyrillic is hidden in the Windows-1251 encoding, and the AI found it by comparing the drawings of the letters.</p>
+  <div class="sec-head"><p class="kicker">The catalogue</p><h2>What it does in practice</h2><p class="lede">Claude opened each of the 2,288 files and rendered a specimen — the same pangram for every font — 2,263 images in fifteen minutes. Then it assembled a page from them.</p></div>
+  <div class="cards">
+    <div class="card"><div class="n">01</div><h3>Find a font for the job in a minute, not an evening</h3><p>Need a handwritten Cyrillic font for an invitation? Two clicks: type “handwritten”, tick “Cyrillic only”, 182 options as pictures. The filters depend on each other: pick “calligraphy” and only Sudtipos remains among the authors.</p></div>
+    <div class="card"><div class="n">02</div><h3>Know what font you are looking at</h3><p>Click an author and a card appears: who, when, what studio. Fonts from films, games and brands say what they imitate. None of this existed in the original bundles.</p></div>
+    <div class="card"><div class="n">03</div><h3>Try your own text, not someone else’s phrase</h3><p>Every font has a “Try” button. Type a company name, a headline, a line of verse — and see it in all the chosen fonts side by side, rendered from the real files. Assign one as the heading and another as body text, and a mini-page assembles below. Neither Word nor Font Book can do this.</p></div>
+    <div class="card"><div class="n">04</div><h3>Stay out of court and don’t be fooled</h3><p>Every font carries a licence tag, and there is a list of free replacements for client work. 62 “disguised” Cyrillic fonts were found; 24 symbol fonts are honestly marked “no specimen”, 19 as “capitals only”. An honest “don’t know” beats pretty gibberish.</p></div>
   </div>
+  <div class="note"><b>In the public version only the free fonts (232) can be tried on.</b> Commercial font files are not published on the site — that would amount to distributing them; they carry a “try locally” tag instead. Specimen images are shown for all 2,288. The catalogue interface is in Russian.</div>
 </div></section>
+
 
 <section><div class="wrap">
   <div class="sec-head"><p class="kicker">Who made them</p><h2>The Russian type scene of the nineties, by copyright notice</h2></div>
@@ -157,55 +163,27 @@
   </ul>
 </div></section>
 
-<section><div class="wrap">
-  <div class="sec-head"><p class="kicker">The catalogue</p><h2>What it does in practice</h2><p class="lede">Claude opened each of the 2,288 files and rendered a specimen — the same pangram for every font — 2,263 images in fifteen minutes. Then it assembled a page from them.</p></div>
-  <div class="cards">
-    <div class="card"><div class="n">01</div><h3>Find a font for the job in a minute, not an evening</h3><p>Need a handwritten Cyrillic font for an invitation? Two clicks: type “handwritten”, tick “Cyrillic only”, 182 options as pictures. The filters depend on each other: pick “calligraphy” and only Sudtipos remains among the authors.</p></div>
-    <div class="card"><div class="n">02</div><h3>Know what font you are looking at</h3><p>Click an author and a card appears: who, when, what studio. Fonts from films, games and brands say what they imitate. No torrent bundle has this.</p></div>
-    <div class="card"><div class="n">03</div><h3>Try your own text, not someone else’s phrase</h3><p>Every font has a “Try” button. Type a company name, a headline, a line of verse — and see it in all the chosen fonts side by side, rendered from the real files. Assign one as the heading and another as body text, and a mini-page assembles below. Neither Word nor Font Book can do this.</p></div>
-    <div class="card"><div class="n">04</div><h3>Stay out of court and don’t be fooled</h3><p>Every font carries a licence tag, and there is a list of free replacements for client work. 62 “disguised” Cyrillic fonts were found; 24 symbol fonts are honestly marked “no specimen”, 19 as “capitals only”. An honest “don’t know” beats pretty gibberish.</p></div>
-  </div>
-  <div class="gallery" style="margin-top:20px">
-    <figure class="shot"><img src="../img/cover-light.jpg" alt="Catalogue front page: title, numbers, instructions" loading="lazy"><figcaption>Front page: numbers and instructions</figcaption></figure>
-    <figure class="shot"><img src="../img/authors-menu.jpg" alt="Authors menu with file counts" loading="lazy"><figcaption>Authors by significance, with file counts</figcaption></figure>
-    <figure class="shot"><img src="../img/author-card.jpg" alt="Author note above the font list" loading="lazy"><figcaption>Author note when an author is selected</figcaption></figure>
-    <figure class="shot"><img src="../img/fitting-room.jpg" alt="Fitting room: your text in several fonts and an assembled pairing" loading="lazy"><figcaption>Fitting room: your text and a heading + body pairing</figcaption></figure>
-  </div>
-  <div class="note"><b>In the public version only the free fonts (232) can be tried on.</b> Commercial font files are not published on the site — that would amount to distributing them; they carry a “try locally” tag instead. Specimen images are shown for all 2,288. The catalogue interface is in Russian.</div>
-</div></section>
 
-<section id="video"><div class="wrap">
-  <div class="sec-head"><p class="kicker">Tour</p><h2>Ninety seconds through the catalogue</h2><p class="lede">Instructions, the authors menu, filters, the fitting room: add fonts, type your own text, assemble a pairing, reassign roles, remove one, dark theme.</p></div>
-  <div class="video"><video src="../tour.mp4" controls playsinline preload="metadata" poster="../img/cover-light.jpg"></video></div>
-</div></section>
 
 <section><div class="wrap">
-  <div class="sec-head"><p class="kicker">The skill</p><h2>The warehouse became a pipeline</h2></div>
-  <div class="story">
-    <p>A year ago I struggled with ChatGPT: I was uploading scanned primers for “Letters of the 20th Century”, and the uploads silently failed — it turned out to be an undocumented 80 MB limit for the whole account. Every task had to start from scratch. <a href="../../gordon-research/en/">I wrote about it in detail</a>.</p>
-    <p>Now I work differently: I build skills in Claude. A skill is an instruction the AI reads by itself in any project: where things are, how to search, what is allowed and what is not. This case produced a skill that typesets text with font pairings. The value is bigger than the archive itself: an archive is a warehouse, and value appears when the warehouse is connected to a pipeline. “Typeset this invitation in a 1990s mood, heading in Type Market, body in a text face with Cyrillic” — and a minute later there is a finished page where everything is visible at once.</p>
-    <p>Can AI pair fonts like a professional designer? Like a good craftsman — yes; like an outstanding designer — no. Pairing is 80% rules: no more than two or three fonts; contrast in character; one era or one mood; one role per font. The remaining 20% is taste. The AI covers the first 80% and shows the options as pictures; the decision stays with a human.</p>
+  <div class="sec-head"><p class="kicker">Proof by typesetting</p><h2>One text, three pairings from the collection</h2><p class="lede">A catalogue is a shop window; the only real test is typesetting. I took my own sourdough bread guide and set it in three font pairings from the collection, following one rule: a heading with character plus a calm text face, both from the same era. The three pages below are the same guide in three voices.</p></div>
+  <div class="pairs">
+    <figure class="shot"><img src="../img/pair-1.jpg" alt="Bread guide: Ampir Deco and Newton" loading="lazy"><figcaption>Ampir Deco (Gophmann) + Newton (ParaType) — art deco, warm paper</figcaption></figure>
+    <figure class="shot"><img src="../img/pair-2.jpg" alt="Bread guide: Allegretto Script and Lazurski" loading="lazy"><figcaption>Allegretto Script + Lazurski (ParaType) — calligraphy and serif</figcaption></figure>
+    <figure class="shot"><img src="../img/pair-3.jpg" alt="Bread guide: Bankir Retro and Pragmatica" loading="lazy"><figcaption>Bankir Retro (Gophmann) + Pragmatica (ParaType) — newspaper page</figcaption></figure>
   </div>
-  <div class="pairs" style="margin-top:36px">
-    <figure class="shot"><img src="../img/pair-1.jpg" alt="Bread guide: Ampir Deco and Newton" loading="lazy"><figcaption>Ampir Deco + Newton — art deco</figcaption></figure>
-    <figure class="shot"><img src="../img/pair-2.jpg" alt="Bread guide: Allegretto Script and Lazurski" loading="lazy"><figcaption>Allegretto + Lazurski — calligraphy</figcaption></figure>
-    <figure class="shot"><img src="../img/pair-3.jpg" alt="Bread guide: Bankir Retro and Pragmatica" loading="lazy"><figcaption>Bankir Retro + Pragmatica — newspaper</figcaption></figure>
-  </div>
-  <p class="lede" style="margin-top:20px">The same sourdough bread guide, typeset in three pairings from the collection. I said “show me three options” — and pointed at one.</p>
+  <p class="lede" style="margin-top:20px">The AI proposed the pairs by the rules of pairing; I chose with my eyes. That is how it should work: the rules take care of the trial and error, the decision stays with a human.</p>
 </div></section>
 
-<section><div class="wrap">
-  <div class="sec-head"><p class="kicker">If you have a folder like this too</p><h2>I will sort it, catalogue it and teach the AI your archive</h2></div>
-  <div class="story">
-    <p>Fonts, photos, scans, ten years of documents — I can do the same with them: sort, find duplicates, build a catalogue with previews, search and a fitting room so you find what you need in a minute. And if you work with AI, I will build a skill so it searches your collection instead of the internet.</p>
-  </div>
-  <div class="cta"><a class="btn primary" href="../../../../en/index.html#contact">Get in touch ↗</a><a class="btn" href="../catalog/">Open the catalogue</a></div>
-</div></section>
 
-<footer><div class="wrap">
-  <span>© Julia Reprintseva, 2026 · <a href="../../../en/index.html">Portfolio</a></span>
-  <span>Fonts belong to their authors; the site hosts specimens and files of free fonts only</span>
-</div></footer>
+<footer>
+  <div class="wrap foot">
+    <div class="foot-name">Julia Reprintseva</div>
+    <p class="foot-offer">If you have a folder like this — fonts, photos, scans, ten years of documents — I will sort it, find duplicates and build a catalogue with previews, search and a fitting room. And if you work with AI, I will build a skill so it searches your collection instead of the internet.</p>
+    <div class="foot-contacts"><a href="tel:+79151541491">+7 91 515 414 91</a><span>·</span><a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">@juliareprintseva</a><span>·</span><a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></div>
+    <div class="foot-meta"><span>© 2026 · <a href="../../../en/index.html">Portfolio</a> · <a href="../../../../en/index.html">Home</a></span><span>Fonts belong to their authors; the site hosts specimens and files of free fonts only</span></div>
+  </div>
+</footer>
 <script>
 function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
 try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
