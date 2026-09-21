@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Archive: 2,288 files from an old drive turned into a working catalogue</title>
+<meta name="description" content="How a font folder from 2017 became a catalogue with a specimen of every font, search, author notes and a fitting room — and an AI skill that typesets with font pairings.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Font Archive: 2,288 files from an old drive turned into a working catalogue">
+<meta property="og:description" content="A catalogue with a specimen of every font, notes on the 1990s foundries and a fitting room for your own text. Built with Claude Code in a day.">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/projects/fonts-archive/en/">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/projects/fonts-archive/preview.jpg">
+<meta property="og:locale" content="en_US">
+<link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/projects/fonts-archive/">
+<link rel="icon" href="../catalog/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oranienbaum&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+    --line:#DBDFE8; --line-soft:#E6E9F0;
+    --ink:#1A1D26; --ink-dim:#5E6779; --ink-faint:#636D7C;
+    --accent:#8F6119; --accent-hi:#7E5714; --accent-soft:rgba(156,108,30,.10);
+    --good:#3D7A5C;
+    --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+    --body:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1120px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331; --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#8B93A6; --ink-faint:#7C8598; --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12); --good:#6FAE8C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331; --line:#2A3140; --line-soft:#212636;
+    --ink:#E9E6DC; --ink-dim:#8B93A6; --ink-faint:#7C8598; --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12); --good:#6FAE8C;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img,video{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+  section{padding-block:80px;}
+  section+section{border-top:1px solid var(--line-soft);}
+  h1,h2,h3{font-weight:400;letter-spacing:0;text-wrap:balance;}
+  h2{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;margin-bottom:14px;}
+  h3{font-family:var(--body);font-weight:700;font-size:1.1rem;line-height:1.3;}
+  .kicker{font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:22px;display:flex;gap:12px;align-items:center;}
+  .kicker::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .lede{font-size:1.15rem;color:var(--ink-dim);max-width:64ch;line-height:1.6;}
+  .sec-head{max-width:760px;margin-bottom:44px;}
+  p+p{margin-top:14px;}
+  .top{position:sticky;top:0;z-index:20;background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;}
+  .back{font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--ink-dim);}
+  .back:hover{color:var(--accent);}
+  .mark{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .mark .glyph{font-family:var(--display);font-size:.95rem;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px;line-height:1;}
+  .mark .name{font-size:.82rem;font-weight:600;color:var(--ink-dim);}
+  @media (max-width:480px){.mark .name{display:none;}}
+  .tools{display:flex;gap:8px;}
+  .lang-switch,.theme-btn{font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--ink-dim);border:1px solid var(--line);background:none;border-radius:999px;padding:6px 12px;text-decoration:none;cursor:pointer;line-height:1.2;}
+  .lang-switch:hover,.theme-btn:hover{color:var(--accent);border-color:var(--accent);}
+  .hero{padding-block:72px 64px;border-top:none;}
+  .hero h1{font-family:var(--display);font-size:clamp(2.4rem,6.4vw,5.2rem);line-height:.98;max-width:20ch;}
+  .hero h1 .sep{color:var(--accent);}
+  .hero .lede{margin-top:28px;}
+  .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:.9rem;padding:13px 24px;border-radius:999px;text-decoration:none;border:1px solid var(--accent);color:var(--accent);}
+  .btn.primary{background:var(--accent);color:var(--bg);}
+  .btn:hover{opacity:.9;}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--line);gap:1px;margin-top:48px;}
+  .num{background:var(--paper);padding:26px 24px 22px;min-height:140px;display:flex;flex-direction:column;justify-content:space-between;}
+  .num b{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.6vw,3.8rem);line-height:.9;font-variant-numeric:tabular-nums;}
+  .num span{color:var(--ink-dim);font-size:.88rem;margin-top:14px;line-height:1.4;}
+  .story{max-width:72ch;color:var(--ink);font-size:1.05rem;}
+  .story p+p{margin-top:16px;}
+  .story .side{border-left:2px solid var(--accent);padding-left:18px;color:var(--ink-dim);}
+  .authors{list-style:none;display:grid;gap:10px;margin-top:8px;}
+  .authors li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:.95rem;color:var(--ink-dim);}
+  .authors li b{font-family:var(--display);font-weight:400;font-size:1.25rem;color:var(--ink);line-height:1.2;}
+  .authors li b small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.08em;margin-top:4px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .card{background:var(--paper);padding:26px 26px 28px;}
+  .card .n{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.12em;margin-bottom:10px;}
+  .card p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .shot{border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .shot figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);padding:12px 16px;border-top:1px solid var(--line-soft);}
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .video{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000;}
+  .note{border:1px solid var(--line);background:var(--paper);padding:22px 26px;font-size:.95rem;color:var(--ink-dim);margin-top:28px;}
+  .note b{color:var(--ink);}
+  footer{border-top:1px solid var(--line-soft);padding:28px 0 44px;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;}
+  footer a{color:var(--ink-dim);text-decoration:none;}
+  @media (max-width:860px){.nums{grid-template-columns:1fr 1fr;}.cards,.gallery{grid-template-columns:1fr;}.pairs{grid-template-columns:1fr;}.authors li{grid-template-columns:1fr;gap:4px;}}
+  @media (max-width:360px){.nums{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <a class="back" href="../../../en/index.html">← Portfolio</a>
+    <a class="mark" href="../../../../en/index.html"><span class="glyph">JR</span><span class="name">Julia Reprintseva</span></a>
+    <div class="tools"><a class="lang-switch" href="../">RU</a><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button></div>
+  </div>
+</div>
+
+<section class="hero"><div class="wrap">
+  <p class="kicker">Project · September 2026 · Claude Code</p>
+  <h1>Font archive<span class="sep">.</span> 2,288 files from an old drive, turned into a working catalogue</h1>
+  <p class="lede">A font folder that had sat untouched for eight years became, in one day, a catalogue with a specimen of every font, notes on the authors, a fitting room for your own text — and an AI skill that typesets with font pairings.</p>
+  <div class="cta">
+    <a class="btn primary" href="../catalog/">Open the catalogue ↗</a>
+    <a class="btn" href="#video">Watch the tour (1.5 min)</a>
+  </div>
+  <div class="nums">
+    <div class="num"><b>2288</b><span>fonts, each with a specimen</span></div>
+    <div class="num"><b>1858</b><span>with Cyrillic</span></div>
+    <div class="num"><b>26</b><span>authors and foundries with notes</span></div>
+    <div class="num"><b>15 min</b><span>to render every specimen</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Story</p><h2>I meant to delete it — it turned out to be an archive of an era</h2></div>
+  <div class="story">
+    <p>Sorting through an old drive, I found a folder called “Fonts”: 2,636 files, untouched since 2017. Back then I worked as a designer and typesetter at a print shop, and fonts were tools of the trade. My first thought was to delete the folder. Then I decided to look inside first. Opening them one by one — no thanks. I handed the folder to Claude Code, and it read the copyright notices of all 2,288 fonts.</p>
+    <p>Here is what came out. Nothing exclusive: these are the typical “Cyrillic fonts” bundles from CDs and torrents that thousands of designers have. But together they are a snapshot of the Russian type scene of the 1990s–2000s — the very letters used on cassette covers, newspapers and the first websites. The AI produced previews, a rough classification and attribution — and part of the attribution had to be restored: 138 ParaType fonts carried an Adobe copyright in their files, a trace of a pirate converter.</p>
+    <p class="side">1,572 unique families; 1,858 with Cyrillic — 62 of which were pretending to be Latin: their Cyrillic is hidden in the Windows-1251 encoding, and the AI found it by comparing the drawings of the letters.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Who made them</p><h2>The Russian type scene of the nineties, by copyright notice</h2></div>
+  <ul class="authors">
+    <li><b>Arsenal Company<small>Moscow · 1996–1997 · 620 files</small></b><span>The fonts with the a_ prefix (a_Futurica, a_AlbionicTitul) that lived on every computer of the 90s.</span></li>
+    <li><b>ParaGraph<small>1990–1997 · 193</small></b><span>Alexander Tarbeev, Vladimir Yefimov. The first professional digital Cyrillic typefaces.</span></li>
+    <li><b>ParaType<small>ParaGraph’s successor · 152</small></b><span>Newton, Pragmatica, Baltica, Academy, Lazurski — the gold reserve of Russian typography.</span></li>
+    <li><b>The Gophmanns<small>2004–2007 · 180</small></b><span>Alexandra and Anatole. Cyrillic redrawings of vintage and handwritten fonts, which the author gave away for free.</span></li>
+    <li><b>Type Market<small>Moscow · 1993–1998 · 148</small></b><span>Andrey Kustov. Decorative Cyrillic for advertising and signage.</span></li>
+    <li><b>SoftUnion<small>1993–1995 · 96</small></b><span>Nikolay Vsesvetsky. Cyrillic versions of display typefaces.</span></li>
+    <li><b>Nikolay Dubina<small>D-Studio · 1997–2002 · 61</small></b><span>Cyrillic versions of American sign-painting fonts.</span></li>
+    <li><b>Tilde / AG Fonts<small>Riga · 1991–1995 · 57</small></b><span>Cyrillic and Latin with Baltic letters.</span></li>
+    <li><b>Sudtipos<small>Alejandro Paul · 2004–2006 · 32</small></b><span>The Bluemlein collection: flourishes by American letterer Charles Bluemlein from the 1930s, digitised by an Argentinian. Each font has an invented name: Mr Canfields, Miss Fajardose, Mrs Von Eckley.</span></li>
+    <li><b>Ivan Zeifert<small>2003–2006 · 23</small></b><span>Original decorative Cyrillic.</span></li>
+    <li><b>Ray Larabie<small>Canada · 21</small></b><span>Free fonts, even for commercial use.</span></li>
+    <li><b>Monotype, Linotype, FontShop, Bitstream<small>≈55</small></b><span>The global foundries.</span></li>
+    <li><b>Everyone else<small>≈580</small></b><span>Small authors, 90s freeware and files with no author at all.</span></li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">The catalogue</p><h2>What it does in practice</h2><p class="lede">Claude opened each of the 2,288 files and rendered a specimen — the same pangram for every font — 2,263 images in fifteen minutes. Then it assembled a page from them.</p></div>
+  <div class="cards">
+    <div class="card"><div class="n">01</div><h3>Find a font for the job in a minute, not an evening</h3><p>Need a handwritten Cyrillic font for an invitation? Two clicks: type “handwritten”, tick “Cyrillic only”, 182 options as pictures. The filters depend on each other: pick “calligraphy” and only Sudtipos remains among the authors.</p></div>
+    <div class="card"><div class="n">02</div><h3>Know what font you are looking at</h3><p>Click an author and a card appears: who, when, what studio. Fonts from films, games and brands say what they imitate. No torrent bundle has this.</p></div>
+    <div class="card"><div class="n">03</div><h3>Try your own text, not someone else’s phrase</h3><p>Every font has a “Try” button. Type a company name, a headline, a line of verse — and see it in all the chosen fonts side by side, rendered from the real files. Assign one as the heading and another as body text, and a mini-page assembles below. Neither Word nor Font Book can do this.</p></div>
+    <div class="card"><div class="n">04</div><h3>Stay out of court and don’t be fooled</h3><p>Every font carries a licence tag, and there is a list of free replacements for client work. 62 “disguised” Cyrillic fonts were found; 24 symbol fonts are honestly marked “no specimen”, 19 as “capitals only”. An honest “don’t know” beats pretty gibberish.</p></div>
+  </div>
+  <div class="gallery" style="margin-top:20px">
+    <figure class="shot"><img src="../img/cover-light.jpg" alt="Catalogue front page: title, numbers, instructions" loading="lazy"><figcaption>Front page: numbers and instructions</figcaption></figure>
+    <figure class="shot"><img src="../img/authors-menu.jpg" alt="Authors menu with file counts" loading="lazy"><figcaption>Authors by significance, with file counts</figcaption></figure>
+    <figure class="shot"><img src="../img/author-card.jpg" alt="Author note above the font list" loading="lazy"><figcaption>Author note when an author is selected</figcaption></figure>
+    <figure class="shot"><img src="../img/fitting-room.jpg" alt="Fitting room: your text in several fonts and an assembled pairing" loading="lazy"><figcaption>Fitting room: your text and a heading + body pairing</figcaption></figure>
+  </div>
+  <div class="note"><b>In the public version only the free fonts (232) can be tried on.</b> Commercial font files are not published on the site — that would amount to distributing them; they carry a “try locally” tag instead. Specimen images are shown for all 2,288. The catalogue interface is in Russian.</div>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <div class="sec-head"><p class="kicker">Tour</p><h2>Ninety seconds through the catalogue</h2><p class="lede">Instructions, the authors menu, filters, the fitting room: add fonts, type your own text, assemble a pairing, reassign roles, remove one, dark theme.</p></div>
+  <div class="video"><video src="../tour.mp4" controls playsinline preload="metadata" poster="../img/cover-light.jpg"></video></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">The skill</p><h2>The warehouse became a pipeline</h2></div>
+  <div class="story">
+    <p>A year ago I struggled with ChatGPT: I was uploading scanned primers for “Letters of the 20th Century”, and the uploads silently failed — it turned out to be an undocumented 80 MB limit for the whole account. Every task had to start from scratch. <a href="../../gordon-research/en/">I wrote about it in detail</a>.</p>
+    <p>Now I work differently: I build skills in Claude. A skill is an instruction the AI reads by itself in any project: where things are, how to search, what is allowed and what is not. This case produced a skill that typesets text with font pairings. The value is bigger than the archive itself: an archive is a warehouse, and value appears when the warehouse is connected to a pipeline. “Typeset this invitation in a 1990s mood, heading in Type Market, body in a text face with Cyrillic” — and a minute later there is a finished page where everything is visible at once.</p>
+    <p>Can AI pair fonts like a professional designer? Like a good craftsman — yes; like an outstanding designer — no. Pairing is 80% rules: no more than two or three fonts; contrast in character; one era or one mood; one role per font. The remaining 20% is taste. The AI covers the first 80% and shows the options as pictures; the decision stays with a human.</p>
+  </div>
+  <div class="pairs" style="margin-top:36px">
+    <figure class="shot"><img src="../img/pair-1.jpg" alt="Bread guide: Ampir Deco and Newton" loading="lazy"><figcaption>Ampir Deco + Newton — art deco</figcaption></figure>
+    <figure class="shot"><img src="../img/pair-2.jpg" alt="Bread guide: Allegretto Script and Lazurski" loading="lazy"><figcaption>Allegretto + Lazurski — calligraphy</figcaption></figure>
+    <figure class="shot"><img src="../img/pair-3.jpg" alt="Bread guide: Bankir Retro and Pragmatica" loading="lazy"><figcaption>Bankir Retro + Pragmatica — newspaper</figcaption></figure>
+  </div>
+  <p class="lede" style="margin-top:20px">The same sourdough bread guide, typeset in three pairings from the collection. I said “show me three options” — and pointed at one.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">If you have a folder like this too</p><h2>I will sort it, catalogue it and teach the AI your archive</h2></div>
+  <div class="story">
+    <p>Fonts, photos, scans, ten years of documents — I can do the same with them: sort, find duplicates, build a catalogue with previews, search and a fitting room so you find what you need in a minute. And if you work with AI, I will build a skill so it searches your collection instead of the internet.</p>
+  </div>
+  <div class="cta"><a class="btn primary" href="../../../../en/index.html#contact">Get in touch ↗</a><a class="btn" href="../catalog/">Open the catalogue</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>© Julia Reprintseva, 2026 · <a href="../../../en/index.html">Portfolio</a></span>
+  <span>Fonts belong to their authors; the site hosts specimens and files of free fonts only</span>
+</div></footer>
+<script>
+function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
+try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+</script>
+</body>
+</html>

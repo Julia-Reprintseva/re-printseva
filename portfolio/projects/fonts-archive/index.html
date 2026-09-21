@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архив шрифтов: 2288 файлов с диска — в рабочий каталог</title>
+<meta name="description" content="Как старая папка со шрифтами 2017 года превратилась в каталог с образцом каждого, поиском, справкой об авторах и примерочной — и в скилл для ИИ, который верстает сочетанием шрифтов.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Архив шрифтов: 2288 файлов с диска — в рабочий каталог">
+<meta property="og:description" content="Каталог с образцом каждого шрифта, справкой об авторах 1990-х и примерочной для своего текста. Собрано с Claude Code за сутки.">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/projects/fonts-archive/">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/projects/fonts-archive/preview.jpg">
+<meta property="og:locale" content="ru_RU">
+<link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/projects/fonts-archive/en/">
+<link rel="icon" href="catalog/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oranienbaum&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+    --line:#DBDFE8; --line-soft:#E6E9F0;
+    --ink:#1A1D26; --ink-dim:#5E6779; --ink-faint:#636D7C;
+    --accent:#8F6119; --accent-hi:#7E5714; --accent-soft:rgba(156,108,30,.10);
+    --good:#3D7A5C;
+    --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+    --body:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1120px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331; --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#8B93A6; --ink-faint:#7C8598; --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12); --good:#6FAE8C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331; --line:#2A3140; --line-soft:#212636;
+    --ink:#E9E6DC; --ink-dim:#8B93A6; --ink-faint:#7C8598; --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12); --good:#6FAE8C;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img,video{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+  section{padding-block:80px;}
+  section+section{border-top:1px solid var(--line-soft);}
+  h1,h2,h3{font-weight:400;letter-spacing:0;text-wrap:balance;}
+  h2{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;margin-bottom:14px;}
+  h3{font-family:var(--body);font-weight:700;font-size:1.1rem;line-height:1.3;}
+  .kicker{font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:22px;display:flex;gap:12px;align-items:center;}
+  .kicker::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .lede{font-size:1.15rem;color:var(--ink-dim);max-width:64ch;line-height:1.6;}
+  .sec-head{max-width:760px;margin-bottom:44px;}
+  p+p{margin-top:14px;}
+  .top{position:sticky;top:0;z-index:20;background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;}
+  .back{font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--ink-dim);}
+  .back:hover{color:var(--accent);}
+  .mark{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .mark .glyph{font-family:var(--display);font-size:.95rem;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px;line-height:1;}
+  .mark .name{font-size:.82rem;font-weight:600;color:var(--ink-dim);}
+  @media (max-width:480px){.mark .name{display:none;}}
+  .tools{display:flex;gap:8px;}
+  .lang-switch,.theme-btn{font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--ink-dim);border:1px solid var(--line);background:none;border-radius:999px;padding:6px 12px;text-decoration:none;cursor:pointer;line-height:1.2;}
+  .lang-switch:hover,.theme-btn:hover{color:var(--accent);border-color:var(--accent);}
+  .hero{padding-block:72px 64px;border-top:none;}
+  .hero h1{font-family:var(--display);font-size:clamp(2.4rem,6.4vw,5.2rem);line-height:.98;max-width:20ch;}
+  .hero h1 .sep{color:var(--accent);}
+  .hero .lede{margin-top:28px;}
+  .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:.9rem;padding:13px 24px;border-radius:999px;text-decoration:none;border:1px solid var(--accent);color:var(--accent);}
+  .btn.primary{background:var(--accent);color:var(--bg);}
+  .btn:hover{opacity:.9;}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--line);gap:1px;margin-top:48px;}
+  .num{background:var(--paper);padding:26px 24px 22px;min-height:140px;display:flex;flex-direction:column;justify-content:space-between;}
+  .num b{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4.6vw,3.8rem);line-height:.9;font-variant-numeric:tabular-nums;}
+  .num span{color:var(--ink-dim);font-size:.88rem;margin-top:14px;line-height:1.4;}
+  .story{max-width:72ch;color:var(--ink);font-size:1.05rem;}
+  .story p+p{margin-top:16px;}
+  .story .side{border-left:2px solid var(--accent);padding-left:18px;color:var(--ink-dim);}
+  .authors{list-style:none;display:grid;gap:10px;margin-top:8px;}
+  .authors li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:.95rem;color:var(--ink-dim);}
+  .authors li b{font-family:var(--display);font-weight:400;font-size:1.25rem;color:var(--ink);line-height:1.2;}
+  .authors li b small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.08em;margin-top:4px;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .card{background:var(--paper);padding:26px 26px 28px;}
+  .card .n{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.12em;margin-bottom:10px;}
+  .card p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .shot{border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .shot figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);padding:12px 16px;border-top:1px solid var(--line-soft);}
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .video{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000;}
+  .note{border:1px solid var(--line);background:var(--paper);padding:22px 26px;font-size:.95rem;color:var(--ink-dim);margin-top:28px;}
+  .note b{color:var(--ink);}
+  footer{border-top:1px solid var(--line-soft);padding:28px 0 44px;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;}
+  footer a{color:var(--ink-dim);text-decoration:none;}
+  @media (max-width:860px){.nums{grid-template-columns:1fr 1fr;}.cards,.gallery{grid-template-columns:1fr;}.pairs{grid-template-columns:1fr;}.authors li{grid-template-columns:1fr;gap:4px;}}
+  @media (max-width:360px){.nums{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <a class="back" href="../../index.html">← Портфолио</a>
+    <a class="mark" href="../../../index.html"><span class="glyph">ЮР</span><span class="name">Юлия Репринцева</span></a>
+    <div class="tools"><a class="lang-switch" href="en/">EN</a><button class="theme-btn" onclick="toggleTheme()" aria-label="Переключить тему">☾</button></div>
+  </div>
+</div>
+
+<section class="hero"><div class="wrap">
+  <p class="kicker">Проект · сентябрь 2026 · Claude Code</p>
+  <h1>Архив шрифтов<span class="sep">.</span> 2288 файлов с диска — в рабочий каталог</h1>
+  <p class="lede">Старая папка со шрифтами, восемь лет лежавшая мёртвым грузом, за сутки стала каталогом с образцом каждого шрифта, справкой об авторах, примерочной для своего текста — и скиллом для ИИ, который верстает сочетанием шрифтов.</p>
+  <div class="cta">
+    <a class="btn primary" href="catalog/">Открыть каталог ↗</a>
+    <a class="btn" href="#video">Посмотреть тур (1,5 мин)</a>
+  </div>
+  <div class="nums">
+    <div class="num"><b>2288</b><span>шрифтов, у каждого — образец</span></div>
+    <div class="num"><b>1858</b><span>с кириллицей</span></div>
+    <div class="num"><b>26</b><span>авторов и студий со справкой</span></div>
+    <div class="num"><b>15 мин</b><span>на отрисовку всех образцов</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">История</p><h2>Хотела удалить — получился архив эпохи</h2></div>
+  <div class="story">
+    <p>Разбирала старый диск и нашла папку «Шрифты» — 2 636 файлов, лежали с 2017 года. В те далёкие времена я работала дизайнером-верстальщиком в типографии, и шрифты нужны были для работы. Сначала думала удалить. Но решила посмотреть, что внутри. Открывать по одному — ну такое. Отдала Claude Code — и он прочитал копирайты всех 2 288 шрифтов.</p>
+    <p>Выяснилось вот что. Эксклюзива нет — это типичные сборники «Кириллические шрифты» с дисков и торрентов, такие же лежат у тысяч дизайнеров. Но вместе они — слепок русской шрифтовой сцены 1990-х – 2000-х: те самые буквы, которыми оформляли обложки кассет, газеты и первые сайты. ИИ помог сделать превью, грубую классификацию и указать авторство — причём часть авторства пришлось восстанавливать: у 138 шрифтов ParaType в файлах стоял копирайт Adobe, след пиратского конвертера.</p>
+    <p class="side">Уникальных семейств — 1 572, с кириллицей — 1 858, из них 62 притворялись латиницей: кириллица в них спрятана в кодировке Windows-1251, и ИИ нашёл её, сравнивая рисунки букв.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Кто авторы</p><h2>Русская шрифтовая сцена девяностых — по копирайтам</h2></div>
+  <ul class="authors">
+    <li><b>Arsenal Company<small>Москва · 1996–1997 · 620 файлов</small></b><span>Те самые шрифты с префиксом a_ (a_Futurica, a_AlbionicTitul), которые стояли на каждом компьютере 90-х.</span></li>
+    <li><b>ParaGraph<small>1990–1997 · 193</small></b><span>Александр Тарбеев, Владимир Ефимов. Первые профессиональные цифровые кириллические шрифты.</span></li>
+    <li><b>ParaType<small>наследник ParaGraph · 152</small></b><span>Newton, Pragmatica, Baltica, Academy, Lazurski — золотой фонд русской типографики.</span></li>
+    <li><b>Гофманы<small>2004–2007 · 180</small></b><span>Александра и Анатоль. Кириллические перерисовки винтажных и рукописных шрифтов, которые автор раздавала бесплатно.</span></li>
+    <li><b>Type Market<small>Москва · 1993–1998 · 148</small></b><span>Андрей Кустов. Декоративная кириллица для рекламы и вывесок.</span></li>
+    <li><b>SoftUnion<small>1993–1995 · 96</small></b><span>Николай Всесветский. Кириллические версии заголовочных шрифтов.</span></li>
+    <li><b>Николай Дубина<small>D-Studio · 1997–2002 · 61</small></b><span>Кириллические версии американских вывесочных шрифтов.</span></li>
+    <li><b>Tilde / AG Fonts<small>Рига · 1991–1995 · 57</small></b><span>Кириллица и латиница с балтийскими буквами.</span></li>
+    <li><b>Sudtipos<small>Алехандро Пауль · 2004–2006 · 32</small></b><span>Коллекция Bluemlein: росчерки американского леттерера Чарльза Блюмляйна 1930-х годов, оцифрованные аргентинцем. Каждому дано вымышленное имя: мистер Кэнфилдс, мисс Фахардозе, миссис фон Экли.</span></li>
+    <li><b>Иван Зейферт<small>2003–2006 · 23</small></b><span>Авторская декоративная кириллица.</span></li>
+    <li><b>Ray Larabie<small>Канада · 21</small></b><span>Шрифты бесплатны даже для коммерции.</span></li>
+    <li><b>Monotype, Linotype, FontShop, Bitstream<small>≈55</small></b><span>Мировые словолитни.</span></li>
+    <li><b>Остальные<small>≈580</small></b><span>Мелкие авторы, фриварные шрифты 90-х и файлы без указания автора.</span></li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Каталог</p><h2>Что это даёт на практике</h2><p class="lede">Claude открыл каждый из 2 288 файлов и отрисовал образец — одну и ту же фразу «Съешь ещё этих мягких французских булок» — 2 263 картинки за пятнадцать минут. И собрал из них страницу.</p></div>
+  <div class="cards">
+    <div class="card"><div class="n">01</div><h3>Найти шрифт под задачу за минуту, а не за вечер</h3><p>Нужен рукописный с кириллицей для приглашения — два клика: тип «рукописный», галочка «только с кириллицей», 182 варианта картинками. Фильтры зависимые: выбрали «каллиграфия» — в авторах остаётся один Sudtipos.</p></div>
+    <div class="card"><div class="n">02</div><h3>Понять, что за шрифт перед тобой</h3><p>Кликнули на автора — карточка: кто, когда, что за студия. У шрифтов из кино, игр и брендов — откуда стилизация. Этого нет ни в одном сборнике с торрентов.</p></div>
+    <div class="card"><div class="n">03</div><h3>Примерить свой текст, а не чужую фразу</h3><p>У каждого шрифта кнопка «Примерить». Вводите название компании, заголовок, строчку стихов — и видите его сразу во всех выбранных шрифтах рядом, настоящими файлами. Назначили один заголовком, другой текстом — внизу собралась мини-страница. Ни в Word, ни в Font Book такого нет.</p></div>
+    <div class="card"><div class="n">04</div><h3>Не попасть на иск и не обмануться</h3><p>У каждого шрифта ярлык лицензии и список свободных замен для клиентских работ. 62 «замаскированных» кириллических найдены, 24 символьных честно помечены «не отрисовывается», 19 — «только заглавные». Лучше честное «не знаю», чем красивая абракадабра.</p></div>
+  </div>
+  <div class="gallery" style="margin-top:20px">
+    <figure class="shot"><img src="img/cover-light.jpg" alt="Первый экран каталога: заголовок, цифры, инструкция" loading="lazy"><figcaption>Первый экран: цифры и инструкция</figcaption></figure>
+    <figure class="shot"><img src="img/authors-menu.jpg" alt="Меню авторов с числом файлов у каждого" loading="lazy"><figcaption>Авторы — по значимости, с числом файлов</figcaption></figure>
+    <figure class="shot"><img src="img/author-card.jpg" alt="Справка об авторе над списком шрифтов" loading="lazy"><figcaption>Справка при выборе автора</figcaption></figure>
+    <figure class="shot"><img src="img/fitting-room.jpg" alt="Примерочная: свой текст в нескольких шрифтах и собранная пара" loading="lazy"><figcaption>Примерочная: свой текст и пара заголовок + текст</figcaption></figure>
+  </div>
+  <div class="note"><b>В публичной версии примерить можно только свободные шрифты (232).</b> Файлы коммерческих шрифтов на сайт не выкладываются — это было бы их распространением; у них стоит пометка «примерка — локально». Образцы-картинки показаны для всех 2 288.</div>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <div class="sec-head"><p class="kicker">Тур</p><h2>Полторы минуты по каталогу</h2><p class="lede">Инструкция, меню авторов, фильтры, примерочная: добавить шрифты, ввести свой текст, собрать пару, переназначить роли, убрать лишний, тёмная тема.</p></div>
+  <div class="video"><video src="tour.mp4" controls playsinline preload="metadata" poster="img/cover-light.jpg"></video></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Скилл</p><h2>Склад стал конвейером</h2></div>
+  <div class="story">
+    <p>Год назад я мучилась с ChatGPT: грузила в него сканы букварей для «Букв XX века», а загрузки молча срывались — оказалось, скрытый лимит 80 МБ на весь аккаунт. Каждую задачу приходилось начинать с нуля. <a href="../gordon-research/limit/">Я подробно об этом писала</a>.</p>
+    <p>Сейчас у меня другой подход: я делаю скиллы в Claude. Скилл — это инструкция, которую ИИ читает сам в любом проекте: где что лежит, как искать, что можно, что нельзя. По этому кейсу собран скилл, который верстает текст сочетанием шрифтов. Ценность тут больше, чем в самом архиве: архив — это склад, а ценность появляется, когда склад подключён к конвейеру. «Сверстай приглашение в духе 1990-х, заголовок — Type Market, текст — что-то наборное с кириллицей» — и через минуту готовая страница, где всё видно сразу.</p>
+    <p>Может ли ИИ сочетать шрифты как профессиональные дизайнеры? Как хороший ремесленник — да, как выдающийся дизайнер — нет. Сочетание на 80% — правила: не больше двух-трёх шрифтов; контраст по характеру; одна эпоха или одно настроение; одна роль у каждого. Оставшиеся 20% — вкус. ИИ закрывает первые 80% и показывает варианты картинками, а решение принимает человек.</p>
+  </div>
+  <div class="pairs" style="margin-top:36px">
+    <figure class="shot"><img src="img/pair-1.jpg" alt="Памятка о хлебе: Ampir Deco и Newton" loading="lazy"><figcaption>Ampir Deco + Newton — ар-деко</figcaption></figure>
+    <figure class="shot"><img src="img/pair-2.jpg" alt="Памятка о хлебе: Allegretto Script и Lazurski" loading="lazy"><figcaption>Allegretto + Lazurski — каллиграфия</figcaption></figure>
+    <figure class="shot"><img src="img/pair-3.jpg" alt="Памятка о хлебе: Bankir Retro и Pragmatica" loading="lazy"><figcaption>Bankir Retro + Pragmatica — газета</figcaption></figure>
+  </div>
+  <p class="lede" style="margin-top:20px">Одна и та же памятка про хлеб на закваске, свёрстанная тремя парами из коллекции. Я сказала «покажи три варианта» — и выбрала пальцем.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><p class="kicker">Если у вас тоже есть такая папка</p><h2>Разберу, каталогизирую, научу ИИ вашему архиву</h2></div>
+  <div class="story">
+    <p>Шрифты, фотографии, сканы, документы за десять лет — я могу сделать из них то же самое: разобрать, найти дубли, собрать каталог с превью, поиском и примерочной, чтобы вы за минуту находили нужное. А если работаете с ИИ — сделаю скилл, чтобы он сам искал в вашей коллекции, а не в интернете.</p>
+  </div>
+  <div class="cta"><a class="btn primary" href="../../../index.html#contact">Написать ↗</a><a class="btn" href="catalog/">Открыть каталог</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>© Юлия Репринцева, 2026 · <a href="../../index.html">Портфолио</a></span>
+  <span>Шрифты принадлежат их авторам; на сайте — образцы и файлы только свободных шрифтов</span>
+</div></footer>
+<script>
+function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
+try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+</script>
+</body>
+</html>
