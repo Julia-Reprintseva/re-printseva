@@ -191,7 +191,7 @@
   footer a{color:var(--ink-dim);text-decoration:none;}
   footer a:hover{color:var(--accent);}
   footer .foot{display:block;padding-top:24px;}
-  .foot-name{font-family:var(--display);font-size:2rem;line-height:1;margin-bottom:14px;color:var(--ink);}
+  .foot-name{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.05;margin-bottom:14px;color:var(--ink);max-width:24ch;}
   .foot-offer{font-family:var(--body);color:var(--ink-dim);font-size:.98rem;max-width:64ch;}
   .foot-contacts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 12px;font-size:.82rem;}
   .foot-contacts span{color:var(--line);}
@@ -231,7 +231,7 @@
     <div class="num"><b>1572</b><span>уникальных семейств</span></div>
     <div class="num"><b>235</b><span>рукописных и каллиграфических</span></div>
   </div>
-  <details class="howto" open>
+  <details class="howto">
     <summary>Что это даёт и как пользоваться<span></span></summary>
     <ol>
       <li><b>Найти шрифт под задачу за минуту, а не за вечер.</b> Поиск — по имени, автору и файлу. Фильтры — раздел, автор, тип, лицензия — зависимые: выбрали «каллиграфия», и в списке авторов остаётся один Sudtipos с числом файлов. Нужен рукописный с кириллицей для приглашения — тип «рукописный» плюс галочка «только с кириллицей», и перед вами все варианты картинками. Авторы в меню стоят по значимости для коллекции: сначала русские студии 90-х, потом мировые словолитни, потом авторы-одиночки, в конце «прочие».</li>
@@ -281,7 +281,7 @@
 
 <section class="note pairs-sec"><div class="wrap">
   <p class="kicker">Проверка делом</p>
-  <p>Каталог — витрина; проверить его можно только вёрсткой. Одна и та же памятка о хлебе на закваске сверстана тремя парами шрифтов из коллекции по одному правилу: заголовок с характером плюс спокойный наборный текст, оба из одной эпохи. Пары предложил ИИ по правилам сочетания, выбирала я — глазами.</p>
+  <p>Каталог — витрина; проверить его можно только вёрсткой. Одна и та же памятка о хлебе на закваске сверстана тремя парами шрифтов из коллекции. Пары подобрал ИИ по скиллу — инструкции для Claude, где лежит коллекция, как в ней искать и по каким правилам сочетать: не больше двух шрифтов, заголовок с характером плюс спокойный наборный текст, оба из одной эпохи. Достаточно сказать «сверстай приглашение в духе 90-х» — и он берёт шрифты отсюда, а не из интернета, и показывает варианты картинками. Выбирала я — глазами: правила закрывают перебор, решение остаётся за человеком.</p>
   <div class="pairs">
     <figure><img src="img/pair-1.jpg" alt="Памятка о хлебе: Ampir Deco и Newton" loading="lazy"><figcaption>Ampir Deco (Гофманы) + Newton (ParaType) — ар-деко</figcaption></figure>
     <figure><img src="img/pair-2.jpg" alt="Памятка о хлебе: Allegretto Script и Lazurski" loading="lazy"><figcaption>Allegretto Script + Lazurski (ParaType) — каллиграфия и антиква</figcaption></figure>
@@ -289,8 +289,8 @@
   </div>
 </div></section>
 <footer><div class="wrap foot">
-  <div class="foot-name">Юлия Репринцева</div>
-  <p class="foot-offer">Если у вас тоже есть такая папка — со шрифтами, фотографиями, сканами, документами за десять лет — разберу, найду дубли, соберу каталог с превью, поиском и примерочной. А если работаете с ИИ — сделаю скилл, чтобы он искал в вашей коллекции, а не в интернете.</p>
+  <div class="foot-name">Есть такая же папка? Разберу и каталогизирую</div>
+  <p class="foot-offer">Шрифты, фотографии, сканы, документы за десять лет — найду дубли, соберу каталог с превью, поиском и примерочной, чтобы нужное находилось за минуту. А если работаете с ИИ — сделаю скилл, чтобы он искал в вашей коллекции, а не в интернете. Напишите — расскажу, как это устроено.</p>
   <div class="foot-contacts"><a href="tel:+79151541491">+7 91 515 414 91</a><span>·</span><a href="https://t.me/juliareprintseva" target="_blank" rel="noopener">@juliareprintseva</a><span>·</span><a href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></div>
   <div class="foot-meta"><span>© 2026 · <a href="https://reprintseva.pro/portfolio/">Портфолио</a> · <a href="https://reprintseva.pro/">Главная</a></span><span>Шрифты принадлежат их авторам; на сайте — образцы и файлы только свободных шрифтов</span></div>
 </div></footer>
