@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow” — AI research for Yuri Gordon</title>
+<meta name="description" content="Case study: 16 months of AI-driven research for artist and type designer Yuri Gordon — two literary maps, the book “Letters of the 20th Century”, an infographic. Method, prompts, numbers and the author’s own words.">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Юлия Репринцева">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/projects/gordon-research/en/">
+<meta property="og:title" content="“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow” — AI research for Yuri Gordon">
+<meta property="og:description" content="16 months, 4 projects, 10 chapters, 7 AI systems, 245 sources on a single topic. How I run research from a client’s brief to a verified source base and report.">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/projects/gordon-research/og-cover.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="alternate" hreflang="ru" href="https://reprintseva.pro/portfolio/projects/gordon-research/">
+<link rel="alternate" hreflang="en" href="https://reprintseva.pro/portfolio/projects/gordon-research/en/">
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><text%20x='256'%20y='352'%20font-family='Georgia,serif'%20font-size='300'%20text-anchor='middle'%20fill='%23CB9C47'>Ю</text></svg>">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Токены: графит и бронза портфолио + один красный для «лжи ИИ» ── */
+  :root{
+    --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+    --line:#DBDFE8; --line-soft:#E6E9F0;
+    --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+    --accent:#9C6C1E; --accent-hi:#7E5714; --accent-soft:rgba(156,108,30,.10);
+    --lie:#A8433C; --lie-soft:rgba(168,67,60,.10);
+    --good:#3D7A5C;
+    --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+    --body:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1120px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+      --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+      --good:#6FAE8C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+    --line:#2A3140; --line-soft:#212636;
+    --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+    --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+    --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+    --good:#6FAE8C;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--body);
+    font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+  section{padding-block:96px;}
+  section+section{border-top:1px solid var(--line-soft);}
+  h1,h2,h3{font-weight:400;letter-spacing:0;text-wrap:balance;}
+  h2{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.05;margin-bottom:14px;}
+  h3{font-family:var(--body);font-weight:700;font-size:1.1rem;line-height:1.3;}
+  .kicker{
+    font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--accent);margin-bottom:22px;display:flex;gap:12px;align-items:center;
+  }
+  .kicker::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .lede{font-size:1.15rem;color:var(--ink-dim);max-width:64ch;line-height:1.6;}
+  .sec-head{max-width:760px;margin-bottom:52px;}
+  em{font-style:italic;}
+  ::selection{background:var(--accent);color:var(--bg);}
+
+  /* ── Шапка ── */
+  .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;}
+  .back{font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--ink-dim);}
+  .back:hover{color:var(--accent);}
+  .mark{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .mark .glyph{font-family:var(--display);font-size:.95rem;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px;line-height:1;}
+  .mark .name{font-size:.82rem;font-weight:600;color:var(--ink-dim);}
+  @media (max-width:480px){.mark .name{display:none;}}
+  .tools{display:flex;gap:8px;}
+  .lang-switch,.theme-btn{
+    font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;
+    color:var(--ink-dim);border:1px solid var(--line);background:none;border-radius:999px;
+    padding:6px 12px;text-decoration:none;cursor:pointer;line-height:1.2;
+  }
+  .lang-switch:hover,.theme-btn:hover,.theme-btn:focus-visible,.lang-switch:focus-visible{color:var(--accent);border-color:var(--accent);outline:none;}
+
+  /* ── Первый экран: сначала ложь, потом правда ── */
+  .hero{padding-block:72px 88px;border-top:none;}
+  .lie{
+    font-family:var(--display);font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.3;
+    color:var(--ink-dim);max-width:34ch;position:relative;padding-left:22px;
+    border-left:2px solid var(--lie);
+  }
+  .lie q{quotes:"«" "»";}
+  .lie s{text-decoration-color:var(--lie);text-decoration-thickness:2px;}
+  .lie cite{display:block;font-family:var(--mono);font-style:normal;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lie);margin-top:12px;}
+  .lie .stamp{
+    position:absolute;right:-6px;top:-18px;transform:rotate(-8deg);
+    font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--lie);border:2px solid var(--lie);padding:4px 10px;border-radius:4px;background:var(--bg);
+  }
+  .hero h1{
+    font-family:var(--display);font-size:clamp(2.6rem,7.2vw,6.2rem);line-height:.98;margin-top:56px;
+    max-width:16ch;
+  }
+  .hero h1 .sep{color:var(--accent);}
+  .hero .lede{margin-top:28px;}
+  .hero .hook{
+    margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;max-width:720px;
+    padding:22px 24px;border:1px solid var(--line);background:var(--paper);border-radius:6px;
+  }
+  .hero .hook b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;color:var(--lie);}
+  .hero .hook p{color:var(--ink);font-size:1rem;}
+
+  /* ── Цифры ── */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--line);gap:1px;}
+  .num{background:var(--paper);padding:34px 28px 30px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;}
+  .num b{
+    font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,6vw,5.4rem);line-height:.9;
+    color:var(--ink);font-variant-numeric:tabular-nums;
+  }
+  .num b small{font-size:.42em;color:var(--accent);margin-left:6px;}
+  .num span{color:var(--ink-dim);font-size:.92rem;margin-top:16px;line-height:1.45;}
+  .num.link{text-decoration:none;color:inherit;transition:border-color .15s ease;}
+  .num.link em{font-family:var(--mono);font-style:normal;font-size:.7rem;color:var(--accent);margin-top:12px;}
+  .num{transition:outline-color .15s ease;outline:1px solid transparent;outline-offset:-1px;}
+  .num:hover{outline-color:var(--accent);}
+  .num.link:hover em{text-decoration:underline;text-underline-offset:3px;}
+  .nums-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);margin-top:16px;}
+
+  /* ── Доказательство: слова заказчика ── */
+  .proof-lede{font-size:1.15rem;max-width:64ch;color:var(--ink);}
+  .rail{margin-top:44px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;}
+  .post{
+    flex:0 0 340px;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:20px 22px 18px;display:flex;flex-direction:column;gap:12px;
+  }
+  .post header{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;}
+  .post header b{color:var(--ink-dim);font-weight:500;}
+  .post.pic{padding:0;display:flex;flex-direction:column;}
+  .post.pic img{width:100%;display:block;border-radius:8px 8px 0 0;}
+  .post.pic .pf{padding:12px 16px 14px;display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);flex-wrap:wrap;}
+  .post.pic .pf a{color:var(--accent);text-decoration:none;}
+  .post blockquote{font-size:.98rem;line-height:1.5;color:var(--ink);}
+  .post blockquote mark{background:var(--accent-soft);color:inherit;padding:0 3px;border-radius:2px;}
+  .post a{margin-top:auto;font-family:var(--mono);font-size:.72rem;color:var(--accent);text-decoration:none;}
+  .post a:hover{text-decoration:underline;}
+
+  /* ── Листалка ── */
+  .grail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;}
+  .g{flex:0 0 240px;scroll-snap-align:start;text-decoration:none;border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;}
+  .g:hover{border-color:var(--accent);}
+  .gi{display:block;aspect-ratio:3/4;overflow:hidden;background:#fff;border-bottom:1px solid var(--line-soft);}
+  .gi img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .gc{display:block;padding:12px 14px 14px;font-size:.78rem;line-height:1.35;color:var(--ink-dim);}
+  .gc b{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-weight:500;}
+  .hero h1.titles span{display:block;}
+  .hero h1.titles span.acc{color:var(--accent);}
+  /* ── Метод ── */
+  .formula{
+    margin-top:8px;display:flex;flex-wrap:wrap;gap:10px 0;align-items:center;
+    font-family:var(--display);font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.2;
+  }
+  .formula i{font-style:normal;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper);}
+  .formula em{font-style:normal;color:var(--accent);padding:0 12px;}
+  .formula i.v{border-color:var(--accent);color:var(--accent);}
+  .method-quote{margin-top:26px;font-size:1.08rem;color:var(--ink-dim);max-width:70ch;border-left:2px solid var(--accent);padding-left:20px;}
+  .steps{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .step{background:var(--paper);padding:26px 26px 28px;}
+  .step .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.12em;margin-bottom:10px;}
+  .step p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .prompt{margin-top:40px;border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .prompt summary{cursor:pointer;list-style:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;}
+  .prompt summary::-webkit-details-marker{display:none;}
+  .prompt summary span{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+  .prompt summary span::after{content:"Expand";}
+  .prompt[open] summary span::after{content:"Collapse";}
+  .prompt .bwrap{padding:0 22px 18px;}
+  /* бриф как документ */
+  .bdoc{padding:8px 0 4px;}
+  .pass{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-faint);padding:12px 0 6px;} .pass b{font-weight:500;color:var(--accent);}
+  .bdoc .bt{font-family:var(--display);font-size:1.5rem;line-height:1.15;color:var(--ink);padding:6px 0 10px;}
+  .bdoc .bb ol.lt{list-style:none;margin-left:0;}
+  .bdoc .bs{padding:18px 0;border-top:1px solid var(--line-soft);}
+  .bdoc .bs:first-child{border-top:0;}
+  .bdoc h4{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  .bdoc h4 small{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;text-transform:none;color:var(--ink-faint);margin-left:10px;}
+  .bdoc .bb{max-width:72ch;font-size:.95rem;line-height:1.6;}
+  .bdoc .bb p{margin:0 0 8px;color:var(--ink);} .bdoc .bb ol,.bdoc .bb ul{margin:4px 0 8px 22px;} .bdoc .bb li{margin:0 0 5px;color:var(--ink);}
+  .bdoc .bb li::marker{font-family:var(--mono);font-size:.8em;color:var(--accent);}
+  .bdoc.ann .bs{display:grid;grid-template-columns:170px 1fr;gap:6px 28px;}
+  .bdoc.ann .bs::before{content:attr(data-step);grid-row:1/span 2;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--ink-faint);padding-top:3px;line-height:1.5;}
+  .bdoc.ann .bs[data-step]::before{padding-left:16px;background:radial-gradient(circle,var(--accent) 3px,transparent 3.5px) 0 7px/10px 10px no-repeat;}
+  .bdoc.ann .bs:not([data-step])::before{content:"";}
+  .bdoc.ann h4,.bdoc.ann .bb{grid-column:2;}
+  .bdoc-key{display:flex;flex-wrap:wrap;gap:8px 22px;padding:14px 22px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);}
+  .bdoc-key b{font-weight:500;color:var(--ink-dim);}
+  @media (max-width:700px){.bdoc.ann .bs{grid-template-columns:1fr;} .bdoc.ann .bs::before{grid-row:auto;} .bdoc.ann h4,.bdoc.ann .bb{grid-column:1;}}
+  .prompt pre{
+    font-family:var(--mono);font-size:.8rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+    padding:6px 22px 24px;border-top:1px solid var(--line-soft);color:var(--ink);max-height:60vh;overflow:auto;
+  }
+
+  /* ── Кто что делал ── */
+  .roles{margin-top:8px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper);}
+  .roles .r{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));border-top:1px solid var(--line);}
+  .roles .r:first-child{border-top:0;background:var(--paper-hi);}
+  .roles .r>div{padding:16px 18px;min-width:0;}
+  .roles .r>div+div{border-left:1px solid var(--line-soft);}
+  .roles .h{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);}
+  .roles .h.me{color:var(--accent);}
+  .roles .st b{display:block;font-weight:600;font-size:.95rem;}
+  .roles .st span{display:block;font-size:.82rem;color:var(--ink-dim);margin-top:4px;line-height:1.45;}
+  .roles .c{font-size:.84rem;line-height:1.45;color:var(--ink-dim);display:flex;gap:10px;align-items:flex-start;}
+  .roles .c::before{content:"";flex:0 0 10px;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line);margin-top:5px;}
+  .roles .c.y::before{background:var(--accent);border-color:var(--accent);}
+  .roles .c.y{color:var(--ink);}
+  .roles .c.p::before{border-color:var(--accent);background:transparent;}
+  .roles .c.n{color:var(--ink-faint);}
+  .roles .c.n::before{border-style:dashed;}
+  .roles-key{margin-top:14px;display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);}
+  .roles-key i{display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line);vertical-align:-1px;margin-right:6px;}
+  .roles-key i.y{background:var(--accent);border-color:var(--accent);} .roles-key i.p{border-color:var(--accent);} .roles-key i.n{border-style:dashed;}
+  .roles-sum{margin-top:0;display:grid;grid-template-columns:240px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .roles-sum .photo{padding:0;position:relative;min-height:300px;}
+  .roles-sum .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;}
+  .roles-sum .photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,rgba(0,0,0,.5));}
+  .roles-sum .photo span{position:absolute;z-index:1;left:14px;bottom:12px;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.55);}
+  .roles-sum>div{background:var(--paper);padding:26px 28px;}
+  .roles-sum h3{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.15;}
+  .roles-sum p{margin-top:12px;font-size:.92rem;color:var(--ink-dim);line-height:1.55;}
+  .roles-sum .role{font-family:var(--display);font-size:2rem;line-height:1.05;color:var(--accent);margin-top:6px;}
+  .roles-sum .his{margin-top:14px;font-size:.85rem;color:var(--ink-faint);font-style:italic;}
+  .roles-sum .jrn{margin-top:18px;padding:16px 18px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;background:var(--accent-soft);color:var(--ink);}
+  .roles-sum .jrn b{font-weight:600;}
+  @media (max-width:1000px){.roles-sum{grid-template-columns:1fr 1fr;} .roles-sum .photo{grid-column:1/-1;min-height:0;aspect-ratio:16/7;}}
+  @media (max-width:760px){.roles .r{grid-template-columns:1fr;} .roles .r>div+div{border-left:0;border-top:1px dashed var(--line-soft);padding-top:10px;} .roles .r:first-child{display:none;} .roles .c::after{content:attr(data-who);font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-left:auto;padding-left:10px;} .roles-sum{grid-template-columns:1fr;} .roles-sum .photo{aspect-ratio:4/4;}}
+  /* ── Карта работы ── */
+  .tl{margin-top:8px;border-top:1px solid var(--line);}
+  .tl details{border-bottom:1px solid var(--line);}
+  .tl summary{
+    list-style:none;cursor:pointer;display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:baseline;
+    padding:20px 0;
+  }
+  .tl summary::-webkit-details-marker{display:none;}
+  .tl summary:hover .t{color:var(--accent);}
+  .tl .d{font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);letter-spacing:.04em;}
+  .tl .t{font-family:var(--display);font-size:1.5rem;line-height:1.15;}
+  .tl .tag{font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+  .tl .body{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:0 0 28px;}
+  .tl .body>div{grid-column:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px;}
+  .tl dl{font-size:.92rem;}
+  .tl dt{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:5px;}
+  .tl dd{color:var(--ink-dim);}
+  .tl dd q{color:var(--ink);quotes:"«" "»";}
+  .tl details[open] summary .t{color:var(--accent);}
+  .tl .tl-group{font-family:var(--mono);font-weight:500;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:34px 0 10px;display:flex;justify-content:space-between;gap:12px;}
+  .tl .tl-group span{color:var(--ink-faint);text-transform:none;letter-spacing:.04em;}
+  .tl .tl-group span a{color:var(--accent);text-decoration:none;}
+  .tl .tl-group span a:hover{text-decoration:underline;}
+  .tl .tl-group+details{border-top:1px solid var(--line);}
+  .tl dd a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px;}
+  .tl dd a:hover{color:var(--accent);}
+  .tl .more-link{color:var(--ink-faint);}
+
+  /* ── Четыре истории ── */
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .case{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:28px 28px 26px;}
+  .case .big{font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);line-height:.95;color:var(--accent);margin-bottom:14px;}
+  .case .big.lie{color:var(--lie);border:0;padding:0;font-size:clamp(2.6rem,5vw,4rem);max-width:none;}
+  .case p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .case .more-a{font-family:var(--mono);font-size:.74rem;color:var(--accent);text-decoration:none;}
+  .case .more-a:hover{text-decoration:underline;}
+  .case .fake{margin-top:14px;font-family:var(--display);font-size:1.05rem;color:var(--ink);text-decoration:line-through;text-decoration-color:var(--lie);}
+
+  /* ── Витрины ── */
+  .show{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .sc{display:grid;grid-template-rows:auto 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper);text-decoration:none;color:var(--ink);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+  .sc:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 18px 40px rgba(0,0,0,.10);}
+  .sc-art{height:260px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line-soft);}
+  .sc-fakes .sc-art{background:#15130F;}
+  .tarot{width:150px;height:220px;border-radius:10px;background:#1B1813;border:1px solid #CB9C47;outline:1px solid #CB9C47;outline-offset:-6px;padding:18px 12px;display:flex;align-items:center;justify-content:center;
+    background-image:radial-gradient(circle at 50% 50%,rgba(203,156,71,.12),transparent 60%),repeating-linear-gradient(45deg,transparent 0 12px,rgba(203,156,71,.07) 12px 13px),repeating-linear-gradient(-45deg,transparent 0 12px,rgba(203,156,71,.07) 12px 13px);transform:rotate(-6deg);box-shadow:0 20px 40px rgba(0,0,0,.5);}
+  .tarot .tf{display:flex;flex-direction:column;align-items:center;gap:6px;color:#CB9C47;font-family:'Old Standard TT',Georgia,serif;}
+  .tarot .tf b{font-family:var(--display);font-weight:400;font-size:3.2rem;line-height:1;color:#EAE2D2;}
+  .tarot .tf i{font-family:var(--mono);font-style:normal;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;}
+  .tarot .tf .orn{font-size:1.1rem;}
+  .sc-book .sc-art{background:#E9E4D8;}
+  .book{display:flex;width:300px;height:200px;box-shadow:0 20px 40px rgba(0,0,0,.18);transform:perspective(900px) rotateY(-6deg);}
+  .book .pg{flex:1;background:#F6F1E6;padding:22px 20px;position:relative;}
+  .book .pg.l{border-right:1px solid #D9D1C0;background:linear-gradient(to left,#E4DCCB,#F6F1E6 12%);display:flex;flex-direction:column;gap:9px;justify-content:center;}
+  .book .pg.l i{display:block;height:3px;background:#C8BFAA;border-radius:2px;} .book .pg.l i:nth-child(2){width:80%} .book .pg.l i:nth-child(4){width:65%} .book .pg.l i:nth-child(5){width:88%}
+  .book .pg.r{background:linear-gradient(to right,#E4DCCB,#F6F1E6 12%);display:flex;flex-direction:column;justify-content:center;}
+  .book .pg.r b{font-family:var(--display);font-weight:400;font-size:1.7rem;line-height:1;color:#221E19;} .book .pg.r em{font-family:var(--mono);font-style:normal;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#8A5A1A;margin-top:12px;}
+  .sc-body{padding:26px 28px 28px;display:flex;flex-direction:column;gap:10px;}
+  .sc-body h3{font-family:var(--display);font-weight:400;font-size:1.8rem;line-height:1.1;}
+  .sc-body p{color:var(--ink-dim);font-size:.95rem;line-height:1.55;} .sc-body p.kicker{color:var(--accent);}
+  .sc-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:14px;}
+  .sc-body .btn{font-size:.8rem;padding:11px 20px;}
+  @media (max-width:760px){.show{grid-template-columns:1fr;}}
+  /* ── С чем приходят ── */
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pain{background:var(--paper);padding:28px 26px 26px;display:flex;flex-direction:column;gap:14px;}
+  .pain blockquote{font-family:var(--display);font-size:1.45rem;line-height:1.2;color:var(--ink);}
+  .pain>p{color:var(--ink-dim);font-size:.92rem;line-height:1.55;}
+  .pain .sol{margin-top:auto;padding-top:16px;border-top:1px solid var(--line-soft);font-size:.92rem;line-height:1.55;color:var(--ink);}
+  .pain .sol b{display:block;font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .pain .sol a{display:block;margin-top:10px;font-family:var(--mono);font-size:.74rem;color:var(--accent);text-decoration:none;} .pain .sol a:hover{text-decoration:underline;}
+  /* ── Точка контакта ── */
+  #cta-mid{padding-block:0 8px;}
+  .ctam{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:30px 34px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;background:var(--paper);}
+  .ctam .big{font-family:var(--display);font-size:1.5rem;line-height:1.2;margin-top:8px;max-width:34ch;}
+  .ctam .btn{flex:0 0 auto;}
+  /* ── Вопросы ── */
+  .faq{border-top:1px solid var(--line);max-width:860px;}
+  .faq details{border-bottom:1px solid var(--line);}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:18px 0;font-family:var(--display);font-size:1.35rem;line-height:1.2;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary span{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+  .faq summary span::after{content:"Развернуть";} .faq details[open] summary span::after{content:"Свернуть";}
+  .faq summary:hover{color:var(--accent);}
+  .faq p{padding:0 0 22px;max-width:70ch;color:var(--ink-dim);line-height:1.6;}
+  @media (max-width:900px){.pains{grid-template-columns:1fr;} .ctam{flex-direction:column;align-items:flex-start;}}
+  /* ── Что продаю ── */
+  .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pack{background:var(--paper);padding:30px 26px 28px;display:flex;flex-direction:column;gap:14px;}
+  .pack .when{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;}
+  .pack h3{font-family:var(--display);font-weight:400;font-size:1.7rem;}
+  .pack p{color:var(--ink-dim);font-size:.95rem;}
+  .pack ul{list-style:none;color:var(--ink);font-size:.92rem;display:grid;gap:6px;}
+  .pack li::before{content:"— ";color:var(--accent);}
+  .wider{margin-top:40px;padding:26px 28px;border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft);max-width:820px;}
+  .wider p{font-size:1.05rem;}
+  .cta{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .btn{
+    font-family:var(--body);font-weight:700;font-size:.92rem;text-decoration:none;
+    padding:14px 26px;border-radius:999px;border:1px solid var(--accent);color:var(--bg);background:var(--accent);
+  }
+  .btn:hover{background:var(--accent-hi);border-color:var(--accent-hi);}
+  .btn.ghost{background:none;color:var(--accent);}
+  .btn.ghost:hover{background:var(--accent-soft);}
+  .price-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);}
+
+  footer{padding-block:40px;border-top:1px solid var(--line-soft);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+  footer a{text-decoration:none;color:var(--ink-dim);}
+  footer a:hover{color:var(--accent);}
+
+  @media (max-width:820px){
+    section{padding-block:64px;}
+    .nums{grid-template-columns:1fr 1fr;}
+    .steps,.cases,.packs{grid-template-columns:1fr;}
+    .tl summary{grid-template-columns:1fr;gap:6px;}
+    .tl .tag{display:none;}
+    .tl .body{grid-template-columns:1fr;}
+    .tl .body>div{grid-column:1;}
+    .hero .hook{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .nums{grid-template-columns:1fr;}
+    .num{min-height:0;}
+    .post{flex-basis:84vw;}
+    .lie .stamp{position:static;display:inline-block;margin-bottom:12px;transform:rotate(-4deg);}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .tl summary .t,.post,.pack{transition:color .15s ease,transform .15s ease;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="back" href="../../../en/index.html">← Portfolio</a>
+    <a class="mark" href="../../../../en/index.html"><span class="glyph">JR</span><span class="name">Julia Reprintseva</span></a>
+    <div class="tools">
+      <a class="lang-switch" href="../index.html">RU</a>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Case study · February 2025 — June 2026</p>
+    <figure class="lie">
+      <span class="stamp">Fake</span>
+      <s>“Here the prostitutes wear ‘Red Muscovite’ perfume — a blend of rose and vodka.”</s>
+      <cite>Baudelaire, a draft of “Les Fleurs du mal” — so claimed DeepSeek. Neither the quote nor the draft exists.</cite>
+    </figure>
+    <h1 class="titles"><span>“Oh, Paris!”</span><span class="acc">“Letters of the 20th Century”</span><span>“Master and Moscow”</span></h1>
+    <p class="lede">Sixteen months of AI-driven research for artist and type designer Yuri Gordon: two literary maps, a book on the history of Soviet letters, and an infographic. I set the tasks for the neural networks, ran seven systems in parallel and verified every find — while the author wrote.</p>
+    <div class="hook">
+      <b>241</b>
+      <p>That many invented quotes with fake references to the French National Library the AI produced when I was looking for texts for the Paris map. It was the first lesson: <strong>the tool is powerful, but it cannot be trusted — you need a method.</strong> Everything below grew out of that lesson. <a class="more-a" href="../fakes/index.html">All 241 — in the quote book →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Numbers ═══ -->
+<section id="numbers">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">In numbers</p><h2>The scale of sixteen months</h2></div>
+    <div class="nums">
+      <div class="num"><b>16<small>mo.</small></b><span>of work: from the first brief in February 2025 to the last chapter in June 2026</span></div>
+      <div class="num"><b>4</b><span>projects: the “Oh, Paris!” map, the book “Letters of the 20th Century”, the “Master and Moscow” map, the infographic “The Silver Age Catastrophe”</span></div>
+      <a class="num link" href="../almanac/index.html"><b>10</b><span>chapters of “Letters of the 20th Century” written on this research</span><em>all 19 chapters with illustrations (RU) →</em></a>
+      <div class="num"><b>7</b><span>AI systems in use: ChatGPT, Perplexity, Gemini, Claude, DeepSeek, Grok, Qwen — often in parallel on one brief</span></div>
+      <div class="num"><b>245</b><span>verified sources on a single topic — Moscow Metro lettering 1935–1953 — collected in one pass</span></div>
+      <div class="num"><b>61</b><span>deliverables for the author: studies, prompts, databases, comparative reports</span></div>
+    </div>
+    <p class="nums-note">Counted from project documents: Google Drive, ChatGPT projects, published chapters. The detailed map is below.</p>
+  </div>
+</section>
+
+<!-- ═══ Showcase ═══ -->
+<section id="showcase">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Two artefacts</p><h2>What you can open and browse</h2></div>
+    <div class="show">
+      <a class="sc sc-fakes" href="../fakes/index.html">
+        <div class="sc-art"><div class="tarot"><div class="tf"><span class="orn">❦</span><b>241</b><i>fabrications</i><span class="orn">❦</span></div></div></div>
+        <div class="sc-body"><p class="kicker">Quote book</p><h3>How DeepSeek lied</h3><p>241 quotes that never existed: Proust, Baudelaire, Tsvetaeva — with dates, “sources” and links to the French National Library. Eight series, cards with a reverse side, a favourites selection. In Russian.</p><div class="sc-btns"><span class="btn">Open the quote book</span></div></div>
+      </a>
+      <a class="sc sc-book" href="../almanac/index.html">
+        <div class="sc-art"><div class="book"><div class="pg l"><i></i><i></i><i></i><i></i><i></i></div><div class="pg r"><b>Буквы<br>XX века</b><em>Yuri Gordon</em></div></div></div>
+        <div class="sc-body"><p class="kicker">Almanac</p><h3>All chapters of the book</h3><p>19 chapters published by the author, typeset as a book — 410 illustrations with his captions. The ten chapters written on my research link to that research: briefs, reports, posts. In Russian.</p><div class="sc-btns"><span class="btn">Read the chapters</span><span class="btn ghost" data-href="../almanac/book.html">Page-flip book</span></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Pains ═══ -->
+<section id="pains">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">What people come with</p>
+      <h2>Three situations where AI “doesn’t work”</h2>
+      <p class="lede">All three happened in this project. The solutions are not advice — they are what was actually done for sixteen months.</p>
+    </div>
+    <div class="pains">
+      <div class="pain"><blockquote>“I need an overview of a topic, and ChatGPT gives me beautiful fluff: generalities, not a single source.”</blockquote><p>The model answers a question it wasn’t asked: it retells what it “knows” instead of searching.</p><div class="sol"><b>Solution</b>The task becomes a four-page brief: the model’s role, scope, research questions, mandatory methodology, a card format with fields, starting sources. After such a brief the model works as a cataloguer, not an essayist. <a href="#method">How the brief is built →</a></div></div>
+      <div class="pain"><blockquote>“I can’t tell whether it’s lying. Everything looks convincing.”</blockquote><p>Links to pages that don’t exist, quotes nobody wrote, dates “approximately”. A beautiful answer is indistinguishable from a correct one.</p><div class="sol"><b>Solution</b>Every claim gets a confidence level; strong claims are checked against scans and primary sources; a second system gives an independent view; fabrications are logged, not hushed up. <a href="../fakes/index.html">241 fabrications caught →</a></div></div>
+      <div class="pain"><blockquote>“I have forty scanned PDFs and it simply won’t take them.”</blockquote><p>Uploads fail silently, limits are documented nowhere, files are “too large” without explanation.</p><div class="sol"><b>Solution</b>The engineering is mine: OCR, compression and slicing to fit the limits, knowledge bases of dozens of editions, custom assistants. The hidden 80 MB per-account limit was found and described exactly this way. <a href="../limit/index.html">The limit story →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Proof ═══ -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">From his channel</p>
+      <h2>How Yuri Gordon himself wrote about this work</h2>
+      <p class="proof-lede">From his Telegram channel and Facebook* — as the project went along, from the first map to the last chapter. Every card links to the post (in Russian).</p>
+    </div>
+    <div class="rail" aria-label="Public mentions"><article class="post pic"><img src="../img/anons.jpg" alt="Poster: Julia Reprintseva and Yu. O. Gordon present a joint project, “Digital Yu. O. G.”, 18 June 2025"><div class="pf"><span>18 Jun 2025 · launch poster, drawn by Yuri Gordon</span><a href="https://t.me/yurigordon/477" target="_blank" rel="noopener">post in Telegram ↗</a></div></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>25 Apr 2025</span></header><blockquote>The second half of the texts for quote-hungry Paris we searched for as a trio: yours truly was the client, <mark>Julia Reprintseva the prompt engineer</mark>, and the treasure hunter — AI in its various forms.</blockquote><a href="https://t.me/yurigordon/437" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>11 Jul 2025</span></header><blockquote>As you remember, <mark>my partner Julia and I</mark> are building my digital doppelgänger to help write this book.</blockquote><a href="https://t.me/yurigordon/480" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>27 Aug 2025</span></header><blockquote>A link to the AI-assisted study Julia Reprintseva and I did on the subject, which resulted in this article. <mark>In my view, our best performance yet.</mark></blockquote><a href="https://t.me/yurigordon/554" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>9 Sep 2025</span></header><blockquote><mark>Head of the neuro-assistants, as always, Julia Reprintseva.</mark> Her report on gathering and processing the material is in her Telegram channel.</blockquote><a href="https://t.me/yurigordon/574" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+      <article class="post"><header><b>facebook.com/yuri.gordon</b><span>4 Oct 2025</span></header><blockquote>Perplexity found 111 links. I went through all of them… <mark>The AI found, in open access, a rare album of standard window-display samples from 1935.</mark></blockquote><a href="https://www.facebook.com/share/p/172o8PRqC5/" target="_blank" rel="noopener">chapter on Facebook* ↗</a></article>
+      <article class="post"><header><b>t.me/juliareprintseva_roman</b><span>9 Sep 2025</span></header><blockquote>Yuri Gordon in an interview: “Success with AI depends first of all on knowing how to ask. <mark>The prompt itself looked like a full terms-of-reference document</mark> for deep research.”</blockquote><a href="https://t.me/juliareprintseva_roman/261" target="_blank" rel="noopener">interview on Telegram ↗</a></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>13 Mar 2026</span></header><blockquote>In parallel with me, the same problem was analysed by <mark>ChatGPT under the direction of Julia Reprintseva</mark>… Here the AI and I disagreed.</blockquote><a href="https://t.me/yurigordon/855" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+      <article class="post"><header><b>t.me/yurigordon</b><span>14 Jun 2026</span></header><blockquote>And here is the deep research from ChatGPT on the same topic: <mark>Thank you, Julia Reprintseva.</mark></blockquote><a href="https://t.me/yurigordon/908" target="_blank" rel="noopener">post on Telegram ↗</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Gallery ═══ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">What the results look like</p>
+      <h2>Thirteen reports — first pages</h2>
+      <p class="lede">Each runs from 6 to 78 pages: periodisation, catalogues of object cards, comparative tables, sources. Scroll; a click opens the page of that research, where the full report can be read.</p>
+    </div>
+    <div class="grail"><a class="g" href="../chapters/propisi/index.html"><span class="gi"><img src="../gallery/01-propisi.jpg" alt="" loading="lazy"></span><span class="gc"><b>Прописи и чистописание 1900–1990</b>Учебные пособия по грамоте и чистописанию 1917–1935</span></a><a class="g" href="../chapters/shrifty/index.html"><span class="gi"><img src="../gallery/02-shrifty.jpg" alt="" loading="lazy"></span><span class="gc"><b>Наборные шрифты 1920–40-х</b>Советская стандартизация шрифтов и сравнение с практиками Запада</span></a><a class="g" href="../chapters/metro/index.html"><span class="gi"><img src="../gallery/03-metro.jpg" alt="" loading="lazy"></span><span class="gc"><b>Надписи московского метро</b>Надписи Московского метрополитена 1935–1953 годов: комплексный анализ</span></a><a class="g" href="../chapters/propaganda/index.html"><span class="gi"><img src="../gallery/04-propaganda.jpg" alt="" loading="lazy"></span><span class="gc"><b>Монументальная пропаганда 1917–1991</b>Монументальная пропаганда и массовое праздничное оформление в СССР (1917–1991)</span></a><a class="g" href="../chapters/propaganda/index.html"><span class="gi"><img src="../gallery/05-propaganda.jpg" alt="" loading="lazy"></span><span class="gc"><b>Монументальная пропаганда 1917–1991</b>Систематизация и комплексный анализ визуальной культуры СССР — отчёт по брифу</span></a><a class="g" href="../chapters/propaganda/index.html"><span class="gi"><img src="../gallery/06-propaganda.jpg" alt="" loading="lazy"></span><span class="gc"><b>Монументальная пропаганда 1917–1991</b>Монументальная пропаганда и массовое праздничное оформление в СССР (1917–1991) — полный отчёт</span></a><a class="g" href="../chapters/shriftoviki/index.html"><span class="gi"><img src="../gallery/07-shriftoviki.jpg" alt="" loading="lazy"></span><span class="gc"><b>Советские шрифтовики и «план шрифтостроения»</b>Наборные шрифты СССР 1920–1970: верифицированные биографии ключевых разработчиков и устройство системы Полиграфмаша</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/08-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Фестиваль и Олимпиада как два дизайн-события: от советского массового праздника к международному event branding</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/09-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Фестиваль молодёжи 1957 и Олимпиада 1980 как два советских дизайн-события</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/10-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Московская Олимпиада и западные олимпийские дизайн-системы позднего модернизма</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/11-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Олимпиады и чемпионаты мира по футболу как глобальные дизайн-события середины XX века</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/12-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Советские массовые праздники, парады и спортивные мегасобытия середины XX века</span></a><a class="g" href="../chapters/festival/index.html"><span class="gi"><img src="../gallery/13-festival.jpg" alt="" loading="lazy"></span><span class="gc"><b>Фестиваль-57 и Олимпиада-80 — шесть исследований</b>Аннотированная база западных источников по графическому дизайну Олимпийских игр XX века</span></a></div>
+  </div>
+</section>
+
+<!-- ═══ Method ═══ -->
+<section id="method">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Method</p><h2>I don’t write “magic prompts”. I write terms of reference</h2></div>
+    <div class="formula" aria-label="Prompt formula">
+      <i>goal</i><em>→</em><i>inputs</i><em>→</em><i>quality criteria</i><em>→</em><i>output format</i><em>→</em><i class="v">checks and verification</i>
+    </div>
+    <p class="method-quote">The prompt is built from the model’s own requirements (OpenAI and Google documentation), not from pretty phrases. Given such a brief, GPT-5 starts proposing missing checks on its own: “filter out post-Soviet reconstructions”, “give an estimated date with a caveat”. You cannot get that by writing “be careful”.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01 · TASK</div><h3>Three lines from the client</h3><p>“Analyse the Moscow Metro inscriptions of 1935–1953. Split them into groups: façades, platforms, wayfinding, memorial…” The rest is my job.</p></div>
+      <div class="step"><div class="n">02 · SCAFFOLD</div><h3>Periodisation and a map of sources</h3><p>A quick pass in Perplexity: periods, object types, corpora — books, archives, museum databases. Ten minutes after the brief there is a skeleton.</p></div>
+      <div class="step"><div class="n">03 · BRIEF</div><h3>A four-page prompt</h3><p>The client states the task in one sentence — I interview them: call, write, ask again. The draft goes into my ChatGPT project built specifically for writing prompts by OpenAI’s documentation: the model asks clarifying questions — what the brief still lacks — and we answer them together with the client on a call or in the chat. The result: the model’s role, scope, research questions, mandatory methodology, a card format with fixed fields, starting sources.</p></div>
+      <div class="step"><div class="n">04 · RUN</div><h3>Several systems in parallel</h3><p>ChatGPT Deep Research for synthesis, Perplexity for links, Gemini for a second view; when the topic deserves it — all seven. One system’s output becomes another’s input.</p></div>
+      <div class="step"><div class="n">05 · CHECK</div><h3>Against primary sources, with a confidence level</h3><p>Scanned tables of contents, library page viewers, book PDFs. A beautiful answer is not a fact: every claim is marked high, medium or low confidence.</p></div>
+      <div class="step"><div class="n">06 · DELIVERY</div><h3>Base, report, summary — and an open debrief</h3><p>Google Docs, PDF, a comparative table of conclusions. The client’s notes are closed the same day. Then a post on what worked and what didn’t.</p></div>
+    </div>
+    <details class="prompt">
+      <summary>A real Deep Research brief: monumental propaganda in the USSR, 1917–1991 (in Russian) <span></span></summary>
+<div class="bdoc-key"><b>In the margin</b> — which step of the formula each section serves: goal · inputs · quality criteria · output format · checks. The brief itself is in Russian.</div><div class="bwrap"><div class="bdoc ann"><div class="bs" data-step="goal"><h4>Тема</h4><div class="bb"><p>Монументальная пропаганда и массовое праздничное оформление в СССР (1917–1991) — визуальные носители, типографика, лозунги, материалы, корпуса источников.</p></div></div><div class="bs" data-step="goal"><h4>Роль модели</h4><div class="bb"><p>Ты — исследователь визуальной культуры СССР и архивный аналитик. Твоя цель — собрать, проверить и систематизировать максимум визуальных источников (фото, схем, публикаций, разворотов, каталогов), а не пересказать общие знания. Работай как автор научного каталога и исследовательского досье.</p></div></div><div class="bs" data-step="goal"><h4>Цель</h4><div class="bb"><ol><li>Построить исследовательский каркас темы (периодизация, типы объектов, корпуса).</li><li>Собрать и описать ядро визуальных источников по каждому периоду и типу объекта.</li><li>Систематизировать типографику + материалы + формулы лозунгов.</li><li>Выдать результат в форме, пригодной для дальнейшей работы: каталог карточек объектов + «карта корпусов» + выводы.</li></ol></div></div><div class="bs" data-step="inputs"><h4>Границы и фокус</h4><div class="bb"><p>География: СССР (центры + регионы + республики). Объекты: временные праздничные конструкции; стационарные объекты (памятники, панно, мозаики, надписи в архитектуре, световые конструкции); метро, вокзалы, стадионы, ДК, НИИ как типовые носители. Релевантно всё, где текст/буква/лозунг — часть визуальной композиции.</p></div></div><div class="bs" data-step="goal"><h4>Исследовательские вопросы<small>ответь на каждый</small></h4><div class="bb"><ol><li>Какие типы носителей доминируют в каждом периоде и почему?</li><li>Как меняется язык лозунгов: императивы → описательные формулы → «утопическое завтра» → кризис формы?</li><li>Как меняется типографика: рукописное → конструктивистские гротески → стандартизация (ОСТ/ГОСТ) → функциональные гротески → буквы в архитектуре?</li><li>Какие корпуса дают максимум материала и как к ним «присасываться»?</li><li>Какие узлы дают наиболее плотные примеры для исследователя шрифтов?</li></ol></div></div><div class="bs" data-step="quality criteria"><h4>Обязательная методология</h4><div class="bb"><ol><li>Каркас: периоды 1917–1922; 1920-е–1932; конец 1930-х–1953; 1953–1960-е; 1970–1980-е; конец 1980-х–1991. Для каждого — темы, лозунги, типографика, материалы, типы объектов.</li><li>«Карта корпусов» — не менее 20–30 позиций: что искать, по каким ключам.</li><li>«Каталог карточек» — минимум 40, лучше 80+; по 8–12 на период.</li><li>Не додумывай датировки: нет точной даты — помечай как приблизительную и объясняй.</li><li>Синтез: закономерности, переломные точки, где копать дальше.</li></ol></div></div><div class="bs" data-step="output format"><h4>Формат результата<small>строго</small></h4><div class="bb"><ol class="lt"><li>A) Executive summary (1–1,5 стр.)</li><li>B) Периодизация: 6 блоков на период</li><li>C) Карта корпусов</li><li>D) Каталог карточек — единый формат: ID · период · тип объекта · год и уровень уверенности · место · событие · носитель/материал · текст лозунга · типографика · визуальное описание · автор · источник (точная ссылка) · заметки</li><li>E) Приложение «как добивать визуал»</li></ol></div></div><div class="bs" data-step="checks and verification"><h4>Критерии качества</h4><div class="bb"><p>Максимум первичных источников. Каждый сильный тезис — со ссылкой. Чётко отделяй факт / интерпретацию / гипотезу. Никаких «красивых обобщений» без опоры на корпус.</p></div></div><div class="bs" data-step="inputs"><h4>Стартовые источники<small>обязательно использовать и расширить</small></h4><div class="bb"><p>imwerden: «Агитационно-массовое искусство… 1917–1932» · tehne: «Декоративное искусство СССР» · russiainphoto.ru · корпуса по мозаикам, метро, декрету 1918.</p></div></div></div></div>
+    
+    </details>
+  </div>
+</section>
+
+<!-- ═══ Who did what ═══ -->
+<section id="roles">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Who did what</p>
+      <h2>The author, me and the AI: where the line runs</h2>
+      <p class="lede">The first question any client asks about AI-assisted work is “what did the human actually do?”. Here is the answer, stage by stage. Topics always came from Yuri Gordon; the chapters are his text alone — not one of my sentences went into the book. Everything between the topic and the text is my work, with AI as the executor.</p>
+    </div>
+    <div class="roles" role="table" aria-label="Roles by stage">
+      <div class="r" role="row"><div class="h">Stage</div><div class="h">Author</div><div class="h me">Me</div><div class="h">AI</div></div>
+      <div class="r"><div class="st"><b>Topic and question</b><span>Period, objects, what to find out</span></div><div class="c y" data-who="author">Sets the topic — often in one sentence</div><div class="c n" data-who="me">I don’t choose the topics</div><div class="c n" data-who="AI">—</div></div>
+      <div class="r"><div class="st"><b>Scaffold and brief</b><span>From one sentence to a four-page brief: periodisation, object types, questions, output format</span></div><div class="c p" data-who="author">Answers the questions — mine and the model’s</div><div class="c y" data-who="me">Interview the author, write the brief</div><div class="c p" data-who="AI">Asks clarifying questions about the draft brief — in my prompt-writing project</div></div>
+      <div class="r"><div class="st"><b>Route and tools</b><span>Which systems, in what order, what runs in parallel, what in cascade</span></div><div class="c n" data-who="author">—</div><div class="c y" data-who="me">Choose the systems and the order</div><div class="c n" data-who="AI">—</div></div>
+      <div class="r"><div class="st"><b>Search and draft synthesis</b><span>Sources, card catalogues, first conclusions</span></div><div class="c n" data-who="author">—</div><div class="c p" data-who="me">Steer by the brief, stop, ask again</div><div class="c y" data-who="AI">Searches and synthesises — up to seven systems per brief</div></div>
+      <div class="r"><div class="st"><b>Verification and culling</b><span>Checks against scans and primary sources, confidence levels, logged fabrications</span></div><div class="c n" data-who="author">—</div><div class="c y" data-who="me">Check against scans, cull, assign a confidence level</div><div class="c p" data-who="AI">Gives a second opinion — a different system</div></div>
+      <div class="r"><div class="st"><b>Engineering</b><span>Knowledge bases of 18 editions, custom assistants, the 80 MB limit workaround</span></div><div class="c n" data-who="author">—</div><div class="c y" data-who="me">Build the bases and assistants, fix them when they break</div><div class="c p" data-who="AI">Works inside what was built</div></div>
+      <div class="r"><div class="st"><b>Digest for the author</b><span>“Six systems — six conclusions”, source registers, tables, chronologies</span></div><div class="c p" data-who="author">Reads, asks questions</div><div class="c y" data-who="me">Select, structure, answer the questions</div><div class="c p" data-who="AI">Does the rough assembly</div></div>
+      <div class="r"><div class="st"><b>Chapter text and illustrations</b><span>The book “Letters of the 20th Century”</span></div><div class="c y" data-who="author">Writes it himself, first line to last</div><div class="c n" data-who="me">Not involved</div><div class="c n" data-who="AI">—</div></div>
+      <div class="r"><div class="st"><b>Telling the process in public</b><span>Posts, reports, interviews</span></div><div class="c y" data-who="author">Writes about the project in his channels</div><div class="c y" data-who="me">Write in my channel, interview the author</div><div class="c n" data-who="AI">—</div></div>
+    </div>
+    <div class="roles-key"><span><i class="y"></i>leads the stage</span><span><i class="p"></i>takes part</span><span><i class="n"></i>not involved</span></div>
+    <div class="sec-head" style="margin-top:72px;margin-bottom:28px">
+      <p class="kicker">About me</p>
+      <h2>Who does this work</h2>
+    </div>
+    <div class="roles-sum">
+      <div class="photo"><img src="../img/julia.jpg" alt="Julia Reprintseva"><span>Julia Reprintseva</span></div>
+      <div><p class="kicker">My role</p><div class="role">AI research architect</div><p>Not a co-author: the text is the author’s. Not a “prompt operator”: AI here is a tool. In between is the person who turns a topic into a brief, a brief into a process, and the output of that process into verified material you can build on.</p><p class="his">Yuri Gordon put it shorter: “neuro-captain”, “head of the neuro-assistants”.</p></div>
+      <div><h3>What this means for your project</h3><p>You remain the author of the decision, the text or the product. I take everything between the question and the verified answer: framing the task, the route through the tools, checking and assembling the material. The line of authorship is agreed up front and kept — as it was here.</p><p class="jrn"><b>And if there is nobody to write the text</b> — I am a journalist by first profession and can write it myself, on verified material. Here Yuri Gordon wrote himself because that is how his project was set up, not because it has to be that way.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Contact ═══ -->
+<section id="cta-mid">
+  <div class="wrap">
+    <div class="ctam"><div><p class="kicker">A similar task?</p><p class="big">Tell me what it is about. On a short call we’ll work out what to look for, where, and how long it will take.</p></div><a class="btn" href="mailto:julia.vl.reprintseva@gmail.com?subject=Research%20request">Write an email</a></div>
+  </div>
+</section>
+
+<!-- ═══ Map of work ═══ -->
+<section id="map">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Map of work</p>
+      <h2>Thirteen cycles: brief → work → result → publication</h2>
+      <p class="lede">Every row expands: the brief, what was done, with which tools and what came of it. Each cycle has its own page with briefs, reports and posts (in Russian).</p>
+    </div>
+    <div class="tl">
+      <h3 class="tl-group">The book “Letters of the 20th Century” <span>project launch and 10 research cycles · <a href="../almanac/index.html">all 19 chapters with illustrations (RU)</a> · <a href="../almanac/book.html">page-flip book (RU)</a></span></h3>
+      <details><summary><span class="d">Jun 2025</span><span class="t">Launch of the “Digital YuG” project</span><span class="tag">launch</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Build a “digital twin” of the author: a custom ChatGPT project trained on his texts and materials, to search, read and systematise sources for the chapters of “Letters of the 20th Century”.</dd></dl>
+        <dl><dt>Work</dt><dd>Set up a project assistant with instructions in the author’s voice; agreed the working order: topic from the author → brief → research → checks → digest; announced the project in both channels on 18 June 2025, the author’s birthday.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT (custom project), Perplexity</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/start/index.html">Launch of the “Digital YuG” project: a digital twin of the author for the book</a> — Announced 18 Jun 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Jun – Jul 2025</span><span class="t">Handwriting primers, 1900–1990</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Find teaching manuals for writing and penmanship from 1900–1990, OCR the copybook texts, compare teaching methods, show how writing and politics intertwined.</dd></dl>
+        <dl><dt>Work</dt><dd>Built a base of 18 editions: OCR, compression and slicing of PDFs to fit upload limits, two weeks of “feeding” a custom assistant tuned to the author’s voice. Found and documented an undocumented ChatGPT limit — 80 MB per account. Delivered the chapter in two registers: neutral analysis and the author’s voice.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT (custom project, Deep Research), ChatPDF, Perplexity</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/propisi/index.html">Soviet handwriting primers: from living script to dead drafting</a> — Published 11 Jul 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Jul – Aug 2025</span><span class="t">Soviet typefaces of the 1920s–40s</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Catalogue typefaces by decade, find out which were used most, locate the state measures that culled them — what was kept and what was discarded.</dd></dl>
+        <dl><dt>Work</dt><dd>Perplexity gathered sources; a brief was built in my prompt-writing project; ChatGPT Deep Research compared type standardisation in the USSR, USA, Britain, France and Germany up to 1953. Found the OST 1337 and GOST 3489 standards and Bormann’s 1941 circular banning Fraktur.</dd></dl>
+        <dl><dt>Tools</dt><dd>Perplexity, ChatGPT Deep Research (o3)</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/shrifty/index.html">Soviet metal typefaces of the 1920s–40s: turning a meadow into a potato field</a> — Published 26 Aug 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Aug – Sep 2025</span><span class="t">Moscow Metro lettering, 1935–1953</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Analyse the Metro’s inscriptions in seven groups — façades, platforms, wayfinding, memorial, technical, carriages, temporary; define the style, trace its changes, read the texts for content.</dd></dl>
+        <dl><dt>Work</dt><dd>The prompt was built from OpenAI’s own guidance for GPT-5: goal, inputs, quality criteria, format, verification. Perplexity found 245 sources; GPT-5 wrote a 13-page essay with a classification and dating caveats — and proposed checks that were not in the brief.</dd></dl>
+        <dl><dt>Tools</dt><dd>Perplexity, ChatGPT GPT-5 Deep Research</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/metro/index.html">Letters of the Moscow Metro, 1935–1953</a> — Published 9 Sep 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Sep – Oct 2025</span><span class="t">Shop signs and windows, 1928–1941</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Find visual and textual sources on signs and windows of 1928–1941: how they were made, whether standards existed, capital versus provinces; Torgsin stores separately.</dd></dl>
+        <dl><dt>Work</dt><dd>Two briefs — corpus collection and comparative analysis (USSR 1928–41, Depression-era USA, post-war Europe). Three studies in cascade: ChatGPT and Perplexity results (111 links) fed into Gemini with a search of Western sources.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT Deep Research, Perplexity, Gemini Deep Research</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/vyveski/index.html">Soviet shop signs and window displays of the 1930s</a> — Published 4 Oct 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Oct – Nov 2025</span><span class="t">Book covers 1935–1953 — one brief, six systems</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Collect cover and title-page images, classify typefaces (set and hand-drawn), composition and non-type elements; compare with pre-revolutionary and Western examples.</dd></dl>
+        <dl><dt>Work</dt><dd>One brief run in parallel in six systems; the six sets of conclusions placed side by side; three rounds of iterative search on the artists Rerberg and Telingater.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT, Perplexity, Gemini, DeepSeek, Grok, Qwen</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/oblozhki/index.html">Soviet book covers and title pages, 1935–1953</a> — Published 6 Nov 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Feb 2026</span><span class="t">Monumental propaganda, 1917–1991</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Trace the evolution of monumental propaganda — parade décor, demonstrations, permanent structures — from 1917 to 1991: ideology, slogans, typography, materials; gather maximum visual material.</dd></dl>
+        <dl><dt>Work</dt><dd>One working day: 11:55 brief received → 12:05 scaffold in Perplexity → 12:10 brief in the prompt project → 13:00 Gemini report → 14:01 final document and PDF. Three systems, three reports.</dd></dl>
+        <dl><dt>Tools</dt><dd>Perplexity, ChatGPT Deep Research, Gemini Deep Research</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/propaganda/index.html">Soviet monumental propaganda: from canvas to concrete</a> — Published 18 Feb 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Mar 2026</span><span class="t">Soviet type designers and the “type plan”</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Biographies of Soviet type designers 1930–1960, a catalogue of typefaces, typology, whether a state plan existed; revision — short biographies and corrections.</dd></dl>
+        <dl><dt>Work</dt><dd>Two-step prompting: the model first acts as a brief specialist, writes the terms of reference and asks eight questions about depth; then the research runs. Three runs — the first two with errors, the third went into the chapter. Revisions closed the same day.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT Deep Research</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/shriftoviki/index.html">The Bannikova case, or Was there a plan? Soviet type designers, 1930–1960</a> — Published 12 Mar 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Mar 2026</span><span class="t">“The Art of Type” 1960 vs 1977</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Compare the contributors of the two albums, classify by type of work, compare composition; for everyone — life dates and four chronological lists.</dd></dl>
+        <dl><dt>Work</dt><dd>Four verification steps: Gemini’s first answer → ChatGPT check against the library’s page scans, which exposed invented contributors and percentages → analysis from the scanned tables of contents (38 and 59 names, 16 shared) → a verified base with life dates and 13 typeface authors.</dd></dl>
+        <dl><dt>Tools</dt><dd>Gemini, ChatGPT</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/iskusstvo-shrifta/index.html">Two books titled “The Art of Type. Works of Moscow Book Artists” — 1960 and 1977</a> — Published 21 Mar 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Mar – Apr 2026</span><span class="t">The Thaw, 1953–1974</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Collect signs, covers, posters and advertising of the Thaw, define styles and motifs, find the sources, trace the evolution, compare with Western counterparts; then add cinemas and brand stores.</dd></dl>
+        <dl><dt>Work</dt><dd>Brief in the constructor → Gemini Deep Research: 30 objects with letterform descriptions, six types of form, 23 sources; revised on the author’s note.</dd></dl>
+        <dl><dt>Tools</dt><dd>Gemini Deep Research, ChatGPT</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/ottepel/index.html">Thaw-era lettering: signs, covers, posters 1953–1974</a> — Published 3 Apr 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">May – Jun 2026</span><span class="t">Festival-57 and Olympics-80 — six studies</span><span class="tag">chapter</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>“Let me pitch the idea and you turn it into a prompt”: describe and compare the design of the 1957 Youth Festival and the 1980 Olympics, and set them against Western design of the same years.</dd></dl>
+        <dl><dt>Work</dt><dd>A series of six briefs and six Deep Research runs — Soviet mass festivities, Olympic design systems 1968–1980, World Cups, an annotated base of Western sources — and a single analytical chapter built on them. Yuri Gordon called the final base the best thing AI had done for his book.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT Deep Research</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/festival/index.html">From daisy to bear: the visual communication of Festival-57 and the 1980 Olympics</a> — Published 12 Jun 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>
+      <h3 class="tl-group">Maps and infographic <span>3 projects</span></h3>
+      <details><summary><span class="d">Feb – Apr 2025</span><span class="t">The “Oh, Paris!” map — quotes for a city</span><span class="tag">map</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Find literary quotes about specific places in Paris — from Hugo and Flaubert to Modigliani and Chanel — for a literary map; verify every one.</dd></dl>
+        <dl><dt>Work</dt><dd>Four systems, with and without PDFs, short and long prompts; Hugo’s novel processed in parts with page numbers. Compiled a catalogue of 241 fabricated quotes with fake references and derived the tell-tale signs of fabrication — the origin of the rule “no quote without checking the text”.</dd></dl>
+        <dl><dt>Tools</dt><dd>DeepSeek, Perplexity, Claude, a GPT bot in Telegram</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/parizh/index.html">The literary map “Oh, Paris!”</a> — Map published April 2025. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Sep – Oct 2025</span><span class="t">The “Master and Moscow” map</span><span class="tag">map</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>Every quote with Moscow topography in “The Master and Margarita” and “Theatrical Novel”, Bulgakov’s places from scholarship, all Moscow toponyms in Mandelstam; then verify the finished studies and the “Mandelstam as the Master’s prototype” theory.</dd></dl>
+        <dl><dt>Work</dt><dd>Three studies plus a separate fact-checking pass: Ivan Bezdomny’s route checked against a 1930s map, addresses against the writer’s biography; the Mandelstam theory examined source by source. Honestly recorded where the AI failed — Mandelstam’s Moscow toponyms.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT, Gemini</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/master-i-moskva/index.html">The “Master and Moscow” map: Bulgakov’s and Mandelstam’s topography</a> — Materials went into the map. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>      <details><summary><span class="d">Feb 2026</span><span class="t">Infographic “The Silver Age Catastrophe”</span><span class="tag">infographic</span></summary><div class="body"><div>
+        <dl><dt>Brief</dt><dd>A timeline of 25 poets of the early 20th century: birth, first publication, books, emigration and return, arrests and repression, death.</dd></dl>
+        <dl><dt>Work</dt><dd>Data gathering and checking, chart generation in ChatGPT (failed) and Gamma; the author finished the final version by hand in Illustrator. Of 19 poets who stayed or returned, 9 died violent deaths; of 6 émigrés, none.</dd></dl>
+        <dl><dt>Tools</dt><dd>ChatGPT, Gamma</dd></dl>
+        <dl><dt>Outcome</dt><dd><a href="../chapters/serebryany-vek/index.html">Infographic “The Silver Age Catastrophe”</a> — Published 24 Feb 2026. <span class="more-link">Briefs, reports and posts on a separate page (in Russian).</span></dd></dl>
+      </div></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Four stories ═══ -->
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Four stories</p><h2>What happens when AI is not checked — and when it is</h2></div>
+    <div class="cases">
+      <div class="case"><div class="big lie">241</div><h3>Catching the AI lying</h3><p>For the Paris map DeepSeek produced two quotes for each of ninety places — from Proust to Gainsbourg, with dates and references to the National Library. The same reference recurred for dozens of different authors. Hence the rule: no quote goes to work without checking the text.</p><p class="fake">“At La Coupole everyone drinks, but only geniuses get drunk” — Hemingway</p><p><a class="more-a" href="../fakes/index.html">All 241 quotes on a separate page (in Russian) →</a></p></div>
+      <div class="case"><div class="big">80<small style="font-size:.4em"> MB</small></div><h3>The hidden limit ChatGPT doesn’t mention</h3><p>A week of uploads kept failing without explanation. It turned out the file-volume limit applies not to a project but to the whole account — and shows no error. I found it, described it publicly, worked out a way around it — and the 18-edition base has worked ever since.</p><p><a class="more-a" href="../limit/index.html">The full story (in Russian) →</a></p></div>
+      <div class="case"><div class="big">6</div><h3>One brief — six neural networks</h3><p>Covers 1935–1953: ChatGPT, Perplexity, Gemini, DeepSeek, Grok and Qwen received the same brief. The conclusions were laid side by side. Yuri Gordon could see where the systems rewrite each other, where Gemini gives the best analysis, and where Qwen failed to produce a report at all. Such an experiment is the only way to choose a tool for the task rather than by habit.</p><p><a class="more-a" href="../chapters/oblozhki/index.html">Six conclusions side by side →</a></p></div>
+      <div class="case"><div class="big">4</div><h3>Four steps of verification</h3><p>The “Art of Type” albums: the first answer looked convincing — with percentages and lists. A second pass through the library’s page scans showed that some contributors were invented and the percentages made up. Third — from the scanned tables of contents. Fourth — a base of 97 names with life dates. The difference between “looks true” and “true” is three extra hours.</p><p><a class="more-a" href="../chapters/iskusstvo-shrifta/index.html">The four steps in order →</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Questions</p><h2>What people usually ask before the call</h2></div>
+    <div class="faq">
+      <details><summary>How long does it take?<span></span></summary><p>Reconnaissance — one working day: this project has a cycle where the task arrived at 11:55 and the client had the final PDF at 14:01. A full study — one to two weeks, depending on the size of the corpus and the depth of checking. Support — at the rhythm of your project.</p></details>
+      <details><summary>What do I get at the end?<span></span></summary><p>A document answering the questions of the brief; a base or card catalogue with sources and a confidence level for each; a comparative digest if several systems were used; the briefs and prompts themselves. All of it stays with you and can be reused.</p></details>
+      <details><summary>What if my topic isn’t history or culture?<span></span></summary><p>The method doesn’t depend on the topic: a market, a regulatory base, competitors, a counterparty check. The corpus of sources and the checking criteria change; the pipeline stays. History and culture are the hardest domain for AI — sources are rare and it lies there most readily. If the method survived Soviet typefaces, it will survive your market.</p></details>
+      <details><summary>Who owns the result?<span></span></summary><p>The right to use the result is yours: the reports, bases and prompts stay in your project and keep working without me. Authorship of the research materials themselves is mine, as with any author of a text or a database; that doesn’t stop you using them, but it means the signature under the work doesn’t disappear. As in this case: the book text is the author’s, the research is mine, and both are visible. The boundaries are agreed up front, in writing.</p></details>
+      <details><summary>Which systems do you use?<span></span></summary><p>Whichever fit the task: in this project it was ChatGPT (Deep Research, custom projects), Perplexity, Gemini, Claude, DeepSeek, Grok, Qwen, ChatPDF, Gamma. The list is open — tools change every few months, the method doesn’t. Several systems often run in parallel and are compared on one brief, as in the six-systems story.</p></details>
+      <details><summary>Can I see what it looks like?<span></span></summary><p>Yes, everything is open: thirteen reports and their briefs on the research pages, the quote book of fabrications, the almanac of chapters. Showing the client the whole work is part of the method.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Offer ═══ -->
+<section id="offer">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">What I do for clients</p>
+      <h2>You bring a question with no ready answer. I return a verified source base and a report</h2>
+      <p class="lede">In days, not months. With a note on what in the report can be trusted fully and what needs an expert’s check.</p>
+    </div>
+    <div class="packs">
+      <div class="pack"><div class="when">1–2 days</div><h3>Reconnaissance</h3><p>A quick scaffold of the topic to understand its scale.</p><ul><li>periodisation or structure of the question</li><li>map of sources: where to look and with which keys</li><li>an estimate: what can realistically be found, what cannot</li></ul></div>
+      <div class="pack"><div class="when">one week</div><h3>Research</h3><p>The full cycle for one task.</p><ul><li>a terms-of-reference brief for Deep Research</li><li>parallel runs in several systems</li><li>verification against primary sources</li><li>a report with confidence levels and a base of links</li></ul></div>
+      <div class="pack"><div class="when">a month or more</div><h3>Ongoing support</h3><p>As with the book: a series of studies for the stages of your project.</p><ul><li>research for every chapter, section, sprint</li><li>an assistant tuned to your voice and materials</li><li>comparative reports and tool reviews</li></ul></div>
+    </div>
+    <div class="wider">
+      <p><strong>This works beyond history.</strong> Culture and history are the hardest domain for AI: sources are scarce, and that is where it lies most readily. If the method holds up on Soviet typefaces, it will hold up on your market, regulations, competitors or a counterparty check. The topic changes — the pipeline does not.</p>
+    </div>
+    <div class="cta">
+      <a class="btn" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Discuss a task on Telegram</a>
+      <a class="btn ghost" href="mailto:julia.vl.reprintseva@gmail.com?subject=Research%20request">Write an email</a>
+      <span class="price-note">Formats and pricing are discussed on a call</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© Julia Reprintseva, 2026 · <a href="../../../en/index.html">Portfolio</a> · <a href="../../../../en/index.html">Home</a></span>
+    <span>Quotes are from Yuri Gordon’s posts; links to the originals are in the cards</span>
+  </div>
+<style>.fn{font-family:var(--mono,monospace);font-size:.68rem;line-height:1.5;color:var(--ink-faint,#888);max-width:80ch;margin-top:10px}.fn-wrap{padding:24px 0 40px;border-top:1px solid var(--line-soft,#ddd)}</style><div class="wrap"><p class="fn">* Facebook is owned by Meta Platforms Inc., designated an extremist organisation; its activities are banned in the Russian Federation.</p></div></footer>
+
+<script>
+function toggleTheme(){
+  var r=document.documentElement, cur=r.getAttribute('data-theme');
+  var next = cur==='dark' ? 'light' : (cur==='light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+  r.setAttribute('data-theme', next);
+  try{localStorage.setItem('theme',next);}catch(e){}
+}
+try{var t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme',t);}catch(e){}
+</script>
+<script>document.querySelectorAll('.sc [data-href]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();location.href=b.dataset.href;});});</script><script>(function(){if(location.hash==='#map'){var m=document.getElementById('map');if(m){setTimeout(function(){m.scrollIntoView();history.replaceState(null,'',location.pathname+location.search);},50);}}})();</script><style>.totop{position:fixed;right:22px;bottom:22px;z-index:40;font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.06em;color:var(--accent,#8A5A1A);text-decoration:none;background:none;padding:6px 0;opacity:0;pointer-events:none;transition:opacity .25s ease}.totop.show{opacity:1;pointer-events:auto}.totop:hover{text-decoration:underline}</style><a class="totop" href="#" aria-label="Наверх">↑ наверх</a><script>(function(){var b=document.querySelector('.totop');function t(){b.classList.toggle('show',window.scrollY>700);}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});})();</script></body>
+</html>
