@@ -241,6 +241,8 @@
       color:var(--ink);text-transform:none;letter-spacing:0;margin:0 0 8px;
     }
     .steps strong{color:var(--ink);font-weight:600;}
+    .steps li ul{margin:8px 0 0;padding-left:18px;display:grid;gap:5px;}
+    .steps li ul li{color:var(--ink-dim);}
     @media (max-width:560px){ .steps > li{padding-left:40px;} }
 
     .code{
@@ -1232,28 +1234,22 @@ description: Ищет и отбирает неочевидные инсайты�
     <p class="block-when">Пять минут · делается один раз</p>
     <ol class="steps">
       <li>
-        <h4>В проекте нажать <code>New task</code></h4>
-        <p>Дальше два пути. <code>Create with Claude</code> — Claude расспрашивает и заполняет поля сам. <code>Set up manually</code> — заполнить руками. Берём второй: текст задания у нас готов.</p>
+        <h4>Открыть окно задачи</h4>
+        <p>В проекте — <code>New task</code>, затем <code>Set up manually</code>. Второй путь, <code>Create with Claude</code>, Claude заполняет сам по вашим ответам.</p>
       </li>
       <li>
-        <h4><code>Name</code> и <code>Instructions</code></h4>
-        <p>Название — как задача будет называться в списке. Задание — тот же промпт, что в чате, только самодостаточный. Готовый пример в 7.04.</p>
-      </li>
-      <li>
-        <h4><code>Frequency</code> — частота</h4>
-        <p><code>Manual</code> (только по кнопке), <code>Hourly</code>, <code>Daily</code>, <code>Weekdays</code>, <code>Weekly</code>, <code>Monthly</code>. Выбрали <code>Weekly</code> — рядом появляются время и день недели.</p>
-      </li>
-      <li>
-        <h4><code>Permissions</code> — подтверждения</h4>
-        <p><code>Manually approve</code> — ждать вашего «да» на каждое действие. <code>Automatically approve</code> — работать без вопросов (по умолчанию, и для нашей задачи этого достаточно). <code>Skip all approvals</code> — не останавливаться даже там, где обычно предупреждают; без необходимости не берите.</p>
-      </li>
-      <li>
-        <h4><code>Require this computer</code> — доступ к папкам на компьютере</h4>
-        <p>Включать, если материалы лежат у вас на диске. Разбор этой развилки — в 7.03.</p>
+        <h4>Заполнить пять полей</h4>
+        <ul>
+          <li><code>Name</code> — название, под ним задача видна в списке.</li>
+          <li><code>Instructions</code> — задание: тот же промпт, что в чате, только самодостаточный. Пример в 7.04.</li>
+          <li><code>Frequency</code> — частота: <code>Manual</code> (только по кнопке), <code>Hourly</code>, <code>Daily</code>, <code>Weekdays</code>, <code>Weekly</code>, <code>Monthly</code>. У <code>Weekly</code> рядом появляются время и день недели.</li>
+          <li><code>Permissions</code> — подтверждения: <code>Manually approve</code> ждёт вашего «да» на каждое действие, <code>Automatically approve</code> работает без вопросов (по умолчанию, и этого достаточно), <code>Skip all approvals</code> не останавливается даже там, где обычно предупреждают.</li>
+          <li><code>Require this computer</code> — доступ к папкам на компьютере. Включать, если материалы лежат на диске; разбор развилки — в 7.03.</li>
+        </ul>
       </li>
       <li>
         <h4><code>Save</code> и сразу проверить</h4>
-        <p>У сохранённой задачи есть запуск по требованию. Не ждите неделю — запустите сразу и посмотрите, что придёт.</p>
+        <p>У сохранённой задачи есть запуск по требованию. Не ждите неделю — нажмите <code>Run now</code> и посмотрите, что придёт.</p>
       </li>
     </ol>
     <details class="more">
