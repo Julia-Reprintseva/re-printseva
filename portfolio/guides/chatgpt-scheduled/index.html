@@ -146,7 +146,7 @@ p strong,li strong{color:var(--ink);font-weight:600;}
 
 .checklist{list-style:none;padding-left:0;margin:12px 0;color:var(--ink-dim);}
 .checklist li{position:relative;padding:6px 0 6px 24px;}
-.checklist li::before{content:"";position:absolute;left:0;top:calc(6px + .8em);width:11px;height:2px;background:var(--accent);}
+.checklist li::before{content:"";position:absolute;left:4px;top:calc(6px + .8em - 2.5px);width:6px;height:6px;border-radius:50%;background:var(--accent);}
 
 /* два столбца: интересно / неинтересно */
 .topics{
@@ -165,7 +165,7 @@ p strong,li strong{color:var(--ink);font-weight:600;}
 .col-label.no{color:var(--wip);} .col-label.no .dot{background:var(--wip);}
 .topics p{margin:6px 0 0;}
 .topics .checklist li{padding:4px 0 4px 24px;}
-.topics .checklist li::before{top:calc(4px + .8em);}
+.topics .checklist li::before{top:calc(4px + .8em - 2.5px);}
 
 /* было → стало */
 .swap{background:var(--paper);border:1px solid var(--line);border-radius:8px;margin:18px 0;overflow:hidden;}
