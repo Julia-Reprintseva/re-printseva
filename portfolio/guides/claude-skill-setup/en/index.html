@@ -241,6 +241,8 @@
       color:var(--ink);text-transform:none;letter-spacing:0;margin:0 0 8px;
     }
     .steps strong{color:var(--ink);font-weight:600;}
+    .steps li ul{margin:8px 0 0;padding-left:18px;display:grid;gap:5px;}
+    .steps li ul li{color:var(--ink-dim);}
     @media (max-width:560px){ .steps > li{padding-left:40px;} }
 
     .code{
@@ -1228,28 +1230,22 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
     <p class="block-when">Five minutes · done once</p>
     <ol class="steps">
       <li>
-        <h4>In the project, hit <code>New task</code></h4>
-        <p>Then two routes. <code>Create with Claude</code> — Claude asks questions and fills the fields itself. <code>Set up manually</code> — you fill them in. Take the second: the task text is ready.</p>
+        <h4>Open the task window</h4>
+        <p>In the project — <code>New task</code>, then <code>Set up manually</code>. The other route, <code>Create with Claude</code>, fills the fields from your answers.</p>
       </li>
       <li>
-        <h4><code>Name</code> and <code>Instructions</code></h4>
-        <p>The name is how the task appears in the list. The instructions are the same prompt you'd write in chat, only self-contained. Worked example in 7.04.</p>
-      </li>
-      <li>
-        <h4><code>Frequency</code></h4>
-        <p><code>Manual</code> (button only), <code>Hourly</code>, <code>Daily</code>, <code>Weekdays</code>, <code>Weekly</code>, <code>Monthly</code>. Pick <code>Weekly</code> and a time and weekday appear beside it.</p>
-      </li>
-      <li>
-        <h4><code>Permissions</code></h4>
-        <p><code>Manually approve</code> — wait for your yes on every action. <code>Automatically approve</code> — work without asking (the default, and enough for our task). <code>Skip all approvals</code> — don't stop even where Claude normally warns you; don't reach for it without a reason.</p>
-      </li>
-      <li>
-        <h4><code>Require this computer</code> — access to folders on your machine</h4>
-        <p>Switch it on if the material lives on your disk. The trade-off is unpacked in 7.03.</p>
+        <h4>Fill in five fields</h4>
+        <ul>
+          <li><code>Name</code> — how the task appears in the list.</li>
+          <li><code>Instructions</code> — the prompt: the same one you'd write in chat, only self-contained. Example in 7.04.</li>
+          <li><code>Frequency</code> — <code>Manual</code> (button only), <code>Hourly</code>, <code>Daily</code>, <code>Weekdays</code>, <code>Weekly</code>, <code>Monthly</code>. <code>Weekly</code> adds a time and a weekday beside it.</li>
+          <li><code>Permissions</code> — <code>Manually approve</code> waits for your yes on every action, <code>Automatically approve</code> works without asking (the default, and enough here), <code>Skip all approvals</code> doesn't stop even where Claude normally warns you.</li>
+          <li><code>Require this computer</code> — access to folders on your machine. Switch it on if the material lives on your disk; the trade-off is in 7.03.</li>
+        </ul>
       </li>
       <li>
         <h4><code>Save</code>, then check</h4>
-        <p>A saved task can be run on demand. Don't wait a week — run it now and see what arrives.</p>
+        <p>A saved task can be run on demand. Don't wait a week — hit <code>Run now</code> and see what arrives.</p>
       </li>
     </ol>
     <details class="more">
