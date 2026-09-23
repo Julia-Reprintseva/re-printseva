@@ -532,7 +532,7 @@
       <li><strong>Create the skill</strong> — the selection logic itself. This is the bulk of the work: three files, pasted in as text.</li>
       <li><strong>Check that it triggers by itself</strong> — on a single test request.</li>
       <li><strong>Build the project</strong> and put your background material and references in it.</li>
-      <li><strong>Put it on a schedule</strong> in the Scheduled section — once the output is good enough, not before.</li>
+      <li><strong>Put it on a schedule</strong> — the task is created inside the project, once the output is good enough, not before.</li>
       <li><strong>Run the checklist</strong> at the end of the page — the ticks are saved in your browser.</li>
     </ol>
   </section>
@@ -563,7 +563,7 @@
         <li><strong>Hooks</strong> — reflexes. Rules of the form "before or after this action, do that". They fire on their own.</li>
         <li><strong>Subagents</strong> — division of labour. Separate helpers with narrow briefs that the main Claude hands work to.</li>
       </ul>
-      <p>The last two work only in <strong>Cowork</strong> — Claude's mode for long jobs involving files and schedules, a switch in the message box. Section 7 covers it; for now it's enough to know it isn't a separate app and there's nothing to install.</p>
+      <p>The last two work only in <strong>Cowork</strong> — Claude's mode for long jobs involving files, a switch in the message box. For now it's enough to know it isn't a separate app and there's nothing to install; scheduling no longer needs it.</p>
       <p>How these parts differ, and at what point an assistant becomes an agent — section 9.</p>
     </div>
 
@@ -1181,17 +1181,17 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
     <div class="callout">
       <span class="callout-label">First make sure it's time</span>
       <p><strong>The schedule comes last</strong> — once manual runs start satisfying you, not before. Otherwise something you have to redo will arrive every week: instead of saving time you'll have made more work.</p>
-      <p>The whole path: left menu → <code>Scheduled</code> → <code>New task</code> → <code>Set up manually</code> → name and task text → project → frequency → <code>Save</code>. Then run it on demand straight away — don't wait for Monday, check it on the day you set it up.</p>
+      <p>The whole path: open your project → <code>New task</code> inside it → <code>Set up manually</code> → name and task text → frequency → <code>Save</code>. Then run it on demand straight away — don't wait for Monday, check it on the day you set it up.</p>
     </div>
   </article>
 
   <article class="block">
     <span class="block-index">7.01</span>
-    <h3>Where scheduling lives</h3>
+    <h3>Where a schedule is set up</h3>
     <div class="prose">
-      <p><code>Scheduled</code> is its own item in the left menu, next to <code>Projects</code> and <code>Artifacts</code>. It opens the <strong>Scheduled tasks</strong> page listing every task: what runs, when and how often. Below the list are Anthropic's ready-made templates (<code>Daily briefing</code>, <code>Inbox triage</code>, <code>Meeting prep</code>, <code>Weekly review</code>) — worth a look as examples.</p>
-      <p>The second entry point is the project itself: you can create the task inside it, and it is then tied to that project's material. See 7.04.</p>
-      <p>Scheduling used to live inside Cowork mode, and older instructions describe that route. You no longer switch modes: the task page stands on its own. Cowork hasn't gone anywhere — it's still the mode for long tasks with files, and every scheduled run works exactly that way: long, unattended, without you.</p>
+      <p><strong>Inside the project.</strong> Open the project you built in section 6 and create the task there. It is then tied to that project's material from the start — no picking a project separately, which is the main reason to start here.</p>
+      <p><strong>The list of every task</strong> is <code>Scheduled</code> in the left menu, next to <code>Projects</code> and <code>Artifacts</code>. The <strong>Scheduled tasks</strong> page shows what runs, when and how often — that's where you go to review and edit what exists. You can create a task there too, but then the project has to be named by hand (7.04). Below the list are Anthropic's ready-made templates (<code>Daily briefing</code>, <code>Inbox triage</code>, <code>Meeting prep</code>, <code>Weekly review</code>) — worth a look as examples.</p>
+      <p>Older instructions describe the route through Cowork mode — you no longer switch modes. The task still behaves like Cowork, though: long, unattended, without you.</p>
     </div>
     <div class="callout">
       <span class="callout-label">A paid plan is required</span>
@@ -1221,8 +1221,8 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
     <p class="block-when">Five minutes · done once</p>
     <ol class="steps">
       <li>
-        <h4><code>New task</code> → <code>Set up manually</code></h4>
-        <p>Two routes. <code>Create with Claude</code> — Claude asks what you need, offers ready-made scenarios and fills the fields from your answers. <code>Set up manually</code> — you fill everything in yourself. Take the second: the task text already exists.</p>
+        <h4>In the project: <code>New task</code> → <code>Set up manually</code></h4>
+        <p>Open the project, start a task. Then two routes. <code>Create with Claude</code> — Claude asks what you need, offers ready-made scenarios and fills the fields from your answers. <code>Set up manually</code> — you fill everything in yourself. Take the second: the task text already exists.</p>
       </li>
       <li>
         <h4><code>Name</code></h4>
@@ -1233,8 +1233,8 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
         <p>What exactly to do. Same as a chat prompt, only self-contained: the run can't see your conversation. Example in 7.05.</p>
       </li>
       <li>
-        <h4>The project</h4>
-        <p>Creating the task from the <code>Scheduled</code> page, you'll find <code>Work in a project</code> below the instructions box on the left — pick your project. Creating it from inside a project, there is nothing to pick: the task is already there. See 7.04.</p>
+        <h4>The project — already chosen</h4>
+        <p>The task was created inside the project, so the window has no <code>Work in a project</code> row: it works with that material anyway. Starting from the <code>Scheduled</code> page, you would have to pick the project in that row by hand. See 7.04.</p>
       </li>
       <li>
         <h4><code>Frequency</code></h4>
@@ -1260,8 +1260,8 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
     <h3>The task and the project</h3>
     <div class="prose">
       <p>Two routes, one result — the run works with the project's material.</p>
-      <p><strong>From the tasks page.</strong> Below the <code>Instructions</code> box, on the left, sits <code>Work in a project</code>. Click it and a list opens: search, pinned projects on top, the rest below, and <code>New project</code> at the end.</p>
-      <p><strong>From inside the project.</strong> Open the project and create the task there. Nothing to pick — the task is created inside it, so the window has no <code>Work in a project</code> row. Instead it has the <code>Require this computer</code> switch, on which see below.</p>
+      <p><strong>From inside the project — the simpler one.</strong> Open the project, create the task there. Nothing to pick: the window has no <code>Work in a project</code> row, the task is already its own. What it does have is the <code>Require this computer</code> switch, on which see below.</p>
+      <p><strong>From the tasks page — when the task was made elsewhere.</strong> Below the <code>Instructions</code> box, on the left, sits <code>Work in a project</code>. Click it and a list opens: search, pinned projects on top, the rest below, and <code>New project</code> at the end. Until a project is picked, the run works on its own and sees none of the material.</p>
       <p><strong>What this buys you.</strong> The run gets what you see in the project: its instructions and its uploaded material. The skill works either way — it lives in your account settings and loads in every mode — while the project adds context: the client description, examples, reference files.</p>
       <p><strong>How to check the connection holds.</strong> Run the task on demand and read the opening lines: with a client description in the project, the run leans on it unprompted. If the answer sounds generic, the project probably isn't selected.</p>
     </div>
