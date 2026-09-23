@@ -1283,6 +1283,14 @@ Answer in propositions, not finished copy. Always include the source link.</pre>
       <p>Material on your computer — switch it on. Delivery you can count on — upload the material into the project and leave it off.</p>
     </div>
     <details class="more">
+      <summary>What breaks in practice: folder access</summary>
+      <div class="more-body">
+        <p><strong>The problem.</strong> The switch is on, yet the first run still stops and asks for access to the folder. That's not a bug: permission is granted per task, not to the app as a whole, and the first time it has to be asked for. At 10:00 on Monday nobody will be there to answer — and the digest won't be built. <code>Automatically approve</code> doesn't help here: it covers actions inside the task, not access to your disk.</p>
+        <p><strong>The fix.</strong> Run the task by hand with <code>Run now</code> and grant access when asked. The permission is stored against that task and survives restarts. Run it a second time: if access isn't requested again, the scheduled run will go through on its own. If it is, move the material into the project and switch <code>Require this computer</code> off.</p>
+        <p>The permission belongs to that one task: create another one on the same folder and it will ask again, for itself.</p>
+      </div>
+    </details>
+    <details class="more">
       <summary>If you move the material into the project</summary>
       <div class="more-body">
         <p><strong>Don't keep two copies.</strong> You add to the feedback log after every round. With the file both in the project and in a folder on disk, the second copy goes stale and the task works from the old version. Pick one home.</p>
