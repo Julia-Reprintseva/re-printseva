@@ -419,6 +419,20 @@
   }
   footer a:hover { color: var(--accent); }
 
+  /* ---------- кнопка «Заказать» в шапке ---------- */
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 22px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.74rem; letter-spacing: .04em;
+    color: var(--accent); background: transparent;
+    border: 1px solid var(--accent); border-radius: 999px; padding: 6px 13px;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .hero-cta:hover { background: rgba(203,156,71,.12); color: var(--accent-hi); }
+  .hero .tally { margin-top: 22px; }
+
   @media (max-width: 640px) {
     .sheet { padding: 0 20px 70px; }
     header { padding-top: 28px; }
@@ -456,6 +470,7 @@
     <div class="eyebrow">Портфолио · code/</div>
     <h1>Код, идеи<br>и <em>работающие</em> вещи</h1>
     <p>Делаю сайты, лендинги и небольшие интерактивные штуки — от идеи до готового результата.</p>
+    <a class="hero-cta" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Заказать проект себе <span aria-hidden="true">↗</span></a>
     <div class="tally">
       <span><b>5</b> проектов</span>
       <span><b>7</b> гайдов</span>
@@ -470,6 +485,8 @@
       <span class="section-title">Проекты</span>
       <span class="section-count">05</span>
     </div>
+
+    <p class="section-intro">Сайты, лендинги и исследования с ИИ — для заказчиков и для себя. Все работают: открывайте, листайте, пробуйте.</p>
 
     <div class="ledger">
 
@@ -505,7 +522,7 @@
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Лендинг · готово</span>
           <span class="row-title">Лекторий</span>
-          <span class="row-desc">Лендинг образовательного проекта. Дизайн, вёрстка, адаптивная версия.</span>
+          <span class="row-desc">Первый в Москве регулярный лекторий об ИИ: встречи раз в две недели, запись на встречу, разделы для партнёров и спикеров.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">14.08.2026</span>
@@ -516,9 +533,9 @@
         <span class="row-index">P.04</span>
         <span class="row-thumb"><img src="projects/hleb/bread_ready.jpg" alt="Хлеб на закваске" loading="lazy"></span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Сайт-визитка · готово</span>
-          <span class="row-title">Хлеб на закваске</span>
-          <span class="row-desc">Сайт пекарни «Левито Мадре». Фото, история, рассказ о хлебе.</span>
+          <span class="row-kicker"><span class="dot good"></span>Сайт-гайд · готово</span>
+          <span class="row-title">Хлеб на закваске Левито Мадре</span>
+          <span class="row-desc">Пошаговый гайд по выпечке на закваске: план на три дня, чек-лист и список покупок со ссылками.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">31.05.2026</span>
@@ -531,13 +548,14 @@
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Интерактив · готово</span>
           <span class="row-title">Чек-лист путешественника</span>
-          <span class="row-desc">Чек-лист снаряжения для похода. Категории, прогресс, сохранение состояния.</span>
+          <span class="row-desc">Список вещей в поход или поездку: 10 категорий, фильтр «осталось / готово», помнит отмеченное и работает без интернета.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">13.06.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
+
 
     </div>
   </div>
@@ -560,9 +578,9 @@
           <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Инструкция</span>
-          <span class="row-title">Ассистент в Claude: скилл, проект, расписание</span>
-          <span class="row-desc">Скилл с правилами, проект с материалами и задача по расписанию. 20–30 минут, без программирования.</span>
+          <span class="row-kicker"><span class="dot"></span>Гайд</span>
+          <span class="row-title">Как настроить ассистента в Claude</span>
+          <span class="row-desc">Раз в неделю сам приносит отобранное по вашей теме и отбрасывает лишнее. Программировать не нужно.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">15.09.2026</span>
@@ -575,87 +593,87 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Инструкция</span>
+          <span class="row-kicker"><span class="dot"></span>Гайд</span>
           <span class="row-title">Claude Code: инструкция по установке</span>
-          <span class="row-desc">Подписка, VPN и проверка страны, Claude Desktop, плагин feature-dev и чек-лист готовности.</span>
+          <span class="row-desc">От подписки до первого рабочего запроса за 15–25 минут — шаг за шагом, с VPN и проверкой, что всё работает.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">14.09.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="guides/chatgpt-scheduled/">
+      <a class="row with-thumb" href="guides/vacancy-digest-guide/">
         <span class="row-index">G.03</span>
         <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.03</span>
-          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Статья</span>
-          <span class="row-title">Режим «Запланировано» в ChatGPT как маленькая редакция</span>
-          <span class="row-desc">Каждое утро — готовый Telegram-пост с новостями про ИИ. Как я настроила задачу и как повторить у себя.</span>
+          <span class="row-kicker"><span class="dot"></span>Гайд</span>
+          <span class="row-title">Вакансии из Telegram через Claude Code — с черновиком отклика</span>
+          <span class="row-desc">Не нужно листать десятки каналов: подходящие вакансии приходят каждый день. Без вас ничего не отправится.</span>
         </span>
         <span class="row-meta">
-          <span class="row-date">23.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="guides/obs-tolk-zapis/">
-        <span class="row-index">G.04</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
-          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Инструкция</span>
-          <span class="row-title">Созвон в Контур.Толке — готовое видео для соцсетей</span>
-          <span class="row-desc">Экран на весь кадр, спикеры в кружках, 16:9 или 9:16. OBS настраивает Claude по готовому промпту.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">17.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="guides/prompts/">
-        <span class="row-index">G.05</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
-          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Промпты</span>
-          <span class="row-title">Промпты для дизайн-аудита</span>
-          <span class="row-desc">Четыре готовых текста для ИИ: полный аудит сайта, мобильная версия, анонс, архивная страница.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">20.08.2026</span>
+          <span class="row-date">28.07.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
       <a class="row with-thumb" href="guides/chatgpt/">
-        <span class="row-index">G.06</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
+        <span class="row-index">G.04</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
           <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Статья</span>
-          <span class="row-title">Настройки ChatGPT</span>
-          <span class="row-desc">Как настроить ChatGPT и перестать мучиться с промптами: проекты, кастомные GPT, парсеры.</span>
+          <span class="row-kicker"><span class="dot"></span>Гайд</span>
+          <span class="row-title">Настройки ChatGPT: один раз — и без мучений с промптами</span>
+          <span class="row-desc">Вставляете в профиль — и ChatGPT сам уточняет задачу, отвечает как эксперт и проверяет свою логику.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">11.06.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="guides/vacancy-digest-guide/">
-        <span class="row-index">G.07</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.07</span>
-          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
+      <a class="row with-thumb" href="guides/chatgpt-scheduled/">
+        <span class="row-index">G.05</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
+          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Инструкция</span>
-          <span class="row-title">Дайджест вакансий</span>
-          <span class="row-desc">Настройка ежедневного дайджеста вакансий из Telegram-каналов.</span>
+          <span class="row-kicker"><span class="dot"></span>Статья</span>
+          <span class="row-title">Режим «Запланировано» в ChatGPT как маленькая редакция</span>
+          <span class="row-desc">Новости про ИИ собираются сами — вам остаётся проверить готовый текст. Мой опыт и настройка, чтобы повторить.</span>
         </span>
         <span class="row-meta">
-          <span class="row-date">28.07.2026</span>
+          <span class="row-date">23.09.2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+      <a class="row with-thumb" href="guides/prompts/">
+        <span class="row-index">G.06</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
+          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
+        </span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Промпты</span>
+          <span class="row-title">Промпты для дизайн-аудита</span>
+          <span class="row-desc">Свежий взгляд на свою страницу: ИИ находит ошибки и объясняет, почему они мешают и как их исправить.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">20.08.2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+      <a class="row with-thumb" href="guides/obs-tolk-zapis/">
+        <span class="row-index">G.07</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.07</span>
+          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
+        </span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Гайд</span>
+          <span class="row-title">Созвон в Контур.Толке: сразу готовый ролик для соцсетей</span>
+          <span class="row-desc">Эфир с экспертом или разбор сразу становится роликом для YouTube, VK или Reels — без недели монтажа.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">17.09.2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
@@ -682,8 +700,8 @@
         </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Telegram-бот · работает</span>
-          <span class="row-title">SafeOut</span>
-          <span class="row-desc">Бот безопасности для свиданий с незнакомцами. Сам поднимет тревогу, если вы не выйдете на связь.</span>
+          <span class="row-title">SafeOut: Telegram-бот безопасности для свиданий</span>
+          <span class="row-desc">Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">27.08.2026</span>
