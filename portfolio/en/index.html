@@ -221,6 +221,20 @@
   }
   .hero .tally b { color: var(--ink); font-weight: 600; }
 
+  /* ---------- кнопка «Заказать» в шапке ---------- */
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 22px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.74rem; letter-spacing: .04em;
+    color: var(--accent); background: transparent;
+    border: 1px solid var(--accent); border-radius: 999px; padding: 6px 13px;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .hero-cta:hover { background: rgba(203,156,71,.12); color: var(--accent-hi); }
+  .hero .tally { margin-top: 22px; }
+
   /* ---------- sections ---------- */
 
   .section { padding-top: 46px; }
@@ -456,6 +470,7 @@
     <div class="eyebrow">Portfolio · code/</div>
     <h1>Code, ideas<br>and things that <em>work</em></h1>
     <p>I build websites, landing pages and small interactive tools — from idea to finished result.</p>
+    <a class="hero-cta" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Order a project for yourself <span aria-hidden="true">↗</span></a>
     <div class="tally">
       <span><b>5</b> projects</span>
       <span><b>7</b> guides</span>
@@ -470,6 +485,8 @@
       <span class="section-title">Projects</span>
       <span class="section-count">05</span>
     </div>
+
+    <p class="section-intro">Websites, landing pages and AI research — for clients and for myself. They all work: open them, scroll, try them out.</p>
 
     <div class="ledger">
 
@@ -505,7 +522,7 @@
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Landing page · live</span>
           <span class="row-title">Lectorium</span>
-          <span class="row-desc">Landing page for an educational project. Design, layout, responsive build.</span>
+          <span class="row-desc">Moscow’s first regular public lecture series on AI: meetups every two weeks, event sign-up, sections for partners and speakers.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">14 Aug 2026</span>
@@ -516,9 +533,9 @@
         <span class="row-index">P.04</span>
         <span class="row-thumb"><img src="../projects/hleb/bread_ready.jpg" alt="Sourdough Bread" loading="lazy"></span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Business site · live</span>
-          <span class="row-title">Sourdough Bread</span>
-          <span class="row-desc">Site for the «Lievito Madre» bakery. Photos, story, the bread itself.</span>
+          <span class="row-kicker"><span class="dot good"></span>Guide site · live</span>
+          <span class="row-title">Lievito Madre Sourdough Bread</span>
+          <span class="row-desc">A step-by-step sourdough baking guide: a three-day plan, a checklist and a shopping list with links.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">31 May 2026</span>
@@ -531,7 +548,7 @@
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Interactive · live</span>
           <span class="row-title">Traveler's Checklist</span>
-          <span class="row-desc">A gear checklist for hiking trips. Categories, progress, saved state.</span>
+          <span class="row-desc">A packing list for hikes and trips: 10 categories, a “left / done” filter, remembers what you ticked and works offline.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">13 Jun 2026</span>
@@ -561,8 +578,8 @@
         </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">An assistant in Claude: skill, project, schedule</span>
-          <span class="row-desc">A skill with the rules, a project with your material and a scheduled task. 20–30 minutes, no coding.</span>
+          <span class="row-title">How to set up an assistant in Claude</span>
+          <span class="row-desc">Once a week it brings you curated material on your topic and drops the rest. No coding needed.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">15 Sep 2026</span>
@@ -577,85 +594,85 @@
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
           <span class="row-title">Claude Code: installation guide</span>
-          <span class="row-desc">Subscription, VPN and country check, Claude Desktop, the feature-dev plugin and a readiness checklist.</span>
+          <span class="row-desc">From subscription to your first working request in 15–25 minutes — step by step, with a VPN and a check that it all works.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">14 Sep 2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="../guides/chatgpt-scheduled/en/">
+      <a class="row with-thumb" href="../guides/vacancy-digest-guide/en/">
         <span class="row-index">G.03</span>
         <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.03</span>
-          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Article</span>
-          <span class="row-title">ChatGPT Scheduled Tasks as a tiny newsroom</span>
-          <span class="row-desc">A ready Telegram post with AI news every morning. How I tuned the task and how to set up your own.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">23 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="../guides/obs-tolk-zapis/en/">
-        <span class="row-index">G.04</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
-          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
         </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">A Kontur.Talk call — a ready video for social media</span>
-          <span class="row-desc">The screen fills the frame, speakers in circles, 16:9 or 9:16. Claude sets up OBS from a ready prompt.</span>
+          <span class="row-title">Jobs from Telegram via Claude Code — with a draft cover letter</span>
+          <span class="row-desc">No more scrolling dozens of channels: matching jobs arrive every day. Nothing goes out without you.</span>
         </span>
         <span class="row-meta">
-          <span class="row-date">17 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="../guides/prompts/en/">
-        <span class="row-index">G.05</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
-          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Prompts</span>
-          <span class="row-title">Design audit prompts</span>
-          <span class="row-desc">Four ready-made texts for an AI: full site audit, mobile version, announcement, archive page.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">20 Aug 2026</span>
+          <span class="row-date">28 Jul 2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
       <a class="row with-thumb" href="../guides/chatgpt/en/">
-        <span class="row-index">G.06</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
+        <span class="row-index">G.04</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
           <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg>
         </span>
         <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Article</span>
-          <span class="row-title">ChatGPT Settings Guide</span>
-          <span class="row-desc">How to set up ChatGPT and stop fighting with prompts: projects, custom GPTs, parsers.</span>
+          <span class="row-kicker"><span class="dot"></span>Guide</span>
+          <span class="row-title">ChatGPT settings: set once — and no more fighting with prompts</span>
+          <span class="row-desc">Paste them into your profile — and ChatGPT clarifies the task, answers as an expert and checks its own logic.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">11 Jun 2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="../guides/vacancy-digest-guide/en/">
+      <a class="row with-thumb" href="../guides/chatgpt-scheduled/en/">
+        <span class="row-index">G.05</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
+          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+        </span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Article</span>
+          <span class="row-title">ChatGPT Scheduled Tasks as a tiny newsroom</span>
+          <span class="row-desc">AI news gathers itself — you just check the finished text. My experience and a setup you can repeat.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">23 Sep 2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+      <a class="row with-thumb" href="../guides/prompts/en/">
+        <span class="row-index">G.06</span>
+        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
+          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
+        </span>
+        <span class="row-body">
+          <span class="row-kicker"><span class="dot"></span>Prompts</span>
+          <span class="row-title">Design audit prompts</span>
+          <span class="row-desc">A fresh look at your own page: the AI finds mistakes and explains why they get in the way and how to fix them.</span>
+        </span>
+        <span class="row-meta">
+          <span class="row-date">20 Aug 2026</span>
+          <span class="row-arrow">↗</span>
+        </span>
+      </a>
+      <a class="row with-thumb" href="../guides/obs-tolk-zapis/en/">
         <span class="row-index">G.07</span>
         <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.07</span>
-          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
         </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">Vacancy Digest</span>
-          <span class="row-desc">Setting up a daily job digest from Telegram channels.</span>
+          <span class="row-title">A Kontur.Talk call: a ready video for social media, straight away</span>
+          <span class="row-desc">An expert live or a walkthrough becomes a video for YouTube, VK or Reels right away — no week of editing.</span>
         </span>
         <span class="row-meta">
-          <span class="row-date">28 Jul 2026</span>
+          <span class="row-date">17 Sep 2026</span>
           <span class="row-arrow">↗</span>
         </span>
       </a>
@@ -682,8 +699,8 @@
         </span>
         <span class="row-body">
           <span class="row-kicker"><span class="dot good"></span>Telegram bot · live</span>
-          <span class="row-title">SafeOut</span>
-          <span class="row-desc">A safety bot for dates with strangers. It raises the alarm on its own if you go quiet.</span>
+          <span class="row-title">SafeOut: a Telegram safety bot for dates</span>
+          <span class="row-desc">Go to a meeting with a stranger with less worry: the bot keeps the date details and raises the alarm if you vanish.</span>
         </span>
         <span class="row-meta">
           <span class="row-date">27 Aug 2026</span>
