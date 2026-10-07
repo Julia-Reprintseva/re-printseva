@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>True or AI? Three games about checking neural networks</title>
+<meta name="description" content="“True or AI?”, “Catch Woland” and “The Editor’s Desk” — games built on this case: real quotations and neural-network fakes. You can install them on your phone as an app.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="True or AI? Three games about checking neural networks">
+<meta property="og:description" content="“True or AI?”, “Catch Woland” and “The Editor’s Desk” — games built on this case: real quotations and neural-network fakes. You can install them on your phone as an app.">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/projects/gordon-research/en/igry/">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/projects/gordon-research/og-cover.png">
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><text%20x='256'%20y='352'%20font-family='Georgia,serif'%20font-size='300'%20text-anchor='middle'%20fill='%23CB9C47'>J</text></svg>">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ── Tokens: portfolio graphite and bronze + one red for “AI lies” ── */
+  :root{
+    --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+    --line:#DBDFE8; --line-soft:#E6E9F0;
+    --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+    --accent:#9C6C1E; --accent-hi:#7E5714; --accent-soft:rgba(156,108,30,.10);
+    --lie:#A8433C; --lie-soft:rgba(168,67,60,.10);
+    --good:#3D7A5C;
+    --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+    --body:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1120px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+      --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+      --good:#6FAE8C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+    --line:#2A3140; --line-soft:#212636;
+    --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+    --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+    --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+    --good:#6FAE8C;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--body);
+    font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+  section{padding-block:96px;}
+  section+section{border-top:1px solid var(--line-soft);}
+  h1,h2,h3{font-weight:400;letter-spacing:0;text-wrap:balance;}
+  h2{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.05;margin-bottom:14px;}
+  h3{font-family:var(--body);font-weight:700;font-size:1.1rem;line-height:1.3;}
+  .kicker{
+    font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--accent);margin-bottom:22px;display:flex;gap:12px;align-items:center;
+  }
+  .kicker::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .lede{font-size:1.15rem;color:var(--ink-dim);max-width:64ch;line-height:1.6;}
+  .sec-head{max-width:760px;margin-bottom:52px;}
+  em{font-style:italic;}
+  ::selection{background:var(--accent);color:var(--bg);}
+
+  /* ── Header ── */
+  .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;}
+  .back{font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--ink-dim);} .back-sep{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);} .back:hover{color:var(--accent);}
+  .back:hover{color:var(--accent);}
+  .mark{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .mark .glyph{font-family:var(--display);font-size:.95rem;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px;line-height:1;}
+  .mark .name{font-size:.82rem;font-weight:600;color:var(--ink-dim);}
+  @media (max-width:480px){.mark .name{display:none;}}
+  .tools{display:flex;gap:8px;}
+  .lang-switch,.theme-btn{
+    font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;
+    color:var(--ink-dim);border:1px solid var(--line);background:none;border-radius:999px;
+    padding:6px 12px;text-decoration:none;cursor:pointer;line-height:1.2;
+  }
+  .lang-switch:hover,.theme-btn:hover,.theme-btn:focus-visible,.lang-switch:focus-visible{color:var(--accent);border-color:var(--accent);outline:none;}
+
+  /* ── First screen: the lie first, then the truth ── */
+  .hero{padding-block:72px 88px;border-top:none;}
+  .lie{
+    font-family:var(--display);font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.3;
+    color:var(--ink-dim);max-width:34ch;position:relative;padding-left:22px;
+    border-left:2px solid var(--lie);
+  }
+  .lie q{quotes:"«" "»";}
+  .lie s{text-decoration-color:var(--lie);text-decoration-thickness:2px;}
+  .lie cite{display:block;font-family:var(--mono);font-style:normal;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lie);margin-top:12px;}
+  .lie .stamp{
+    position:absolute;right:-6px;top:-18px;transform:rotate(-8deg);
+    font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--lie);border:2px solid var(--lie);padding:4px 10px;border-radius:4px;background:var(--bg);
+  }
+  .hero h1{
+    font-family:var(--display);font-size:clamp(2.6rem,7.2vw,6.2rem);line-height:.98;margin-top:56px;
+    max-width:16ch;
+  }
+  .hero h1 .sep{color:var(--accent);}
+  .hero .lede{margin-top:28px;}
+  .hero .hook{
+    margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;max-width:720px;
+    padding:22px 24px;border:1px solid var(--line);background:var(--paper);border-radius:6px;
+  }
+  .hero .hook b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;color:var(--lie);}
+  .hero .hook p{color:var(--ink);font-size:1rem;}
+
+  /* ── Numbers ── */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--line);gap:1px;}
+  .num{background:var(--paper);padding:34px 28px 30px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;}
+  .num b{
+    font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,6vw,5.4rem);line-height:.9;
+    color:var(--ink);font-variant-numeric:tabular-nums;
+  }
+  .num b small{font-size:.42em;color:var(--accent);margin-left:6px;}
+  .num span{color:var(--ink-dim);font-size:.92rem;margin-top:16px;line-height:1.45;}
+  .nums-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);margin-top:16px;}
+
+  /* ── Proof: the client’s words ── */
+  .proof-lede{font-size:1.15rem;max-width:64ch;color:var(--ink);}
+  .rail{margin-top:44px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;}
+  .post{
+    flex:0 0 340px;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:20px 22px 18px;display:flex;flex-direction:column;gap:12px;
+  }
+  .post header{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;}
+  .post header b{color:var(--ink-dim);font-weight:500;}
+  .post blockquote{font-size:.98rem;line-height:1.5;color:var(--ink);}
+  .post blockquote mark{background:var(--accent-soft);color:inherit;padding:0 3px;border-radius:2px;}
+  .post a{margin-top:auto;font-family:var(--mono);font-size:.72rem;color:var(--accent);text-decoration:none;}
+  .post a:hover{text-decoration:underline;}
+
+  /* ── Method ── */
+  .formula{
+    margin-top:8px;display:flex;flex-wrap:wrap;gap:10px 0;align-items:center;
+    font-family:var(--display);font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.2;
+  }
+  .formula i{font-style:normal;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper);}
+  .formula em{font-style:normal;color:var(--accent);padding:0 12px;}
+  .formula i.v{border-color:var(--accent);color:var(--accent);}
+  .method-quote{margin-top:26px;font-size:1.08rem;color:var(--ink-dim);max-width:70ch;border-left:2px solid var(--accent);padding-left:20px;}
+  .steps{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .step{background:var(--paper);padding:26px 26px 28px;}
+  .step .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.12em;margin-bottom:10px;}
+  .step p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .prompt{margin-top:40px;border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .prompt summary{cursor:pointer;list-style:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;}
+  .prompt summary::-webkit-details-marker{display:none;}
+  .prompt summary span{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+  .prompt summary span::after{content:"Expand";}
+  .prompt[open] summary span::after{content:"Collapse";}
+  .prompt pre{
+    font-family:var(--mono);font-size:.8rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+    padding:6px 22px 24px;border-top:1px solid var(--line-soft);color:var(--ink);max-height:60vh;overflow:auto;
+  }
+
+  /* ── Work map ── */
+  .tl{margin-top:8px;border-top:1px solid var(--line);}
+  .tl details{border-bottom:1px solid var(--line);}
+  .tl summary{
+    list-style:none;cursor:pointer;display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:baseline;
+    padding:20px 0;
+  }
+  .tl summary::-webkit-details-marker{display:none;}
+  .tl summary:hover .t{color:var(--accent);}
+  .tl .d{font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);letter-spacing:.04em;}
+  .tl .t{font-family:var(--display);font-size:1.5rem;line-height:1.15;}
+  .tl .tag{font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+  .tl .body{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:0 0 28px;}
+  .tl .body>div{grid-column:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px;}
+  .tl dl{font-size:.92rem;}
+  .tl dt{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:5px;}
+  .tl dd{color:var(--ink-dim);}
+  .tl dd q{color:var(--ink);quotes:"«" "»";}
+  .tl details[open] summary .t{color:var(--accent);}
+
+  /* ── Four stories ── */
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .case{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:28px 28px 26px;}
+  .case .big{font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);line-height:.95;color:var(--accent);margin-bottom:14px;}
+  .case .big.lie{color:var(--lie);border:0;padding:0;font-size:clamp(2.6rem,5vw,4rem);max-width:none;}
+  .case p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .case .fake{margin-top:14px;font-family:var(--display);font-size:1.05rem;color:var(--ink);text-decoration:line-through;text-decoration-color:var(--lie);}
+
+  /* ── What I offer ── */
+  .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pack{background:var(--paper);padding:30px 26px 28px;display:flex;flex-direction:column;gap:14px;}
+  .pack .when{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;}
+  .pack h3{font-family:var(--display);font-weight:400;font-size:1.7rem;}
+  .pack p{color:var(--ink-dim);font-size:.95rem;}
+  .pack ul{list-style:none;color:var(--ink);font-size:.92rem;display:grid;gap:6px;}
+  .pack li::before{content:"— ";color:var(--accent);}
+  .wider{margin-top:40px;padding:26px 28px;border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft);max-width:820px;}
+  .wider p{font-size:1.05rem;}
+  .cta{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .btn{
+    font-family:var(--body);font-weight:700;font-size:.92rem;text-decoration:none;
+    padding:14px 26px;border-radius:999px;border:1px solid var(--accent);color:var(--bg);background:var(--accent);
+  }
+  .btn:hover{background:var(--accent-hi);border-color:var(--accent-hi);}
+  .btn.ghost{background:none;color:var(--accent);}
+  .btn.ghost:hover{background:var(--accent-soft);}
+  .price-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);}
+
+  footer{padding-block:40px;border-top:1px solid var(--line-soft);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+  footer a{text-decoration:none;color:var(--ink-dim);}
+  footer a:hover{color:var(--accent);}
+
+  @media (max-width:820px){
+    section{padding-block:64px;}
+    .nums{grid-template-columns:1fr 1fr;}
+    .steps,.cases,.packs{grid-template-columns:1fr;}
+    .tl summary{grid-template-columns:1fr;gap:6px;}
+    .tl .tag{display:none;}
+    .tl .body{grid-template-columns:1fr;}
+    .tl .body>div{grid-column:1;}
+    .hero .hook{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .nums{grid-template-columns:1fr;}
+    .num{min-height:0;}
+    .post{flex-basis:84vw;}
+    .lie .stamp{position:static;display:inline-block;margin-bottom:12px;transform:rotate(-4deg);}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .tl summary .t,.post,.pack{transition:color .15s ease,transform .15s ease;}
+  }
+  .fx{font-family:var(--mono);font-size:.74em;letter-spacing:.02em;color:var(--lie);margin-left:6px;} .fx::before{content:"✎ ";} .fx-note{font-family:var(--mono);font-size:.74rem;color:var(--lie);margin:0 0 14px;}
+</style>
+
+<style>
+  .sub{padding-block:56px 72px;}
+  .sub h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);line-height:1.05;max-width:22ch;margin-top:8px;}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);letter-spacing:.04em;}
+  .meta a{color:var(--accent);text-decoration:none;}
+  .meta a:hover{text-decoration:underline;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px;}
+  .grid2>div{background:var(--paper);padding:26px;}
+  .grid2 h3{margin-bottom:10px;}
+  .grid2 p{color:var(--ink-dim);font-size:.96rem;}
+  .files{list-style:none;display:grid;gap:10px;margin-top:20px;}
+  .files li a{display:flex;gap:14px;align-items:baseline;padding:14px 18px;border:1px solid var(--line);background:var(--paper);border-radius:6px;text-decoration:none;}
+  .files li a:hover{border-color:var(--accent);}
+  .files .ext{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;}
+  .files .sz{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);white-space:nowrap;}
+  .doc{border:1px solid var(--line);background:var(--paper);border-radius:8px;margin-top:16px;overflow:hidden;}
+  .doc summary{cursor:pointer;list-style:none;padding:16px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center;font-weight:600;}
+  .doc summary::-webkit-details-marker{display:none;}
+  .doc summary span{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+  .doc summary span::after{content:"Expand";} .doc[open] summary span::after{content:"Collapse";}
+  .doc .in{padding:4px 22px 26px;border-top:1px solid var(--line-soft);font-size:.95rem;max-width:80ch;}
+  .doc .in h2{font-size:1.5rem;margin-top:28px;} .doc .in h3{margin-top:22px;} .doc .in h4{margin-top:16px;font-size:1rem;}
+  .doc .in p,.doc .in ul,.doc .in ol{margin-top:10px;color:var(--ink);} .doc .in li{margin-left:20px;}
+  .doc .in blockquote{border-left:2px solid var(--accent);padding-left:16px;color:var(--ink-dim);margin-top:12px;}
+  .doc .in pre{font-family:var(--mono);font-size:.78rem;white-space:pre-wrap;background:var(--paper-hi);padding:14px;border-radius:6px;margin-top:12px;}
+  .doc .in code{font-family:var(--mono);font-size:.85em;}
+  .doc .in hr{border:0;border-top:1px solid var(--line);margin:20px 0;}
+  /* brief as a document */
+  .bdoc{padding:8px 0 4px;}
+  .pass{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-faint);padding:12px 0 6px;} .pass b{font-weight:500;color:var(--accent);}
+  .bdoc .bt{font-family:var(--display);font-size:1.5rem;line-height:1.15;color:var(--ink);padding:6px 0 10px;}
+  .bdoc .bb ol.lt{list-style:none;margin-left:0;}
+  .bdoc .bs{padding:18px 0;border-top:1px solid var(--line-soft);}
+  .bdoc .bs:first-child{border-top:0;}
+  .bdoc h4{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  .bdoc h4 small{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;text-transform:none;color:var(--ink-faint);margin-left:10px;}
+  .bdoc .bb{max-width:72ch;font-size:.95rem;line-height:1.6;}
+  .bdoc .bb p{margin:0 0 8px;color:var(--ink);} .bdoc .bb ol,.bdoc .bb ul{margin:4px 0 8px 22px;} .bdoc .bb li{margin:0 0 5px;color:var(--ink);}
+  .bdoc .bb li::marker{font-family:var(--mono);font-size:.8em;color:var(--accent);}
+  .bdoc.ann .bs{display:grid;grid-template-columns:170px 1fr;gap:6px 28px;}
+  .bdoc.ann .bs::before{content:attr(data-step);grid-row:1/span 2;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--ink-faint);padding-top:3px;line-height:1.5;}
+  .bdoc.ann .bs[data-step]::before{padding-left:16px;background:radial-gradient(circle,var(--accent) 3px,transparent 3.5px) 0 7px/10px 10px no-repeat;}
+  .bdoc.ann .bs:not([data-step])::before{content:"";}
+  .bdoc.ann h4,.bdoc.ann .bb{grid-column:2;}
+  .bdoc-key{display:flex;flex-wrap:wrap;gap:8px 22px;padding:14px 22px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);}
+  .bdoc-key b{font-weight:500;color:var(--ink-dim);}
+  @media (max-width:700px){.bdoc.ann .bs{grid-template-columns:1fr;} .bdoc.ann .bs::before{grid-row:auto;} .bdoc.ann h4,.bdoc.ann .bb{grid-column:1;}}
+
+  .poster{margin-top:40px;max-width:640px;} .poster img{width:100%;display:block;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .poster figcaption{margin-top:10px;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;} .poster figcaption a{color:var(--accent);text-decoration:none;}
+  .poster .duo{display:grid;grid-template-columns:1.85fr 1fr;gap:10px;align-items:start;} .poster.wide{max-width:1000px;} .poster .duo a{display:block;cursor:zoom-in;} @media (max-width:700px){.poster .duo{grid-template-columns:1fr;}}
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(10,12,16,.92);display:none;align-items:center;justify-content:center;flex-direction:column;padding:56px 64px 24px;}
+  .lb.open{display:flex;} .lb img{max-width:100%;max-height:calc(100vh - 120px);object-fit:contain;background:#fff;border-radius:4px;cursor:zoom-out;}
+  .lb .lb-cap{margin-top:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:#B8BCC6;text-align:center;}
+  .lb button{position:absolute;background:none;border:0;color:#E9E6DC;font-size:2rem;line-height:1;cursor:pointer;padding:10px 14px;opacity:.8;} .lb button:hover{opacity:1;}
+  .lb .lb-x{top:10px;right:14px;} .lb .lb-p{left:8px;top:50%;transform:translateY(-50%);} .lb .lb-n{right:8px;top:50%;transform:translateY(-50%);}
+  @media (max-width:700px){.lb{padding:52px 8px 16px;} .lb .lb-p,.lb .lb-n{top:auto;bottom:8px;transform:none;}}
+  .tbl{overflow-x:auto;margin-top:12px;} table{border-collapse:collapse;font-size:.85rem;min-width:520px;} th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top;} th{background:var(--paper-hi);font-weight:600;}
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:24px;}
+  .shot{border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .shot .img{max-height:420px;overflow:hidden;position:relative;}
+  .shot .img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(transparent,var(--paper));}
+  .shot img{width:100%;height:auto;}
+  .shot .cap{padding:12px 16px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.7rem;color:var(--ink-dim);}
+  .shot .cap a{color:var(--accent);text-decoration:none;white-space:nowrap;}
+  .shot .cap a:hover{text-decoration:underline;}
+  .shot.open .img{max-height:none;} .shot.open .img::after{display:none;}
+  .shot .more{display:block;width:100%;background:none;border:0;border-top:1px solid var(--line-soft);padding:10px;font-family:var(--mono);font-size:.7rem;color:var(--accent);cursor:pointer;}
+  .navrow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.76rem;}
+  .navrow a{text-decoration:none;color:var(--ink-dim);} .navrow a:hover{color:var(--accent);}
+  .quote-note{margin-top:16px;color:var(--ink-dim);font-size:.9rem;}
+  @media (max-width:820px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <a class="back" href="../index.html">← Case</a>
+    <a class="mark" href="../../../../../en/index.html"><span class="glyph">JR</span><span class="name">Julia Reprintseva</span></a>
+    <div class="tools">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </div>
+  </div>
+</div>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="True or AI">
+<style>
+  .gm-hero{padding:56px 0 18px}
+  .gm-hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02;margin-top:18px;max-width:20ch}
+  .gm-hero .lede{margin-top:18px;max-width:64ch}
+  .gm-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 8px}
+  .gm-tabs a{font:500 .82rem/1 var(--body);padding:11px 18px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink-dim);text-decoration:none}
+  .gm-tabs a.on{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+  .gm-install{margin-top:14px;font-size:.86rem;color:var(--ink-dim);max-width:66ch} .gm-install b{color:var(--ink)}
+  .gm-install button{margin-left:6px;font:600 .8rem/1 var(--body);padding:9px 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+  .gm{display:none;padding:18px 0 72px} .gm.on{display:block}
+  .gm-howto{font-size:.92rem;color:var(--ink-dim);max-width:66ch;margin-bottom:22px} .gm-howto b{color:var(--ink)}
+  .dark{border:1px solid #CB9C47;outline:1px solid rgba(203,156,71,.55);outline-offset:-7px;border-radius:14px;background:#15130F;color:#EAE2D2;
+    background-image:radial-gradient(circle at 50% 35%,rgba(203,156,71,.12),transparent 65%),repeating-linear-gradient(45deg,transparent 0 14px,rgba(203,156,71,.04) 14px 15px),repeating-linear-gradient(-45deg,transparent 0 14px,rgba(203,156,71,.04) 14px 15px)}
+  .gm-k{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:#CB9C47}
+  .gm-btn{font:600 .9rem/1 var(--body);padding:14px 22px;border-radius:999px;border:1px solid #CB9C47;background:transparent;color:#EAE2D2;cursor:pointer;min-width:130px}
+  .gm-btn:hover{background:rgba(203,156,71,.14)} .gm-btn.main{background:#CB9C47;color:#15130F} .gm-btn.red{border-color:#D0685F;color:#F0B3AC} .gm-btn.red:hover{background:rgba(208,104,95,.14)}
+  /* правда или ИИ */
+  .tr-card{max-width:620px;margin:0 auto;padding:34px 34px 28px;min-height:360px;display:flex;flex-direction:column;gap:16px}
+  .tr-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .tr-q{font-family:'Old Standard TT',Georgia,serif;font-style:italic;font-size:clamp(1.25rem,3.2vw,1.6rem);line-height:1.42;color:#F3EDE0;margin:8px 0 0}
+  .tr-who{font-family:var(--mono);font-size:.72rem;color:#A69C8C;letter-spacing:.03em}
+  .tr-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:10px}
+  .tr-res{border-top:1px solid rgba(203,156,71,.3);padding-top:14px;display:none} .tr-res.on{display:block}
+  .tr-v{font-family:var(--display);font-size:1.6rem;line-height:1.1} .tr-v.ok{color:#E4B968} .tr-v.no{color:#E08A80}
+  .tr-why{margin-top:8px;font-size:.95rem;line-height:1.55;color:#DCD3C2} .tr-src{margin-top:8px;font-family:var(--mono);font-size:.66rem;color:#A69C8C}
+  .tr-stamp{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border:1px solid;border-radius:4px;transform:rotate(-3deg)}
+  .tr-stamp.f{color:#E08A80;border-color:#D0685F} .tr-stamp.t{color:#E4B968;border-color:#CB9C47}
+  .tr-end h3{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1.1;color:#F3EDE0} .tr-end p{margin-top:12px;line-height:1.6;color:#DCD3C2}
+  .tr-big{font-family:var(--display);font-size:4.2rem;line-height:1;color:#E4B968}
+  /* догони Воланда */
+  .vo-stage{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+  .vo-map{overflow:hidden} .vo-map svg{display:block;width:100%;height:auto}
+  .vo-seg{fill:none;stroke-width:3.4;stroke-linecap:round} .vo-seg.ok{stroke:#E4B968;stroke-dasharray:9 7} .vo-seg.bad{stroke:#D0685F;stroke-dasharray:3 7}
+  .vo-pt{stroke-width:2.2} .vo-pt.ok{fill:#1B1813;stroke:#E4B968} .vo-pt.cur{fill:#CB9C47;stroke:#F3EDE0} .vo-pt.bad{fill:#4A2320;stroke:#D0685F} .vo-pt.opt{fill:none;stroke:#EAE2D2;stroke-dasharray:2 3;opacity:.8}
+  .vo-lbl{font-family:var(--mono);font-size:12px;fill:#EAE2D2;letter-spacing:.04em;paint-order:stroke;stroke:#15130F;stroke-width:4px}
+  .vo-panel{padding:24px 22px 22px;display:flex;flex-direction:column;gap:12px;position:sticky;top:84px}
+  .vo-panel h3{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.12;color:#F3EDE0}
+  .vo-panel blockquote{margin:0;padding-left:12px;border-left:2px solid #CB9C47;font-family:'Old Standard TT',Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.5;color:#F3EDE0}
+  .vo-panel .src{font-family:var(--mono);font-size:.64rem;color:#A69C8C}
+  .vo-ask{font-size:.95rem;color:#DCD3C2} .vo-opts{display:flex;flex-direction:column;gap:10px} .vo-opts .gm-btn{text-align:left}
+  .vo-msg{font-size:.95rem;line-height:1.55;color:#F0B3AC} .vo-msg.ok{color:#E4B968}
+  .base .bm-river{stroke:#8F9AB0;stroke-opacity:.3;stroke-width:16;fill:none;stroke-linecap:round} .base .bm-canal{stroke:#8F9AB0;stroke-opacity:.22;stroke-width:7;fill:none}
+  .base .bm-garden{fill:none;stroke:#CB9C47;stroke-opacity:.3;stroke-width:5} .base .bm-blvd{fill:none;stroke:#CB9C47;stroke-opacity:.42;stroke-width:3} .base .bm-st{fill:none;stroke:#CB9C47;stroke-opacity:.2;stroke-width:1.6}
+  .base .bm-kremlin{fill:rgba(203,156,71,.10);stroke:#CB9C47;stroke-opacity:.55;stroke-width:1.4} .base .bm-pond{fill:rgba(143,154,176,.28);stroke:#CB9C47;stroke-opacity:.7}
+  .base .bm-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;fill:#A69C8C;text-transform:uppercase} .base .bm-lbl.big{fill:#CB9C47} .base .bm-lbl.river{fill:#8F9AB0;font-style:italic;text-transform:none;font-family:'Old Standard TT',Georgia,serif;font-size:13px}
+  /* редакторский стол */
+  .dk-doc{max-width:760px;padding:30px 32px 26px}
+  .dk-doc h4{font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#CB9C47;margin:18px 0 8px} .dk-doc h4:first-of-type{margin-top:6px}
+  .dk-doc p{font-size:1rem;line-height:1.75;color:#DCD3C2;margin:0 0 8px}
+  .dk-f{cursor:pointer;border-bottom:1px dashed rgba(203,156,71,.55);padding:1px 2px;border-radius:3px;transition:background .15s}
+  .dk-f:hover{background:rgba(203,156,71,.12)} .dk-f.flag{background:rgba(208,104,95,.25);border-bottom-color:#D0685F;color:#F3EDE0}
+  .dk-f.hit{background:rgba(203,156,71,.28);border-bottom:2px solid #E4B968;color:#F3EDE0} .dk-f.miss{outline:2px solid #D0685F;outline-offset:1px} .dk-f.false{background:rgba(143,154,176,.22);outline:1px dashed #8F9AB0;outline-offset:1px}
+  .dk-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px} .dk-count{font-family:var(--mono);font-size:.72rem;color:#A69C8C}
+  .dk-res{max-width:760px;margin-top:20px;padding:24px 28px;display:none} .dk-res.on{display:block}
+  .dk-res h3{font-family:var(--display);font-weight:400;font-size:1.8rem;color:#F3EDE0} .dk-res ol{margin:14px 0 0 18px;color:#DCD3C2;line-height:1.55;font-size:.93rem} .dk-res li{margin-bottom:8px} .dk-res li b{color:#E4B968;font-weight:600} .dk-res li.m b{color:#E08A80}
+  @media (max-width:980px){.vo-stage{grid-template-columns:1fr} .vo-panel{position:static}}
+  @media (max-width:640px){.tr-card,.dk-doc,.dk-res{padding:24px 20px 20px} .gm-btn{flex:1} .base .bm-lbl{font-size:15px} .vo-lbl{font-size:17px}}
+</style>
+
+<section class="gm-hero"><div class="wrap"><p class="kicker">Games · made for this site</p><h1>Catch AI lying</h1>
+<p class="lede">Here you can test yourself: can you tell a real quotation from something a neural network made up? Everything comes from this project — DeepSeek’s fakes about Paris, “lines” Mandelstam never wrote, Bulgakov’s mixed-up addresses, and next to them the real texts and dates.</p><p style="margin-top:14px"><a class="btn ghost" style="display:inline-block;text-align:center;line-height:1.35" href="../gaid/index.html">Read the 10 signs first — then play →</a></p>
+<p class="gm-install"><b>How to install on your phone:</b> open this page in your phone’s browser. On iPhone — “Share” → “Add to Home Screen”; on Android — the browser menu → “Install app”. <button type="button" id="gm-inst" hidden>Install</button></p>
+<nav class="gm-tabs"><a href="#pravda" class="on">True or AI?</a><a href="#voland">Catch Woland</a><a href="#stol">The Editor’s Desk</a></nav></div></section>
+<section class="gm on" id="pravda"><div class="wrap"><p class="gm-howto"><b>How to play.</b> 20 cards: quotations, addresses and dates from the four projects. On each one decide — is it true, or did the neural network make it up? The card shows the answer and the source; at the end you get your result: how many times you believed a fake.</p><div class="tr-card dark"></div></div></section>
+<section class="gm" id="voland"><div class="wrap"><p class="gm-howto"><b>How to play.</b> Ivan Bezdomny’s chase from chapter four of “The Master and Margarita”. At every crossroads there is a line from the novel and a choice of where to turn. Follow the AI’s version and you end up at the Central Telegraph, where Ivan never was. The goal is to reach the Moskva river.</p><div class="vo-stage"><div class="vo-map dark"><svg id="vo-svg" viewBox="0 0 1000 947" role="img" aria-label="Schematic of central Moscow in the 1930s"><g class="base"><path class="bm-river" d="M26.1 564.0 C17.1 603.5 2.0 729.7 -28.0 801.1 C-58.0 872.5 -156.8 926.2 -153.7 992.4 C-150.6 1058.6 -81.1 1175.1 -9.5 1198.4 C62.1 1221.7 209.2 1179.8 276.1 1132.2 C343.0 1084.6 355.1 985.4 391.7 912.6 C428.3 839.8 466.8 746.4 495.8 695.6 C524.8 644.8 529.7 625.1 565.8 608.0 C601.9 590.9 656.3 592.0 712.2 592.8 C768.1 593.6 838.0 600.3 901.3 612.6 C964.6 624.9 1060.3 657.4 1092.1 666.4"/><path class="bm-canal" d="M452.8 857.2 C473.0 837.5 528.4 771.8 573.7 739.1 C619.1 706.4 677.3 659.2 724.9 661.0 C772.5 662.8 829.4 707.1 859.2 749.6 C889.0 792.1 874.7 872.6 903.6 916.1 C932.5 959.6 1011.3 994.9 1032.8 1010.6"/><path class="bm-garden" d="M354.7 947.0 C343.4 940.6 314.9 926.6 286.7 908.9 C258.5 891.2 205.2 864.4 185.3 840.8 C165.4 817.2 175.2 806.3 167.4 767.2 C159.6 728.1 141.3 654.7 138.7 606.3 C136.1 557.9 146.9 515.9 151.6 477.0 C156.3 438.1 158.2 407.2 167.0 373.0 C175.8 338.8 186.2 305.1 204.6 271.7 C223.0 238.3 260.1 198.6 277.4 172.8 C294.7 147.0 294.3 131.5 308.2 116.9 C322.1 102.3 335.3 97.9 360.7 85.1 C386.1 72.2 431.6 50.1 460.5 39.8 C489.4 29.5 504.8 27.7 534.1 23.4 C563.4 19.1 607.1 14.9 636.1 14.0 C665.1 13.1 687.4 14.9 707.9 17.8 C728.4 20.7 740.6 25.0 759.2 31.6 C777.8 38.2 794.5 50.1 819.3 57.3 C844.1 64.5 877.8 62.9 907.9 74.8 C938.0 86.7 984.6 119.6 1000.0 128.6"/><path class="bm-blvd" d="M396.7 698.0 C391.8 685.0 369.8 645.6 367.0 620.3 C364.2 595.0 379.6 573.6 380.0 546.0 C380.4 518.4 375.3 479.7 369.2 454.6 C363.1 429.5 341.3 419.1 343.4 395.2 C345.5 371.3 365.8 340.9 381.6 311.0 C397.4 281.1 420.8 234.8 438.3 216.1 C455.8 197.4 469.4 210.9 486.8 198.8 C504.2 186.7 514.5 147.8 542.6 143.3 C570.7 138.8 630.9 164.7 655.5 171.9 C680.1 179.1 669.0 184.7 690.1 186.6 C711.2 188.5 753.2 178.6 782.2 183.3 C811.2 188.0 834.5 187.2 864.3 214.9 C894.1 242.6 941.5 324.4 960.9 349.3 C980.3 374.2 976.8 355.9 980.8 364.5 C984.8 373.1 987.5 370.9 984.6 401.0 C981.7 431.1 972.8 517.9 963.6 545.3 C954.4 572.7 935.2 562.0 929.5 565.4"/><path class="bm-st" d="M308.2 116.9 C329.9 133.4 402.7 172.5 438.3 216.1 C473.9 259.7 502.6 346.4 521.6 378.6 C540.6 410.8 547.4 404.1 552.6 409.2"/><path class="bm-st" d="M373.9 519.1 C354.6 530.0 297.2 563.0 258.2 584.6 C219.2 606.2 159.8 638.2 140.1 648.9"/><path class="bm-st" d="M393.0 701.0 C377.8 710.3 335.7 734.0 301.6 756.9 C267.5 779.8 207.3 824.9 188.4 838.5"/><path class="bm-st" d="M397.2 704.8 C381.6 732.4 322.2 836.8 303.7 870.3 C285.1 903.8 288.9 899.7 285.9 905.6"/><path class="bm-st" d="M310.9 385.3 C304.7 373.6 290.6 336.0 273.8 315.0 C257.0 294.0 220.9 268.6 210.3 259.3"/><path class="bm-st" d="M529.5 466.3 C498.7 454.8 402.7 413.4 344.9 397.5 C287.1 381.6 209.9 375.1 182.9 370.6"/><path class="bm-kremlin" d="M563.2 427.9 L660.5 467.7 L668.4 582.2 L546.1 596.3 L515.8 509.7 Z"/><rect class="bm-pond" x="246.39999999999998" y="227.3" width="30" height="20" rx="3"/><text class="bm-lbl big" x="573.7" y="514.4">Kremlin</text><text class="bm-lbl river" x="802.6" y="694.5">Moskva river</text><text class="bm-lbl " x="565.8" y="77.2">Garden Ring</text><text class="bm-lbl " x="631.6" y="226.8">Boulevard Ring</text><text class="bm-lbl " x="92.1" y="273.6">Patriarch’s</text><text class="bm-lbl " x="223.7" y="629.0">Arbat</text><text class="bm-lbl " x="478.9" y="250.2">Tverskaya</text><text class="bm-lbl " x="223.7" y="783.3">Prechistenka</text></g><g id="vo-lay"></g></svg></div><aside class="vo-panel dark" aria-live="polite"></aside></div></div></section>
+<section class="gm" id="stol"><div class="wrap"><p class="gm-howto"><b>How to play.</b> In front of you is a neural network’s report — the phrases come from this project’s genuine reports. Tap the suspicious places to mark an error; tap again to unmark. Then press “Check”.</p><article class="dk-doc dark"><span class="gm-k">AI report · “The Master and Moscow” fact-check</span><h4>Ivan Bezdomny’s route</h4><p>The route of the chase: <span class="dk-f" data-id="o1" tabindex="0" role="button">Patriarch’s Ponds → Spiridonovka → Nikitsky Gates → Arbat Square</span>, then the Arbat lanes, Kropotkin Street and Ostozhenka.</p><p><span class="dk-f" data-id="e1" tabindex="0" role="button">The place of the jump into the river is Prechistenskaya Embankment opposite Savvinsky Lane</span>.</p><p><span class="dk-f" data-id="e2" tabindex="0" role="button">Conclusion: the route fully corresponds to historical Moscow. No errors.</span></p><h4>Bulgakov’s addresses</h4><p><span class="dk-f" data-id="o2" tabindex="0" role="button">The “Bad Apartment” — Bolshaya Sadovaya, 10, apt. 50</span>. <span class="dk-f" data-id="e3" tabindex="0" role="button">Griboyedov House (Prechistenka St.)</span>.</p><p>Nashchokinsky Lane, 3/5 <span class="dk-f" data-id="e4" tabindex="0" role="button">— his last home, with Elena Shilovskaya (1936–1940)</span>. <span class="dk-f" data-id="e5" tabindex="0" role="button">Malaya Nikitskaya, 3 — his address in the years of greatest creative activity</span>.</p><p><span class="dk-f" data-id="o3" tabindex="0" role="button">At the mirrored doors of the Torgsin on the Smolensky market — chapter 28</span>.</p><h4>Mandelstam’s Moscow</h4><p><span class="dk-f" data-id="e6" tabindex="0" role="button">Mandelstam jumped from a hospital window during his exile in Voronezh</span>; <span class="dk-f" data-id="e7" tabindex="0" role="button">Bulgakov witnessed the arrest</span>.</p><p><span class="dk-f" data-id="o4" tabindex="0" role="button">“And the unruly grain trade at Sukharevka” — a poem of 1918</span>. <span class="dk-f" data-id="e8" tabindex="0" role="button">“A woman from Khamovniki, timid”</span> — poems of the 1920s.</p><p><span class="dk-f" data-id="o5" tabindex="0" role="button">“The rings of the boulevards revel in black smallpox” — 1931</span>. <span class="dk-f" data-id="e9" tabindex="0" role="button">“Gingerbread towers”</span> — Mandelstam’s drafts. <span class="dk-f" data-id="e10" tabindex="0" role="button">“By the Lubyanka a street lamp burnt out”</span>.</p><div class="dk-bar"><button class="gm-btn main" id="dk-check">Check</button><span class="dk-count"></span></div></article><div class="dk-res dark" aria-live="polite"></div></div></section>
+<script>const GM={"pool": [{"t": "“The other was already at the exit to Patriarshy Lane, and not alone, either.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“The trio shot through the lane in no time and found themselves on Spiridonovka.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…after quiet Spiridonovka he found himself at the Nikitsky Gates, where his position got worse.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…after the Nikitsky Gates Ivan Nikolayevich was already dazzled by the lights on Arbat Square.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…some dark lane with sagging pavements, where Ivan Nikolayevich crashed down and smashed his knee.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“Again a lit-up thoroughfare – Kropotkin Street, then a lane, then Ostozhenka and another lane, dreary, nasty and meanly lit.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…the professor was bound to turn up in house No. 13, and without fail in apartment 47.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…one could see Ivan Nikolayevich on the granite steps of the Moskva river amphitheatre.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 4 “The Chase”", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 4 “The Chase”"}, {"t": "“…the house management of building No. 302-bis on Sadovaya Street in Moscow…”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 18", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 18"}, {"t": "“The old two-storey cream-coloured house stood on the boulevard ring, deep in a scrawny garden…”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 5", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 5"}, {"t": "“The large office on the theatre’s upper floor looked out on Sadovaya through two windows…”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 10", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 10"}, {"t": "“…rented from a builder, in a lane near the Arbat, two rooms in the basement of a little house in a garden.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 13", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 13"}, {"t": "“…at the mirrored doors of the Torgsin on the Smolensky market there appeared a long citizen in a checked suit…”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 28", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 28"}, {"t": "“Margarita Nikolayevna was already sitting under the Kremlin wall on one of the benches, placed so that she could see the Manege.”", "who": "Mikhail Bulgakov, “The Master and Margarita”, ch. 19", "v": true, "p": "“The Master and Moscow”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "“The Master and Margarita”, ch. 19"}, {"t": "“And the unruly grain trade at Sukharevka, / And the terrible sight of the brigand Kremlin.”", "who": "Osip Mandelstam, “All is alien to us in the indecent capital…”, May–June 1918", "v": true, "p": "“The Master and Moscow”", "why": "Real lines — checked against his collected works (our translation).", "src": "Collected works, rvb.ru"}, {"t": "“…firmly believed that the foul-mouthed waters of the Moskva river would flood the learned Kropotkin Embankment and a boat would be summoned to TseKUBU by telephone.”", "who": "Osip Mandelstam, “Fourth Prose”", "v": true, "p": "“The Master and Moscow”", "why": "Real lines — checked against his collected works (our translation).", "src": "Collected works, rvb.ru"}, {"t": "“The rings of the boulevards revel in black smallpox...”", "who": "Osip Mandelstam, “Midnight in Moscow. The Buddhist summer is sumptuous…”, May – 4 June 1931", "v": true, "p": "“The Master and Moscow”", "why": "Real lines — checked against his collected works (our translation).", "src": "Collected works, rvb.ru"}, {"t": "“A woman from Khamovniki, timid”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "There is no such line: the word “Khamovniki” never occurs in Mandelstam.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“I’m at the Metropol, and you’re on the Arbat”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "No such phrase. The Metropol does appear in the essay “Cold Summer” (1923): “from the dusty wilderness of the ‘Metropol’, a world hotel”.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“By the Lubyanka a street lamp burnt out”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "There is no such line.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“At Chistye Prudy”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "Chistye Prudy never occurs in Mandelstam.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“In the backwater of Zamoskvorechye, among the ruins of bathhouses”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "There is no such phrase in “The Egyptian Stamp”. Mandelstam does have “a chance guest of Zamoskvorechye” — in “Journey to Armenia”.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“…to Moscow University and back”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "There is no such line.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“Boulevards-propylaea, like empty palaces”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "There is no such line. There is “the rustle of the boulevard propylaeum” — in an early version of “Moscow Drizzle” (1922).", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "“Let’s go round the ring, as always”", "who": "Osip Mandelstam", "v": false, "p": "“The Master and Moscow”", "why": "No such phrase. There is “I will run three times round the boulevard rings of Moscow” — in “Fourth Prose”.", "src": "Fact-check against the collected works, rvb.ru"}, {"t": "The chase after Woland: Ivan Bezdomny runs from Patriarch’s Ponds along Bolshaya Sadovaya.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "There is no Sadovaya in chapter four: Ivan runs into Patriarshy Lane and on to Spiridonovka.", "src": "“The Master and Margarita”, ch. 4"}, {"t": "In early drafts of the novel the chase went down Tverskaya to the Central Telegraph.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "The AI gave no evidence at all, and in the final text there is no Tverskaya in the chase.", "src": "“The Master and Margarita”, ch. 4"}, {"t": "Griboyedov House in the novel stood on Prechistenka.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "In the novel the house stands “on the boulevard ring”. The prototype is Herzen House, Tverskoy Boulevard, 25.", "src": "“The Master and Margarita”, ch. 5"}, {"t": "Mandelstam jumped from a hospital window during his exile in Voronezh.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "It happened in Cherdyn, in 1934 — before Voronezh.", "src": "Mandelstam’s biography"}, {"t": "“Gingerbread towers” is a line by Mandelstam.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "This is Bulgakov: “the gingerbread towers of the Novodevichy Convent”, “The Master and Margarita”, ch. 32.", "src": "“The Master and Margarita”, ch. 32"}, {"t": "The Bulgakovs moved to Nashchokinsky Lane in 1936.", "who": "", "v": false, "p": "“The Master and Moscow”", "why": "From 1934 — as the AI’s own report says further down.", "src": "Bulgakov’s biography"}, {"t": "The “Bad Apartment” is Bolshaya Sadovaya, 10, apartment 50.", "who": "", "v": true, "p": "“The Master and Moscow”", "why": "True: Bulgakov lived here in 1921–1924; today it is a museum.", "src": "“The Master and Margarita”, ch. 9 and 18"}, {"t": "The prototype of the Variety Theatre is the music hall at Bolshaya Sadovaya, 18.", "who": "", "v": true, "p": "“The Master and Moscow”", "why": "True: in the novel the office windows “looked out on Sadovaya”; the Satire Theatre is there now.", "src": "“The Master and Margarita”, ch. 10"}, {"t": "Mandelstam and Bulgakov lived in the same house — Nashchokinsky Lane, 3/5.", "who": "", "v": true, "p": "“The Master and Moscow”", "why": "True: Mandelstam from late 1933, the Bulgakovs from 1934. The house was demolished in 1974.", "src": "Both biographies"}, {"t": "Vyach. Ivanov emigrated in 1924.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Vyach. Ivanov emigrated in 1922.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1924.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Balmont emigrated in 1920.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Balmont emigrated in 1924.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1920.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Bely emigrated in 1921.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Bely emigrated in 1923.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1921.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Bely returned to the USSR in 1923.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Bely returned to the USSR in 1927.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1923.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Klyuev was arrested in 1934.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Klyuev was arrested in 1931.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1934.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Gumilyov was arrested in 1921.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Gumilyov was arrested in 1925.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1921.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Khodasevich emigrated in 1922.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Khodasevich emigrated in 1918.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1922.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Severyanin emigrated in 1918.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Severyanin emigrated in 1915.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1918.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Mandelstam was arrested in 1934.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Mandelstam was arrested in 1931.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1934.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Tsvetaeva emigrated in 1922.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Tsvetaeva emigrated in 1925.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1922.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Tsvetaeva returned to the USSR in 1939.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Tsvetaeva returned to the USSR in 1937.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1939.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Georgy Ivanov emigrated in 1922.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Georgy Ivanov emigrated in 1925.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1922.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Odoevtseva emigrated in 1922.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Odoevtseva emigrated in 1918.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1922.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Odoevtseva returned to the USSR in 1987.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Odoevtseva returned to the USSR in 1990.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1987.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Oleynikov was arrested in 1937.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Oleynikov was arrested in 1941.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1937.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Zabolotsky was arrested in 1938.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Zabolotsky was arrested in 1941.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1938.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Vvedensky was arrested in 1941.", "who": "", "v": true, "p": "“The Catastrophe of the Silver Age”", "why": "True: the date was checked against sources for the infographic.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "Vvedensky was arrested in 1938.", "who": "", "v": false, "trap": true, "p": "“The Catastrophe of the Silver Age”", "why": "A trap: the year here was shifted on purpose to test your attention. In fact it was 1941.", "src": "Infographic “The Catastrophe of the Silver Age”"}, {"t": "“…Parisians are not a people to bear a grudge”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 1, ch. III", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 1, ch. III"}, {"t": "“There it is, the eternal law of the ebb and flow of popular favour!”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 1, ch. IV", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 1, ch. IV"}, {"t": "“She seemed now a madwoman, now a queen.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. III", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. III"}, {"t": "“…Paris mud is somehow especially foul-smelling. It seems to contain a great deal of volatile and nitrous salt”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. V", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. V"}, {"t": "“This will kill that. The book will kill the building.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 5, ch. II", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 5, ch. II"}, {"t": "“Every civilisation begins with theocracy and ends with democracy.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 5, ch. II", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 5, ch. II"}, {"t": "“Even in those days the Place de Grève made a gloomy impression…”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. II", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. II"}, {"t": "“The Court of Miracles was a tavern indeed, but a tavern of robbers, soaked not only in wine but in blood.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. VI", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 2, ch. VI"}, {"t": "“Outside the city walls the suburbs huddled right up to the gates…”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 3, ch. II", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 3, ch. II"}, {"t": "“Paris in those days was hardly lit at all and showed the eye a heap of black masses crossed by the pale bends of the Seine.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 10, ch. IV", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 10, ch. IV"}, {"t": "“A magnificent, enchanting sight is Paris… from the top of the towers of Notre-Dame on an early summer morning, breathing coolness.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 11, ch. II", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 11, ch. II"}, {"t": "“Montfaucon, according to Sauval, was “the oldest and the most magnificent gallows in the kingdom”.”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 11, ch. IV", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 11, ch. IV"}, {"t": "“O sire, mercy is the only light that can illuminate the depths of a great soul!”", "who": "Victor Hugo, “Notre-Dame de Paris”, book 10, ch. V", "v": true, "p": "“Oh, Paris!”", "why": "A real quotation — checked against the text of the novel (our translation).", "src": "Victor Hugo, “Notre-Dame de Paris”, book 10, ch. V"}, {"t": "“Quasimodo is a grimace made flesh”", "who": "Victor Hugo, “Notre-Dame de Paris”", "v": false, "p": "“Oh, Paris!”", "why": "There is no such phrase in the novel — the AI made it up “in Hugo’s style”. The closest is: “The grimace was his real face” (book 1, ch. V).", "src": "Selection of Hugo quotations for the “Oh, Paris!” map, April 2025"}, {"t": "“The cathedral was not just a building — it was a chronicle carved in stone”", "who": "Victor Hugo, “Notre-Dame de Paris”", "v": false, "p": "“Oh, Paris!”", "why": "Not Hugo: the model composed the phrase “in his style” — this was already noted in the report for the map.", "src": "Selection of Hugo quotations for the “Oh, Paris!” map, April 2025"}, {"t": "“History is the echo of the past”", "who": "Victor Hugo, “Notre-Dame de Paris”", "v": false, "p": "“Oh, Paris!”", "why": "Not Hugo: the model composed the phrase “in his style” — this was already noted in the report for the map.", "src": "Selection of Hugo quotations for the “Oh, Paris!” map, April 2025"}, {"t": "“In Paris the rain falls as though it were mourning lost time.”", "who": "Marcel Proust, “In Search of Lost Time”, 1913", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The work named is real, but the phrase is not in it. The quote is built on the template “Paris is a city where even…”.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Montparnasse is a place where artists sell their souls for wine.”", "who": "Ilya Ehrenburg, “People, Years, Life”, 1960s", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The work named is real, but the phrase is not in it. The quote is built on the template “Paris is a city where even…”.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Paris is a city where even the sky paints.”", "who": "Marc Chagall, “My Life”, 1931", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The work named is real, but the phrase is not in it. The quote is built on the template “Paris is a city where even…”.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Here the prostitutes wear ‘Red Moskvich’ perfume — a blend of rose and vodka.”", "who": "Baudelaire, draft of “Les Fleurs du mal”", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. No letter, diary or story with these words exists. The dates and addressees are chosen to look plausible — and at random.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“At the ‘Lipp’ even the salted pretzels taste like an existential crisis.”", "who": "Sartre, note to Beauvoir", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. No letter, diary or story with these words exists. The dates and addressees are chosen to look plausible — and at random.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“In the shadow of the Sorbonne even charlatans speak in quotations from Aristotle.”", "who": "Goethe, letter, 1792", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. No letter, diary or story with these words exists. The dates and addressees are chosen to look plausible — and at random.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“In the tavern on the Huchette wine is cheaper than water — because only the cats drink water here.”", "who": "Renoir, memoirs", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. No letter, diary or story with these words exists. The dates and addressees are chosen to look plausible — and at random.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Here I drank absinthe for the first time — and at once grasped how stupid existentialism is.”", "who": "Gainsbourg, 1968", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The place is real, the authors are real, the quote is not. Some of the “sources” (Cendrars’s “Parisian Stained Glass”, Maupassant’s “A Night in Pigalle”) were never published.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“On Campagne-Première we sleep three to a bed — the artist, the model and the lice.”", "who": "Modigliani, note to Soutine, 1917", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The place is real, the authors are real, the quote is not. Some of the “sources” (Cendrars’s “Parisian Stained Glass”, Maupassant’s “A Night in Pigalle”) were never published.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“We paid for our drinks with drawings — the barman wiped the counter with them.”", "who": "Picasso, to Fernande Olivier", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The place is real, the authors are real, the quote is not. Some of the “sources” (Cendrars’s “Parisian Stained Glass”, Maupassant’s “A Night in Pigalle”) were never published.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“At the ‘Flore’ we invented existentialism — probably because of the bad coffee.”", "who": "Sartre, Beauvoir", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The place is real, the authors are real, the quote is not. Some of the “sources” (Cendrars’s “Parisian Stained Glass”, Maupassant’s “A Night in Pigalle”) were never published.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Here Russian emigrants sell one another the same coat, round and round.”", "who": "Ehrenburg, 1933", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The place is real, the authors are real, the quote is not. Some of the “sources” (Cendrars’s “Parisian Stained Glass”, Maupassant’s “A Night in Pigalle”) were never published.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Here the bones are laid out more neatly than the thoughts in the books of Sorbonne philosophers.”", "who": "Cendrars, 1934", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The model invented texts to fit the request “abandoned theatres, secret gardens”: the more exotic the place, the more confident the fabrication.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The only place where a severed hand caused more delight than the ‘Mona Lisa’.”", "who": "Dalí, interview, 1965", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The model invented texts to fit the request “abandoned theatres, secret gardens”: the more exotic the place, the more confident the fabrication.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The ‘Rabbit’ isn’t nimble — it’s drunk, like all of us who hang about here.”", "who": "Modigliani, note, 1916", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The model invented texts to fit the request “abandoned theatres, secret gardens”: the more exotic the place, the more confident the fabrication.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“We ate onion-and-hope soup here — the only thing we could afford.”", "who": "Picasso, to Fernande Olivier", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. A mix of real facts (the Bièvre, the Cour des Miracles) and invented words. Paracelsus writing “on the hospital” in 1526 is an anachronism: he was not in Paris in those years.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“‘L’Ami du peuple’ was printed here — a newspaper that killed more people than the guillotine.”", "who": "Danton, letter, 1793", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. A mix of real facts (the Bièvre, the Cour des Miracles) and invented words. Paracelsus writing “on the hospital” in 1526 is an anachronism: he was not in Paris in those years.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The shadows of alchemists still live on the Galande — they sell the philosopher’s stone for the price of an onion.”", "who": "Hugo, note", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. A mix of real facts (the Bièvre, the Cour des Miracles) and invented words. Paracelsus writing “on the hospital” in 1526 is an anachronism: he was not in Paris in those years.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The traders here shout as if announcing the end of the world at 50% off.”", "who": "Cendrars, 1934", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. A mix of real facts (the Bièvre, the Cour des Miracles) and invented words. Paracelsus writing “on the hospital” in 1526 is an anachronism: he was not in Paris in those years.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The colours here are brighter than anywhere else — as if God forgot to switch on the grey filter.”", "who": "Modigliani, 1917", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. A mix of real facts (the Bièvre, the Cour des Miracles) and invented words. Paracelsus writing “on the hospital” in 1526 is an anachronism: he was not in Paris in those years.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“In this narrow lane God huddles between the stones like a refugee without papers.”", "who": "Chagall, 1960", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The same authors, the same intonation, new addresses. The identical syntax “X is a Y where Z” in Chagall, Zola and Sartre gives away a single author — the model.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The synagogue on the Pavée is a ship sailing through the centuries without moving from its place.”", "who": "Ehrenburg, 1934", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The same authors, the same intonation, new addresses. The identical syntax “X is a Y where Z” in Chagall, Zola and Sartre gives away a single author — the model.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“We sat here until morning, and the dog on the sign really was smoking — or so it seemed to us.”", "who": "Modigliani, 1915", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The same authors, the same intonation, new addresses. The identical syntax “X is a Y where Z” in Chagall, Zola and Sartre gives away a single author — the model.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Once applause flowed like a river here; now only the rats give ovations to the empty seats”", "who": "Hugo, drafts, 1843 · Manuscript on Gallica", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The request was “with links to sources”. The link gallica.bnf.fr/…/bpt6k204864m/f455.item is given for eleven different authors — and leads to none of them.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“These bones were stacked more neatly than the books at the Sorbonne — death is the best librarian”", "who": "Baudelaire, 1859 · Baudelaire’s notebooks", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The request was “with links to sources”. The link gallica.bnf.fr/…/bpt6k204864m/f455.item is given for eleven different authors — and leads to none of them.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The owner in spectacles poured us oblivion at a fair price — three sous a glass”", "who": "Verlaine, 1885 · Poems in the original", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The request was “with links to sources”. The link gallica.bnf.fr/…/bpt6k204864m/f455.item is given for eleven different authors — and leads to none of them.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“We served death as menu No. 666”", "who": "Jarry, letter, 1898 · Correspondance, p.42", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The “archive shelfmarks” — carton BB30-320, RESERVE-YH-28, MS.334 — look like catalogue numbers but match no real document.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“Death here smelled of healing herbs”", "who": "Paracelsus, notes, 1526 · Wellcome Library MS.334", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The “archive shelfmarks” — carton BB30-320, RESERVE-YH-28, MS.334 — look like catalogue numbers but match no real document.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The houses here dance a Hasidic jig”", "who": "Chagall, 1963 · Interview archive", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The “archive shelfmarks” — carton BB30-320, RESERVE-YH-28, MS.334 — look like catalogue numbers but match no real document.", "src": "Quote book “How DeepSeek lied”"}, {"t": "“The garlic here smelled of revolution”", "who": "Hemingway, “A Moveable Feast” · Manuscript, JFK Library", "v": false, "p": "“Oh, Paris!”", "why": "There is no such quotation. The “archive shelfmarks” — carton BB30-320, RESERVE-YH-28, MS.334 — look like catalogue numbers but match no real document.", "src": "Quote book “How DeepSeek lied”"}], "voland": {"steps": [{"at": "Patriarch’s Ponds", "atll": [55.7637, 37.5925], "quote": "The other was already at the exit to Patriarshy Lane, and not alone, either.", "ok": "Spiridonovka", "okll": [55.7615, 37.5931], "okq": "The trio shot through the lane in no time and found themselves on Spiridonovka.", "bad": "Bolshaya Sadovaya", "badll": [55.76711, 37.59308], "ai": true, "why": "That is what the AI said — he “first runs along Bolshaya Sadovaya”. In the novel there is no Sadovaya in the chase."}, {"at": "Spiridonovka", "atll": [55.7615, 37.5931], "quote": "The trio shot through the lane in no time and found themselves on Spiridonovka.", "ok": "Nikitsky Gates", "okll": [55.7576, 37.5981], "okq": "…after quiet Spiridonovka he found himself at the Nikitsky Gates, where his position got worse.", "bad": "Tverskaya", "badll": [55.76526, 37.60531], "ai": true, "why": "The AI’s version: “down Tverskaya”. There is no Tverskaya in chapter four — after Spiridonovka Ivan is at the Nikitsky Gates."}, {"at": "Nikitsky Gates", "atll": [55.7576, 37.5981], "quote": "…after quiet Spiridonovka he found himself at the Nikitsky Gates, where his position got worse.", "ok": "Arbat Square", "okll": [55.75115, 37.60088], "okq": "…after the Nikitsky Gates Ivan Nikolayevich was already dazzled by the lights on Arbat Square.", "bad": "The Central Telegraph", "badll": [55.75831, 37.61164], "ai": true, "why": "This is where the AI brought Ivan — “to the Central Telegraph”. Ivan was never here."}, {"at": "Arbat Square", "atll": [55.75115, 37.60088], "quote": "…after the Nikitsky Gates Ivan Nikolayevich was already dazzled by the lights on Arbat Square.", "ok": "The Arbat lanes", "okll": [55.749, 37.596], "okq": "…some dark lane with sagging pavements, where Ivan Nikolayevich crashed down and smashed his knee.", "bad": "Red Square", "badll": [55.75359, 37.6215], "ai": false, "why": "Wrong turn: from Arbat Square Ivan dived into a dark Arbat lane."}, {"at": "The Arbat lanes", "atll": [55.749, 37.596], "quote": "…some dark lane with sagging pavements, where Ivan Nikolayevich crashed down and smashed his knee.", "ok": "Prechistenka", "okll": [55.7433, 37.598], "okq": "Again a lit-up thoroughfare – Kropotkin Street, then a lane, then Ostozhenka and another lane, dreary, nasty and meanly lit.", "bad": "Smolenskaya Square", "badll": [55.74769, 37.58316], "ai": false, "why": "Wrong turn: the Smolensky market comes later in the novel, in chapter 28. Right now Ivan runs out onto Kropotkin Street."}, {"at": "Prechistenka", "atll": [55.7433, 37.598], "quote": "Again a lit-up thoroughfare – Kropotkin Street, then a lane, then Ostozhenka and another lane, dreary, nasty and meanly lit.", "ok": "House No. 13, apartment 47", "okll": [55.74116, 37.60259], "okq": "…the professor was bound to turn up in house No. 13, and without fail in apartment 47.", "bad": "Griboyedov House", "badll": [55.76256, 37.60216], "ai": false, "why": "Ivan will get there later, in chapter five. For now he is looking for house No. 13."}, {"at": "House No. 13, apartment 47", "atll": [55.74116, 37.60259], "quote": "…the professor was bound to turn up in house No. 13, and without fail in apartment 47.", "ok": "The steps of the Moskva river amphitheatre", "okll": [55.74, 37.6045], "okq": "…one could see Ivan Nikolayevich on the granite steps of the Moskva river amphitheatre.", "bad": "Back to Patriarch’s Ponds", "badll": [55.76435, 37.59187], "ai": false, "why": "Ivan does not go back: he is sure the professor is in house No. 13."}], "end": {"title": "The steps of the Moskva river amphitheatre", "quote": "…one could see Ivan Nikolayevich on the granite steps of the Moskva river amphitheatre."}}, "why": {"e1": "Opposite Pozharsky (then Savelyevsky) Lane — as the very source cited by the fact-check says.", "e2": "There were errors in the report — both in the route and in the place of the jump.", "e3": "In the novel the house stands “on the boulevard ring”. The prototype is Herzen House, Tverskoy Boulevard, 25.", "e4": "The Bulgakovs lived here from 1934 — the report itself says 1934 further down.", "e5": "Not confirmed; the address was dropped in later versions.", "e6": "It happened in Cherdyn, in 1934.", "e7": "Not confirmed by sources.", "e8": "There is no such line: “Khamovniki” never occurs in Mandelstam.", "e9": "This is Bulgakov: “the gingerbread towers of the Novodevichy Convent”, ch. 32.", "e10": "There is no such line in any of Mandelstam’s texts.", "o1": "Correct: that is how it goes in chapter four.", "o2": "Correct: Bulgakov lived here in 1921–1924.", "o3": "Correct: “The Master and Margarita”, ch. 28.", "o4": "Correct: “All is alien to us in the indecent capital…”, 1918.", "o5": "Correct: “Midnight in Moscow…”, 1931."}};GM.xy=function(ll){var W=1000,H=947,a=55.7745,b=37.572,c=55.734,d=37.648;return [Math.round((ll[1]-b)*W/(d-b)*10)/10,Math.round((a-ll[0])*H/(a-c)*10)/10];};</script>
+<script>
+(function(){
+  function $(s,r){return (r||document).querySelector(s);} function $$(s,r){return [].slice.call((r||document).querySelectorAll(s));}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  /* вкладки */
+  function tab(id){$$('.gm').forEach(function(g){g.classList.toggle('on',g.id===id);});$$('.gm-tabs a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+id);});}
+  $$('.gm-tabs a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);history.replaceState(null,'','#'+id);tab(id);});});
+  tab(['pravda','voland','stol'].indexOf(location.hash.slice(1))>=0?location.hash.slice(1):'pravda');
+  /* установка на телефон */
+  var dp=null,ib=$('#gm-inst');window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;if(ib)ib.hidden=false;});
+  if(ib)ib.addEventListener('click',function(){if(dp){dp.prompt();dp=null;ib.hidden=true;}});
+  if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){navigator.serviceWorker.register('sw.js').catch(function(){});}
+
+  /* ── Правда или ИИ? ── */
+  var T=$('#pravda .tr-card'),deck=[],k=0,fooled=0,doubted=0,right=0;
+  function newRound(){var f=shuffle(GM.pool.filter(function(x){return !x.v;})),t=shuffle(GM.pool.filter(function(x){return x.v;}));
+    function pick(key,nf,nt){return f.filter(function(x){return x.p.indexOf(key)>=0;}).slice(0,nf).concat(t.filter(function(x){return x.p.indexOf(key)>=0;}).slice(0,nt));}
+    var hasTrueParis=GM.pool.some(function(x){return x.v&&x.p.indexOf('Paris')>=0;});
+    deck=pick('Paris',hasTrueParis?3:6,hasTrueParis?3:0).concat(pick('Moscow',5,5),pick('Silver',2,2));deck=shuffle(deck);k=0;fooled=0;doubted=0;right=0;card();}
+  function card(){if(k>=deck.length)return end();var c=deck[k];
+    T.innerHTML='<div class="tr-top"><span class="gm-k">True or AI?</span><span class="gm-k">'+(k+1)+' / '+deck.length+'</span></div>'+
+      '<p class="tr-q">'+esc(c.t)+'</p>'+(c.who?'<p class="tr-who">'+esc(c.who)+'</p>':'')+
+      '<div class="tr-res"></div><div class="tr-btns"><button class="gm-btn main" data-a="1">True</button><button class="gm-btn red" data-a="0">AI made it up</button></div>';
+    $$('.tr-btns button',T).forEach(function(b){b.onclick=function(){answer(b.dataset.a==='1');};});}
+  function answer(saidTrue){var c=deck[k],ok=(saidTrue===c.v);if(ok)right++;else if(c.v)doubted++;else fooled++;
+    var r=$('.tr-res',T);r.innerHTML='<p class="tr-v '+(ok?'ok':'no')+'">'+(ok?'Right':'Wrong')+'</p><span class="tr-stamp '+(c.v?'t':'f')+'">'+(c.v?'true':(c.trap?'trap':'AI fabrication'))+'</span>'+
+      '<p class="tr-why">'+esc(c.why)+'</p><p class="tr-src">'+esc(c.src)+' · '+esc(c.p)+'</p>';r.classList.add('on');
+    $('.tr-btns',T).innerHTML='<button class="gm-btn main">'+(k+1<deck.length?'Next →':'Result →')+'</button>';$('.tr-btns button',T).onclick=function(){k++;card();};}
+  function end(){var nf=deck.filter(function(x){return !x.v;}).length;
+    T.innerHTML='<div class="tr-end"><span class="gm-k">Result</span><p class="tr-big" style="margin-top:14px">'+right+' / '+deck.length+'</p>'+
+      '<h3 style="margin-top:10px">You believed fakes '+fooled+' '+(fooled==1?'time':'times')+' out of '+nf+'</h3>'+
+      '<p>'+(doubted?'And you doubted real quotations and facts '+doubted+' '+(doubted==1?'time':'times')+'. ':'')+(fooled?'AI fakes can be very convincing — which is why I check every find against the original source.':'Not a single fake got past you. You should be a fact-checker.')+'</p>'+
+      '<div class="tr-btns"><button class="gm-btn main">Another round</button><a class="gm-btn" style="text-decoration:none;text-align:center" href="../fakes/index.html">Quote book: 241 fakes →</a></div></div>';
+    $('.tr-btns button',T).onclick=newRound;}
+  function pl(n,a,b,c){n=Math.abs(n)%100;var m=n%10;if(n>10&&n<20)return c;if(m>1&&m<5)return b;if(m==1)return a;return c;}
+  newRound();
+
+  /* ── Догони Воланда ── */
+  var V=GM.voland,svg=$('#vo-svg'),lay=$('#vo-lay'),P=$('#voland .vo-panel'),s=0,miss=0,NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);lay.appendChild(e);return e;}
+  function pt(ll){return GM.xy(ll);}
+  function seg(a,b,c){var A=pt(a),B=pt(b);return el('path',{'class':'vo-seg '+c,d:'M'+A[0]+' '+A[1]+'L'+B[0]+' '+B[1]});}
+  function dot(ll,c,r){var A=pt(ll);return el('circle',{'class':'vo-pt '+c,cx:A[0],cy:A[1],r:r||9});}
+  function lbl(ll,t,dy){var A=pt(ll);var e=el('text',{'class':'vo-lbl',x:A[0]+14,y:A[1]+(dy||4)});e.textContent=t;return e;}
+  function vstart(){lay.innerHTML='';s=0;miss=0;dot(V.steps[0].atll,'cur',10);step();}
+  function step(){if(s>=V.steps.length)return vend();var st=V.steps[s];
+    var o=shuffle([{t:st.ok,ok:1},{t:st.bad,ok:0}]);
+    P.innerHTML='<span class="gm-k">Step '+(s+1)+' of '+V.steps.length+' · '+esc(st.at)+'</span><blockquote>'+esc(st.quote)+'</blockquote><p class="src">“The Master and Margarita”, ch. 4</p>'+
+      '<p class="vo-ask">Where does Ivan run next?</p><div class="vo-opts">'+o.map(function(x){return '<button class="gm-btn" data-ok="'+x.ok+'">'+esc(x.t)+'</button>';}).join('')+'</div><p class="vo-msg"></p>'+
+      '<p class="src">Wrong turns: '+miss+'</p>';
+    $$('.vo-opts button',P).forEach(function(b){b.onclick=function(){choose(b.dataset.ok==='1');};});}
+  function choose(ok){var st=V.steps[s];
+    if(ok){seg(st.atll,st.okll,'ok');dot(st.okll,'cur',10);$$('.vo-pt.cur',lay).slice(0,-1).forEach(function(c){c.setAttribute('class','vo-pt ok');});s++;step();return;}
+    miss++;var g1=seg(st.atll,st.badll,'bad'),g2=dot(st.badll,'bad',9),g3=lbl(st.badll,st.bad);
+    $('.vo-msg',P).innerHTML=esc(st.why);$$('.src',P).pop().textContent='Wrong turns: '+miss;
+    $('.vo-opts',P).innerHTML='<button class="gm-btn red">← Go back and choose another way</button>';
+    $('.vo-opts button',P).onclick=function(){[g1,g2,g3].forEach(function(x){x.remove();});step();};}
+  function vend(){P.innerHTML='<span class="gm-k">Finish · '+esc(V.end.title)+'</span><blockquote>'+esc(V.end.quote)+'</blockquote><p class="src">“The Master and Margarita”, ch. 4</p>'+
+      '<h3>Ivan is at the Moskva river. He never caught Woland — just as in the novel.</h3><p class="vo-msg ok">'+(miss?'Wrong turns: '+miss+'.':'Not a single wrong turn — you ran the route more accurately than the AI.')+'</p>'+
+      '<div class="vo-opts"><button class="gm-btn main">Play again</button><a class="gm-btn" style="text-decoration:none" href="../karta-master/index.html">Interactive map of the route →</a></div>';
+    $('.vo-opts button',P).onclick=vstart;}
+  vstart();
+
+  /* ── Редакторский стол ── */
+  var doc=$('#stol .dk-doc'),res=$('#stol .dk-res'),cnt=$('#stol .dk-count');
+  function upd(){cnt.textContent='Marked: '+$$('.dk-f.flag',doc).length;}
+  $$('.dk-f',doc).forEach(function(f){var t=function(){if(doc.classList.contains('done'))return;f.classList.toggle('flag');upd();};f.addEventListener('click',t);f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});});
+  $('#dk-check').onclick=function(){if(doc.classList.contains('done'))return;doc.classList.add('done');var hit=0,miss=0,fa=0,ne=0,li=[];
+    $$('.dk-f',doc).forEach(function(f){var id=f.dataset.id,err=id[0]==='e',fl=f.classList.contains('flag');f.classList.remove('flag');
+      if(err){ne++;if(fl){hit++;f.classList.add('hit');}else{miss++;f.classList.add('miss');}li.push('<li class="'+(fl?'':'m')+'"><b>'+(fl?'Found':'Missed')+':</b> “'+esc(f.textContent)+'” — '+esc(GM.why[id])+'</li>');}
+      else if(fl){fa++;f.classList.add('false');li.push('<li class="m"><b>Marked by mistake:</b> “'+esc(f.textContent)+'” — '+esc(GM.why[id])+'</li>');}});
+    res.innerHTML='<span class="gm-k">Check</span><h3>Found '+hit+' of '+ne+' errors'+(fa?', false alarms: '+fa:'')+'</h3><ol>'+li.join('')+'</ol><div class="dk-bar"><button class="gm-btn main" id="dk-again">Try again</button><a class="gm-btn" style="text-decoration:none" href="../chapters/master-i-moskva/index.html">The original reports →</a></div>';
+    res.classList.add('on');res.scrollIntoView({behavior:'smooth',block:'nearest'});
+    $('#dk-again').onclick=function(){doc.classList.remove('done');$$('.dk-f',doc).forEach(function(f){f.className='dk-f';});res.classList.remove('on');upd();doc.scrollIntoView({behavior:'smooth',block:'start'});};};
+  upd();
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <span>© Julia Reprintseva, 2026 · <a href="../index.html">Case</a> · <a href="../../../../en/index.html">Portfolio</a></span>
+    <span>The chapter texts and the map drawings belong to the author; here are links to the publications and research materials.</span>
+  </div>
+</footer>
+<script>
+function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
+try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+document.querySelectorAll('.shot .more').forEach(function(b){b.addEventListener('click',function(){var s=b.closest('.shot');s.classList.toggle('open');b.textContent=s.classList.contains('open')?'Collapse':'Show in full';});});
+</script>
+<style>.totop{position:fixed;right:22px;bottom:22px;z-index:40;font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.06em;color:var(--accent,#8A5A1A);text-decoration:none;background:none;padding:6px 0;opacity:0;pointer-events:none;transition:opacity .25s ease}@media (min-width:1300px){.totop{right:auto;left:calc(50% + 552px)}}@media (max-width:640px){.totop{right:6px;font-size:0;letter-spacing:0}.totop::before{content:'\2191';font-size:1.05rem}.stamp,.gm-k,.dk-lbl,.dk-vd,.pj-ty,.km-note,.km-card .k,.km-err .t,.km-err .s,.place,.qc .src,.ext,.pl-note,.fx,.fn,.tf i,.sz,.tr-src,.vo-panel .src,.kb-out .kb-note,.gd-links .btn{font-size:11px!important}}.totop.show{opacity:1;pointer-events:auto}.totop:hover{text-decoration:underline}</style><a class="totop" href="#" aria-label="Back to top">↑ top</a><script>(function(){var b=document.querySelector('.totop');function t(){b.classList.toggle('show',window.scrollY>700);}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});})();</script></body>
+</html>

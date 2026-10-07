@@ -1,0 +1,29 @@
+{
+ "name": "Правда или ИИ? — игры Юлии Репринцевой",
+ "short_name": "Правда или ИИ",
+ "description": "Три игры о том, как проверять нейросети: «Правда или ИИ?», «Догони Воланда», «Редакторский стол».",
+ "lang": "ru",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#15130F",
+ "theme_color": "#15130F",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

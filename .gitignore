@@ -3,3 +3,10 @@ _preview*.html
 _pv_*.html
 .DS_Store
 CLAUDE.md
+
+# Кейс Гордона: полные главы и иллюстрации автора — только локально, на сайт НЕ отправлять (решение Юлии 28.09.2026)
+portfolio/projects/gordon-research/index — копия *.html
+portfolio/projects/gordon-research/almanac/book.html
+portfolio/projects/gordon-research/almanac/book — копия *.html
+portfolio/projects/gordon-research/almanac/index — копия *.html
+portfolio/projects/gordon-research/almanac/img/[0-9][0-9]/
