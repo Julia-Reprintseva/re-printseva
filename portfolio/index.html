@@ -433,6 +433,75 @@
   .hero-cta:hover { background: rgba(203,156,71,.12); color: var(--accent-hi); }
   .hero .tally { margin-top: 22px; }
 
+
+  /* ---------- проекты: крупная карточка + две рядом (07.10.2026) ---------- */
+  .feature { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; margin: 18px 0 6px; }
+  .fcard {
+    display: flex; flex-direction: column; position: relative;
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .15s, transform .15s;
+  }
+  .fcard:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .fcard:hover .f-title { color: var(--accent); }
+  .fcard.big { grid-row: span 2; }
+  .f-img { aspect-ratio: 16 / 8; overflow: hidden; background: var(--paper-hi); border-bottom: 1px solid var(--line); }
+  .fcard.big .f-img { aspect-ratio: auto; flex: 1; min-height: 240px; }
+  .f-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(.15) contrast(1.02); transition: filter .2s; }
+  .fcard:hover .f-img img { filter: none; }
+  .f-body { padding: 14px 16px 14px; display: flex; flex-direction: column; }
+  .f-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .f-top .row-kicker { margin-bottom: 0; }
+  .f-index, .c-index { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.68rem; letter-spacing: .08em; color: var(--ink-faint); }
+  .f-title { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: 1.02rem; letter-spacing: -.01em; line-height: 1.25; margin-bottom: 6px; transition: color .15s; }
+  .fcard.big .f-title { font-size: 1.35rem; }
+  .f-desc { font-size: 0.84rem; line-height: 1.5; color: var(--ink-dim); }
+  .f-date { margin-top: 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .f-date .row-arrow { opacity: 1; transform: none; }
+  .ledger.after-feature { margin-top: 14px; }
+
+  /* ---------- гайды, статьи, бот: карточки (07.10.2026) ---------- */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .card {
+    position: relative; display: flex; flex-direction: column; min-height: 228px;
+    padding: 14px 12px 12px; border: 1px solid var(--line); border-radius: 14px;
+    background: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/12px 12px, var(--paper-hi);
+    color: var(--ink); text-decoration: none; overflow: hidden;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .c-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .c-top svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .c-top svg .knob { fill: var(--paper-hi); }
+  .card .row-kicker { margin-bottom: 10px; }
+  .c-title { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: .9rem; line-height: 1.25; letter-spacing: -.015em; }
+  .c-desc { display: none; }
+  .c-foot { margin-top: auto; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; color: var(--ink-faint); }
+  .c-foot .row-arrow { opacity: 1; transform: none; font-size: .85rem; }
+  /* полное название и описание — шторка при наведении (там, где есть мышь) */
+  .c-more {
+    position: absolute; inset: 0; padding: 14px 12px 12px; display: flex; flex-direction: column;
+    background: var(--paper); opacity: 0; transform: translateY(8px); pointer-events: none;
+    transition: opacity .18s, transform .18s;
+  }
+  .c-more .c-full { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: .84rem; line-height: 1.28; color: var(--accent); margin-bottom: 7px; }
+  .c-more .c-text { font-size: .76rem; line-height: 1.45; color: var(--ink-dim); }
+  @media (hover: hover) {
+    .card:hover .c-more, .card:focus-visible .c-more { opacity: 1; transform: none; }
+  }
+  @media (hover: none) {
+    .c-more { display: none; }
+    .c-desc { display: block; font-size: .8rem; line-height: 1.5; color: var(--ink-dim); margin-top: 8px; }
+  }
+  @media (max-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) {
+    .feature { grid-template-columns: 1fr; }
+    .fcard.big { grid-row: auto; }
+    .fcard.big .f-img { aspect-ratio: 16 / 9; min-height: 0; flex: none; }
+  }
+  @media (max-width: 420px) { .cards { grid-template-columns: 1fr; } .card { min-height: 0; } }
+  @media (prefers-reduced-motion: reduce) { .card, .fcard, .c-more { transition: none; } }
+
   @media (max-width: 640px) {
     .sheet { padding: 0 20px 70px; }
     header { padding-top: 28px; }
@@ -488,48 +557,39 @@
 
     <p class="section-intro">Сайты, лендинги и исследования с ИИ — для заказчиков и для себя. Все работают: открывайте, листайте, пробуйте.</p>
 
-    <div class="ledger">
+    <div class="feature">
+      <a class="fcard big" href="https://lectorium.pro/" target="_blank" rel="noopener">
+        <span class="f-img"><img src="projects/lectorium-preview.jpg" alt="Лекторий" style="object-position: left top;"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Лендинг · готово</span><span class="f-index">P.01</span></span>
+          <span class="f-title">Лекторий</span>
+          <span class="f-desc">Первый в Москве регулярный лекторий об ИИ: встречи раз в две недели, запись на встречу, разделы для партнёров и спикеров.</span>
+          <span class="f-date"><span>14.08.2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+      <a class="fcard" href="projects/gordon-research/">
+        <span class="f-img"><img src="projects/gordon-research/preview.jpg" alt="«О, Париж!», «Буквы XX века», «Мастер и Москва»"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Кейс · готово</span><span class="f-index">P.02</span></span>
+          <span class="f-title">«О, Париж!», «Буквы XX века», «Мастер и Москва»</span>
+          <span class="f-desc">16 месяцев исследований с ИИ для Юрия Гордона: карты, книга, инфографика. Метод, брифы, отчёты, интерактивная карта и игры.</span>
+          <span class="f-date"><span>16.09.2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+      <a class="fcard" href="projects/fonts-archive/">
+        <span class="f-img"><img src="projects/fonts-archive/thumb.jpg" alt="Каталог шрифтов"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Кейс · готово</span><span class="f-index">P.03</span></span>
+          <span class="f-title">Архив шрифтов: каталог 2288 файлов</span>
+          <span class="f-desc">Образец каждого шрифта, справка об авторах 1990-х, примерочная для своего текста и скилл для ИИ.</span>
+          <span class="f-date"><span>22.09.2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+    </div>
 
-      <a class="row with-thumb" href="projects/gordon-research/">
-        <span class="row-index">P.01</span>
-        <span class="row-thumb"><img src="projects/gordon-research/preview.jpg" alt="«О, Париж!», «Буквы XX века», «Мастер и Москва»" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Кейс · готово</span>
-          <span class="row-title">«О, Париж!», «Буквы XX века», «Мастер и Москва»</span>
-          <span class="row-desc">16 месяцев исследований с ИИ для Юрия Гордона: карты, книга, инфографика. Метод, брифы, отчёты, интерактивная карта и игры.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">16.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="projects/fonts-archive/">
-        <span class="row-index">P.02</span>
-        <span class="row-thumb"><img src="projects/fonts-archive/thumb.jpg" alt="Каталог шрифтов" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Кейс · готово</span>
-          <span class="row-title">Архив шрифтов: каталог 2288 файлов</span>
-          <span class="row-desc">Образец каждого шрифта, справка об авторах 1990-х, примерочная для своего текста и скилл для ИИ.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">22.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="https://lectorium.pro/" target="_blank" rel="noopener">
-        <span class="row-index">P.03</span>
-        <span class="row-thumb"><img src="https://lectorium.pro/assets/img/og-cover.png" alt="Лекторий" loading="lazy" style="object-position: left center;"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Лендинг · готово</span>
-          <span class="row-title">Лекторий</span>
-          <span class="row-desc">Первый в Москве регулярный лекторий об ИИ: встречи раз в две недели, запись на встречу, разделы для партнёров и спикеров.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">14.08.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="projects/hleb/">
+    <div class="ledger after-feature">
+
+<a class="row with-thumb" href="projects/hleb/">
         <span class="row-index">P.04</span>
         <span class="row-thumb"><img src="projects/hleb/bread_ready.jpg" alt="Хлеб на закваске" loading="lazy"></span>
         <span class="row-body">
@@ -542,7 +602,7 @@
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="projects/travel-checklist/">
+<a class="row with-thumb" href="projects/travel-checklist/">
         <span class="row-index">P.05</span>
         <span class="row-thumb"><img src="projects/travel-checklist/preview.jpg" alt="Чек-лист путешественника" loading="lazy"></span>
         <span class="row-body">
@@ -556,159 +616,84 @@
         </span>
       </a>
 
-
     </div>
   </div>
 
-  <!-- ===================== GUIDES ===================== -->
+  <!-- ===================== GUIDES, ARTICLES, BOT ===================== -->
   <div class="section">
     <div class="section-head">
-      <span class="section-letter">G</span>
-      <span class="section-title">Гайды и статьи</span>
-      <span class="section-count">07</span>
+      <span class="section-letter">G · B</span>
+      <span class="section-title">Гайды, статьи, бот</span>
+      <span class="section-count">08</span>
     </div>
 
     <p class="section-intro">Здесь лежит то, чем я пользуюсь в работе: настройки, которые ставлю себе, инструменты, собранные под свои задачи, и промпты, доведённые до рабочего состояния. Всё бесплатно и открыто — берите и применяйте.</p>
 
-    <div class="ledger">
-
-      <a class="row with-thumb" href="guides/claude-skill-setup/">
-        <span class="row-index">G.01</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.01</span>
-          <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Гайд</span>
-          <span class="row-title">Как настроить ассистента в Claude</span>
-          <span class="row-desc">Раз в неделю сам приносит отобранное по вашей теме и отбрасывает лишнее. Программировать не нужно.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">15.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+    <div class="cards">
+      <a class="card" href="guides/claude-skill-setup/" aria-label="Как настроить ассистента в Claude">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg><span class="c-index">G.01</span></span>
+        <span class="row-kicker"><span class="dot"></span>Гайд</span>
+        <span class="c-title">Как настроить ассистента в Claude</span>
+        <span class="c-desc">Раз в неделю сам приносит отобранное по вашей теме и отбрасывает лишнее. Программировать не нужно.</span>
+        <span class="c-foot"><span>15.09.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Как настроить ассистента в Claude</span><span class="c-text">Раз в неделю сам приносит отобранное по вашей теме и отбрасывает лишнее. Программировать не нужно.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/claude-code-setup/">
-        <span class="row-index">G.02</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.02</span>
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Гайд</span>
-          <span class="row-title">Claude Code: инструкция по установке</span>
-          <span class="row-desc">От подписки до первого рабочего запроса за 15–25 минут — шаг за шагом, с VPN и проверкой, что всё работает.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">14.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/claude-code-setup/" aria-label="Claude Code: инструкция по установке">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg><span class="c-index">G.02</span></span>
+        <span class="row-kicker"><span class="dot"></span>Гайд</span>
+        <span class="c-title">Claude Code: инструкция по установке</span>
+        <span class="c-desc">От подписки до первого рабочего запроса за 15–25 минут — шаг за шагом, с VPN и проверкой, что всё работает.</span>
+        <span class="c-foot"><span>14.09.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Claude Code: инструкция по установке</span><span class="c-text">От подписки до первого рабочего запроса за 15–25 минут — шаг за шагом, с VPN и проверкой, что всё работает.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/vacancy-digest-guide/">
-        <span class="row-index">G.03</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.03</span>
-          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Гайд</span>
-          <span class="row-title">Вакансии из Telegram через Claude Code — с черновиком отклика</span>
-          <span class="row-desc">Не нужно листать десятки каналов: подходящие вакансии приходят каждый день. Без вас ничего не отправится.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">28.07.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/vacancy-digest-guide/" aria-label="Вакансии из Telegram через Claude Code — с черновиком отклика">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg><span class="c-index">G.03</span></span>
+        <span class="row-kicker"><span class="dot"></span>Гайд</span>
+        <span class="c-title">Вакансии из Telegram через Claude Code</span>
+        <span class="c-desc">Не нужно листать десятки каналов: подходящие вакансии приходят каждый день. Без вас ничего не отправится.</span>
+        <span class="c-foot"><span>28.07.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Вакансии из Telegram через Claude Code — с черновиком отклика</span><span class="c-text">Не нужно листать десятки каналов: подходящие вакансии приходят каждый день. Без вас ничего не отправится.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/chatgpt/">
-        <span class="row-index">G.04</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
-          <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Гайд</span>
-          <span class="row-title">Настройки ChatGPT: один раз — и без мучений с промптами</span>
-          <span class="row-desc">Вставляете в профиль — и ChatGPT сам уточняет задачу, отвечает как эксперт и проверяет свою логику.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">11.06.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/chatgpt/" aria-label="Настройки ChatGPT: один раз — и без мучений с промптами">
+        <span class="c-top"><svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg><span class="c-index">G.04</span></span>
+        <span class="row-kicker"><span class="dot"></span>Гайд</span>
+        <span class="c-title">Настройки ChatGPT</span>
+        <span class="c-desc">Вставляете в профиль — и ChatGPT сам уточняет задачу, отвечает как эксперт и проверяет свою логику.</span>
+        <span class="c-foot"><span>11.06.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Настройки ChatGPT: один раз — и без мучений с промптами</span><span class="c-text">Вставляете в профиль — и ChatGPT сам уточняет задачу, отвечает как эксперт и проверяет свою логику.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/chatgpt-scheduled/">
-        <span class="row-index">G.05</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
-          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Статья</span>
-          <span class="row-title">Режим «Запланировано» в ChatGPT как маленькая редакция</span>
-          <span class="row-desc">Новости про ИИ собираются сами — вам остаётся проверить готовый текст. Мой опыт и настройка, чтобы повторить.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">23.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/chatgpt-scheduled/" aria-label="Режим «Запланировано» в ChatGPT как маленькая редакция">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg><span class="c-index">G.05</span></span>
+        <span class="row-kicker"><span class="dot"></span>Статья</span>
+        <span class="c-title">Режим «Запланировано» в ChatGPT</span>
+        <span class="c-desc">Новости про ИИ собираются сами — вам остаётся проверить готовый текст. Мой опыт и настройка, чтобы повторить.</span>
+        <span class="c-foot"><span>23.09.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Режим «Запланировано» в ChatGPT как маленькая редакция</span><span class="c-text">Новости про ИИ собираются сами — вам остаётся проверить готовый текст. Мой опыт и настройка, чтобы повторить.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/prompts/">
-        <span class="row-index">G.06</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
-          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Промпты</span>
-          <span class="row-title">Промпты для дизайн-аудита</span>
-          <span class="row-desc">Свежий взгляд на свою страницу: ИИ находит ошибки и объясняет, почему они мешают и как их исправить.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">20.08.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/prompts/" aria-label="Промпты для дизайн-аудита">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg><span class="c-index">G.06</span></span>
+        <span class="row-kicker"><span class="dot"></span>Промпты</span>
+        <span class="c-title">Промпты для дизайн-аудита</span>
+        <span class="c-desc">Свежий взгляд на свою страницу: ИИ находит ошибки и объясняет, почему они мешают и как их исправить.</span>
+        <span class="c-foot"><span>20.08.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Промпты для дизайн-аудита</span><span class="c-text">Свежий взгляд на свою страницу: ИИ находит ошибки и объясняет, почему они мешают и как их исправить.</span></span>
       </a>
-      <a class="row with-thumb" href="guides/obs-tolk-zapis/">
-        <span class="row-index">G.07</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.07</span>
-          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Гайд</span>
-          <span class="row-title">Созвон в Контур.Толке: сразу готовый ролик для соцсетей</span>
-          <span class="row-desc">Эфир с экспертом или разбор сразу становится роликом для YouTube, VK или Reels — без недели монтажа.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">17.09.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="guides/obs-tolk-zapis/" aria-label="Созвон в Контур.Толке: сразу готовый ролик для соцсетей">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg><span class="c-index">G.07</span></span>
+        <span class="row-kicker"><span class="dot"></span>Гайд</span>
+        <span class="c-title">Созвон в Контур.Толке: ролик для соцсетей</span>
+        <span class="c-desc">Эфир с экспертом или разбор сразу становится роликом для YouTube, VK или Reels — без недели монтажа.</span>
+        <span class="c-foot"><span>17.09.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Созвон в Контур.Толке: сразу готовый ролик для соцсетей</span><span class="c-text">Эфир с экспертом или разбор сразу становится роликом для YouTube, VK или Reels — без недели монтажа.</span></span>
       </a>
-
-    </div>
-  </div>
-
-  <!-- ===================== BOTS ===================== -->
-  <div class="section">
-    <div class="section-head">
-      <span class="section-letter">B</span>
-      <span class="section-title">Боты</span>
-      <span class="section-count">01</span>
-    </div>
-
-    <p class="section-intro">Telegram-боты, которые я сделала для реальных задач. Не концепты — работающие вещи, которыми можно пользоваться прямо сейчас.</p>
-
-    <div class="ledger">
-
-      <a class="row with-thumb" href="bots/safeout/">
-        <span class="row-index">B.01</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">B.01</span>
-          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Telegram-бот · работает</span>
-          <span class="row-title">SafeOut: Telegram-бот безопасности для свиданий</span>
-          <span class="row-desc">Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">27.08.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="bots/safeout/" aria-label="SafeOut: Telegram-бот безопасности для свиданий">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="c-index">B.01</span></span>
+        <span class="row-kicker"><span class="dot good"></span>Telegram-бот · работает</span>
+        <span class="c-title">SafeOut: бот безопасности для свиданий</span>
+        <span class="c-desc">Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</span>
+        <span class="c-foot"><span>27.08.2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">SafeOut: Telegram-бот безопасности для свиданий</span><span class="c-text">Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</span></span>
       </a>
-
     </div>
   </div>
 

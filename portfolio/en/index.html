@@ -433,6 +433,75 @@
   }
   footer a:hover { color: var(--accent); }
 
+
+  /* ---------- проекты: крупная карточка + две рядом (07.10.2026) ---------- */
+  .feature { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; margin: 18px 0 6px; }
+  .fcard {
+    display: flex; flex-direction: column; position: relative;
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .15s, transform .15s;
+  }
+  .fcard:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .fcard:hover .f-title { color: var(--accent); }
+  .fcard.big { grid-row: span 2; }
+  .f-img { aspect-ratio: 16 / 8; overflow: hidden; background: var(--paper-hi); border-bottom: 1px solid var(--line); }
+  .fcard.big .f-img { aspect-ratio: auto; flex: 1; min-height: 240px; }
+  .f-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(.15) contrast(1.02); transition: filter .2s; }
+  .fcard:hover .f-img img { filter: none; }
+  .f-body { padding: 14px 16px 14px; display: flex; flex-direction: column; }
+  .f-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .f-top .row-kicker { margin-bottom: 0; }
+  .f-index, .c-index { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.68rem; letter-spacing: .08em; color: var(--ink-faint); }
+  .f-title { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: 1.02rem; letter-spacing: -.01em; line-height: 1.25; margin-bottom: 6px; transition: color .15s; }
+  .fcard.big .f-title { font-size: 1.35rem; }
+  .f-desc { font-size: 0.84rem; line-height: 1.5; color: var(--ink-dim); }
+  .f-date { margin-top: 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .f-date .row-arrow { opacity: 1; transform: none; }
+  .ledger.after-feature { margin-top: 14px; }
+
+  /* ---------- гайды, статьи, бот: карточки (07.10.2026) ---------- */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .card {
+    position: relative; display: flex; flex-direction: column; min-height: 228px;
+    padding: 14px 12px 12px; border: 1px solid var(--line); border-radius: 14px;
+    background: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/12px 12px, var(--paper-hi);
+    color: var(--ink); text-decoration: none; overflow: hidden;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .c-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .c-top svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .c-top svg .knob { fill: var(--paper-hi); }
+  .card .row-kicker { margin-bottom: 10px; }
+  .c-title { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: .9rem; line-height: 1.25; letter-spacing: -.015em; }
+  .c-desc { display: none; }
+  .c-foot { margin-top: auto; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; color: var(--ink-faint); }
+  .c-foot .row-arrow { opacity: 1; transform: none; font-size: .85rem; }
+  /* полное название и описание — шторка при наведении (там, где есть мышь) */
+  .c-more {
+    position: absolute; inset: 0; padding: 14px 12px 12px; display: flex; flex-direction: column;
+    background: var(--paper); opacity: 0; transform: translateY(8px); pointer-events: none;
+    transition: opacity .18s, transform .18s;
+  }
+  .c-more .c-full { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: .84rem; line-height: 1.28; color: var(--accent); margin-bottom: 7px; }
+  .c-more .c-text { font-size: .76rem; line-height: 1.45; color: var(--ink-dim); }
+  @media (hover: hover) {
+    .card:hover .c-more, .card:focus-visible .c-more { opacity: 1; transform: none; }
+  }
+  @media (hover: none) {
+    .c-more { display: none; }
+    .c-desc { display: block; font-size: .8rem; line-height: 1.5; color: var(--ink-dim); margin-top: 8px; }
+  }
+  @media (max-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) {
+    .feature { grid-template-columns: 1fr; }
+    .fcard.big { grid-row: auto; }
+    .fcard.big .f-img { aspect-ratio: 16 / 9; min-height: 0; flex: none; }
+  }
+  @media (max-width: 420px) { .cards { grid-template-columns: 1fr; } .card { min-height: 0; } }
+  @media (prefers-reduced-motion: reduce) { .card, .fcard, .c-more { transition: none; } }
+
   @media (max-width: 640px) {
     .sheet { padding: 0 20px 70px; }
     header { padding-top: 28px; }
@@ -488,48 +557,39 @@
 
     <p class="section-intro">Websites, landing pages and AI research — for clients and for myself. They all work: open them, scroll, try them out.</p>
 
-    <div class="ledger">
+    <div class="feature">
+      <a class="fcard big" href="https://lectorium.pro/" target="_blank" rel="noopener">
+        <span class="f-img"><img src="../projects/lectorium-preview.jpg" alt="Lectorium" style="object-position: left top;"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Landing page · live</span><span class="f-index">P.01</span></span>
+          <span class="f-title">Lectorium</span>
+          <span class="f-desc">Moscow’s first regular public lecture series on AI: meetups every two weeks, event sign-up, sections for partners and speakers.</span>
+          <span class="f-date"><span>14 Aug 2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+      <a class="fcard" href="../projects/gordon-research/en/">
+        <span class="f-img"><img src="../projects/gordon-research/preview.jpg" alt="“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow”"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Case study · done</span><span class="f-index">P.02</span></span>
+          <span class="f-title">“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow”</span>
+          <span class="f-desc">16 months of AI research for Yuri Gordon: maps, a book, an infographic. Method, briefs, reports, an interactive map and games.</span>
+          <span class="f-date"><span>16 Sep 2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+      <a class="fcard" href="../projects/fonts-archive/en/">
+        <span class="f-img"><img src="../projects/fonts-archive/thumb-en.jpg" alt="Font catalogue"></span>
+        <span class="f-body">
+          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Case study · done</span><span class="f-index">P.03</span></span>
+          <span class="f-title">Font Archive: a catalogue of 2,288 files</span>
+          <span class="f-desc">A specimen of every font, notes on the 1990s foundries and a fitting room for your own text.</span>
+          <span class="f-date"><span>22 Sep 2026</span><span class="row-arrow">↗</span></span>
+        </span>
+      </a>
+    </div>
 
-      <a class="row with-thumb" href="../projects/gordon-research/en/">
-        <span class="row-index">P.01</span>
-        <span class="row-thumb"><img src="../projects/gordon-research/preview.jpg" alt="“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow”" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Case study · done</span>
-          <span class="row-title">“Oh, Paris!”, “Letters of the 20th Century”, “Master and Moscow”</span>
-          <span class="row-desc">16 months of AI research for Yuri Gordon: maps, a book, an infographic. Method, briefs, reports, an interactive map and games.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">16 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="../projects/fonts-archive/en/">
-        <span class="row-index">P.02</span>
-        <span class="row-thumb"><img src="../projects/fonts-archive/thumb-en.jpg" alt="Font catalogue" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Case study · done</span>
-          <span class="row-title">Font Archive: a catalogue of 2,288 files</span>
-          <span class="row-desc">A specimen of every font, notes on the 1990s foundries and a fitting room for your own text.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">22 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="https://lectorium.pro/" target="_blank" rel="noopener">
-        <span class="row-index">P.03</span>
-        <span class="row-thumb"><img src="https://lectorium.pro/assets/img/og-cover.png" alt="Lectorium" loading="lazy" style="object-position: left center;"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Landing page · live</span>
-          <span class="row-title">Lectorium</span>
-          <span class="row-desc">Moscow’s first regular public lecture series on AI: meetups every two weeks, event sign-up, sections for partners and speakers.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">14 Aug 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-      <a class="row with-thumb" href="../projects/hleb/">
+    <div class="ledger after-feature">
+
+<a class="row with-thumb" href="../projects/hleb/">
         <span class="row-index">P.04</span>
         <span class="row-thumb"><img src="../projects/hleb/bread_ready.jpg" alt="Sourdough Bread" loading="lazy"></span>
         <span class="row-body">
@@ -542,7 +602,7 @@
           <span class="row-arrow">↗</span>
         </span>
       </a>
-      <a class="row with-thumb" href="../projects/travel-checklist/">
+<a class="row with-thumb" href="../projects/travel-checklist/">
         <span class="row-index">P.05</span>
         <span class="row-thumb"><img src="../projects/travel-checklist/preview.jpg" alt="Traveler's Checklist" loading="lazy"></span>
         <span class="row-body">
@@ -559,155 +619,81 @@
     </div>
   </div>
 
-  <!-- ===================== GUIDES ===================== -->
+  <!-- ===================== GUIDES, ARTICLES, BOT ===================== -->
   <div class="section">
     <div class="section-head">
-      <span class="section-letter">G</span>
-      <span class="section-title">Guides & Articles</span>
-      <span class="section-count">07</span>
+      <span class="section-letter">G · B</span>
+      <span class="section-title">Guides, articles, bot</span>
+      <span class="section-count">08</span>
     </div>
 
     <p class="section-intro">Here is what I use in my own work: settings I put in my own chats, tools I built for my own tasks, and prompts I have worked into shape. All free and open — take them and use them.</p>
 
-    <div class="ledger">
-
-      <a class="row with-thumb" href="../guides/claude-skill-setup/en/">
-        <span class="row-index">G.01</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.01</span>
-          <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">How to set up an assistant in Claude</span>
-          <span class="row-desc">Once a week it brings you curated material on your topic and drops the rest. No coding needed.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">15 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+    <div class="cards">
+      <a class="card" href="../guides/claude-skill-setup/en/" aria-label="How to set up an assistant in Claude">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg><span class="c-index">G.01</span></span>
+        <span class="row-kicker"><span class="dot"></span>Guide</span>
+        <span class="c-title">How to set up an assistant in Claude</span>
+        <span class="c-desc">Once a week it brings you curated material on your topic and drops the rest. No coding needed.</span>
+        <span class="c-foot"><span>15 Sep 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">How to set up an assistant in Claude</span><span class="c-text">Once a week it brings you curated material on your topic and drops the rest. No coding needed.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/claude-code-setup/en/">
-        <span class="row-index">G.02</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.02</span>
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">Claude Code: installation guide</span>
-          <span class="row-desc">From subscription to your first working request in 15–25 minutes — step by step, with a VPN and a check that it all works.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">14 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/claude-code-setup/en/" aria-label="Claude Code: installation guide">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M7 12.5l2.5 2-2.5 2"/><line x1="11.5" y1="16.5" x2="15.5" y2="16.5"/></svg><span class="c-index">G.02</span></span>
+        <span class="row-kicker"><span class="dot"></span>Guide</span>
+        <span class="c-title">Claude Code: installation guide</span>
+        <span class="c-desc">From subscription to your first working request in 15–25 minutes — step by step, with a VPN and a check that it all works.</span>
+        <span class="c-foot"><span>14 Sep 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Claude Code: installation guide</span><span class="c-text">From subscription to your first working request in 15–25 minutes — step by step, with a VPN and a check that it all works.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/vacancy-digest-guide/en/">
-        <span class="row-index">G.03</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.03</span>
-          <svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">Jobs from Telegram via Claude Code — with a draft cover letter</span>
-          <span class="row-desc">No more scrolling dozens of channels: matching jobs arrive every day. Nothing goes out without you.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">28 Jul 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/vacancy-digest-guide/en/" aria-label="Jobs from Telegram via Claude Code — with a draft cover letter">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1.5 2.5h4l1.5-2.5H20"/></svg><span class="c-index">G.03</span></span>
+        <span class="row-kicker"><span class="dot"></span>Guide</span>
+        <span class="c-title">Jobs from Telegram via Claude Code</span>
+        <span class="c-desc">No more scrolling dozens of channels: matching jobs arrive every day. Nothing goes out without you.</span>
+        <span class="c-foot"><span>28 Jul 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Jobs from Telegram via Claude Code — with a draft cover letter</span><span class="c-text">No more scrolling dozens of channels: matching jobs arrive every day. Nothing goes out without you.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/chatgpt/en/">
-        <span class="row-index">G.04</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.04</span>
-          <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">ChatGPT settings: set once — and no more fighting with prompts</span>
-          <span class="row-desc">Paste them into your profile — and ChatGPT clarifies the task, answers as an expert and checks its own logic.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">11 Jun 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/chatgpt/en/" aria-label="ChatGPT settings: set once — and no more fighting with prompts">
+        <span class="c-top"><svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle class="knob" cx="9" cy="7" r="2.2"/><circle class="knob" cx="15" cy="12" r="2.2"/><circle class="knob" cx="7" cy="17" r="2.2"/></svg><span class="c-index">G.04</span></span>
+        <span class="row-kicker"><span class="dot"></span>Guide</span>
+        <span class="c-title">ChatGPT settings</span>
+        <span class="c-desc">Paste them into your profile — and ChatGPT clarifies the task, answers as an expert and checks its own logic.</span>
+        <span class="c-foot"><span>11 Jun 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">ChatGPT settings: set once — and no more fighting with prompts</span><span class="c-text">Paste them into your profile — and ChatGPT clarifies the task, answers as an expert and checks its own logic.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/chatgpt-scheduled/en/">
-        <span class="row-index">G.05</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.05</span>
-          <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Article</span>
-          <span class="row-title">ChatGPT Scheduled Tasks as a tiny newsroom</span>
-          <span class="row-desc">AI news gathers itself — you just check the finished text. My experience and a setup you can repeat.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">23 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/chatgpt-scheduled/en/" aria-label="ChatGPT Scheduled Tasks as a tiny newsroom">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg><span class="c-index">G.05</span></span>
+        <span class="row-kicker"><span class="dot"></span>Article</span>
+        <span class="c-title">ChatGPT Scheduled Tasks</span>
+        <span class="c-desc">AI news gathers itself — you just check the finished text. My experience and a setup you can repeat.</span>
+        <span class="c-foot"><span>23 Sep 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">ChatGPT Scheduled Tasks as a tiny newsroom</span><span class="c-text">AI news gathers itself — you just check the finished text. My experience and a setup you can repeat.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/prompts/en/">
-        <span class="row-index">G.06</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.06</span>
-          <svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Prompts</span>
-          <span class="row-title">Design audit prompts</span>
-          <span class="row-desc">A fresh look at your own page: the AI finds mistakes and explains why they get in the way and how to fix them.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">20 Aug 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/prompts/en/" aria-label="Design audit prompts">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M6 7l5.5 5L6 17"/><line x1="13" y1="17" x2="19" y2="17"/></svg><span class="c-index">G.06</span></span>
+        <span class="row-kicker"><span class="dot"></span>Prompts</span>
+        <span class="c-title">Design audit prompts</span>
+        <span class="c-desc">A fresh look at your own page: the AI finds mistakes and explains why they get in the way and how to fix them.</span>
+        <span class="c-foot"><span>20 Aug 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">Design audit prompts</span><span class="c-text">A fresh look at your own page: the AI finds mistakes and explains why they get in the way and how to fix them.</span></span>
       </a>
-      <a class="row with-thumb" href="../guides/obs-tolk-zapis/en/">
-        <span class="row-index">G.07</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">G.07</span>
-          <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot"></span>Guide</span>
-          <span class="row-title">A Kontur.Talk call: a ready video for social media, straight away</span>
-          <span class="row-desc">An expert live or a walkthrough becomes a video for YouTube, VK or Reels right away — no week of editing.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">17 Sep 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../guides/obs-tolk-zapis/en/" aria-label="A Kontur.Talk call: a ready video for social media, straight away">
+        <span class="c-top"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><circle cx="14" cy="14.2" r="2.2"/><circle cx="18.3" cy="14.2" r="2.2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17.5" x2="12" y2="21"/></svg><span class="c-index">G.07</span></span>
+        <span class="row-kicker"><span class="dot"></span>Guide</span>
+        <span class="c-title">A Kontur.Talk call: a video for social media</span>
+        <span class="c-desc">An expert live or a walkthrough becomes a video for YouTube, VK or Reels right away — no week of editing.</span>
+        <span class="c-foot"><span>17 Sep 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">A Kontur.Talk call: a ready video for social media, straight away</span><span class="c-text">An expert live or a walkthrough becomes a video for YouTube, VK or Reels right away — no week of editing.</span></span>
       </a>
-
-    </div>
-  </div>
-
-  <!-- ===================== BOTS ===================== -->
-  <div class="section">
-    <div class="section-head">
-      <span class="section-letter">B</span>
-      <span class="section-title">Bots</span>
-      <span class="section-count">01</span>
-    </div>
-
-    <p class="section-intro">Telegram bots I built for real tasks. Not concepts — working things you can use right now.</p>
-
-    <div class="ledger">
-
-      <a class="row with-thumb" href="../bots/safeout/en/">
-        <span class="row-index">B.01</span>
-        <span class="row-thumb icon" aria-hidden="true"><span class="thumb-index">B.01</span>
-          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-        </span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Telegram bot · live</span>
-          <span class="row-title">SafeOut: a Telegram safety bot for dates</span>
-          <span class="row-desc">Go to a meeting with a stranger with less worry: the bot keeps the date details and raises the alarm if you vanish.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">27 Aug 2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
+      <a class="card" href="../bots/safeout/en/" aria-label="SafeOut: a Telegram safety bot for dates">
+        <span class="c-top"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="c-index">B.01</span></span>
+        <span class="row-kicker"><span class="dot good"></span>Telegram bot · live</span>
+        <span class="c-title">SafeOut: a safety bot for dates</span>
+        <span class="c-desc">Go to a meeting with a stranger with less worry: the bot keeps the date details and raises the alarm if you vanish.</span>
+        <span class="c-foot"><span>27 Aug 2026</span><span class="row-arrow">↗</span></span>
+        <span class="c-more" aria-hidden="true"><span class="c-full">SafeOut: a Telegram safety bot for dates</span><span class="c-text">Go to a meeting with a stranger with less worry: the bot keeps the date details and raises the alarm if you vanish.</span></span>
       </a>
-
     </div>
   </div>
 
