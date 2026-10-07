@@ -521,6 +521,85 @@
   @media (prefers-reduced-motion: reduce) {
     .row, .row-title, .row-arrow, .theme-btn, .row-thumb.icon svg { transition: none; }
   }
+
+  /* ===== новый дизайн (07.10.2026) ===== */
+  .sheet { max-width: 1120px; padding: 0 40px 0; }
+  header { padding-top: 32px; }
+
+  .hero2 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: end; padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+  .hero2 h1 { font-family: Georgia, 'Iowan Old Style', ui-serif, serif; font-weight: 700; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -.03em; margin-bottom: 22px; }
+  .hero2 h1 em { color: var(--accent); }
+  .hero2 p { color: var(--ink-dim); font-size: 1.06rem; line-height: 1.6; max-width: 46ch; }
+  .hero2 .hero-cta { margin-top: 26px; font-size: .8rem; padding: 9px 16px; }
+  .stats { display: grid; gap: 0; border-left: 1px solid var(--line); }
+  .stat { display: flex; align-items: baseline; gap: 16px; padding: 14px 0 14px 28px; border-bottom: 1px solid var(--line); }
+  .stat:last-child { border-bottom: 0; }
+  .stat b { font-family: Georgia, serif; font-size: 2.8rem; font-weight: 400; line-height: 1; color: var(--ink); min-width: 1.4ch; }
+  .stat span { font-family: ui-monospace, Menlo, monospace; font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .sec { padding-top: 64px; }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 8px; }
+  .sec-head h2 { font-family: Georgia, serif; font-size: 2rem; font-weight: 700; letter-spacing: -.02em; }
+  .sec-head .n { font-family: ui-monospace, Menlo, monospace; font-size: .74rem; color: var(--accent); }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line); transform: translateY(-6px); }
+  .sec .section-intro { margin: 6px 0 26px; }
+
+  .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+  .pc { position: relative; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink);
+        background: var(--paper); border: 1px solid var(--line); transition: transform .2s, box-shadow .2s, border-color .2s; }
+  .pc:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(20, 24, 36, .12); border-color: var(--accent); }
+  .pc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pc .im { overflow: hidden; background: var(--paper-hi); }
+  .pc .tx { padding: 18px 20px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .pc .k { font-family: ui-monospace, Menlo, monospace; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .pc .k i { font-style: normal; color: var(--accent); }
+  .pc h3 { font-family: Georgia, serif; font-size: 1.2rem; line-height: 1.22; letter-spacing: -.01em; }
+  .pc p { font-size: .88rem; line-height: 1.55; color: var(--ink-dim); }
+  .pc .d { margin-top: auto; padding-top: 10px; font-family: ui-monospace, Menlo, monospace; font-size: .7rem; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .pc .d span:last-child { color: var(--accent); }
+
+  /* главный: картинка во всю карточку, текст поверх */
+  .pc.hero-card { grid-column: span 7; grid-row: span 2; min-height: 640px; border: 0; }
+  .pc.hero-card { background: #1C2721; }
+  .pc.hero-card .im { flex: 1; min-height: 0; }
+  .pc.hero-card .im img { object-position: left top; }
+  .pc.hero-card .tx { flex: none; padding: 22px 28px 24px; color: #F3EFE6; background: #1C2721; }
+  .pc.hero-card h3 { font-size: 2rem; }
+  .pc.hero-card p { color: rgba(243, 239, 230, .78); font-size: .95rem; max-width: 46ch; }
+  .pc.hero-card .k, .pc.hero-card .d { color: rgba(243, 239, 230, .6); }
+  .pc.side { grid-column: span 5; }
+  .pc.side .im { aspect-ratio: 2 / 1; }
+  /* второй ряд: горизонтальные карточки */
+  .pc.wide { grid-column: span 6; flex-direction: row; }
+  .pc.wide .im { width: 42%; flex: none; aspect-ratio: auto; }
+  .pc.wide h3 { font-size: 1.08rem; }
+
+  .cards { gap: 16px; }
+  .card { min-height: 220px; }
+
+  .cta-band { margin: 80px 0 0; padding: 48px 48px; border-radius: 20px; background: #171B24; color: #E9E6DC;
+              display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+  .cta-band h2 { font-family: Georgia, serif; font-size: 2rem; line-height: 1.12; letter-spacing: -.02em; }
+  .cta-band h2 em { color: #E4B968; }
+  .cta-band p { color: #9AA2B4; margin-top: 10px; line-height: 1.55; }
+  .cta-band .btns { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .cta-band a { font-family: ui-monospace, Menlo, monospace; font-size: .8rem; letter-spacing: .04em; text-decoration: none; padding: 11px 18px; border-radius: 999px; }
+  .cta-band a.main { background: #CB9C47; color: #12151C; }
+  .cta-band a.sub { border: 1px solid #3A4254; color: #E9E6DC; }
+  footer { margin-top: 40px; padding-bottom: 40px; }
+
+  @media (max-width: 900px) {
+    .hero2 { grid-template-columns: 1fr; gap: 28px; padding: 48px 0 40px; }
+    .stats { border-left: 0; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .stat { flex-direction: column; gap: 6px; padding: 14px 0; border-bottom: 0; }
+    .bento { grid-template-columns: 1fr; }
+    .pc.hero-card, .pc.side, .pc.wide { grid-column: auto; grid-row: auto; }
+    .pc.hero-card { min-height: 520px; }
+    .pc.wide { flex-direction: column; } .pc.wide .im { width: 100%; aspect-ratio: 2 / 1; }
+    .cta-band { grid-template-columns: 1fr; padding: 32px 24px; }
+  }
+  @media (max-width: 640px) { .sheet { padding: 0 18px; } .sec-head h2 { font-size: 1.6rem; } }
+  .cta-band { border: 1px solid var(--line); }   /* в тёмной теме блок иначе сливается с фоном */
 </style>
 </head>
 <body>
@@ -538,100 +617,77 @@
     </span>
   </header>
 
-  <div class="hero">
-    <div class="eyebrow">Портфолио · code/</div>
-    <h1>Код, идеи<br>и <em>работающие</em> вещи</h1>
-    <p>Делаю сайты, лендинги и небольшие интерактивные штуки — от идеи до готового результата.</p>
-    <a class="hero-cta" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Заказать проект себе <span aria-hidden="true">↗</span></a>
-    <div class="tally">
-      <span><b>5</b> проектов</span>
-      <span><b>7</b> гайдов</span>
-      <span><b>1</b> бот</span>
+  <section class="hero2">
+    <div>
+      <div class="eyebrow">Портфолио · code/</div>
+      <h1>Код, идеи<br>и <em>работающие</em> вещи</h1>
+      <p>Делаю сайты, лендинги и небольшие интерактивные штуки — от идеи до готового результата.</p>
+      <a class="hero-cta" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Заказать проект себе <span aria-hidden="true">↗</span></a>
     </div>
-  </div>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>проектов</span></div>
+      <div class="stat"><b>7</b><span>гайдов</span></div>
+      <div class="stat"><b>1</b><span>бот</span></div>
+    </div>
+  </section>
 
   <!-- ===================== PROJECTS ===================== -->
-  <div class="section">
-    <div class="section-head">
-      <span class="section-letter">P</span>
-      <span class="section-title">Проекты</span>
-      <span class="section-count">05</span>
-    </div>
-
+  <section class="sec">
+    <div class="sec-head"><span class="n">P</span><h2>Проекты</h2><span class="rule"></span><span class="n">05</span></div>
     <p class="section-intro">Сайты, лендинги и исследования с ИИ — для заказчиков и для себя. Все работают: открывайте, листайте, пробуйте.</p>
-
-    <div class="feature">
-      <a class="fcard big" href="https://lectorium.pro/" target="_blank" rel="noopener">
-        <span class="f-img"><img src="projects/lectorium-preview.jpg" alt="Лекторий" style="object-position: left top;"></span>
-        <span class="f-body">
-          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Лендинг · готово</span><span class="f-index">P.01</span></span>
-          <span class="f-title">Лекторий</span>
-          <span class="f-desc">Первый в Москве регулярный лекторий об ИИ: встречи раз в две недели, запись на встречу, разделы для партнёров и спикеров.</span>
-          <span class="f-date"><span>14.08.2026</span><span class="row-arrow">↗</span></span>
+    <div class="bento">
+      <a class="pc hero-card" href="https://lectorium.pro/" target="_blank" rel="noopener">
+        <span class="im"><img src="projects/lectorium-preview.jpg" alt="Лекторий"></span>
+        <span class="tx">
+          <span class="k"><span>Лендинг · готово</span><i>P.01</i></span>
+          <h3>Лекторий</h3>
+          <p>Первый в Москве регулярный лекторий об ИИ: встречи раз в две недели, запись на встречу, разделы для партнёров и спикеров.</p>
+          <span class="d"><span>14.08.2026</span><span aria-hidden="true">↗</span></span>
         </span>
       </a>
-      <a class="fcard" href="projects/gordon-research/">
-        <span class="f-img"><img src="projects/gordon-research/preview.jpg" alt="«О, Париж!», «Буквы XX века», «Мастер и Москва»"></span>
-        <span class="f-body">
-          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Кейс · готово</span><span class="f-index">P.02</span></span>
-          <span class="f-title">«О, Париж!», «Буквы XX века», «Мастер и Москва»</span>
-          <span class="f-desc">16 месяцев исследований с ИИ для Юрия Гордона: карты, книга, инфографика. Метод, брифы, отчёты, интерактивная карта и игры.</span>
-          <span class="f-date"><span>16.09.2026</span><span class="row-arrow">↗</span></span>
+      <a class="pc side" href="projects/gordon-research/">
+        <span class="im"><img src="projects/gordon-research/preview.jpg" alt="«О, Париж!», «Буквы XX века», «Мастер и Москва»"></span>
+        <span class="tx">
+          <span class="k"><span>Кейс · готово</span><i>P.02</i></span>
+          <h3>«О, Париж!», «Буквы XX века», «Мастер и Москва»</h3>
+          <p>16 месяцев исследований с ИИ для Юрия Гордона: карты, книга, инфографика. Метод, брифы, отчёты, интерактивная карта и игры.</p>
+          <span class="d"><span>16.09.2026</span><span aria-hidden="true">↗</span></span>
         </span>
       </a>
-      <a class="fcard" href="projects/fonts-archive/">
-        <span class="f-img"><img src="projects/fonts-archive/thumb.jpg?v=4" alt="Каталог шрифтов"></span>
-        <span class="f-body">
-          <span class="f-top"><span class="row-kicker"><span class="dot good"></span>Кейс · готово</span><span class="f-index">P.03</span></span>
-          <span class="f-title">Архив шрифтов: каталог 2288 файлов</span>
-          <span class="f-desc">Образец каждого шрифта, справка об авторах 1990-х, примерочная для своего текста и скилл для ИИ.</span>
-          <span class="f-date"><span>22.09.2026</span><span class="row-arrow">↗</span></span>
+      <a class="pc side" href="projects/fonts-archive/">
+        <span class="im"><img src="projects/fonts-archive/thumb.jpg?v=4" alt="Каталог шрифтов"></span>
+        <span class="tx">
+          <span class="k"><span>Кейс · готово</span><i>P.03</i></span>
+          <h3>Архив шрифтов: каталог 2288 файлов</h3>
+          <p>Образец каждого шрифта, справка об авторах 1990-х, примерочная для своего текста и скилл для ИИ.</p>
+          <span class="d"><span>22.09.2026</span><span aria-hidden="true">↗</span></span>
+        </span>
+      </a>
+      <a class="pc wide" href="projects/hleb/">
+        <span class="im"><img src="projects/hleb/bread_ready.jpg" alt="Хлеб на закваске" loading="lazy"></span>
+        <span class="tx">
+          <span class="k"><span>Сайт-гайд · готово</span><i>P.04</i></span>
+          <h3>Хлеб на закваске Левито Мадре</h3>
+          <p>Пошаговый гайд по выпечке на закваске: план на три дня, чек-лист и список покупок со ссылками.</p>
+          <span class="d"><span>31.05.2026</span><span aria-hidden="true">↗</span></span>
+        </span>
+      </a>
+      <a class="pc wide" href="projects/travel-checklist/">
+        <span class="im"><img src="projects/travel-checklist/preview.jpg" alt="Чек-лист путешественника" loading="lazy"></span>
+        <span class="tx">
+          <span class="k"><span>Интерактив · готово</span><i>P.05</i></span>
+          <h3>Чек-лист путешественника</h3>
+          <p>Список вещей в поход или поездку: 10 категорий, фильтр «осталось / готово», помнит отмеченное и работает без интернета.</p>
+          <span class="d"><span>13.06.2026</span><span aria-hidden="true">↗</span></span>
         </span>
       </a>
     </div>
-
-    <div class="ledger after-feature">
-
-<a class="row with-thumb" href="projects/hleb/">
-        <span class="row-index">P.04</span>
-        <span class="row-thumb"><img src="projects/hleb/bread_ready.jpg" alt="Хлеб на закваске" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Сайт-гайд · готово</span>
-          <span class="row-title">Хлеб на закваске Левито Мадре</span>
-          <span class="row-desc">Пошаговый гайд по выпечке на закваске: план на три дня, чек-лист и список покупок со ссылками.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">31.05.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-<a class="row with-thumb" href="projects/travel-checklist/">
-        <span class="row-index">P.05</span>
-        <span class="row-thumb"><img src="projects/travel-checklist/preview.jpg" alt="Чек-лист путешественника" loading="lazy"></span>
-        <span class="row-body">
-          <span class="row-kicker"><span class="dot good"></span>Интерактив · готово</span>
-          <span class="row-title">Чек-лист путешественника</span>
-          <span class="row-desc">Список вещей в поход или поездку: 10 категорий, фильтр «осталось / готово», помнит отмеченное и работает без интернета.</span>
-        </span>
-        <span class="row-meta">
-          <span class="row-date">13.06.2026</span>
-          <span class="row-arrow">↗</span>
-        </span>
-      </a>
-
-    </div>
-  </div>
+  </section>
 
   <!-- ===================== GUIDES, ARTICLES, BOT ===================== -->
-  <div class="section">
-    <div class="section-head">
-      <span class="section-letter">G · B</span>
-      <span class="section-title">Гайды, статьи, бот</span>
-      <span class="section-count">08</span>
-    </div>
-
+  <section class="sec">
+    <div class="sec-head"><span class="n">G · B</span><h2>Гайды, статьи, бот</h2><span class="rule"></span><span class="n">08</span></div>
     <p class="section-intro">Здесь лежит то, чем я пользуюсь в работе: настройки, которые ставлю себе, инструменты, собранные под свои задачи, и промпты, доведённые до рабочего состояния. Всё бесплатно и открыто — берите и применяйте.</p>
-
     <div class="cards">
       <a class="card" href="guides/claude-skill-setup/" aria-label="Как настроить ассистента в Claude">
         <span class="c-top"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><line x1="12" y1="5.5" x2="12" y2="9"/><circle cx="12" cy="4.5" r="1"/><line x1="9" y1="14" x2="9" y2="15.5"/><line x1="15" y1="14" x2="15" y2="15.5"/><line x1="2" y1="14" x2="4" y2="14"/><line x1="20" y1="14" x2="22" y2="14"/></svg><span class="c-index">G.01</span></span>
@@ -698,7 +754,12 @@
         <span class="c-more" aria-hidden="true"><span class="c-full">SafeOut: Telegram-бот безопасности для свиданий</span><span class="c-text">Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</span></span>
       </a>
     </div>
-  </div>
+  </section>
+
+  <section class="cta-band">
+    <div><h2>Нужен такой же — <em>только про вас</em>?</h2><p>Сайт, лендинг, кейс из вашей работы с ИИ или бот под задачу. Расскажите, что нужно, — предложу формат и сроки.</p></div>
+    <div class="btns"><a class="main" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Написать в Telegram ↗</a><a class="sub" href="mailto:julia.vl.reprintseva@gmail.com">julia.vl.reprintseva@gmail.com</a></div>
+  </section>
 
   <footer>
     <span class="stamp">Юлия Репринцева · code/</span>
