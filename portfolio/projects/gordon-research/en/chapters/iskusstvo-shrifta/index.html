@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis of two books titled “The Art of Type. Works of Moscow Book Artists” — 1960 and 1977 — research for the chapter</title>
+<meta name="description" content="Compare the contributors to the two albums, systematise them by type of work, compare the works by period and composition; for all contributors — life dates and four chronological lists.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Analysis of two books titled “The Art of Type. Works of Moscow Book Artists” — 1960 and 1977 — research for the chapter">
+<meta property="og:description" content="Compare the contributors to the two albums, systematise them by type of work, compare the works by period and composition; for all contributors — life dates and four chronological lists.">
+<meta property="og:url" content="https://reprintseva.pro/portfolio/projects/gordon-research/en/chapters/iskusstvo-shrifta/">
+<meta property="og:image" content="https://reprintseva.pro/portfolio/projects/gordon-research/og-cover.png">
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><rect%20width='512'%20height='512'%20rx='112'%20fill='%2312151C'/><text%20x='256'%20y='352'%20font-family='Georgia,serif'%20font-size='300'%20text-anchor='middle'%20fill='%23CB9C47'>J</text></svg>">
+<meta name="theme-color" content="#12151C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EEF0F4" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ── Tokens: portfolio graphite and bronze + one red for “AI lies” ── */
+  :root{
+    --bg:#EEF0F4; --paper:#FFFFFF; --paper-hi:#F5F6FA;
+    --line:#DBDFE8; --line-soft:#E6E9F0;
+    --ink:#1A1D26; --ink-dim:#6B7386; --ink-faint:#9BA2B2;
+    --accent:#9C6C1E; --accent-hi:#7E5714; --accent-soft:rgba(156,108,30,.10);
+    --lie:#A8433C; --lie-soft:rgba(168,67,60,.10);
+    --good:#3D7A5C;
+    --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+    --body:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --max:1120px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+      --line:#2A3140; --line-soft:#212636;
+      --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+      --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+      --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+      --good:#6FAE8C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151C; --paper:#171B24; --paper-hi:#1D2331;
+    --line:#2A3140; --line-soft:#212636;
+    --ink:#E9E6DC; --ink-dim:#838CA0; --ink-faint:#545C70;
+    --accent:#CB9C47; --accent-hi:#E4B968; --accent-soft:rgba(203,156,71,.12);
+    --lie:#D0685F; --lie-soft:rgba(208,104,95,.12);
+    --good:#6FAE8C;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--body);
+    font-size:1.02rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+  section{padding-block:96px;}
+  section+section{border-top:1px solid var(--line-soft);}
+  h1,h2,h3{font-weight:400;letter-spacing:0;text-wrap:balance;}
+  h2{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.05;margin-bottom:14px;}
+  h3{font-family:var(--body);font-weight:700;font-size:1.1rem;line-height:1.3;}
+  .kicker{
+    font-family:var(--mono);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--accent);margin-bottom:22px;display:flex;gap:12px;align-items:center;
+  }
+  .kicker::before{content:"";width:28px;height:1px;background:var(--accent);}
+  .lede{font-size:1.15rem;color:var(--ink-dim);max-width:64ch;line-height:1.6;}
+  .sec-head{max-width:760px;margin-bottom:52px;}
+  em{font-style:italic;}
+  ::selection{background:var(--accent);color:var(--bg);}
+
+  /* ── Header ── */
+  .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;}
+  .back{font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--ink-dim);} .back-sep{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);} .back:hover{color:var(--accent);}
+  .back:hover{color:var(--accent);}
+  .mark{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .mark .glyph{font-family:var(--display);font-size:.95rem;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:3px 7px;line-height:1;}
+  .mark .name{font-size:.82rem;font-weight:600;color:var(--ink-dim);}
+  @media (max-width:480px){.mark .name{display:none;}}
+  .tools{display:flex;gap:8px;}
+  .lang-switch,.theme-btn{
+    font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;
+    color:var(--ink-dim);border:1px solid var(--line);background:none;border-radius:999px;
+    padding:6px 12px;text-decoration:none;cursor:pointer;line-height:1.2;
+  }
+  .lang-switch:hover,.theme-btn:hover,.theme-btn:focus-visible,.lang-switch:focus-visible{color:var(--accent);border-color:var(--accent);outline:none;}
+
+  /* ── First screen: the lie first, then the truth ── */
+  .hero{padding-block:72px 88px;border-top:none;}
+  .lie{
+    font-family:var(--display);font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.3;
+    color:var(--ink-dim);max-width:34ch;position:relative;padding-left:22px;
+    border-left:2px solid var(--lie);
+  }
+  .lie q{quotes:"«" "»";}
+  .lie s{text-decoration-color:var(--lie);text-decoration-thickness:2px;}
+  .lie cite{display:block;font-family:var(--mono);font-style:normal;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lie);margin-top:12px;}
+  .lie .stamp{
+    position:absolute;right:-6px;top:-18px;transform:rotate(-8deg);
+    font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--lie);border:2px solid var(--lie);padding:4px 10px;border-radius:4px;background:var(--bg);
+  }
+  .hero h1{
+    font-family:var(--display);font-size:clamp(2.6rem,7.2vw,6.2rem);line-height:.98;margin-top:56px;
+    max-width:16ch;
+  }
+  .hero h1 .sep{color:var(--accent);}
+  .hero .lede{margin-top:28px;}
+  .hero .hook{
+    margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;max-width:720px;
+    padding:22px 24px;border:1px solid var(--line);background:var(--paper);border-radius:6px;
+  }
+  .hero .hook b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;color:var(--lie);}
+  .hero .hook p{color:var(--ink);font-size:1rem;}
+
+  /* ── Numbers ── */
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:var(--line);gap:1px;}
+  .num{background:var(--paper);padding:34px 28px 30px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;}
+  .num b{
+    font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,6vw,5.4rem);line-height:.9;
+    color:var(--ink);font-variant-numeric:tabular-nums;
+  }
+  .num b small{font-size:.42em;color:var(--accent);margin-left:6px;}
+  .num span{color:var(--ink-dim);font-size:.92rem;margin-top:16px;line-height:1.45;}
+  .nums-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);margin-top:16px;}
+
+  /* ── Proof: the client’s words ── */
+  .proof-lede{font-size:1.15rem;max-width:64ch;color:var(--ink);}
+  .rail{margin-top:44px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;}
+  .post{
+    flex:0 0 340px;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:20px 22px 18px;display:flex;flex-direction:column;gap:12px;
+  }
+  .post header{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;}
+  .post header b{color:var(--ink-dim);font-weight:500;}
+  .post blockquote{font-size:.98rem;line-height:1.5;color:var(--ink);}
+  .post blockquote mark{background:var(--accent-soft);color:inherit;padding:0 3px;border-radius:2px;}
+  .post a{margin-top:auto;font-family:var(--mono);font-size:.72rem;color:var(--accent);text-decoration:none;}
+  .post a:hover{text-decoration:underline;}
+
+  /* ── Method ── */
+  .formula{
+    margin-top:8px;display:flex;flex-wrap:wrap;gap:10px 0;align-items:center;
+    font-family:var(--display);font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.2;
+  }
+  .formula i{font-style:normal;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper);}
+  .formula em{font-style:normal;color:var(--accent);padding:0 12px;}
+  .formula i.v{border-color:var(--accent);color:var(--accent);}
+  .method-quote{margin-top:26px;font-size:1.08rem;color:var(--ink-dim);max-width:70ch;border-left:2px solid var(--accent);padding-left:20px;}
+  .steps{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .step{background:var(--paper);padding:26px 26px 28px;}
+  .step .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.12em;margin-bottom:10px;}
+  .step p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .prompt{margin-top:40px;border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .prompt summary{cursor:pointer;list-style:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;}
+  .prompt summary::-webkit-details-marker{display:none;}
+  .prompt summary span{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+  .prompt summary span::after{content:"Expand";}
+  .prompt[open] summary span::after{content:"Collapse";}
+  .prompt pre{
+    font-family:var(--mono);font-size:.8rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;
+    padding:6px 22px 24px;border-top:1px solid var(--line-soft);color:var(--ink);max-height:60vh;overflow:auto;
+  }
+
+  /* ── Work map ── */
+  .tl{margin-top:8px;border-top:1px solid var(--line);}
+  .tl details{border-bottom:1px solid var(--line);}
+  .tl summary{
+    list-style:none;cursor:pointer;display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:baseline;
+    padding:20px 0;
+  }
+  .tl summary::-webkit-details-marker{display:none;}
+  .tl summary:hover .t{color:var(--accent);}
+  .tl .d{font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);letter-spacing:.04em;}
+  .tl .t{font-family:var(--display);font-size:1.5rem;line-height:1.15;}
+  .tl .tag{font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+  .tl .body{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:0 0 28px;}
+  .tl .body>div{grid-column:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px;}
+  .tl dl{font-size:.92rem;}
+  .tl dt{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:5px;}
+  .tl dd{color:var(--ink-dim);}
+  .tl dd q{color:var(--ink);quotes:"«" "»";}
+  .tl details[open] summary .t{color:var(--accent);}
+
+  /* ── Four stories ── */
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .case{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:28px 28px 26px;}
+  .case .big{font-family:var(--display);font-size:clamp(2.6rem,5vw,4rem);line-height:.95;color:var(--accent);margin-bottom:14px;}
+  .case .big.lie{color:var(--lie);border:0;padding:0;font-size:clamp(2.6rem,5vw,4rem);max-width:none;}
+  .case p{color:var(--ink-dim);font-size:.95rem;margin-top:8px;}
+  .case .fake{margin-top:14px;font-family:var(--display);font-size:1.05rem;color:var(--ink);text-decoration:line-through;text-decoration-color:var(--lie);}
+
+  /* ── What I offer ── */
+  .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pack{background:var(--paper);padding:30px 26px 28px;display:flex;flex-direction:column;gap:14px;}
+  .pack .when{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;}
+  .pack h3{font-family:var(--display);font-weight:400;font-size:1.7rem;}
+  .pack p{color:var(--ink-dim);font-size:.95rem;}
+  .pack ul{list-style:none;color:var(--ink);font-size:.92rem;display:grid;gap:6px;}
+  .pack li::before{content:"— ";color:var(--accent);}
+  .wider{margin-top:40px;padding:26px 28px;border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft);max-width:820px;}
+  .wider p{font-size:1.05rem;}
+  .cta{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .btn{
+    font-family:var(--body);font-weight:700;font-size:.92rem;text-decoration:none;
+    padding:14px 26px;border-radius:999px;border:1px solid var(--accent);color:var(--bg);background:var(--accent);
+  }
+  .btn:hover{background:var(--accent-hi);border-color:var(--accent-hi);}
+  .btn.ghost{background:none;color:var(--accent);}
+  .btn.ghost:hover{background:var(--accent-soft);}
+  .price-note{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);}
+
+  footer{padding-block:40px;border-top:1px solid var(--line-soft);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+  footer a{text-decoration:none;color:var(--ink-dim);}
+  footer a:hover{color:var(--accent);}
+
+  @media (max-width:820px){
+    section{padding-block:64px;}
+    .nums{grid-template-columns:1fr 1fr;}
+    .steps,.cases,.packs{grid-template-columns:1fr;}
+    .tl summary{grid-template-columns:1fr;gap:6px;}
+    .tl .tag{display:none;}
+    .tl .body{grid-template-columns:1fr;}
+    .tl .body>div{grid-column:1;}
+    .hero .hook{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .nums{grid-template-columns:1fr;}
+    .num{min-height:0;}
+    .post{flex-basis:84vw;}
+    .lie .stamp{position:static;display:inline-block;margin-bottom:12px;transform:rotate(-4deg);}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .tl summary .t,.post,.pack{transition:color .15s ease,transform .15s ease;}
+  }
+</style>
+
+<style>
+  .sub{padding-block:56px 72px;}
+  .sub h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);line-height:1.05;max-width:22ch;margin-top:8px;}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);letter-spacing:.04em;}
+  .meta a{color:var(--accent);text-decoration:none;}
+  .meta a:hover{text-decoration:underline;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px;}
+  .grid2>div{background:var(--paper);padding:26px;}
+  .grid2 h3{margin-bottom:10px;}
+  .grid2 p{color:var(--ink-dim);font-size:.96rem;}
+  .files{list-style:none;display:grid;gap:10px;margin-top:20px;}
+  .files li a{display:flex;gap:14px;align-items:baseline;padding:14px 18px;border:1px solid var(--line);background:var(--paper);border-radius:6px;text-decoration:none;}
+  .files li a:hover{border-color:var(--accent);}
+  .files .ext{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;}
+  .files .sz{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);white-space:nowrap;}
+  .doc{border:1px solid var(--line);background:var(--paper);border-radius:8px;margin-top:16px;overflow:hidden;}
+  .doc summary{cursor:pointer;list-style:none;padding:16px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center;font-weight:600;}
+  .doc summary::-webkit-details-marker{display:none;}
+  .doc summary span{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+  .doc summary span::after{content:"Expand";} .doc[open] summary span::after{content:"Collapse";}
+  .doc .in{padding:4px 22px 26px;border-top:1px solid var(--line-soft);font-size:.95rem;max-width:80ch;}
+  .doc .in h2{font-size:1.5rem;margin-top:28px;} .doc .in h3{margin-top:22px;} .doc .in h4{margin-top:16px;font-size:1rem;}
+  .doc .in p,.doc .in ul,.doc .in ol{margin-top:10px;color:var(--ink);} .doc .in li{margin-left:20px;}
+  .doc .in blockquote{border-left:2px solid var(--accent);padding-left:16px;color:var(--ink-dim);margin-top:12px;}
+  .doc .in pre{font-family:var(--mono);font-size:.78rem;white-space:pre-wrap;background:var(--paper-hi);padding:14px;border-radius:6px;margin-top:12px;}
+  .doc .in code{font-family:var(--mono);font-size:.85em;}
+  .doc .in hr{border:0;border-top:1px solid var(--line);margin:20px 0;}
+  /* brief as a document */
+  .bdoc{padding:8px 0 4px;}
+  .pass{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-faint);padding:12px 0 6px;} .pass b{font-weight:500;color:var(--accent);}
+  .bdoc .bt{font-family:var(--display);font-size:1.5rem;line-height:1.15;color:var(--ink);padding:6px 0 10px;}
+  .bdoc .bb ol.lt{list-style:none;margin-left:0;}
+  .bdoc .bs{padding:18px 0;border-top:1px solid var(--line-soft);}
+  .bdoc .bs:first-child{border-top:0;}
+  .bdoc h4{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  .bdoc h4 small{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;text-transform:none;color:var(--ink-faint);margin-left:10px;}
+  .bdoc .bb{max-width:72ch;font-size:.95rem;line-height:1.6;}
+  .bdoc .bb p{margin:0 0 8px;color:var(--ink);} .bdoc .bb ol,.bdoc .bb ul{margin:4px 0 8px 22px;} .bdoc .bb li{margin:0 0 5px;color:var(--ink);}
+  .bdoc .bb li::marker{font-family:var(--mono);font-size:.8em;color:var(--accent);}
+  .bdoc.ann .bs{display:grid;grid-template-columns:170px 1fr;gap:6px 28px;}
+  .bdoc.ann .bs::before{content:attr(data-step);grid-row:1/span 2;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--ink-faint);padding-top:3px;line-height:1.5;}
+  .bdoc.ann .bs[data-step]::before{padding-left:16px;background:radial-gradient(circle,var(--accent) 3px,transparent 3.5px) 0 7px/10px 10px no-repeat;}
+  .bdoc.ann .bs:not([data-step])::before{content:"";}
+  .bdoc.ann h4,.bdoc.ann .bb{grid-column:2;}
+  .bdoc-key{display:flex;flex-wrap:wrap;gap:8px 22px;padding:14px 22px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);}
+  .bdoc-key b{font-weight:500;color:var(--ink-dim);}
+  @media (max-width:700px){.bdoc.ann .bs{grid-template-columns:1fr;} .bdoc.ann .bs::before{grid-row:auto;} .bdoc.ann h4,.bdoc.ann .bb{grid-column:1;}}
+
+  .poster{margin-top:40px;max-width:640px;} .poster img{width:100%;display:block;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .poster figcaption{margin-top:10px;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;} .poster figcaption a{color:var(--accent);text-decoration:none;}
+  .tbl{overflow-x:auto;margin-top:12px;} table{border-collapse:collapse;font-size:.85rem;min-width:520px;} th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top;} th{background:var(--paper-hi);font-weight:600;}
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:24px;}
+  .shot{border:1px solid var(--line);background:var(--paper);border-radius:8px;overflow:hidden;}
+  .shot .img{max-height:420px;overflow:hidden;position:relative;}
+  .shot .img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(transparent,var(--paper));}
+  .shot img{width:100%;height:auto;}
+  .shot .cap{padding:12px 16px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.7rem;color:var(--ink-dim);}
+  .shot .cap a{color:var(--accent);text-decoration:none;white-space:nowrap;}
+  .shot .cap a:hover{text-decoration:underline;}
+  .shot.open .img{max-height:none;} .shot.open .img::after{display:none;}
+  .shot .more{display:block;width:100%;background:none;border:0;border-top:1px solid var(--line-soft);padding:10px;font-family:var(--mono);font-size:.7rem;color:var(--accent);cursor:pointer;}
+  .navrow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.76rem;}
+  .navrow a{text-decoration:none;color:var(--ink-dim);} .navrow a:hover{color:var(--accent);}
+  .quote-note{margin-top:16px;color:var(--ink-dim);font-size:.9rem;}
+  @media (max-width:820px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <span class="backs"><a class="back" href="../../index.html">← Case</a><span class="back-sep"> · </span><a class="back" href="../../index.html#map">Work map</a></span>
+    <a class="mark" href="../../../../../../en/index.html"><span class="glyph">JR</span><span class="name">Julia Reprintseva</span></a>
+    <div class="tools">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☾</button>
+    </div>
+  </div>
+</div>
+
+<section class="sub"><div class="wrap">
+  <p class="kicker">The book “Letters of the 20th Century” · March 2026 · research 08</p>
+  <h1>Analysis of two books titled “The Art of Type. Works of Moscow Book Artists” — 1960 and 1977</h1>
+  <div class="meta">
+<span>Yuri Gordon’s chapter: <a href="https://www.facebook.com/share/p/16Q5p9nSmE/" target="_blank" rel="noopener">Facebook* post, 21 Mar 2026 ↗</a></span>
+</div>
+<div class="grid2">
+    <div><h3>Task</h3><p>Compare the contributors to the two albums, systematise them by type of work, compare the works by period and composition; for all contributors — life dates and four chronological lists.</p></div>
+    <div><h3>What was done</h3><p>Four steps of verification: Gemini’s first answer → a check by ChatGPT against the library’s pages, which exposed invented contributors and percentages → an analysis based on scans of the tables of contents (38 and 59 names, 16 in common) → a verified base with life dates and 13 typeface designers.</p></div>
+    <div><h3>Tools</h3><p>Gemini, ChatGPT</p></div>
+    <div><h3>Where to look</h3><p>Below are the briefs the models received, the finished reports in PDF and the documents, as well as the publications made along the way.</p></div>
+  </div>
+</div></div>
+<section><div class="wrap"><div class="sec-head"><p class="kicker">Briefs</p><h2>What exactly the model received</h2></div>
+<details class="doc"><summary>The analysis structure given to the model<span></span></summary><div class="in"><p class="pass"><b>My document</b> · the text the model received · 18 March 2026</p><div class="bdoc"><div class="bs"><div class="bb"><p>Do an analysis according to the prompt:</p>
+<p>Structure of the final analysis Block 1. Contributors</p>
+<p>Compile a full list of artists for each of the two books: — The 1960 book — The 1977 book</p>
+<p>Result: — Two separate lists of contributors — Normalised spelling of names (removing duplicates caused by different spellings)</p>
+<p>Additionally: — Where available — give years of life — Where available — give the profile (if explicitly stated in the book)</p>
+<p>Block 2. Overlap and differences</p>
+<p>Compare the lists of contributors to the two books.</p>
+<p>Identify three categories:</p>
+<p>Contributors present in both books</p>
+<p>Contributors only in the 1960 book</p>
+<p>Contributors only in the 1977 book</p>
+<p>Result: — Three structured lists — A count for each category</p>
+<p>Additionally: — Mark the artists who appeared in 1977 as the “new generation”</p>
+<p>Block 3. Typology of contributors</p>
+<p>Classify each artist by main type of activity:</p>
+<p>— Type designer — Book designer — Poster artist — Graphic designer — Illustrator — All-rounder (if working in several fields)</p>
+<p>Result: — List of contributors with their category — A count for each category</p>
+<p>Additionally: — Multiple classification allowed (if necessary)</p>
+<p>Block 4. Analysis of the works</p>
+<p>For each book:</p>
+<p>Classify all the works presented by type: — Text typeface — Lettering composition — Book cover — Illustration — Poster — Graphic design</p>
+<p>Count the number of works of each type</p>
+<p>Analyse the time range of the works: — Years of creation — Distribution by decade</p>
+<p>Result: — Summary by type of work (with counts) — Comparison of the two books — Identification of the dominant types</p>
+<p>Block 5. Visual and typographic analysis 5.1 Composition (alignment)</p>
+<p>Analyse the placement of text in the compositions:</p>
+<p>— Centred — Flush left — Flush right — Free composition</p>
+<p>Result: — A count for each type — Comparison between the books</p>
+<p>5.2 Classification of typefaces</p>
+<p>Classify the typefaces used:</p>
+<p>— Serif typefaces (antiqua etc.) — Sans-serif typefaces (grotesques) — Calligraphic — Decorative (ornament, swashes, etc.)</p>
+<p>Result: — A count for each type — Comparison of the two books</p>
+<p>5.3 Confidence level</p>
+<p>For each analysis, state the level of reliability:</p>
+<p>— High (confirmed by the text) — Medium (partly confirmed) — Low (visual interpretation)</p>
+<p>Final result</p>
+<p>The output:</p>
+<p>— A full comparative picture of the two editions — The evolution of the artists involved — The evolution of the types of work — The evolution of typographic solutions</p>
+<p>Format: — Tables + structured text — Suitable for further use in the book “Letters of the 20th Century”</p>
+<p>=====</p>
+<p>Analyse these links</p>
+<p><a href="https://bibliotekus.artlebedev.ru/books/raboty-moskovskikh-khudozhnikov-knigi/" target="_blank" rel="noopener">link</a></p>
+<p><a href="https://bibliotekus.artlebedev.ru/books/iskusstvo-shrifta/" target="_blank" rel="noopener">link</a></p></div></div></div></div></details>
+</div></div>
+<section><div class="wrap"><div class="sec-head"><p class="kicker">Results</p><h2>Reports and documents</h2></div>
+<details class="doc"><summary>Four steps: from a handsome answer to a verified base<span></span></summary><div class="in"><p class="pass"><b>Project document</b> · 18 March 2026</p><div class="bdoc"><div class="bs"><h4>Step 1. First analysis (Gemini, 18 March, 08:52)</h4><div class="bb"><p>A detailed comparison of the two editions.</p>
+<p><strong>Block 1. Contributors.</strong> The 1960 book: Bazhanov, Bannikov, Bolshakov, Gannushkin, Dulenkov, Yefimov, Kaplan, Kuznetsov, Kuzanyan, Rerberg, Tagirov, Telingater, Favorsky (13). The 1977 book: Arkhangelsky, Bisti, Burgunker, Zbarsky, Kononchuk, Lissitzky, Miturich, Telingater, Troyanker, Chernevich, Shlosberg (11).</p>
+<p><strong>Block 2.</strong> Overlap: Telingater, Bolshakov, Kuzanyan. Shared contributors ~15%; new generation in 1977 — ~70%.</p>
+<p><strong>Blocks 3–5.</strong> Typology (type designer / book designer / illustrator / all-rounder); 1960 — text typefaces, letter drawings, title pages; 1977 — spreads, dust jackets, jobbing work. Composition: 1960 — centred alignment in 80% of works; 1977 — ragged setting, asymmetry. Conclusion: “from the letter to the image”, “democratisation”, a technological shift to phototypesetting. Recommendation: Telingater as the connecting link.</p></div></div><div class="bs"><h4>Step 2. Check against the primary source (ChatGPT, 18 March, 09:02)</h4><div class="bb"><p>“I’ll answer as a historian of Soviet typography and book graphics who would rather fall short on pathos than slip you a beautiful hallucination.</p>
+<p><strong>What I did.</strong> I didn’t rely on Gemini’s retelling; I went to the online page-flip versions themselves (bibliotekus.artlebedev.ru) and looked at: the title and introductory pages of both books; the contents and reference section of the 1960 book; the later pages of the 1977 book.</p>
+<p>The main thing first: <strong>in places Gemini wrote beautifully but far too freely.</strong> Its list of contributors and its overlap cannot be taken as established fact.”</p>
+<p><strong>What can be said with confidence about 1960:</strong> the idea for the album arose after the 1953 exhibition of Russian hand-drawn lettering; the material was selected to show the individuality of each artist and to set his alphabets beside covers, title pages and initials. The reference pages confirm: Alyakrinsky, Bazhanov, Bershadsky, Vasilyev, Vasin, Grozevsky, Yegorov, Kuzanyan, Lazursky, Lanceray, Litvishko, Manuylov, Mitrokhin, Nikiforov, Piskarev, Pozharsky, Radishchev, Rerberg, Telingater, Titov, Tolokonnikov, Fisher, Favorsky; separately — Krinsky. “Gemini has no Krinsky, even though in the book he is literally at the start of the biographical section.”</p>
+<p><strong>What can be said with confidence about 1977:</strong> the introductory page mentions <strong>59 Moscow book artists</strong>, period <strong>1959–1974</strong>. Confirmed: Litvishko, Mavrina, Mitrokhin, Serebryakov, Telingater (“Telingater’s display typeface”, a leaflet of the New Typefaces Department of VNIIOPiT).</p>
+<p><strong>What cannot be claimed:</strong> “I won’t pretend I already have a full, cleaned-up list of all 59 contributors… For a book, an open admission of what is unknown is better than a trick of the ‘now I’ll pull Zbarsky, Lissitzky and a couple more ghosts out of thin air’ kind.”</p>
+<p><strong>Where Gemini breaks down:</strong> the “Bolshakov and Kuzanyan” overlap is internally inconsistent; the reliable overlap based on the pages seen is Telingater, Litvishko, Mitrokhin.</p>
+<p><strong>Confidence level:</strong> high — the methodology of the 1960 book, the figure of 59 and the period of the 1977 book, the confirmed names; medium — the conclusion about the expansion towards autonomous lettering composition; low — “any precise percentages like ‘80% centred alignment’… Gemini went into a confident ballet on thin ice.”</p>
+<p><strong>What must be thrown out of Gemini’s text:</strong> the list of contributors as fact; the overlap “Telingater, Bolshakov, Kuzanyan”; “Lissitzky, Zbarsky, Bisti” in 1977; the percentages (“the neural network decided to play statistician without a calculator”).</p>
+<p><strong>Formulas for the book:</strong> “If the 1960 book shows type above all as an organ of the book, the 1977 book already shows it as an independent graphic material.” “Telingater is the connecting link between the tradition of book lettering and late Soviet systemic thinking about type.”</p></div></div><div class="bs"><h4>Step 3. Analysis based on scans of the tables of contents (18 March, 09:21)</h4><div class="bb"><p>“Thank you for the scans. Now we have a primary source — the contents of both books. This allows an extremely precise analysis without guesswork.”</p>
+<p><strong>The 1960 book (38 contributors):</strong> Alyakrinsky, Bazhanov D. A., Bershadsky, Bulgakov, Vasilyev, Vasin, Grozevsky, Yegorov, Zusman, Ilyin, Kaplan, Kogan, Kravtsov, Krichevsky, Kuzanyan, Lazursky, Lanceray, Litvishko, Manuylov, Mitrokhin, Mogilevsky, Nikiforov, Piskarev, Pozharsky, Radishchev, Rerberg, Riftin, Smelova, Suvorov, Telingater, Titov, Tolokonnikov, Fisher, Favorsky, Fomina, Khmelevskaya, Chakhiryan, Shvarts.</p>
+<p><strong>The 1977 book (59 contributors):</strong> Anikst, Bazhanov Yu. K., Bannikova, Bolshakov, Boyarsky, Vagin, Vasilyev, Vasin, Gannushkin, Gannushkina, Guseva, Danilov, Dmitriev, Dneprov, Dober, Zhukov, Zusman, Kalinin, Klodt, Kogan, Kozubov, Korolkov, Kostylev, Kravtsov, Krivinskaya, Krichevsky, Kryukov, Kudryashov, Kuzanyan, Kurbatov, Lazursky, Litvishko, Mavrina, Maksin, Markevich, Markov, Mitrokhin, Pertsov, Pikov, Pozharsky, Rappoport, Rovensky, Sedelnikov, Serebryakov, Seregin, Smirnov, Tagirov, Telingater, Trofimova, Troyanker, Favorsky, Fisher, Fomina, Tsarevich, Chuchelov, Shvarts, Shlosberg, Shchukin, Yasinsky.</p>
+<p><strong>Overlap — 16 masters:</strong> Vasilyev, Vasin, Zusman, Kogan, Kravtsov, Krichevsky, Kuzanyan, Lazursky, Litvishko, Mitrokhin, Pozharsky, Telingater, Favorsky, Fisher, Fomina, Shvarts.</p>
+<p><strong>The new generation of 1977:</strong> Maxim Zhukov, Mikhail Anikst, Arkady Troyanker, Boris Markevich, Garry Kozubov.</p>
+<p><strong>Analysis of the works:</strong> 1960 — the “Alphabet” dominates (a textbook-book that fixes the norm of lettering; structure: author → alphabet → examples of use). 1977 — the complete design of the book (spreads, layouts).</p>
+<div class='tbl'><table><thead><tr><th>Parameter</th><th>1960</th><th>1977</th><th>Confidence</th></tr></thead><tbody><tr><td>Alignment</td><td>Centred</td><td>Free, asymmetric, ragged</td><td>High</td></tr><tr><td>Typefaces</td><td>Calligraphy, antiqua, historicism</td><td>Grotesques, phototypesetting, display type</td><td>High</td></tr><tr><td>Task</td><td>Mastery of drawing the letter</td><td>Mastery of constructing the book</td><td>High</td></tr></tbody></table></div>
+<p><strong>Summary:</strong> 1960 — “canon and alphabet”, the culmination of the classical school. 1977 — “layout and concept”, type becomes a tool of graphic design.</p></div></div><div class="bs"><h4>Step 4. Chronological lists with life dates (20 March, 08:23) — following the revision of 19 March</h4><div class="bb"></div></div><div class="bs"><h4>1. Already working before the war (started before 1941)</h4><div class="bb"><p>Alyakrinsky P. A. (1892–1961) · Bazhanov D. A. (1902–1946) · Bannikova G. A. (1901–1972) · Bershadsky G. S. (1895–1963) · Bolshakov M. V. (1904–1991) · Bulgakov B. P. (1906–?) · Grozevsky B. V. (1899–1955) · Zusman L. P. (1902–1971) · Ilyin N. V. (1894–1954) · Kaplan A. L. (1902–1980) · Kogan Ye. I. (1906–1983) · Kravtsov G. A. (1906–1981) · Krichevsky I. D. (1893–1956) · Kuzanyan P. M. (1901–1992) · Lazursky V. V. (1909–1994) · Lanceray Ye. Ye. (1875–1946) · Mavrina T. A. (1900–1996) · Mitrokhin D. I. (1883–1973) · Mogilevsky A. P. (1885–1980) · Nikiforov B. S. (1901–1974) · Pikov M. I. (1903–1973) · Piskarev N. I. (1892–1959) · Pozharsky S. M. (1900–1970) · Radishchev A. P. (1905–1973) · Rerberg I. F. (1892–1957) · Riftin G. M. (1912–1943, killed at the front) · Rovensky M. G. (1902–1990) · Sedelnikov N. A. (1905–1994) · Smelova G. V. (1905–1995) · Suvorov P. I. (1901–1968) · Tagirov F. Sh. (1906–1991) · Telingater S. B. (1903–1969) · Titov B. B. (1893–1951) · Tolokonnikov A. A. (1898–1965) · Favorsky V. A. (1886–1964) · Fisher G. I. (1898–1982) · Fomina I. I. (1906–1989) · Khmelevskaya N. S. (1906–1994) · Tsarevich I. V. (1908–1992) · Chakhiryan S. P. (1906–1994) · Shvarts B. V. (1901–1988) · Shchukin A. V. (1903–1995)</p></div></div><div class="bs"><h4>2. Started before 1953</h4><div class="bb"><p>Vasilyev Yu. B. (1922–1993) · Vasin A. A. (1915–1971) · Gannushkin Ye. A. (1925–2010) · Kalinin N. I. (1925–2004) · Klodt G. A. (1923–1998) · Kryukov A. D. (1922–2004) · Kudryashov N. N. (1921–1989) · Litvishko I. A. (1908–1996) · Manuylov G. I. (1908–1980) · Markevich B. A. (1925–2002) · Rappoport L. A. (1925–?) · Bazhanov Yu. K. (1927–?) · Gannushkina S. Ye. (1928–2000) · Krivinskaya Ye. Ya. (1928–2010) · Maksin V. V. (1928–?) · Danilov S. A. (1929–1993) · Markov Yu. A. (1929–?) · Yasinsky A. M. (1929–?) · Trofimova Ye. A. (1927–?)</p></div></div><div class="bs"><h4>3. Started after 1960</h4><div class="bb"><p>Guseva I. A. (1930–?) · Dmitriev G. V. (1930–2001) · Dober V. M. (1930–2021) · Dneprov Ya. G. (1932–?) · Chuchelov G. V. (1932–?) · Pertsov V. V. (1933–?) · Shlosberg M. Z. (1935–2015) · Boyarsky Yu. A. (1935–2010) · Vagin V. V. (1937–?) · Korolkov V. A. (1937–2004) · Smirnov Ye. Ye. (1937–?) · Troyanker A. T. (1937–1998) · Anikst M. A. (1938–2020) · Kozubov G. I. (1939–?) · Zhukov M. G. (1943). Not established: Yegorov D., Kostylev I. A., Kurbatov Yu. K., Seregin M. V., Serebryakov A. F.</p></div></div><div class="bs"><h4>4. Designers of text typefaces</h4><div class="bb"><ol><li><strong>Dmitry Bazhanov</strong> — “Bazhanovskaya” (created in 1961 by Mikhail Rovensky, based on his title lettering).</li><li><strong>Galina Bannikova</strong> — “Bannikovskaya” (1946–1951), “Baikonur”, “Kama”.</li><li><strong>Mikhail Bolshakov</strong> — “Shkolnaya” (School; with N. Mudrova, 1949–1961), “Balzac”.</li><li><strong>Yelena Kogan</strong> — technical co-author of “Kudryashovskaya Slovarnaya” (Dictionary), “Pionerskaya”, “Bazhanovskaya”.</li><li><strong>Nikolai Kudryashov</strong> — “Kudryashovskaya Encyclopaedic” (1960–1974), “Kudryashovskaya Slovarnaya” (Dictionary).</li><li><strong>Pavel Kuzanyan</strong> — “Kuzanyanovskaya” (1959), “Granzhanovskaya”, “Baku”.</li><li><strong>Vadim Lazursky</strong> — “Lazursky typeface” (1962).</li><li><strong>Ivan Rerberg</strong> — “Rerbergovskaya” (adapted by Faik Tagirov).</li><li><strong>Mikhail Rovensky</strong> — “Bazhanovskaya” (metal), “Korabes”.</li><li><strong>Faik Tagirov</strong> — “Tagirov typeface”, “Rerbergovskaya”, typefaces for the national republics.</li><li><strong>Solomon Telingater</strong> — “Telingaterovskaya” (1959).</li><li><strong>Iraida Fomina</strong> — “Fominskaya Display”.</li><li><strong>Anatoly Shchukin</strong> — “Zhurnalnaya Rublenaya” (Magazine Sans), “Plakatnaya” (Poster), “Bukvarnaya” (Primer).</li></ol>
+<p>“If in 1960 we see a benefit performance by narrow specialists in lettering (the Poligrafmash department), in 1977 the book is taken over by all-round conceptual designers (Anikst, Zhukov, Troyanker).”</p></div></div></div></div></details>
+</div></div>
+<section><div class="wrap"><div class="sec-head"><p class="kicker">Publications</p><h2>My post about this research</h2><p class="lede">My report on the work (in Russian) — with a link to the original.</p></div><div class="shots"><div class="shot"><div class="img"><img src="../../../chapters/iskusstvo-shrifta/img/tg-julia-1336.jpg" alt="Julia Reprintseva, Telegram" loading="lazy"></div>
+<div class="cap"><span>Julia Reprintseva, Telegram · 26 Mar 2026</span><a href="https://t.me/juliareprintseva_roman/1336" target="_blank" rel="noopener">original ↗</a></div>
+<button class="more" type="button">Show in full</button></div></div></div></div>
+<section style="padding-block:0 72px;border-top:0"><div class="wrap"><div class="navrow"><span>← <a href="../shriftoviki/">Soviet type designers and the “type-building plan”</a></span><span><a href="../ottepel/">The Thaw, 1953–1974</a> →</span></div></div></div>
+
+<footer>
+  <div class="wrap">
+    <span>© Julia Reprintseva, 2026 · <a href="../../index.html">Case</a> · <a href="../../../../../en/index.html">Portfolio</a></span>
+    <span>The chapter texts belong to their author; here are links to the publications and research materials.</span>
+  </div>
+<style>.fn{font-family:var(--mono,monospace);font-size:.68rem;line-height:1.5;color:var(--ink-faint,#888);max-width:80ch;margin-top:10px}.fn-wrap{padding:24px 0 40px;border-top:1px solid var(--line-soft,#ddd)}</style><div class="wrap"><p class="fn">* Facebook is owned by Meta Platforms Inc., which is designated an extremist organisation and banned in Russia.</p></div></footer>
+<script>
+function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
+try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+document.querySelectorAll('.shot .more').forEach(function(b){b.addEventListener('click',function(){var s=b.closest('.shot');s.classList.toggle('open');b.textContent=s.classList.contains('open')?'Collapse':'Show in full';});});
+</script>
+<style>.totop{position:fixed;right:22px;bottom:22px;z-index:40;font-family:var(--mono,monospace);font-size:.72rem;letter-spacing:.06em;color:var(--accent,#8A5A1A);text-decoration:none;background:none;padding:6px 0;opacity:0;pointer-events:none;transition:opacity .25s ease}@media (min-width:1300px){.totop{right:auto;left:calc(50% + 552px)}}@media (max-width:640px){.totop{right:6px;font-size:0;letter-spacing:0}.totop::before{content:'\2191';font-size:1.05rem}.stamp,.gm-k,.dk-lbl,.dk-vd,.pj-ty,.km-note,.km-card .k,.km-err .t,.km-err .s,.place,.qc .src,.ext,.pl-note,.fx,.fn,.tf i,.sz,.tr-src,.vo-panel .src,.kb-out .kb-note,.gd-links .btn{font-size:11px!important}}.totop.show{opacity:1;pointer-events:auto}.totop:hover{text-decoration:underline}</style><a class="totop" href="#" aria-label="Back to top">↑ top</a><script>(function(){var b=document.querySelector('.totop');function t(){b.classList.toggle('show',window.scrollY>700);}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});})();</script></body>
+</html>
