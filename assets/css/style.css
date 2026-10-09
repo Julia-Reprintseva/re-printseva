@@ -1,18 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root{
-  --paper:#EDEFE9;
-  --paper-2:#E3E6DE;
-  --card:#F6F7F3;
-  --ink:#16233B;
-  --ink-soft:#4E5A6E;
-  --rule:rgba(22,35,59,.14);
-  --risk:#A50F3C;
-  --act:#0B6E6E;
-  --gold:#8A6A12;
-  --display:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-  --max:1180px;
+  /* Палитра портфолио (с 09.10.2026): графит, бронза, бумажный фон. */
+  --paper:#EEF0F4;
+  --paper-2:rgba(222,226,234,.55);
+  --card:#FFFFFF;
+  --ink:#1A1D26;
+  --ink-soft:#6B7386;
+  --ink-faint:#9BA2B2;
+  --rule:#DBDFE8;
+  --line-soft:#E3E6EE;
+  --risk:#7E5714;
+  --act:#9C6C1E;
+  --act-hi:#7E5714;
+  --on-act:#FFFFFF;
+  --gold:#9C6C1E;
+  --head-bg:rgba(238,240,244,.9);
+  --display:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --serif:Georgia,'Iowan Old Style',ui-serif,serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --max:1120px;
 }
 
 *{box-sizing:border-box;}
@@ -37,7 +43,7 @@ a{color:inherit;}
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--mono);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--act);border:1px solid rgba(11,110,110,.35);background:rgba(11,110,110,.06);
+  color:var(--act);border:1px solid rgba(156,108,30,.35);background:rgba(156,108,30,.06);
   padding:7px 16px;border-radius:999px;margin-bottom:24px;
 }
 .eyebrow.risk{color:var(--risk);border-color:rgba(165,15,60,.35);background:rgba(165,15,60,.06);}
@@ -55,17 +61,17 @@ h3{font-size:1.15rem;line-height:1.3;}
 .accent-risk{color:var(--risk);}
 
 /* Header */
-header.site{position:sticky;top:0;z-index:50;background:rgba(237,239,233,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);}
+header.site{position:sticky;top:0;z-index:50;background:var(--head-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);}
 .nav{display:flex;align-items:center;justify-content:space-between;padding-top:22px;padding-bottom:22px;}
 .logo{font-family:var(--display);font-weight:800;font-size:1.05rem;text-decoration:none;color:var(--ink);}
 .logo em{color:var(--act);font-style:normal;}
 .nav-links{display:flex;gap:20px;list-style:none;margin:0;padding:0;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
 .nav-links a{text-decoration:none;opacity:.72;}
 .nav-links a.nav-highlight{
-  opacity:1;background:rgba(11,110,110,.12);color:var(--act);
+  opacity:1;background:rgba(156,108,30,.12);color:var(--act);
   padding:6px 14px;border-radius:999px;margin:-6px 0;
 }
-.nav-links a.nav-highlight:hover{background:rgba(11,110,110,.2);}
+.nav-links a.nav-highlight:hover{background:rgba(156,108,30,.2);}
 .nav-links a:hover{opacity:1;}
 .nav-actions{display:flex;align-items:center;}
 .lang-switch{font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-decoration:none;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:6px 12px;}
@@ -126,7 +132,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(237,239,233,.92);ba
 
 /* Segments */
 .segment-card{display:flex;flex-direction:column;gap:14px;}
-.segment-icon{width:44px;height:44px;border-radius:12px;background:rgba(11,110,110,.1);display:flex;align-items:center;justify-content:center;color:var(--act);}
+.segment-icon{width:44px;height:44px;border-radius:12px;background:rgba(156,108,30,.1);display:flex;align-items:center;justify-content:center;color:var(--act);}
 .segment-icon svg{width:22px;height:22px;}
 .segment-card p{color:var(--ink-soft);font-size:.92rem;flex:1;margin:0;}
 .segment-card .btn{align-self:flex-start;margin-top:4px;}
@@ -159,12 +165,12 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(237,239,233,.92);ba
 .case-card{display:flex;flex-direction:column;gap:10px;}
 .case-tag{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);}
 .case-card p{margin:0;color:var(--ink-soft);font-size:.9rem;}
-.case-card.highlight{border-color:var(--act);background:rgba(11,110,110,.05);}
+.case-card.highlight{border-color:var(--act);background:rgba(156,108,30,.05);}
 .case-card .btn{align-self:flex-start;margin-top:8px;}
 
 /* Formats */
 .format-card{display:flex;flex-direction:column;position:relative;}
-.format-card.featured{border-color:var(--act);box-shadow:0 20px 40px -24px rgba(11,110,110,.4);}
+.format-card.featured{border-color:var(--act);box-shadow:0 20px 40px -24px rgba(156,108,30,.4);}
 .format-badge{position:absolute;top:-13px;right:24px;background:var(--act);color:#fff;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;padding:5px 12px;border-radius:999px;}
 
 .price-row{margin:14px 0 2px;}
@@ -259,7 +265,7 @@ footer.site a{text-decoration:none;color:#c7cddb;}
 footer.site a:hover{color:#fff;}
 .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:24px;}
 .foot-logo{font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;margin-bottom:10px;}
-.foot-logo em{color:#5FCFCF;font-style:normal;}
+.foot-logo em{color:var(--act);font-style:normal;}
 .foot-links{display:flex;gap:40px;flex-wrap:wrap;}
 .foot-links h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#8992a8;margin:0 0 14px;font-weight:600;}
 .foot-links ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
@@ -316,3 +322,66 @@ footer.site a:hover{color:#fff;}
   .cta-band{flex-direction:column;align-items:flex-start;}
   .grid-4{grid-template-columns:1fr;}
 }
+
+/* ===== Стиль портфолио (09.10.2026): Georgia, бронза, точечная сетка, бумажное зерно ===== */
+body{
+  background:radial-gradient(circle at 1px 1px,var(--line-soft) 1px,transparent 0) 0 0/28px 28px,var(--paper);
+  position:relative;
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.2;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,h2,h3,.logo,.foot-logo,.pain-quote,.price-amount,.method-letter,.method-badge{font-family:var(--serif);font-weight:700;letter-spacing:-.02em;}
+.hero h1{line-height:1.05;letter-spacing:-.025em;}
+.accent{color:var(--act);font-style:italic;}
+/* крупные цифры и «По запросу», заданные прямо в разметке, — тоже в Georgia */
+[style*="font-weight:800"]{font-family:var(--serif)!important;font-weight:700!important;}
+
+/* надзаголовки — без плашек, как в портфолио */
+.eyebrow,.eyebrow.risk,.eyebrow.gold{border:0;background:none;padding:0;border-radius:0;font-weight:400;letter-spacing:.16em;color:var(--ink-faint);}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--act);display:inline-block;margin-right:4px;}
+
+.logo{font-size:1.1rem;}
+.logo em,.foot-logo em{color:var(--act);font-style:italic;}
+.nav-links a{font-family:var(--mono);font-weight:400;letter-spacing:.08em;font-size:.7rem;}
+.nav-links a.nav-highlight{background:none;border:1px solid var(--act);}
+
+.btn{font-family:var(--mono);font-weight:400;letter-spacing:.04em;font-size:.8rem;padding:11px 20px;}
+.btn-primary{background:var(--act);color:var(--on-act);}
+.btn-primary:hover{background:var(--act-hi);opacity:1;}
+.btn-outline{border-color:var(--act);color:var(--act);}
+.btn-outline:hover{background:rgba(156,108,30,.08);border-color:var(--act);}
+
+.card,.form-card,.pull-note,.trust-row > div,.method-step{background:var(--card);}
+.card{border-radius:14px;transition:border-color .15s,transform .15s;}
+.card:hover{border-color:var(--act);}
+.hero-photo,.bio-photo{border-radius:16px;}
+.hero-photo-role{background:var(--card);}
+.pull-note{border-left:3px solid var(--act);border-radius:0 14px 14px 0;font-family:var(--serif);font-size:1.08rem;}
+.pull-note b{color:var(--act);}
+.manifesto{font-family:var(--serif);font-weight:400;font-style:italic;font-size:1.45rem;border-left-color:var(--act);}
+.format-badge{background:var(--act);color:var(--on-act);}
+.format-card.featured{box-shadow:none;border-color:var(--act);}
+.media-tag{background:var(--card);font-size:.88rem;}
+.results-list li{font-family:var(--serif);font-size:1.08rem;}
+.timeline-when,.case-tag,.price-or,.step .num{color:var(--act);}
+.form-row input,.form-row textarea{background:var(--paper);color:var(--ink);}
+
+/* блок-призыв — светлая карточка с бронзовыми уголками */
+.cta-band{background:var(--card);color:var(--ink);border:1px solid var(--rule);border-radius:16px;position:relative;}
+.cta-band::before,.cta-band::after{content:"";position:absolute;top:12px;width:13px;height:13px;border:1px solid var(--act);opacity:.55;}
+.cta-band::before{left:12px;border-width:1px 0 0 1px;}
+.cta-band::after{right:12px;border-width:1px 1px 0 0;}
+.cta-band h3{color:var(--ink);font-size:1.5rem;}
+.cta-band p{color:var(--ink-soft);}
+
+/* подвал — светлый, как в портфолио */
+footer.site{background:transparent;color:var(--ink-soft);border-top:1px solid var(--rule);}
+footer.site a{color:var(--ink-soft);}
+footer.site a:hover{color:var(--act);}
+.foot-logo{color:var(--ink);}
+.foot-top{border-bottom-color:var(--rule);}
+.foot-links h4{color:var(--ink-faint);font-family:var(--mono);font-weight:400;}
+.foot-bottom{color:var(--ink-faint);}

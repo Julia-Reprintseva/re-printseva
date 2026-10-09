@@ -583,15 +583,20 @@
   .c-more .c-text { font-size: .86rem; }
   @media (max-width: 760px) { .c-title { font-size: 1.05rem; } }
 
-  .cta-band { margin: 80px 0 0; padding: 48px 48px; border-radius: 20px; background: #171B24; color: #E9E6DC;
+  /* нижний блок — светлая карточка с бронзовыми уголками (09.10.2026, было: тёмная плита) */
+  .cta-band { margin: 80px 0 0; padding: 48px 48px; border-radius: 16px; background: var(--paper); color: var(--ink); position: relative;
               display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; }
+  .cta-band::before, .cta-band::after { content: ""; position: absolute; top: 12px; width: 13px; height: 13px; border: 1px solid var(--accent); opacity: .55; }
+  .cta-band::before { left: 12px; border-width: 1px 0 0 1px; }
+  .cta-band::after  { right: 12px; border-width: 1px 1px 0 0; }
   .cta-band h2 { font-family: Georgia, serif; font-size: 2rem; line-height: 1.12; letter-spacing: -.02em; }
-  .cta-band h2 em { color: #E4B968; }
-  .cta-band p { color: #9AA2B4; margin-top: 10px; line-height: 1.55; }
+  .cta-band h2 em { color: var(--accent); }
+  .cta-band p { color: var(--ink-dim); margin-top: 10px; line-height: 1.55; }
   .cta-band .btns { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
   .cta-band a { font-family: ui-monospace, Menlo, monospace; font-size: .8rem; letter-spacing: .04em; text-decoration: none; padding: 11px 18px; border-radius: 999px; }
-  .cta-band a.main { background: #CB9C47; color: #12151C; }
-  .cta-band a.sub { border: 1px solid #3A4254; color: #E9E6DC; }
+  .cta-band a.main { background: var(--accent); color: var(--paper); }
+  .cta-band a.main:hover { background: var(--accent-hi); }
+  .cta-band a.sub { border: 1px solid var(--accent); color: var(--accent); }
   footer { margin-top: 40px; padding-bottom: 40px; }
 
   @media (max-width: 900px) {
