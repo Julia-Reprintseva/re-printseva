@@ -344,7 +344,7 @@ __BDOC_CSS__
   .chnav{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:.74rem;}
   .chnav a{color:var(--accent);text-decoration:none;max-width:45%;} .chnav a:hover{text-decoration:underline;} .chnav .next{text-align:right;margin-left:auto;}
   @media (max-width:600px){.chbar .lbl{display:none;} .chbar .btns a{width:30px;height:28px;font-size:.68rem;}}
-  .up{position:fixed;right:22px;bottom:26px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-decoration:none;color:var(--accent);padding:6px 0;} .up:hover{text-decoration:underline;}
+  .up{position:fixed;right:22px;bottom:26px;z-index:20;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-decoration:none;color:var(--accent);padding:6px 0;opacity:0;pointer-events:none;transition:opacity .2s;} .up.on{opacity:1;pointer-events:auto;} .up:hover{text-decoration:underline;}
   .rs{color:var(--accent);text-decoration:none;} .rs:hover{text-decoration:underline;}
   @media (max-width:600px){.toc a{grid-template-columns:36px 1fr;} .toc a em{grid-column:2;}}
 </style>
@@ -1496,16 +1496,20 @@ __BDOC_CSS__
   route();
   window.addEventListener('load', function(){ if(document.body.classList.contains('one')) window.scrollTo(0,0); });
 })();
-// кнопка «наверх» — сразу справа от текста главы, а не у края экрана (на узких экранах — в углу)
+// кнопка «наверх» — правым краем по одной линии с кнопкой «все подряд», а не у края экрана; на узких экранах — в углу
 (function(){
   var up=document.querySelector('.up'); if(!up) return;
   function place(){
-    var txt=[].slice.call(document.querySelectorAll('.ch .text')).filter(function(x){return x.offsetParent;})[0];
-    if(!txt || innerWidth<900){ up.style.left=''; up.style.right=''; return; }
-    var x=Math.min(txt.getBoundingClientRect().right+32, innerWidth-up.offsetWidth-22);
-    up.style.left=x+'px'; up.style.right='auto';
+    var ab=document.getElementById('allBtn');
+    if(!ab || !ab.offsetParent || innerWidth<900){ up.style.left=''; up.style.right=''; return; }
+    var edge=ab.getBoundingClientRect().right;
+    up.style.right=Math.max(22, innerWidth-edge)+'px'; up.style.left='auto';
   }
-  window.addEventListener('resize',place); window.addEventListener('hashchange',function(){setTimeout(place,50);}); window.addEventListener('load',place); place();
+  // видна, только когда оглавление уже ушло вверх: иначе кнопка ложится на строки оглавления
+  function vis(){ var toc=document.querySelector('.toc'); var below=toc && toc.offsetParent ? toc.getBoundingClientRect().bottom > innerHeight-70 : false;
+    up.classList.toggle('on', !below && scrollY>300); }
+  window.addEventListener('scroll',vis,{passive:true});
+  window.addEventListener('resize',function(){place();vis();}); window.addEventListener('hashchange',function(){setTimeout(function(){place();vis();},50);}); window.addEventListener('load',function(){place();vis();}); place(); vis();
 })();
 function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
 try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
