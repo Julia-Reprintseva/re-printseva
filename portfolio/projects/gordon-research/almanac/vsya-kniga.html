@@ -344,7 +344,23 @@ __BDOC_CSS__
   .chnav{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:.74rem;}
   .chnav a{color:var(--accent);text-decoration:none;max-width:45%;} .chnav a:hover{text-decoration:underline;} .chnav .next{text-align:right;margin-left:auto;}
   @media (max-width:600px){.chbar .lbl{display:none;} .chbar .btns a{width:30px;height:28px;font-size:.68rem;}}
-  .up{position:fixed;right:22px;bottom:26px;z-index:20;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-decoration:none;color:var(--accent);padding:6px 0;opacity:0;pointer-events:none;transition:opacity .2s;} .up.on{opacity:1;pointer-events:auto;} .up:hover{text-decoration:underline;}
+  /* «наверх» живёт в липкой полосе глав рядом с «все подряд» — так она никогда не ложится на текст (14.10.2026) */
+  .chbar .up{flex:0 0 auto;display:none;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;color:var(--accent);padding:7px 2px;white-space:nowrap;} .chbar.stuck .up{display:inline-block;} .chbar .up:hover{text-decoration:underline;}
+  @media (max-width:700px){.chbar .wrap{flex-wrap:wrap;row-gap:8px;} .chbar .btns{flex:1 0 100%;} .chbar .all{padding:5px 12px;}}
+  /* листалка картинок: одна на главу, с авторскими подписями */
+  .figs figure>a{cursor:zoom-in;}
+  .lb{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;background:#0F1116;color:#E9E4D8;} .lb.on{display:flex;}
+  .lb-top{display:flex;align-items:center;gap:16px;padding:14px 20px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:#A9A396;}
+  .lb-top .cnt{color:#CB9C47;white-space:nowrap;flex:0 0 auto;} .lb-top .chn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .lb-x{margin-left:auto;background:none;border:0;color:#E9E4D8;font-size:1.6rem;line-height:1;cursor:pointer;padding:2px 6px;} .lb-x:hover{color:#CB9C47;}
+  .lb-body{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:4px 64px 28px;}
+  .lb-body img{display:block;max-width:100%;max-height:72vh;object-fit:contain;margin:auto auto 0;background:#fff;}
+  .lb-cap{max-width:68ch;width:100%;margin:18px auto auto;font-family:var(--body);font-size:.95rem;line-height:1.55;color:#C9C3B6;}
+  .lb-cap .n{display:none;} .lb-cap b{display:block;color:#F3EEE3;font-weight:600;margin-bottom:4px;} .lb-cap p{margin-top:8px;} .lb-cap a{color:#CB9C47;}
+  .lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:64px;background:none;border:0;color:#E9E4D8;font-size:2.4rem;line-height:1;cursor:pointer;opacity:.75;} .lb-nav:hover{opacity:1;color:#CB9C47;}
+  .lb-prev{left:8px;} .lb-next{right:8px;} .lb-nav[disabled]{opacity:.15;cursor:default;color:#E9E4D8;}
+  @media (max-width:700px){.lb-body{padding:4px 14px 24px;} .lb-nav{display:none;} .lb-body img{max-height:62vh;}}
+  body.lb-open{overflow:hidden;}
   .rs{color:var(--accent);text-decoration:none;} .rs:hover{text-decoration:underline;}
   @media (max-width:600px){.toc a{grid-template-columns:36px 1fr;} .toc a em{grid-column:2;}}
 </style>
@@ -369,6 +385,7 @@ __BDOC_CSS__
   <span class="lbl">Глава</span>
   <div class="btns"><a href="#ch00" data-n="00" class="" title="Вместо вступления">00</a><a href="#ch01" data-n="01" class="" title="Как был упущен лучший случай сбросить Пушкина с корабля современности">01</a><a href="#ch02" data-n="02" class="" title="О советских деньгах">02</a><a href="#ch03" data-n="03" class="m" title="Советские прописи глазами типографа и ИИ">03</a><a href="#ch04" data-n="04" class="m" title="Как превратить цветущий луг* в картофельное поле">04</a><a href="#ch05" data-n="05" class="m" title="Буквы подземного космодрома">05</a><a href="#ch06" data-n="06" class="m" title="Лампы сияют, цены снижены">06</a><a href="#ch07" data-n="07" class="m" title="Если выпало в провинции родиться">07</a><a href="#ch08" data-n="08" class="m" title="Монументальная пропаганда — от полотна до бетона">08</a><a href="#ch09" data-n="09" class="m" title="Случай Банниковой и не только">09</a><a href="#ch10" data-n="10" class="m" title="Анализирую две книги с одним названием: «Искусство шрифта. Работы московских художников книги»">10</a><a href="#ch11" data-n="11" class="m" title="Попустило и скукожило">11</a><a href="#ch12" data-n="12" class="" title="Машинопись и литературный язык">12</a><a href="#ch13" data-n="13" class="m" title="От ромашки до мишки — визуальная коммуникация Фестиваля-57 и Олимпиады-80">13</a><a href="#ch14" data-n="14" class="" title="Советские прописи шестидесятых">14</a><a href="#ch15" data-n="15" class="" title="Каталог ручных и машинных шрифтов 1966 года как зеркало советской деградации">15</a><a href="#ch16" data-n="16" class="" title="Случай Шварцмана">16</a><a href="#ch17" data-n="17" class="" title="Фотонабор и ОНШ: последний акт советского шрифтостроения">17</a><a href="#ch18" data-n="18" class="" title="Случай Чернихова">18</a><a href="#ch19" data-n="19" class="" title="Последние советские прописи">19</a><a href="#ch20" data-n="20" class="" title="Таймс против Литературной, или битва Масленицы с Великим Постом">20</a><a href="#ch21" data-n="21" class="" title="Мелодии и ритмы с болгарским акцентом">21</a></div>
   <button class="all" id="allBtn" type="button">все подряд</button>
+  <a class="up" href="#" onclick="window.scrollTo({top:0});return false;">↑ наверх</a>
 </div></div>
 
 <article class="ch" id="ch00"><div class="wrap">
@@ -1473,7 +1490,11 @@ __BDOC_CSS__
   
   <nav class="chnav"><span class="prev"></span><span class="next"></span></nav>
 </div></article>
-<a class="up" href="#" onclick="window.scrollTo({top:0});return false;">↑ наверх</a>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Иллюстрации главы">
+  <div class="lb-top"><span class="cnt"></span><span class="chn"></span><button class="lb-x" type="button" aria-label="Закрыть">×</button></div>
+  <div class="lb-body"><img alt=""><div class="lb-cap"></div></div>
+  <button class="lb-nav lb-prev" type="button" aria-label="Предыдущая">‹</button><button class="lb-nav lb-next" type="button" aria-label="Следующая">›</button>
+</div>
 <script>
 (function(){
   var chs=[].slice.call(document.querySelectorAll('.ch')), nums=chs.map(function(c){return c.id.slice(2);});
@@ -1496,20 +1517,45 @@ __BDOC_CSS__
   route();
   window.addEventListener('load', function(){ if(document.body.classList.contains('one')) window.scrollTo(0,0); });
 })();
-// кнопка «наверх» — правым краем по одной линии с кнопкой «все подряд», а не у края экрана; на узких экранах — в углу
+// «наверх» — в липкой полосе глав, рядом с «все подряд»; появляется, когда полоса прилипла к шапке и страница прокручена
 (function(){
-  var up=document.querySelector('.up'); if(!up) return;
-  function place(){
-    var ab=document.getElementById('allBtn');
-    if(!ab || !ab.offsetParent || innerWidth<900){ up.style.left=''; up.style.right=''; return; }
-    var edge=ab.getBoundingClientRect().right;
-    up.style.right=Math.max(22, innerWidth-edge)+'px'; up.style.left='auto';
+  var bar=document.getElementById('chbar'); if(!bar) return;
+  function vis(){ var top=parseFloat(getComputedStyle(bar).top)||0; bar.classList.toggle('stuck', scrollY>300 && bar.getBoundingClientRect().top<=top+1); }
+  window.addEventListener('scroll',vis,{passive:true}); window.addEventListener('resize',vis);
+  window.addEventListener('hashchange',function(){setTimeout(vis,50);}); window.addEventListener('load',vis); vis();
+})();
+// листалка картинок: клик по картинке открывает её крупно с подписью; листаются только картинки этой главы
+(function(){
+  var lb=document.getElementById('lb'); if(!lb) return;
+  var img=lb.querySelector('img'), cap=lb.querySelector('.lb-cap'), cnt=lb.querySelector('.cnt'), chn=lb.querySelector('.chn'),
+      prev=lb.querySelector('.lb-prev'), next=lb.querySelector('.lb-next'), body=lb.querySelector('.lb-body'), list=[], i=0, last=null;
+  function show(k){
+    i=Math.max(0,Math.min(list.length-1,k)); var f=list[i], a=f.querySelector('a'), fc=f.querySelector('figcaption');
+    img.src=a.getAttribute('href'); cap.innerHTML=fc?fc.innerHTML:''; cnt.textContent=(i+1)+' / '+list.length;
+    prev.disabled=i===0; next.disabled=i===list.length-1; body.scrollTop=0;
+    [i-1,i+1].forEach(function(j){ if(list[j]) (new Image()).src=list[j].querySelector('a').getAttribute('href'); });
   }
-  // видна, только когда оглавление уже ушло вверх: иначе кнопка ложится на строки оглавления
-  function vis(){ var toc=document.querySelector('.toc'); var below=toc && toc.offsetParent ? toc.getBoundingClientRect().bottom > innerHeight-70 : false;
-    up.classList.toggle('on', !below && scrollY>300); }
-  window.addEventListener('scroll',vis,{passive:true});
-  window.addEventListener('resize',function(){place();vis();}); window.addEventListener('hashchange',function(){setTimeout(function(){place();vis();},50);}); window.addEventListener('load',function(){place();vis();}); place(); vis();
+  function open(f){
+    var ch=f.closest('.ch'); list=[].slice.call(ch.querySelectorAll('.figs figure'));
+    var k=ch.querySelector('.kicker'), h=ch.querySelector('h2'); chn.textContent=(k?k.textContent+' · ':'')+(h?h.textContent:'');
+    last=document.activeElement; lb.classList.add('on'); document.body.classList.add('lb-open'); show(list.indexOf(f)); lb.querySelector('.lb-x').focus();
+  }
+  function close(){ lb.classList.remove('on'); document.body.classList.remove('lb-open'); img.removeAttribute('src'); if(last) last.focus(); }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('.figs figure>a'); if(!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault(); open(a.parentNode);
+  });
+  prev.addEventListener('click',function(){show(i-1);}); next.addEventListener('click',function(){show(i+1);});
+  lb.querySelector('.lb-x').addEventListener('click',close);
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target===body) close(); });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') show(i-1); else if(e.key==='ArrowRight') show(i+1);
+  });
+  var x0=null,y0=0;
+  lb.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
+  lb.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.5) show(dx<0?i+1:i-1); });
 })();
 function toggleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme');var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}}
 try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
