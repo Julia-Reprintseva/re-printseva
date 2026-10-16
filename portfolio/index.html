@@ -601,7 +601,7 @@
 
   @media (max-width: 900px) {
     .hero2 { grid-template-columns: 1fr; gap: 28px; padding: 48px 0 40px; }
-    .stats { border-left: 0; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .stats { border-left: 0; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
     .stat { flex-direction: column; gap: 6px; padding: 14px 0; border-bottom: 0; }
     .bento { grid-template-columns: 1fr; }
     .pc.hero-card, .pc.side, .pc.wide { grid-column: auto; grid-row: auto; }
@@ -624,6 +624,16 @@
   .pc.hero-card h3 { font-size: 1.7rem; }
   .c-title { font-size: 1.08rem; }
   .cta-band { margin-top: 64px; padding: 40px 40px; }
+  /* сайты для заказчиков (16.10.2026): широкая карточка — скриншот слева, текст справа */
+  .sites { display: grid; gap: 18px; }
+  .pc.site { flex-direction: row; min-height: 300px; }
+  .pc.site .im { width: 58%; flex: none; }
+  .pc.site .im img { object-position: left top; }
+  .pc.site .tx { padding: 24px 26px 20px; }
+  .pc.site h3 { font-size: 1.45rem; }
+  .pc.site .credit { font-size: .82rem; color: var(--ink-faint); }
+  @media (max-width: 900px) { .pc.site { flex-direction: column; } .pc.site .im { width: 100%; aspect-ratio: 8 / 5; } }
+
   .cta-band h2 { font-size: 1.7rem; }
 </style>
 </head>
@@ -650,6 +660,7 @@
       <a class="hero-cta" href="https://t.me/juliareprintseva" target="_blank" rel="noopener">Заказать проект себе <span aria-hidden="true">↗</span></a>
     </div>
     <div class="stats">
+      <div class="stat"><b>1</b><span>сайт</span></div>
       <div class="stat"><b>5</b><span>проектов</span></div>
       <div class="stat"><b>7</b><span>гайдов</span></div>
       <div class="stat"><b>1</b><span>бот</span></div>
@@ -704,6 +715,24 @@
           <h3>Чек-лист путешественника</h3>
           <p>Список вещей в поход или поездку: 10 категорий, фильтр «осталось / готово», помнит отмеченное и работает без интернета.</p>
           <span class="d"><span>13.06.2026</span><span aria-hidden="true">↗</span></span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== SITES ===================== -->
+  <section class="sec">
+    <div class="sec-head"><span class="n">S</span><h2>Сайты</h2><span class="rule"></span><span class="n">01</span></div>
+    <p class="section-intro">Сайты для заказчиков — от макета дизайнера до работающего адреса в интернете: вёрстка, версия для телефона, домен.</p>
+    <div class="sites">
+      <a class="pc site" href="https://ekaterinaburlak.com/" target="_blank" rel="noopener">
+        <span class="im"><img src="sites/ekaterinaburlak/preview.jpg" alt="Сайт психолога Екатерины Бурлак: «Меня не пугают страшные истории»" loading="lazy"></span>
+        <span class="tx">
+          <span class="k"><span>Сайт · работает</span><i>S.01</i></span>
+          <h3>Екатерина Бурлак — психолог онлайн</h3>
+          <p>Сайт психолога, собранный по макету-коллажу: девять экранов, живой текст, версия для телефона, запись в Telegram и свой домен.</p>
+          <p class="credit">Дизайн — Dani Moroz</p>
+          <span class="d"><span>16.10.2026</span><span aria-hidden="true">ekaterinaburlak.com ↗</span></span>
         </span>
       </a>
     </div>
