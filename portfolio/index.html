@@ -633,6 +633,21 @@
   .pc.site h3 { font-size: 1.45rem; }
   .pc.site .credit { font-size: .82rem; color: var(--ink-faint); }
   @media (max-width: 900px) { .pc.site { flex-direction: column; } .pc.site .im { width: 100%; aspect-ratio: 8 / 5; } }
+  /* бот: цельная серая карточка (20.11.2026) */
+  .pc.bot { flex-direction: row; gap: 40px; padding: 30px 32px 24px;
+    background: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/12px 12px, var(--paper-hi); }
+  .pc.bot .tx { padding: 0; flex: 1.15; gap: 10px; }
+  .pc.bot h3 { font-size: 2rem; line-height: 1.12; letter-spacing: -.02em; margin-top: 6px; }
+  .pc.bot h3 em { color: var(--accent); font-style: italic; }
+  .pc.bot .facts { font-family: ui-monospace, Menlo, monospace; font-size: .74rem; color: var(--ink-faint); }
+  .pc.bot .facts b { color: var(--ink); font-weight: 600; }
+  .pc.bot .steps { flex: 1; list-style: none; margin: 0; padding: 0 0 0 32px; border-left: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center; gap: 18px; counter-reset: st; }
+  .pc.bot .steps li { counter-increment: st; display: grid; grid-template-columns: 34px 1fr; gap: 2px 8px; font-size: .88rem; line-height: 1.5; color: var(--ink-dim); }
+  .pc.bot .steps li::before { content: "0" counter(st); grid-row: span 2; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; color: var(--accent); padding-top: 3px; }
+  .pc.bot .steps b { color: var(--ink); font-family: Georgia, serif; font-size: 1rem; font-weight: 700; }
+  @media (max-width: 900px) { .pc.bot { flex-direction: column; gap: 22px; padding: 24px 22px 20px; } .pc.bot h3 { font-size: 1.6rem; }
+    .pc.bot .steps { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
 
   .cta-band h2 { font-size: 1.7rem; }
 </style>
@@ -742,15 +757,19 @@
     <div class="sec-head"><span class="n">B</span><h2>Бот</h2><span class="rule"></span><span class="n">01</span></div>
     <p class="section-intro">Telegram-бот, который я сделала под реальную задачу. Он работает — им можно пользоваться прямо сейчас.</p>
     <div class="sites">
-      <a class="pc site" href="bots/safeout/">
-        <span class="im"><img src="bots/safeout/preview.jpg" alt="Страница бота SafeOut: «бот, который не забудет»" loading="lazy"></span>
+      <a class="pc bot" href="bots/safeout/">
         <span class="tx">
           <span class="k"><span>Работает в Telegram</span><i>B.01</i></span>
-          <h3>SafeOut — бот безопасности для свиданий</h3>
-          <p>Спокойнее идти на встречу с незнакомцем: бот хранит данные о свидании и сам поднимет тревогу, если вы пропали.</p>
-          <p class="credit">Русский, английский и турецкий · три свидания бесплатно</p>
+          <h3>SafeOut — бот безопасности <em>для свиданий</em></h3>
+          <p>Для встреч с незнакомцами из интернета: бот хранит все данные о свидании и сам поднимает тревогу, если вы не выходите на связь.</p>
+          <span class="facts"><b>RU · EN · TR</b> · <b>3 свидания</b> бесплатно</span>
           <span class="d"><span>27.08.2026</span><span aria-hidden="true">Открыть ↗</span></span>
         </span>
+        <ul class="steps">
+          <li><b>Перед встречей</b><span>Сохраняете, с кем и где свидание: профиль, место, машину, фото.</span></li>
+          <li><b>Во время</b><span>Каждые 15 минут бот спрашивает, всё ли хорошо. Есть кнопка SOS.</span></li>
+          <li><b>Не ответили</b><span>Бот сам пишет вашим доверенным контактам — со всеми данными и геолокацией.</span></li>
+        </ul>
       </a>
     </div>
   </section>

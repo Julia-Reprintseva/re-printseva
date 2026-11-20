@@ -633,6 +633,21 @@
   .pc.site h3 { font-size: 1.45rem; }
   .pc.site .credit { font-size: .82rem; color: var(--ink-faint); }
   @media (max-width: 900px) { .pc.site { flex-direction: column; } .pc.site .im { width: 100%; aspect-ratio: 8 / 5; } }
+  /* бот: цельная серая карточка (20.11.2026) */
+  .pc.bot { flex-direction: row; gap: 40px; padding: 30px 32px 24px;
+    background: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/12px 12px, var(--paper-hi); }
+  .pc.bot .tx { padding: 0; flex: 1.15; gap: 10px; }
+  .pc.bot h3 { font-size: 2rem; line-height: 1.12; letter-spacing: -.02em; margin-top: 6px; }
+  .pc.bot h3 em { color: var(--accent); font-style: italic; }
+  .pc.bot .facts { font-family: ui-monospace, Menlo, monospace; font-size: .74rem; color: var(--ink-faint); }
+  .pc.bot .facts b { color: var(--ink); font-weight: 600; }
+  .pc.bot .steps { flex: 1; list-style: none; margin: 0; padding: 0 0 0 32px; border-left: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center; gap: 18px; counter-reset: st; }
+  .pc.bot .steps li { counter-increment: st; display: grid; grid-template-columns: 34px 1fr; gap: 2px 8px; font-size: .88rem; line-height: 1.5; color: var(--ink-dim); }
+  .pc.bot .steps li::before { content: "0" counter(st); grid-row: span 2; font-family: ui-monospace, Menlo, monospace; font-size: .74rem; color: var(--accent); padding-top: 3px; }
+  .pc.bot .steps b { color: var(--ink); font-family: Georgia, serif; font-size: 1rem; font-weight: 700; }
+  @media (max-width: 900px) { .pc.bot { flex-direction: column; gap: 22px; padding: 24px 22px 20px; } .pc.bot h3 { font-size: 1.6rem; }
+    .pc.bot .steps { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
 
   .cta-band h2 { font-size: 1.7rem; }
 </style>
@@ -742,15 +757,19 @@
     <div class="sec-head"><span class="n">B</span><h2>Bot</h2><span class="rule"></span><span class="n">01</span></div>
     <p class="section-intro">A Telegram bot I built for a real task. It is live — you can use it right now.</p>
     <div class="sites">
-      <a class="pc site" href="../bots/safeout/en/">
-        <span class="im"><img src="../bots/safeout/preview-en.jpg" alt="SafeOut bot page" loading="lazy"></span>
+      <a class="pc bot" href="../bots/safeout/en/">
         <span class="tx">
           <span class="k"><span>Live in Telegram</span><i>B.01</i></span>
-          <h3>SafeOut — a safety bot for dates</h3>
-          <p>Go to a meeting with a stranger with less worry: the bot keeps the date details and raises the alarm if you vanish.</p>
-          <p class="credit">Russian, English and Turkish · three dates free</p>
+          <h3>SafeOut — a safety bot <em>for dates</em></h3>
+          <p>For meeting people you only know online: the bot keeps all the date details and raises the alarm on its own if you go quiet.</p>
+          <span class="facts"><b>RU · EN · TR</b> · <b>3 dates</b> free</span>
           <span class="d"><span>27 Aug 2026</span><span aria-hidden="true">Open ↗</span></span>
         </span>
+        <ul class="steps">
+          <li><b>Before</b><span>You save who you are meeting and where: profile, place, car, photos.</span></li>
+          <li><b>During</b><span>Every 15 minutes the bot asks if you are OK. There is an SOS button.</span></li>
+          <li><b>No reply</b><span>The bot messages your trusted contacts itself — with all the details and your location.</span></li>
+        </ul>
       </a>
     </div>
   </section>
